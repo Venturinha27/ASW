@@ -1,0 +1,205 @@
+body {
+    background-color: #A8D0E6;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+.w3-input {
+    background-color: white;
+}
+
+::placeholder { 
+    color: #24305E;
+  }
+
+.fa-user-circle {
+    font-size: x-large;
+    color: #24305E;
+    vertical-align: middle;
+}
+
+#slideDiv{
+    position: absolute;
+    width: 100%;
+    height: 87%;
+    background-color: white;
+    z-index: 1;
+}
+
+#slideContainer{
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.mySlides {
+    /* min-width:100%;
+    max-height:100%;
+    width: auto;
+    height: auto;
+    */
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------------------------------- */
+
+#SobreDiv{
+    margin: 0;
+    position: absolute;
+    top: 93%;
+    width: 100%;
+    height: 61%;
+    background-color: #F8E9A1;
+    color: #24305E;
+}
+
+#SobreDiv hr {
+    width: 10%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#SobreDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#SobreDiv .w3-button {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* ------------------------------------------------------- */
+
+#ContribuirDiv{
+    margin: 0;
+    position: absolute;
+    top: 154%;
+    width: 100%;
+    height: 61%;
+    background-color: #374785;
+    color: #A8D0E6;
+}
+
+#contribuirOptions{
+    margin: auto;
+    width: 50%;
+    height: 75%;
+}
+
+#voluntarioDiv{
+    position: relative;
+    left: 12%;
+    top: 5%;
+    width: 30%;
+    height: 90%;
+}
+
+#voluntarioIcon{
+    position: absolute;
+    top: 10%;
+    left: 33%;
+    font-size: 1200%;
+}
+
+#voluntarioP {
+    position: absolute;
+    top: 73%;
+    left: 16%;
+    font-size: xx-large;
+}
+
+#instituicaoDiv{
+    position: relative;
+    left: 58%;
+    top: -85%;
+    width: 30%;
+    height: 90%;
+}
+
+#instituicaoIcon{
+    position: absolute;
+    top: 10%;
+    left: 13%;
+    font-size: 1200%;
+}
+
+#instituicaoP {
+    position: absolute;
+    top: 73%;
+    left: 16%;
+    font-size: xx-large;
+}
+
+
+/* ------------------------------------------------------- */
+
+#DestaquesDiv{
+    margin: 0;
+    position: absolute;
+    top: 215%;
+    width: 100%;
+    height: 71%;
+    background-color: white;
+    color: #24305E;
+}
+
+#news{
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    height: 73%;
+    background-color: #A8D0E6;
+}
+
+.newsClass{
+    width: 25%;
+    height: 100%;
+    background-color: mediumaquamarine;
+}
+
+#new1{
+    position: absolute;
+    left: 5%;
+}
+
+#new2{
+    position: absolute;
+    left: 37.5%;
+}
+
+#new3{
+    position: absolute;
+    left: 70%;
+}
+
+.newsImg{
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 85%;    
+}
+
+/* ------------------------------------------------------- */
+
+#EndDiv{
+    margin: 0;
+    position: absolute;
+    top: 300%;
+    width: 100%;
+    height: 35%;
+    background-color: #A8D0E6;
+    color: #24305E;
+}
