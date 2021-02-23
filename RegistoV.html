@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>Registo Voluntário</title>
+<link rel="stylesheet" href="CSS/RegistoV.css" type="text/css">
 </head>
 
 <header>
@@ -13,62 +14,91 @@
 </header>
 
 <body>
-        <form id="registertext">
-            <div id="regbox">
-                <p id="nomeProprio_p">Nome</p>
-                <input id="nomeProprio" type="text" name="" required>
-                
-                <p id="dataNascimento_p">Data de Nascimento</p>
-                <input id="dataNascimento" type="date" name="" required>
-                
-                <p id="genero">Género</p>
-                <input type="radio" id="Homem" name="gender" value="male">
-                <label for="male">Homem</label><br>
-                <input type="radio" id="Mulher" name="gender" value="female">
-                <label for="female">Mulher</label><br>
-                <input type="radio" id="outro" name="gender" value="other">
-                <label for="other">Prefiro não dizer</label>
-                
-                <p id="foto">Fotografia </p>
-                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
-                
-                <p id="concelho_p">Concelho</p>
-                <input id="concelho" type="text" name="" required>
-                
-                <p id="distrito_p">Distrito</p>
-                <input id="distrito" type="text" name="" required>
-                
-                <p id="freguesia_p">Freguesia de Residência</p>
-                <input id="freguesia" type="text" name="" required>
-                
-                <p id="telefone_p">Telefone</p>
-                <input id="telefone" type="text" name="" required>
-                
-                <p id="CC_p">Cartão do Cidadão</p>
-                <input id="CC" type="text" name="" required>
-                
-                <p id="CartaC">Carta de Condução</p>
-                <input type="radio" id="Sim" name="gender" value="yes">
-                <label for="Yes">Sim</label><br>
-                <input type="radio" id="Não" name="gender" value="no">
-                <label for="No">Não</label><br>
-                
-                <p id="Covid">Já alguma vez deu positivo á Covid-19?</p>
-                <input type="radio" id="Sim" name="gender" value="yes">
-                <label for="Yes">Sim</label><br>
-                <input type="radio" id="Não" name="gender" value="no">
-                <label for="No">Não</label><br>
-                
-                <p id="email_p">E-mail</p>
-                <input id="E-mail" type="text" name="" required>
-                
-                <p id="password_p">Password</p>
-                <input id="password" type="password" name="" required>
-                
-                <input id="submit" type="submit" name="" value="Registo">
-                <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a>.</p>
+    <form id="registertext">
+        <div class="main-grid">
+            <div class="mid-grid">
+            <!-- <div id="regbox"> -->
+                <div class="Nome input-div">
+                    <input type="text" id="nomeProprio" class="input-box" placeholder="Nome Completo" name="" required />
+                    <!-- <input id="nomeProprio" type="text" name="" required > -->
+                    <!-- <i class="material-icons">how_to_reg</i> -->
+                </div>
+
+                <div class="birthday input-div">
+                    <input type="date" id="dataNascimento" class="input-box" placeholder="DD/MM/AAAA" name="" required/>
+                </div>
+
+                <div class = "genero_div">
+                    <p id="genero">Género</p>
+                    <input type="radio" id="Homem" name="gender" value="male">
+                    <label for="male">Homem</label><br>
+                    <input type="radio" id="Mulher" name="gender" value="female">
+                    <label for="female">Mulher</label><br>
+                    <input type="radio" id="outro" name="gender" value="other">
+                    <label for="other">Prefiro não dizer</label>
+                </div>
+
+                <div class= "foto_div">
+                    <p id="foto">Fotografia </p>
+                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                </div>
+
+                <div class="Distrito input-div">
+                    <input type="text" id="distrito" class="input-box" placeholder="Distrito" name="" required />
+                </div>
+
+                <div class="Concelho input-div">
+                    <input type="text" id="concelho" class="input-box" placeholder="Concelho" name="" required />
+                </div>
+
+                <div class="Freguesia input-div">
+                    <input type="text" id="freguesia" class="input-box" placeholder="Freguesia" name="" required />
+                </div>
+
+                <div class="Telefone input-div">
+                    <input type="text" id="telefone" class="input-box" placeholder="Telefone/Telemóvel" name="" required />
+                </div>
+
+                <div class="CC input-div">
+                    <input type="text" id="CC" class="input-box" placeholder="Cartão de Cidadão" name="" required />
+                </div>
+
+                <div class = "Carta_div">
+                    <p id="CartaC">Carta de Condução</p>
+                    <input type="radio" id="Sim" name="gender" value="yes">
+                    <label for="Yes">Sim</label><br>
+                    <input type="radio" id="Não" name="gender" value="no">
+                    <label for="No">Não</label><br>
+                </div>
+
+                <div class = "Covid_div">
+                    <p id="Covid">Já alguma vez deu positivo á Covid-19?</p>
+                    <input type="radio" id="Sim" name="gender" value="yes">
+                    <label for="Yes">Sim</label><br>
+                    <input type="radio" id="Não" name="gender" value="no">
+                    <label for="No">Não</label><br>
+                </div>
+    
+                <div class="Email input-div">
+                    <input type="text" id="E-mail" class="input-box" placeholder="E-mail" name="" required/>
+                    <!-- <i class="material-icons">mail</i>
+                    <h2><span></span></h2> -->
+                </div>
+    
+                <div class="Password input-div">
+                    <input type="password" id="Password" class="input-box" placeholder="Palavra-Passe" name="" required/>
+                    <!-- <i class="material-icons">lock</i> -->
+                </div>
+    
+                <div class="Registar">
+                    <input id="submit" type="submit" name="" value="Registar">
+                    <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a>.</p>
+                </div>
+
+
             </div>
-        </form>
+        </div>  
+    </form>
     
     
     <footer>Todos os direitos reservados a Tiago Teodoro, Gonçalo Ventura, Renato Ramires e Margarida Rodrigues.</footer>
