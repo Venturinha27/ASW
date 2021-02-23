@@ -29,18 +29,81 @@ body {
     display: grid;
     grid-template-areas: 'nomeProprio' 'dataNascimento' 'genero' 'foto' 'concelho' 'distrito' 'freguesia';
     grid-template-rows: 50px 50px 50px 50px 45px 65px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 100% 100%;
     /* grid-column: 'nomeProprio' 'dataNascimento' 'genero' 'foto' 'concelho_p' 'distrito_p' 'freguesia_p' 'telefone_p' 'CC_p' 'CartaC' 'Covid' 'email_p' 'password_p' 'submit'; */
     grid-gap: 10px;
     padding: 15px;
     padding-left: 20px;
     padding-right: 0px;
     position: relative;
-    color: black;
+    color: #24305E;
     text-align: center;
     text-decoration: none;
 }
 
+/* -----------------------------------------------Nome Próprio----------------------------------------- */
+
 .nomeProprio{
     position: relative;
+}
+
+.nomeProprio i{
+    position: absolute;
+    left: 262px;
+    top: 18px;
+    color: #24305E;
+    font-size: large;
+}
+
+#nomeProprio{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-top: 9px;
+    margin-bottom: 5px;
+    margin-right: 5%;
+    font-family:'Times New Roman', Times, serif;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    width: 70%;
+    color: #24305E;
+}
+
+#nomeProprio:focus { 
+    outline: none !important;
+}
+
+::placeholder {
+    color: #24305E;
+    opacity: 1;
+}
+
+/* -----------------------------------------------Data de Nascimento----------------------------------------- */
+
+  #dataNascimento{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-top: 9px;
+    margin-bottom: 5px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #24305E;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    width: 70%;
+}
+
+#dataNascimento:focus { 
+    outline: none !important;
+    color: #24305E;
+}
+
+::placeholder {
+    color: #24305E;
+    opacity: 1;
+  }
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    color: #24305E;
 }
