@@ -235,5 +235,14 @@ body {
     width: 100%;
     height: 30%;
     background-color: #374785;
-    color: #24305E;
+    color: white;
 }
+
+.vl {
+    border-left: 4px solid white;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    top: 12%;
+  }
