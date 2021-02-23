@@ -1,1 +1,46 @@
 /* Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 */
+
+body {
+    background-color: #A8D0E6;
+}
+
+.w3-input {
+    background-color: white;
+}
+
+
+.main-grid {
+    display: grid;
+    grid-template-areas: 'telefone' 'CC' 'CartaC' 'Covid' 'email' 'password';
+    grid-template-rows: auto;
+    grid-template-columns: 50% 50%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #F8E9A1;
+    border-radius: 9px;
+    -webkit-box-shadow: 0px 0px 25px 0px #f7e860;
+    -moz-box-shadow: 0px 0px 25px 0px #f7e860;
+    box-shadow: 0px 0px 25px 0px #f7e860;
+}
+
+.mid-grid {
+    display: grid;
+    grid-template-areas: 'nomeProprio' 'dataNascimento' 'genero' 'foto' 'concelho' 'distrito' 'freguesia';
+    grid-template-rows: 50px 50px 50px 50px 45px 65px;
+    grid-template-columns: 1fr 1fr;
+    /* grid-column: 'nomeProprio' 'dataNascimento' 'genero' 'foto' 'concelho_p' 'distrito_p' 'freguesia_p' 'telefone_p' 'CC_p' 'CartaC' 'Covid' 'email_p' 'password_p' 'submit'; */
+    grid-gap: 10px;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 0px;
+    position: relative;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nomeProprio{
+    position: relative;
+}
