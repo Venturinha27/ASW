@@ -1,0 +1,111 @@
+body {
+    background-color: white;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+#topDiv{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    background-image: url('../Images/slide2.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+
+#SobreDiv {
+    margin: 0;
+    position: absolute;
+    top: 76%;
+    width: 100%;
+    height: 58%;
+    background-color: #24305E;
+    color: white;
+}
+
+#SobreDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: white;
+}
+
+#SobreDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+
+#DestinaDiv {
+    margin: 0;
+    position: absolute;
+    top: 134%;
+    width: 100%;
+    height: 50%;
+    background-color: #F8E9A1;
+    color: #24305E;
+}
+
+#DestinaDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#DestinaDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#FuncionaDiv {
+    margin: 0;
+    position: absolute;
+    top: 184%;
+    width: 100%;
+    height: 60%;
+    background-color: white;
+    color: #24305E;
+}
+
+#FuncionaDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#FuncionaDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#InformacoesDiv {
+    margin: 0;
+    position: absolute;
+    top: 244%;
+    width: 100%;
+    height: 55%;
+    background-color: #A8D0E6;
+    color: #24305E;
+}
+
+#InformacoesDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#InformacoesDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
