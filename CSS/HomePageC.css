@@ -7,13 +7,9 @@ body {
     color: #24305E;
 }
 
-.w3-input {
+#navigation .w3-input {
     background-color: white;
 }
-
-::placeholder { 
-    color: #24305E;
-  }
 
 .fa-user-circle {
     font-size: x-large;
