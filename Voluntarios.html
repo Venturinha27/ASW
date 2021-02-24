@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Sobre</title>
+<title>Voluntários</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -31,15 +31,15 @@
         <input type="text" class="w3-input" placeholder="Ex.: João Miguel, Amanda Silva, ...">
     </div>
 
-    <h4 id="hp">Procura ações promovidas por instituições:</h4>
+    <h4 id="hp">Procura voluntários:</h4>
 
     <ul class="w3-ul">
         <li>Área de interesse</li>
             <select class="w3-select" name="area-de-interesse">
                 <option value="" disabled selected>Selecione área de interesse</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="acao-social">Ação social</option>
+                <option value="educacao">Educação</option>
+                <option value="saude">Saúde</option>
             </select>
         <li>População-alvo</li>
             <select class="w3-select" name="populacao-alvo">
@@ -53,62 +53,74 @@
                 <option value="sem-abrigo">Pessoas sem-abrigo</option>
                 <option value="defeciencia">Pessoas com deficiência</option>
             </select>
-        <li>Distrito</li>
-            <select class="w3-select" name="populacao-alvo">
-                <option value="" disabled selected>Selecione distrito</option>
-                <option value="indiferente">Aveiro</option>
-                <option value="criancas">Beja</option>
-                <option value="jovens">Braga</option>
-                <option value="idosos">Bragança</option>
-                <option value="gravidas">Castelo Branco</option>
-                <option value="dependencia">Coimbra</option>
-                <option value="sem-abrigo">Évora</option>
-                <option value="defeciencia">Faro</option>
-                <option value="indiferente">Guarda</option>
-                <option value="criancas">Leiria</option>
-                <option value="jovens">Lisboa</option>
-                <option value="idosos">Portalegre</option>
-                <option value="gravidas">Porto</option>
-                <option value="dependencia">Santarém</option>
-                <option value="sem-abrigo">Setúbal</option>
-                <option value="defeciencia">Viana do Castelo</option>
-                <option value="defeciencia">Vila Real</option>
-                <option value="defeciencia">Viseu</option>
-                <option value="defeciencia">Região Autónoma Açores</option>
-                <option value="defeciencia">Região Autónoma Madeira</option>
+        <li>Disponibilidade dia</li>
+            <select class="w3-select" name="disponibilidade-dia">
+                <option value="" disabled selected>Selecione dia de disponibilidade</option>
+                <option value="segunda">Segunda-feira</option>
+                <option value="terca">Terça-feira</option>
+                <option value="quarta">Quarta-feira</option>
+                <option value="quinta">Quinta-feira</option>
+                <option value="sexta">Sexta-feira</option>
+                <option value="sabado">Sábado</option>
+                <option value="domingo">Domingo</option>
             </select>
-        <li>Conselho</li>
-            <select class="w3-select" name="concelho">
-                <option value="" disabled selected>Selecione concelho</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+        <li>Disponibilidade a partir de hora</li>
+            <select class="w3-select" name="disponibilidade-p-hora">
+                <option value="" disabled selected>Selecione hora de disponibilidade</option>
+                <option value="0">00:00</option>
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
+                <option value="9">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+                <option value="22">22:00</option>
+                <option value="23">23:00</option>
             </select>
-        <li>Freguesia</li>
-            <select class="w3-select" name="freguesia">
-                <option value="" disabled selected>Selecione freguesia</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+        <li>Disponibilidade por quantas horas</li>
+            <select class="w3-select" name="disponibilidade-p-dia">
+                <option value="" disabled selected>Selecione o nº de horas p/ dia</option>
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
             </select>
     </ul>
 
     <div class="w3-card-4" id="card1">
 
         <header class="w3-container">
-            <h3>Portugal Voluntário</h3>
+            <h3>Voluntário</h3>
         </header>
         
         <div class="w3-container">
-            <h5>Compras para idosos</h5>
+            <h5>Manel João</h5>
             <hr>
-            <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-            <h6>Breve descrição da instituição</h6>
+            <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
+            <h6>Breve descrição do voluntário</h6>
             <hr>
-            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
+            <p>Área de interesse: Educação | Saúde <i class="fa fa-deviantart"></i> População-alvo: Idosos</p>
+            <p>Disponibilidade: Terça, ás 18:00, durante 2 horas</p>
+            <p>Disponibilidade: Sábado, ás 8:00, durante 8 horas</p>
         </div>
         
         <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
@@ -118,19 +130,18 @@
     <div class="w3-card-4" id="card2">
 
         <header class="w3-container">
-            <h3>Programa Agora Nós</h3>
+            <h3>Voluntário</h3>
         </header>
         
         <div class="w3-container">
-            <h5>Distribuir comida</h5>
+            <h5>Cláudio Joaquim</h5>
             <hr>
-            <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-            <h6>Breve descrição da instituição</h6>
+            <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
+            <h6>Breve descrição do voluntário</h6>
             <hr>
-            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
+            <p>Área de interesse: Educação | Saúde <i class="fa fa-deviantart"></i> População-alvo: Idosos</p>
+            <p>Disponibilidade: Terça, ás 18:00, durante 2 horas</p>
+            <p>Disponibilidade: Sábado, ás 8:00, durante 8 horas</p>
         </div>
         
         <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
@@ -140,19 +151,18 @@
     <div class="w3-card-4" id="card3">
 
         <header class="w3-container">
-            <h3>Portugal Voluntário</h3>
+            <h3>Voluntário</h3>
         </header>
         
         <div class="w3-container">
-            <h5>Apoiar o lar xd</h5>
+            <h5>Maria Albuquerque</h5>
             <hr>
-            <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-            <h6>Breve descrição da instituição</h6>
+            <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
+            <h6>Breve descrição do voluntário</h6>
             <hr>
-            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
+            <p>Área de interesse: Educação | Saúde <i class="fa fa-deviantart"></i> População-alvo: Idosos</p>
+            <p>Disponibilidade: Terça, ás 18:00, durante 2 horas</p>
+            <p>Disponibilidade: Sábado, ás 8:00, durante 8 horas</p>
         </div>
         
         <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
