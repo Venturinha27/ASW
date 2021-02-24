@@ -3,7 +3,7 @@ CREATE TABLE RegistoVoluntarios (
     dataNascimento date, 
     genero varchar(255),         
     foto varbinary(max),           
-    concelho varchar(50), --ola
+    concelho varchar(50), --ola adeus
     distrito varchar(50),
     freguesia varchar(50),
     telefone numeric(15),
