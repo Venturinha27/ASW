@@ -1,0 +1,297 @@
+body {
+    background-color: #A8D0E6;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+#navigation .w3-input {
+    background-color: white;
+}
+
+hr {
+    position: relative;
+    top: -5%;
+    border-width: 2px;
+    border-color: #A8D0E6;
+}
+
+/* --- PAR ---*/
+
+.divnome_par {
+    position: relative;
+    left: 42%;
+    top: 2%;
+    background-color: white;
+    color: #24305E;
+    max-width: 20%;
+    height: 10%;
+    border-radius: 100px;
+}
+
+.divnome_par #avatar{
+    position: absolute;
+    left: 3%;
+    top: 10%;
+    width: 10%;
+    height: 80%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #24305E;
+    border-width: 2px;
+}
+
+.divnome_par h6{
+    padding-left: 16%;
+    padding-top: 1.2%;
+    max-width: 100%;
+    height: 80%;
+    font-weight: bold;
+}
+
+.divcom_par {
+    position: relative;
+    left: 42%;
+    top: 0.5%;
+    color: white;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divcom_par p {
+    font-size: small;
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+.divtext_par {
+    position: relative;
+    left: 42.2%;
+    top: -5%;
+    color: white;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divtext_par p {
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+/* --- IMPAR ---*/
+
+.divnome_impar {
+    position: relative;
+    left: 1%;
+    top: 2%;
+    background-color: #24305E;
+    color: white;
+    max-width: 20%;
+    height: 10%;
+    border-radius: 100px;
+}
+
+.divnome_impar #avatar{
+    position: absolute;
+    left: 3%;
+    top: 10%;
+    width: 10%;
+    height: 80%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+}
+
+.divnome_impar h6{
+    padding-left: 16%;
+    padding-top: 1.2%;
+    max-width: 100%;
+    height: 80%;
+    font-weight: bold;
+}
+
+.divcom_impar {
+    position: relative;
+    left: 1%;
+    top: 0.5%;
+    color: #24305E;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divcom_impar p {
+    font-size: small;
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+.divtext_impar {
+    position: relative;
+    left: 1.2%;
+    top: -5%;
+    color: #24305E;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divtext_impar p {
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+/* ----------- */
+
+.pubpar {
+    position: relative;
+    top: 0%;
+    height: 300px;
+    width: 100%;
+    color: white;
+    background-color: #24305E;
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A8D0E6;
+}
+
+.pubpar img {
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    z-index: 2;
+}
+
+.pubimpar {
+    position: relative;
+    top: 0%;
+    height: 300px;
+    width: 100%;
+    color: #24305E;
+    background-color: white;
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A8D0E6;
+}
+
+.pubimpar img {
+    position: absolute;
+    right: 0%;
+    width: 40%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* ---- add button ---- */
+
+#addButton{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 15;
+    width: 65px;
+    height: 65px;
+    font-size: xx-large;
+}
+
+/* --- add card --- */
+
+.visible{
+    display: visible;
+}
+
+.hidden{
+    display: none;
+}
+
+.w3-card-4{
+    position: fixed;
+    top: 22%;
+    left: 20%;
+    z-index: 50;
+    width: 60%;
+    height: 56%;
+    background-color: white;
+    display: visible;
+}
+
+.w3-card-4 #headerAdd {
+    background-color: #374785;
+    color: white;
+}
+
+.w3-card-4 #closeButton {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    color: white;
+    font-size: x-large;
+}
+
+.w3-card-4 #containIn {
+    position: relative;
+    top: 4%;
+    color: #374785;
+}
+
+.w3-card-4 #submit {
+    position: relative;
+    bottom: -10%;
+    left: 87%;
+    font-size: large;
+    border-radius: 50px;
+    padding: 1%;
+    color: white;
+    background-color: #374785;
+}
+
+/* ------------------------------------------------------- */
+
+#EndDiv{
+    margin: 0;
+    position: absolute;
+    top: 298%;
+    width: 100%;
+    height: 30%;
+    background-color: #374785;
+    color: white;
+    font-size: small;
+}
+
+.vl {
+    border-left: 4px solid white;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    top: 17%;
+  }
+
+#endContactosL{
+    position: absolute;
+    top: 21%;
+    left: 51%;
+}
+
+#endPaginas1{
+    position: absolute;
+    top: 13%;
+    left: 29%;
+}
+
+#endPaginas2{
+    position: absolute;
+    top: 23%;
+    left: 38%;
+}
+
+#endD{
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+    max-width: 50%;
+    text-align: center;
+}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<title>Sobre</title>
+<title>Publicações</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/SobreC.css">
+<link rel="stylesheet" href="CSS/PublicacoesC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src=></script>
+<script src="JavaScript/PublicacoesJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -18,70 +18,108 @@
         <a href="Voluntarios.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
         <a href="Instituicoes.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Instituições</a>
         <a href="Covid19.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
-        <a href="Publicacoes.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
-        <a href="Sobre.html" class="w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile">Sobre</a>        
+        <a href="Publicacoes.html" class="w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile">Publicações</a>   
+        <a href="Sobre.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
     </div>
-
 </header>
 
 <body>
 
-    <div id="topDiv">
+<div class="pubpar">
+    <img src="Images/slide2.jpg">
+
+    <div class="divnome_par"><img src="Images/slide7.jpg" class="w3-circle" id="avatar">
+        <h6>Portugal Voluntário</h6></div>
+
+    <div class="divcom_par">
+        <p>Com: Programa Agora Nós e Padeira de Aljubarrota</p>
     </div>
 
-    <div id="SobreDiv">
-        <br><br>
-        <h1 class="w3-center">Sobre a VoluntárioCOVID19</h1>
+    <hr>
+
+    <div class="divtext_par">
+        <p>Trabalho de equipa ajuda a vencer batalha de aljubarrota.</p>
+    </div>
+</div>
+
+<div class="pubimpar">
+    <img src="Images/slide5.jpg">
+
+    <div class="divnome_impar"><img src="Images/slide6.jpg" class="w3-circle" id="avatar">
+        <h6>Filipe Eduardo</h6></div>
+
+    <div class="divcom_impar">
+        <p>Com: Programa Agora Nós</p>
+    </div>
+
+    <hr>
+
+    <div class="divtext_impar">
+        <p>Entrega de bróculos à velhinha Mari Zé.</p>
+    </div>
+</div>
+
+<div class="pubpar">
+    <img src="Images/slide4.jpg">
+
+    <div class="divnome_par"><img src="Images/slide5.jpg" class="w3-circle" id="avatar">
+        <h6>Portugal Agora Nós</h6></div>
+
+    <div class="divcom_par">
+        <p>Com: Filipe Eduardo, D. Sebastião e Manel Jorge</p>
+    </div>
+
+    <hr>
+
+    <div class="divtext_par">
+        <p>Dona Dolores recebe drogas caseiras. Boa Dona Dolores.</p>
+    </div>
+</div>
+
+<div class="pubimpar">
+    <img src="Images/slide3.jpg">
+
+    <div class="divnome_impar"><img src="Images/slide4.jpg" class="w3-circle" id="avatar">
+        <h6>Eduardo Jorge</h6></div>
+
+    <div class="divcom_impar">
+        <p>Com: Maria Eduarda e João Ricardo</p>
+    </div>
+
+    <hr>
+
+    <div class="divtext_impar">
+        <p>Espalhar COVID depois de um grande dia de voluntariado.</p>
+    </div>
+</div>
+
+
+<button class="w3-button w3-circle w3-indigo w3-hover-blue" id="addButton">+</button>
+
+<div class="w3-card-4 hidden" id="addCard">
+
+    <div class="w3-container" id="headerAdd">
+      <h2>Nova publicação</h2>
+      <button class="w3-button w3-hover-white" id="closeButton">X</button>
+    </div>
+    
+    <form class="w3-container" id="containIn">
+        
+        <label>Com:</label>
+        <input class="w3-input" type="text">
         <br>
-        <hr>
-        <br><br>
-        <p>A VoluntárioCOVID19 é uma instituição de âmbito nacional que tem como objetivo ajudar voluntários e instituições ou iniciativas de voluntariado a fazerem 'match' e colaborarem no combate à pandemia da COVID-19.
-            A instituição promove ainda o voluntariado em Portugal permitindo a partilha de momentos de voluntariado no seu website como objectivo de poder vir a inspirar novos individuos a experimentar esta experiência tão gratificante.</p>
-        <br><br>
-        <p><i class="fa fa-bullseye"></i></p>
-        <br><br>
-    </div>
-
-    <div id="DestinaDiv">
-        <br><br>
-        <h1 class="w3-center">A quem se destina a VoluntárioCOVID19?</h1>
+        <label>Descrição:</label>
+        <input class="w3-input" type="text">
         <br>
-        <hr>
-        <br><br>
-        <p>A plataforma destina-se a todos os indivíduos interessados em realizar uma ação de voluntariado, às instituições que organizam e promovem ações de voluntariado acreditadas e necessárias na ajuda ao combate da pandemia.</p>
-        <br><br>
-        <p><i class="fa fa-bullseye"></i></p>
-        <br><br>
-    </div>
-
-    <div id="FuncionaDiv">
-        <br><br>
-        <h1 class="w3-center">Como funciona a VoluntárioCOVID19?</h1>
+        <label for="img">Imagem:</label>
         <br>
-        <hr>
+        <input type="file" id="img" name="img" accept="image/*">
         <br><br>
-        <p>Pretende-se através da inscrição de voluntários/as e ações/instituições de voluntariado encorajar o contacto e promover a participação e a visibilidade do trabalho de voluntariado no combate à pandemia da COVID-19.
-            Adicionalmente, com processos mais céleres, garantir o total cumprimento dos requisitos legais previstos na Lei de Bases do Voluntariado e respetiva regulamentação, valorizando um voluntariado mais qualificado, responsável e dinâmico.
-            </p>
-        <br><br>
-        <p><i class="fa fa-bullseye"></i></p>
-        <br><br>
-    </div>
-
-    <div id="InformacoesDiv">
-        <br><br>
-        <h1 class="w3-center">Mais informações sobre a VoluntárioCOVID19</h1>
-        <br>
-        <hr>
-        <br><br>
-        <p>Para mais informações sobre a VoluntárioCOVID19 não hesite em ligar para 93-77-tira-tira-mete-mete ou contactar-nos por e-mail electrónico em VoluntárioCOVID19@mail.com.
-            Para atendimento presencial poderá visitar-nos em Rua D. Francisco, nº 92, Amadora city.
-            </p>
-        <br><br>
-        <p><i class="fa fa-bullseye"></i></p>
-        <br><br>
-    </div>
-
+        <input id="submit" type="submit" value="Publicar">
+        
+    </form>
+    
+</div>
 
 </body>
 
