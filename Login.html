@@ -1,25 +1,33 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
 <!DOCTYPE html>
-<html lang="pt">
-
-<head>
-<meta charset="utf-8">
+<html>
 <title>Login</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="CSS/LoginC.css">
+<script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+
 <header>
 
     
 
 </header>
 <body>
-    <div  id="loginbox">
-        <form id="login">
-            <p id="username_p">Insira o seu nome de Utilizador ou o seu E-Mail</p>
-            <input id="username" type="text" name="" required>
-            <p id="password_p">Password</p>
-            <input id="userpw" type="password" name="" required>
-            <!--<input id="submit" type="submit" name="" value="LOGIN" href="HomePage.html">-->
-            <a href="Registo.html" id="register">Ainda não tem conta? Registe-se aqui!</a>
+    <div id="loginbox">
+        <form id="login" class="w3-container">
+            <div class="w3-container w3-indigo">
+                <h1 class="w3-center"><i class="fa fa-user-circle"></i></h1>
+            </div>
+            <br><br>
+            <input class="w3-input w3-large" id="username" type="text" placeholder="Nome de utilizador ou e-mail" required>
+            <br><br>
+            <input class="w3-input w3-large" id="userpw" type="password" placeholder="Password" required>
+            <br><br>
+            <input class="w3-large w3-indigo" id="submit" type="submit" name="" value="Entrar" href="HomePage.html">
+            <br><br>
+            <a class="w3-right" href="Registo.html" id="register">Ainda não tem conta? Registe-se aqui!</a>
+        
         </form>
 
     </div>

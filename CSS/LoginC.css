@@ -1,0 +1,27 @@
+body {
+    background-image: url(../Images/slide5.jpg);
+}
+
+#loginbox {
+    position: fixed;
+    height: 100%;
+    width: 60%;
+    background-color: white;
+}
+
+#login {
+    position: absolute;
+    width: 60%;
+    height: 65%;
+    top: 17.5%;
+    left: 20%;
+    color: #24305E;
+    padding-top: 3.5%;
+}
+
+#submit {
+    width: 100%;
+    height: 10%;
+    border-radius: 100px;
+    font-weight: bold;
+}
