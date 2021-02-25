@@ -1,0 +1,243 @@
+body {
+    background-color: white;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+#navigation .w3-input {
+    background-color: white;
+}
+
+
+#topDiv{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    background-image: url('../Images/slide6.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+
+#SobreDiv {
+    margin: 0;
+    position: absolute;
+    top: 76%;
+    width: 100%;
+    height: 65%;
+    background-color: white;
+    color: #24305E;
+    z-index: 10;
+}
+
+#SobreDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#SobreDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+
+#SintomasDiv {
+    margin: 0;
+    position: absolute;
+    top: 138%;
+    width: 100%;
+    height: 76%;
+    background-color: #F8E9A1;
+    color: #24305E;
+    z-index: 9;
+}
+
+#SintomasDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#SintomasDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#ImunidadeDiv {
+    margin: 0;
+    position: absolute;
+    top: 213%;
+    width: 100%;
+    height: 55%;
+    background-color: #24305E;
+    color: white;
+    z-index: 8;
+}
+
+#ImunidadeDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: white;
+}
+
+#ImunidadeDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#TransmissaoDiv {
+    margin: 0;
+    position: absolute;
+    top: 266%;
+    width: 100%;
+    height: 87%;
+    background-color: #A8D0E6;
+    color: #24305E;
+    z-index: 7;
+}
+
+#TransmissaoDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#TransmissaoDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#RiscoDiv {
+    margin: 0;
+    position: absolute;
+    top: 352%;
+    width: 100%;
+    height: 55%;
+    background-color: white;
+    color: #24305E;
+    z-index: 6;
+}
+
+#RiscoDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#RiscoDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#PrevencaoDiv {
+    margin: 0;
+    position: absolute;
+    top: 405%;
+    width: 100%;
+    height: 87%;
+    background-color: #F8E9A1;
+    color: #24305E;
+    z-index: 5;
+}
+
+#PrevencaoDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#PrevencaoDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#SaibaMaisDiv {
+    margin: 0;
+    position: absolute;
+    top: 491%;
+    width: 100%;
+    height: 27%;
+    background-color: #A8D0E6;
+    color: #24305E;
+    z-index: 4;
+}
+
+#SaibaMaisDiv p {
+    font-size: larger;
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#SaibaMaisDiv button {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    top: 62%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* ------------------------------------------------------- */
+
+#EndDiv{
+    margin: 0;
+    position: absolute;
+    top: 517%;
+    width: 100%;
+    height: 30%;
+    background-color: #374785;
+    color: white;
+    font-size: small;
+}
+
+.vl {
+    border-left: 4px solid white;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    top: 17%;
+  }
+
+#endContactosL{
+    position: absolute;
+    top: 21%;
+    left: 51%;
+}
+
+#endPaginas1{
+    position: absolute;
+    top: 13%;
+    left: 29%;
+}
+
+#endPaginas2{
+    position: absolute;
+    top: 23%;
+    left: 38%;
+}
+
+#endD{
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+    max-width: 50%;
+    text-align: center;
+}

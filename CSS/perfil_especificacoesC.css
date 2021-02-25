@@ -1,0 +1,183 @@
+/* ASW */
+body {
+    background-color: white;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+#navigation .w3-input {
+    background-color: white;
+}
+
+
+#topDiv{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    background-image: url('../Images/slide5.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+
+#AzulDiv {
+    margin: 0;
+    position: absolute;
+    top: 76%;
+    width: 100%;
+    height: 20%;
+    background-color: #24305E;
+    color: white;
+}
+
+#Azul hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: white;
+}
+
+#Azul p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+
+#AmareloDiv {
+    margin: 0;
+    position: absolute;
+    top: 90%;
+    width: 100%;
+    height: 15%;
+    background-color: #F8E9A1;
+    color: #24305E;
+}
+
+#AmareloDiv h1 {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#AmareloDiv h2 {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#AmareloDiv h3 {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#AmareloDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#BrancoDiv {
+    margin: 0;
+    position: absolute;
+    top: 101%;
+    width: 100%;
+    height: 150%;
+    background-color: white;
+    color: #24305E;
+}
+
+#BrancoDiv hr {
+    width: 15%;
+    margin: auto;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#BrancoDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#area_interesse{
+    position: relative;
+    top: 0%
+}
+
+#populacaoAlvo{
+    position: relative;
+    top: 5%
+}
+
+#disponibilidade_diaSemana{
+    position: relative;
+    top: 10%
+}
+
+#disponibilidade_periodoDia{
+    position: relative;
+    top: 15%
+}
+
+#disponibilidade_nHoras{
+    position: relative;
+    top: 20%
+}
+
+#EndDiv{
+    margin: 0;
+    position: absolute;
+    top: 120%;
+    width: 100%;
+    height: 30%;
+    background-color: #374785;
+    color: white;
+    font-size: small;
+}
+
+.vl {
+    border-left: 4px solid white;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    top: 17%;
+  }
+
+#endContactosL{
+    position: absolute;
+    top: 21%;
+    left: 51%;
+}
+
+#endPaginas1{
+    position: absolute;
+    top: 13%;
+    left: 29%;
+}
+
+#endPaginas2{
+    position: absolute;
+    top: 23%;
+    left: 38%;
+}
+
+#endD{
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+    max-width: 50%;
+    text-align: center;
+} 
+
+#tamanho{
+    height: 70%;
+}
