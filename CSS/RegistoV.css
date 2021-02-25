@@ -4,6 +4,11 @@ body {
     background-color: #A8D0E6;
 }
 
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
 .w3-input {
     background-color: white;
 }
@@ -11,7 +16,7 @@ body {
 
 .main-grid {
     display: grid;
-    grid-template-areas: 'telefone' 'CC' 'CartaC' 'Covid' 'email' 'password';
+    grid-template-areas: 'genero_div' 'CC' 'CartaC' 'Covid' 'email' 'password';
     grid-template-rows: auto;
     grid-template-columns: 50% 50%;
     margin-left: 20%;
@@ -20,15 +25,11 @@ body {
     margin-bottom: 5%;
     background-color: #F8E9A1;
     border-radius: 9px;
-    -webkit-box-shadow: 0px 0px 25px 0px #f7e860;
-    -moz-box-shadow: 0px 0px 25px 0px #f7e860;
-    box-shadow: 0px 0px 25px 0px #f7e860;
 }
 
 .mid-grid {
     display: grid;
-    grid-template-areas: 'nomeProprio' 'dataNascimento' 'genero' 'foto' 'concelho' 'distrito' 'freguesia';
-    grid-template-rows: 50px 50px 50px 50px 45px 65px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px;
     grid-template-columns: 100% 100%;
     /* grid-column: 'nomeProprio' 'dataNascimento' 'genero' 'foto' 'concelho_p' 'distrito_p' 'freguesia_p' 'telefone_p' 'CC_p' 'CartaC' 'Covid' 'email_p' 'password_p' 'submit'; */
     grid-gap: 10px;
@@ -43,28 +44,24 @@ body {
 
 /* -----------------------------------------------Nome Próprio----------------------------------------- */
 
-.nomeProprio{
-    position: relative;
-}
-
 .nomeProprio i{
     position: absolute;
     left: 262px;
     top: 18px;
     color: #24305E;
     font-size: large;
+    position: relative;
 }
 
 #nomeProprio{
     padding: 9px;
     border-radius: 3px;
     font-size: large;
-    margin-top: 9px;
-    margin-bottom: 5px;
     margin-right: 5%;
     font-family:'Times New Roman', Times, serif;
     border: solid #f0db98;
     background-color: #fcf7cf;
+    height: 51.2%;
     width: 70%;
     color: #24305E;
 }
@@ -83,9 +80,8 @@ body {
   #dataNascimento{
     padding: 9px;
     border-radius: 3px;
+    margin-right: 5%;
     font-size: large;
-    margin-top: 9px;
-    margin-bottom: 5px;
     font-family: 'Times New Roman', Times, serif;
     color: #24305E;
     border: solid #f0db98;
@@ -98,12 +94,323 @@ body {
     color: #24305E;
 }
 
-::placeholder {
-    color: #24305E;
-    opacity: 1;
-  }
-
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
+    color: #24305E;
+}
+
+/* -----------------------------------------------Género----------------------------------------- */
+
+.genero_div{
+    padding: 9px;
+    border-radius: 3px;
+    height: 0%;
+    width: 0%;
+    color: #24305E;
+    position: relative;
+}
+
+#genero{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-top: -15px;
+    margin-left: 123px;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    color: #24305E;
+    position: relative;
+}
+
+#Homem{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    font-family:'Times New Roman', Times, serif;
+    margin-top: -15%;
+    width: 70%;
+    color: #24305E;
+    position: relative;
+}
+
+input#Homem{
+    position: absolute;
+    top: 10%;
+}
+
+#homem1{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    top: 150%;
+    color: #24305E;
+    position: absolute;
+}
+
+#Mulher{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-right: 50px;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    color: #24305E;
+    position: absolute;
+}
+
+input#Mulher{
+    position: absolute;
+    top: 10%;
+}
+
+#mulher1{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    color: #24305E;
+    position: absolute;
+}
+
+.outro1{
+    position: relative;
+}
+
+#outro1{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-top: 100px;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    color: #24305E;
+}
+
+/* -----------------------------------------------Foto----------------------------------------- */
+
+.foto_div{
+    position: relative;
+} 
+
+#foto_div{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    font-family:'Times New Roman', Times, serif;
+    color: #24305E;
+}
+
+.foto{
+    position: relative;
+}
+
+#foto{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-top: -10px;
+    margin-left: 40px;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    color: #24305E;
+}
+
+.avatar{
+    position: relative;
+}
+
+#avatar{
+    padding: 9px;
+    border-radius: 3px;
+    margin-top: -35%;
+    font-family:'Times New Roman', Times, serif;
+    color: #24305E;
+}
+
+/* -----------------------------------------------Distrito----------------------------------------- */
+
+.distrito{
+    position: relative;
+}
+
+.distrito i{
+    position: absolute;
+    left: 262px;
+    top: 18px;
+    color: #24305E;
+    font-size: large;
+}
+
+#distrito{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-right: 5%;
+    font-family:'Times New Roman', Times, serif;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    height: 51.2%;
+    width: 70%;
+    color: #24305E;
+}
+
+#distrito:focus { 
+    outline: none !important;
+}
+
+/* -----------------------------------------------Concelho----------------------------------------- */
+
+.concelho{
+    position: relative;
+}
+
+.concelho i{
+    position: absolute;
+    left: 262px;
+    top: 18px;
+    color: #24305E;
+    font-size: large;
+}
+
+#concelho{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-right: 5%;
+    font-family:'Times New Roman', Times, serif;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    height: 51.2%;
+    width: 70%;
+    color: #24305E;
+}
+
+#concelho:focus { 
+    outline: none !important;
+}
+
+/* -----------------------------------------------Freguesia----------------------------------------- */
+
+.freguesia{
+    position: relative;
+}
+
+.freguesia i{
+    position: absolute;
+    left: 262px;
+    top: 18px;
+    color: #24305E;
+    font-size: large;
+}
+
+#freguesia{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-right: 5%;
+    font-family:'Times New Roman', Times, serif;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    height: 51.2%;
+    width: 70%;
+    color: #24305E;
+}
+
+#freguesia:focus { 
+    outline: none !important;
+}
+
+/* -----------------------------------------------Telefone----------------------------------------- */
+
+.telefone{
+    position: relative;
+}
+
+.telefone i{
+    position: absolute;
+    left: 262px;
+    top: 18px;
+    color: #24305E;
+    font-size: large;
+}
+
+#telefone{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-right: 5%;
+    font-family:'Times New Roman', Times, serif;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    height: 51.2%;
+    width: 70%;
+    color: #24305E;
+}
+
+#telefone:focus { 
+    outline: none !important;
+}
+
+/* -----------------------------------------------Cartão de Cidadão----------------------------------------- */
+
+.CC{
+    position: relative;
+}
+
+.CC i{
+    position: absolute;
+    left: 262px;
+    top: 18px;
+    color: #24305E;
+    font-size: large;
+}
+
+#CC{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-right: 5%;
+    font-family:'Times New Roman', Times, serif;
+    border: solid #f0db98;
+    background-color: #fcf7cf;
+    height: 51.2%;
+    width: 70%;
+    color: #24305E;
+}
+
+#CC:focus { 
+    outline: none !important;
+}
+
+/* -----------------------------------------------Carta de Condução----------------------------------------- */
+
+.Carta_div{
+    position: relative;
+} 
+
+#Carta_div{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
+    color: #24305E;
+}
+
+.CartaC{
+    position: relative;
+}
+
+#CartaC{
+    padding: 9px;
+    border-radius: 3px;
+    font-size: large;
+    margin-top: -10px;
+    margin-left: 40px;
+    font-family:'Times New Roman', Times, serif;
+    width: 70%;
     color: #24305E;
 }
