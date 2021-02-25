@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<title>Sobre</title>
+<title>Publicações</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="CSS/PublicacoesC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src=></script>
+<script src="JavaScript/PublicacoesJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -21,7 +21,6 @@
         <a href="Publicacoes.html" class="w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile">Publicações</a>   
         <a href="Sobre.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
     </div>
-
 </header>
 
 <body>
@@ -94,6 +93,32 @@
     </div>
 </div>
 
+
+<button class="w3-button w3-circle w3-indigo w3-hover-blue" id="addButton">+</button>
+
+<div class="w3-card-4" id="addCard">
+
+    <div class="w3-container" id="headerAdd">
+      <h2>Nova publicação</h2>
+    </div>
+    
+    <form class="w3-container" id="containIn">
+        
+        <label>Com:</label>
+        <input class="w3-input" type="text">
+        <br>
+        <label>Descrição:</label>
+        <input class="w3-input" type="text">
+        <br>
+        <label for="img">Imagem:</label>
+        <br>
+        <input type="file" id="img" name="img" accept="image/*">
+        <br><br>
+        <input id="submit" type="submit" value="Publicar">
+        
+    </form>
+    
+</div>
 
 </body>
 

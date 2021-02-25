@@ -185,6 +185,57 @@ hr {
     z-index: 2;
 }
 
+/* ---- add button ---- */
+
+#addButton{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 15;
+    width: 65px;
+    height: 65px;
+    font-size: xx-large;
+}
+
+/* --- add card --- */
+
+#addCard{
+    display: none;
+}
+
+.w3-card-4{
+    position: fixed;
+    top: 22%;
+    left: 20%;
+    z-index: 50;
+    width: 60%;
+    height: 56%;
+    background-color: white;
+    display: visible;
+}
+
+.w3-card-4 #headerAdd {
+    background-color: #374785;
+    color: white;
+}
+
+.w3-card-4 #containIn {
+    position: relative;
+    top: 4%;
+    color: #374785;
+}
+
+.w3-card-4 #submit {
+    position: relative;
+    bottom: -10%;
+    left: 87%;
+    font-size: large;
+    border-radius: 50px;
+    padding: 1%;
+    color: white;
+    background-color: #374785;
+}
+
 /* ------------------------------------------------------- */
 
 #EndDiv{
