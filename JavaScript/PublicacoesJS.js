@@ -1,19 +1,22 @@
 window.addEventListener("load", principal);
 
 function principal() {
-    print("ta aqui")
-    closecard();
     opencard();
+    closecard();
 }
 
 function closecard() {
-    document.getElementById("addCard").addEventListener("click", function() {
-        document.getElementById("addCard").style.display = "none";
+    document.getElementById("submit").addEventListener("click", function() {
+        document.getElementById("addCard").setAttribute("class", "w3-card-4 hidden")
+    });
+
+    document.getElementById("closeButton").addEventListener("click", function() {
+        document.getElementById("addCard").setAttribute("class", "w3-card-4 hidden")
     });
   }
 
 function opencard() {
-    document.getElementById("addCard").addEventListener("click", function() {
-        document.getElementById("addCard").style.display = "visible";
+    document.getElementById("addButton").addEventListener("click", function() {
+        document.getElementById("addCard").setAttribute("class", "w3-card-4 visible")
     });
   }
