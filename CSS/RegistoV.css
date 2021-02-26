@@ -69,7 +69,8 @@ body {
     margin-right: 5%;
     background-color: #f8f8f8;
     height: 51.2%;
-    width: 70%;
+    width: 100%;
+    height: 75%;
     color: #24305E;
 }
 
@@ -90,7 +91,8 @@ body {
     font-size: large;
     color: #24305E;
     background-color: #f8f8f8;
-    width: 70%;
+    width: 100%;
+    height: 75%;
 }
 
 #dataNascimento:focus { 
@@ -117,7 +119,7 @@ body {
     padding: 9px;
     font-weight: 600;
     font-size: large;
-    margin-top: 9px;
+    margin-top: 3px;
     margin-left: 25px;
     width: 70%;
     color: #24305E;
@@ -126,8 +128,8 @@ body {
 
 input#Homem{
     position: relative;
-    right: 35%;
-    top: 429%;
+    right: 39%;
+    margin-top: 13%;
     color: #24305E;
 }
 
@@ -135,16 +137,16 @@ input#Homem{
     padding: 9px;
     font-size: large;
     width: 70%;
-    top: 419%;
-    right: 38%;
+    top: 417%;
+    right: 42%;
     color: #24305E;
     position: relative;
 }
 
 input#Mulher{
     position: absolute;
-    right: 65%;
-    top: 193%;
+    right: 70%;
+    top: 299%;
     color: #24305E;
 }
 
@@ -152,16 +154,16 @@ input#Mulher{
     padding: 9px;
     font-size: large;
     width: 70%;
-    top: 157.5%;
-    right: 19.5%;
+    top: 210%;
+    right: 25%;
     color: #24305E;
     position: absolute;
 }
 
 input#outro{
     position: absolute;
-    top: 191%;
-    right: 40%;
+    top: 343%;
+    right: 44%;
     color: #24305E;
 }
 
@@ -169,8 +171,8 @@ input#outro{
     padding: 9px;
     font-size: large;
     width: 70%;
-    top: 155%;
-    right: -15%;
+    top: 257%;
+    left: 42.5%;
     color: #24305E;
     position: absolute;
 }
@@ -202,8 +204,8 @@ input#outro{
     border-radius: 3px;
     margin-top: 25px;
     top: -11%;
-    left: 23px;
-    width: 100%;
+    right: 4%;
+    width: 110%;
     color: #24305E;
     position: relative;
 }
@@ -215,9 +217,10 @@ input#outro{
     font-size: large;
     margin-right: 5%;
     background-color: #f8f8f8;
-    height: 51.2%;
-    width: 70%;
+    width: 100%;
+    height: 75%;
     color: #24305E;
+    margin-top: 4%;
 }
 
 #distrito:focus { 
@@ -231,9 +234,10 @@ input#outro{
     font-size: large;
     margin-right: 5%;
     background-color: #f8f8f8;
-    height: 51.2%;
-    width: 70%;
+    width: 100%;
+    height: 75%;
     color: #24305E;
+    margin-top: 4%;
 }
 
 #concelho:focus { 
@@ -247,9 +251,10 @@ input#outro{
     font-size: large;
     margin-right: 5%;
     background-color: #f8f8f8;
-    height: 51.2%;
-    width: 70%;
+    width: 100%;
+    height: 75%;
     color: #24305E;
+    margin-top: 4%;
 }
 
 #freguesia:focus { 
@@ -263,8 +268,8 @@ input#outro{
     font-size: large;
     margin-right: 5%;
     background-color: #f8f8f8;
-    height: 51.2%;
-    width: 70%;
+    height: 75%;
+    width: 100%;
     color: #24305E;
 }
 
@@ -279,8 +284,8 @@ input#outro{
     font-size: large;
     margin-right: 5%;
     background-color: #f8f8f8;
-    height: 51.2%;
-    width: 70%;
+    height: 75%;
+    width: 100%;
     color: #24305E;
 }
 
@@ -403,8 +408,10 @@ input#NãoC{
     margin-right: 5%;
     background-color: #f8f8f8;
     height: 51.2%;
-    width: 70%;
+    width: 100%;
+    height: 75%;
     color: #24305E;
+    margin-top: 4%;
 }
 
 #E-mail:focus { 
@@ -418,9 +425,10 @@ input#NãoC{
     font-size: large;
     margin-right: 5%;
     background-color: #f8f8f8;
-    height: 51.2%;
-    width: 70%;
+    height: 75%;
+    width: 100%;
     color: #24305E;
+    margin-top: 4%;
 }
 
 #Password:focus { 
