@@ -73,6 +73,7 @@ body {
     border-radius: 100px;
 }
 
+
 /* ---------------------------------------------- */
 
 .hidden{
@@ -174,6 +175,9 @@ body {
 
 /* -------------------------------------------------- */
 
+
+/* PARA AQUI !!!!!!!!!!!!!!!!!!!! */
+
 #BodyDiv {
     position: absolute;
     top: 50%;
@@ -210,6 +214,183 @@ body {
     width: 32.5%;
     border-radius: 100px;
     z-index: 10;
+}
+
+#BodyDiv .w3-container {
+    position: absolute;
+    top: 12%;
+    left: 2%;
+    width: 96%;
+}
+
+
+
+#BodyDiv #pubs{
+    width: 100%;
+}
+
+
+/* --- PAR ---*/
+
+.divnome_par {
+    position: relative;
+    left: 42%;
+    top: 2%;
+    background-color: white;
+    color: #24305E;
+    max-width: 20%;
+    height: 10%;
+    border-radius: 100px;
+}
+
+.divnome_par #avatar{
+    position: absolute;
+    left: 3%;
+    top: 10%;
+    width: 10%;
+    height: 80%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #24305E;
+    border-width: 2px;
+}
+
+.divnome_par h6{
+    padding-left: 16%;
+    padding-top: 1.2%;
+    max-width: 100%;
+    height: 80%;
+    font-weight: bold;
+}
+
+.divcom_par {
+    position: relative;
+    left: 42%;
+    top: 0.5%;
+    color: white;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divcom_par p {
+    font-size: small;
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+.divtext_par {
+    position: relative;
+    left: 42.2%;
+    top: -5%;
+    color: white;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divtext_par p {
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+/* --- IMPAR ---*/
+
+.divnome_impar {
+    position: relative;
+    left: 1%;
+    top: 2%;
+    background-color: #24305E;
+    color: white;
+    max-width: 20%;
+    height: 10%;
+    border-radius: 100px;
+}
+
+.divnome_impar #avatar{
+    position: absolute;
+    left: 3%;
+    top: 10%;
+    width: 10%;
+    height: 80%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+}
+
+.divnome_impar h6{
+    padding-left: 16%;
+    padding-top: 1.2%;
+    max-width: 100%;
+    height: 80%;
+    font-weight: bold;
+}
+
+.divcom_impar {
+    position: relative;
+    left: 1%;
+    top: 0.5%;
+    color: #24305E;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divcom_impar p {
+    font-size: small;
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+.divtext_impar {
+    position: relative;
+    left: 1.2%;
+    top: -5%;
+    color: #24305E;
+    max-width: 56%;
+    height: 10%;
+}
+
+.divtext_impar p {
+    padding-left: 1%;
+    padding-top: 0%;
+}
+
+/* ----------- */
+
+.pubpar {
+    height: 300px;
+    width: 100%;
+    color: white;
+    background-color: #24305E;
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A8D0E6;
+}
+
+.pubpar img {
+    position: absolute;
+    width: 40%;
+    height: 290px;
+    z-index: 2;
+}
+
+.pubimpar {
+    height: 300px;
+    width: 100%;
+    color: #24305E;
+    background-color: white;
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A8D0E6;
+}
+
+.pubimpar img {
+    position: absolute;
+    right: 0%;
+    width: 40%;
+    height: 290px;
+    z-index: 2;
 }
 
 
