@@ -1,6 +1,6 @@
 /* ASW */
 body {
-    background-color: white;
+    background-color: #24305E;
 }
 
 #navigation {
@@ -12,45 +12,109 @@ body {
     background-color: white;
 }
 
-
-#topDiv{
+#AzulDiv {
     position: absolute;
-    width: 100%;
-    height: 70%;
-    background-image: url('../Images/slide5.jpg');
-    background-size: 100%;
-    background-repeat: no-repeat;
-    opacity: 0.6;
+    top: 10%;
+    left: 15%;
+    width: 70%;
+    height: 37%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
 }
 
-#AzulDiv {
-    margin: 0;
+#AzulDiv img{
+    width: 200px;
+    height: 200px;
+    margin-top: 2.5%;
+    margin-left: 3.5%;
+}
+
+#AzulDiv h5{
+    font-size: larger;
+    font-weight: bold;
+    padding-left: 30%;
+    padding-top: 2%;
+}
+
+#AzulDiv h6 {
+    padding-left: 30%;
+    font-size: small;
+}
+
+#AzulDiv p {
+    padding-left: 30%;
+    font-size: small;
+}
+
+#AzulDiv hr {
+    position: relative;
+    left: 6%;
+    width: 5%;
+    border-width: 2px;
+    border-color: #24305E;
+}
+
+#AzulDiv #EditarPerfil {
     position: absolute;
-    top: 76%;
-    width: 100%;
-    height: 20%;
+    top: 5%;
+    right: 19.5%;
     background-color: #24305E;
     color: white;
+    border-radius: 100px;
 }
 
-#Azul hr {
-    width: 15%;
-    margin: auto;
-    border-width: 2px;
-    border-color: white;
+#AzulDiv #TerminarSessao {
+    position: absolute;
+    top: 5%;
+    right: 1.5%;
+    background-color: #eb4034;
+    color: white;
+    border-radius: 100px;
 }
 
-#Azul p {
-    max-width: 65%;
-    text-align: center;
-    margin: auto;
+
+#BodyDiv {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 70%;
+    height: 77%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
 }
+
+#BodyDiv #Perfil {
+    position: absolute;
+    top: 1%;
+    left: 0.5%;
+    width: 33%;
+    border-radius: 100px;
+}
+
+#BodyDiv #Feed {
+    position: absolute;
+    top: 1%;
+    left: 34%;
+    width: 33%;
+    border-radius: 100px;
+}
+
+#BodyDiv #Atividades {
+    position: absolute;
+    top: 1%;
+    left: 67%;
+    width: 32.5%;
+    border-radius: 100px;
+}
+
 
 
 #AmareloDiv {
     margin: 0;
     position: absolute;
-    top: 90%;
+    top: 190%;
     width: 100%;
     height: 15%;
     background-color: #F8E9A1;
@@ -84,10 +148,11 @@ body {
     margin: auto;
 }
 
+
 #BrancoDiv {
     margin: 0;
     position: absolute;
-    top: 101%;
+    top: 201%;
     width: 100%;
     height: 150%;
     background-color: white;
@@ -184,7 +249,7 @@ body {
 #EndDiv{
     margin: 0;
     position: absolute;
-    top: 120%;
+    top: 220%;
     width: 100%;
     height: 30%;
     background-color: #374785;
