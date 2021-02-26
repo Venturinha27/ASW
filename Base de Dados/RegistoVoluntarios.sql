@@ -1,4 +1,4 @@
-CREATE TABLE RegistoVoluntarios (
+CREATE TABLE Voluntarios (
     nomeProprio varchar(10),
     dataNascimento date, 
     genero varchar(255),         
