@@ -69,6 +69,36 @@ body {
     height: 42%;
 }
 
+
+
+#DesDiv {
+    position: absolute;
+    top: 115%;
+    left: 7.5%;
+    width: 85%;
+    height: 100%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+}
+
+
+#DesDiv h2{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    text-align: center;
+}
+
+#dadose{
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: 12%;
+}
+
+/*
 #Nome{
     position: relative;
     left: 50%;
@@ -132,7 +162,7 @@ body {
     left: 50%;
     top: -10%;
 }
-
+*/
 
 /* ------------------------------------------------------- */
 

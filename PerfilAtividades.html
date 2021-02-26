@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/Perfil_especificacoesC.css">
+<link rel="stylesheet" href="CSS/PerfilC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src=></script>
 
@@ -19,7 +19,7 @@
         <a href="Voluntarios.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
         <a href="Instituicoes.html" class="w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile">Instituições</a>
         <a href="Covid19.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
+        <a href="Publicacoes.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
         <a href="Sobre.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
     </div>
 
@@ -27,61 +27,41 @@
 
 <body>
 
-    <div id="topDiv">
-        
-    </div>
-
     <div id="AzulDiv" >
-        
-        <div class="w3-bar w3-large"></div>
-        <br>
-        <h1 class="w3-center">Perfil </h1>
-        <br>
+
+        <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
+
+        <h5>Manel João</h5>
+        <hr>
+        <h6>27 publicações <i class="fa fa-deviantart"></i> 13 seguidores <i class="fa fa-deviantart"></i> 17 seguindo</h6>
+        <hr>
+        <p>Breve descrição do voluntário</p>
+
+        <a href="EditarPerfil.html"><button class="w3-button" id="EditarPerfil">
+            Editar perfil
+        </button></a>
+
+        <a href="Login.html"><button class="w3-button" id="TerminarSessao">
+            Terminar sessão
+        </button></a>
     </div>
 
-    <div id="AmareloDiv" >
-        <br>
-        <a href="Perfil.html"><div  class="w3-bar-item w3-button ">Perfil Público</div></a>
-        <div class="w3-bar-item w3-button ">O seu Perfil</div>
-        <div class="w3-bar-item w3-button w3-white" id="tamanho">Especificações</div>
-        <div class="w3-bar-item w3-button ">Terminar Sessão</div>
-        <br>
-        
+    <div id="BodyDiv">
+        <a href="Perfil.html"><button class="w3-button w3-white w3-hover-indigo" id="Perfil">
+            Perfil
+        </button></a>
+
+        <a href="PerfilFeed.html"><button class="w3-button w3-white w3-hover-indigo" id="Feed">
+            Feed
+        </button></a>
+
+        <button class="w3-button w3-indigo" id="Atividades">
+            Atividades
+        </button>
+
     </div>
 
-    <div id="BrancoDiv">
-        <br>
-        <div id="area_interesse">
-            <h1> Area de Interesse : </h1>
-            <input type="text" class="w3-input" >
-        </div>
-        
-        
-        <div id="populacaoAlvo">
-            <h1>Populacao alvo:</h1>
-            <input type="text" class="w3-input" >
-        </div>
 
-        <div id="disponibilidade_diaSemana">
-            <h1>Disponibilade ( Dia() da Semana ):</h1>
-            <input type="text" class="w3-input" >
-        </div>
-
-        <div id="disponibilidade_periodoDia">
-            <h1>Disponibilade ( Periodo do Dia )</h1>
-            
-            <input type="text" class="w3-input" >
-        </div>
-
-        <div id="disponibilidade_nHoras">
-            <h1>Disponibilade ( nº de Horas ) :</h1>
-            <input type="text" class="w3-input" >
-        </div>
-    
-        
-    
-    
-        <br>
     </body>
     <footer>
         <div id="EndDiv">
@@ -98,7 +78,7 @@
             <ul id="endPaginas1">
                 <a href="Sobre.html"><li>Sobre</li></a>
                 <br>
-                <a href="#"><li>Publicações</li></a>
+                <a href="Publicacoes.html"><li>Publicações</li></a>
                 <br>
                 <a href="Covid19.html"><li>COVID-19</li></a>
             </ul>
