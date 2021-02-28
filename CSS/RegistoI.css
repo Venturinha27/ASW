@@ -1,0 +1,143 @@
+/* Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 */
+
+body {
+    background-color: #24305E;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+#navigation .w3-input {
+    background-color: white;
+}
+
+#BrancoDiv {
+    position: absolute;
+    top: 10%;
+    left: 7.5%;
+    width: 85%;
+    height: 100%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+}
+
+#BrancoDiv h2{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    text-align: center;
+}
+
+#registertext {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: fit-content;
+    background-color: yellow;
+}
+
+#divEsq{
+    position: absolute;
+    top: 0%;
+    left: 2%;
+    height: 100%;
+    width: 46%;
+}
+
+#divEsq input, label, select {
+    margin-bottom: 3%;
+    color: #24305E;
+}
+
+#divDir{
+    position: absolute;
+    top: 0%;
+    left: 52%;
+    height: 100%;
+    width: 46%;
+}
+
+#divDir input, label, select {
+    margin-bottom: 3%;
+    color: #24305E;
+}
+
+/* -----------------------------------------------Placeholder----------------------------------------- */
+
+::placeholder {
+    color: #24305E;
+    opacity: 1;
+}
+
+/* -----------------------------------------------Botão Registar----------------------------------------- */
+
+#submit{
+    margin-top: 9%;
+    margin-left: -27%;
+    padding: 9px;
+    width: 50%;
+    background-color: #f8f8f8;
+    border-color: #24305E;
+    text-align: center;
+}
+
+/* -----------------------------------------------Login----------------------------------------- */
+
+#home{
+    margin-top: 13%;
+    margin-left: -110%;
+    text-align: center;
+}
+
+/* -----------------------------------------------Fim da Página----------------------------------------- */
+
+#EndDiv{
+    margin: 0;
+    position: absolute;
+    top: 120%;
+    width: 100%;
+    height: 30%;
+    background-color: #374785;
+    color: white;
+    font-size: small;
+}
+
+.vl {
+    border-left: 4px solid white;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    top: 17%;
+  }
+
+#endContactosL{
+    position: absolute;
+    top: 21%;
+    left: 51%;
+}
+
+#endPaginas1{
+    position: absolute;
+    top: 13%;
+    left: 29%;
+}
+
+#endPaginas2{
+    position: absolute;
+    top: 23%;
+    left: 38%;
+}
+
+#endD{
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+    max-width: 50%;
+    text-align: center;
+}
