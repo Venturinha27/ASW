@@ -7,35 +7,49 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS Mensagem;
+DROP TABLE IF EXISTS Participa_em_Publicacao;
+DROP TABLE IF EXISTS Publicacao;
+DROP TABLE IF EXISTS Participou_Acao;
+DROP TABLE IF EXISTS Acao;
+DROP TABLE IF EXISTS Voluntario_Disponibilidade;
+DROP TABLE IF EXISTS Voluntario_Populacao_Alvo;
+DROP TABLE IF EXISTS Populacao_Alvo;
+DROP TABLE IF EXISTS Voluntario_Area;
+DROP TABLE IF EXISTS Area_de_Interesse;
+DROP TABLE IF EXISTS Voluntario;
+DROP TABLE IF EXISTS Instituicao;
+DROP TABLE IF EXISTS Utilizador;
+
 /* ----------------------- UTILIZADOR ----------------------- */
 
-CREATE TABLE  Utilizador {
-    id      NUMERIC(10000),
-    tipo    VARCHAR(50),
+CREATE TABLE  Utilizador (
+    id      NUMERIC(65),
+    tipo    VARCHAR(50) NOT NULL,
 --
     CONSTRAINT pk_utilizador_id
         PRIMARY KEY (id),
 --
     CONSTRAINT utilizador_tipo
         CHECK (tipo = "voluntario" OR tipo = "instituicao")
-};
+);
 
 /* ----------------------- INSTITUICAO ----------------------- */
 
 CREATE TABLE Instituicao (
-    id                      NUMERIC(10000),
-    nome_instituicao        varchar(15) UNIQUE NOT NULL,
-    descricao               varchar(240) NOT NULL,
-    telefone                numeric(15) NOT NULL,
-    morada                  varchar(100) NOT NULL,
-    distrito                varchar(50) NOT NULL,
-    concelho                varchar(50) NOT NULL,
-    freguesia               varchar(50) NOT NULL,
-    email                   nvarchar(255) NOT NULL,
-    website                 varchar(50) NOT NULL,
-    nome_representante      varchar(15) NOT NULL,
-    email_representante     nvarchar(255) NOT NULL,
-    password2               varchar(20) NOT NULL,
+    id                      NUMERIC(65),
+    nome_instituicao        VARCHAR(15) UNIQUE NOT NULL,
+    descricao               VARCHAR(240) NOT NULL,
+    telefone                NUMERIC(15) NOT NULL,
+    morada                  VARCHAR(100) NOT NULL,
+    distrito                VARCHAR(50) NOT NULL,
+    concelho                VARCHAR(50) NOT NULL,
+    freguesia               VARCHAR(50) NOT NULL,
+    email                   NVARCHAR(255) NOT NULL,
+    website                 VARCHAR(50) NOT NULL,
+    nome_representante      VARCHAR(15) NOT NULL,
+    email_representante     NVARCHAR(255) NOT NULL,
+    password2               VARCHAR(20) NOT NULL,
 
     CONSTRAINT pk_instituicao_id
         PRIMARY KEY (id),
@@ -47,20 +61,20 @@ CREATE TABLE Instituicao (
 /* ----------------------- VOLUNTARIO ----------------------- */
 
 CREATE TABLE Voluntario (
-    id                      NUMERIC(10000),
-    nome_voluntario         varchar(80) NOT NULL,
-    data_nascimento         date NOT NULL,
-    genero                  varchar(255) NOT NULL,         
-    foto                    varbinary(max) NOT NULL,    
-    concelho                varchar(50) NOT NULL,
-    distrito                varchar(50) NOT NULL,
-    freguesia               varchar(50) NOT NULL,
-    telefone                numeric(15) NOT NULL,
-    cc                      numeric(8) NOT NULL UNIQUE,
-    carta_c                 varchar(255) NOT NULL,
-    covid                   varchar(255) NOT NULL,
-    email                   nvarchar(255) NOT NULL,
-    password1               varchar(20) NOT NULL,
+    id                      NUMERIC(65),
+    nome_voluntario         VARCHAR(80) NOT NULL,
+    data_nascimento         DATE NOT NULL,
+    genero                  VARCHAR(255) NOT NULL,
+    foto                    VARBINARY(65535) NOT NULL,
+    concelho                VARCHAR(50) NOT NULL,
+    distrito                VARCHAR(50) NOT NULL,
+    freguesia               VARCHAR(50) NOT NULL,
+    telefone                NUMERIC(15) NOT NULL,
+    cc                      NUMERIC(8) NOT NULL UNIQUE,
+    carta_c                 VARCHAR(255) NOT NULL,
+    covid                   VARCHAR(255) NOT NULL,
+    email                   NVARCHAR(255) NOT NULL,
+    password1               VARCHAR(20) NOT NULL,
 
     CONSTRAINT pk_voluntario_id
         PRIMARY KEY (id),
@@ -79,7 +93,7 @@ CREATE TABLE Area_de_Interesse (
 );
 
 CREATE TABLE Voluntario_Area (
-    id_voluntario       NUMERIC(10000),
+    id_voluntario       NUMERIC(65),
     area                VARCHAR(30),
 
     CONSTRAINT pk_voluntario_area
@@ -102,7 +116,7 @@ CREATE TABLE Populacao_Alvo (
 );
 
 CREATE TABLE Voluntario_Populacao_Alvo (
-    id_voluntario       NUMERIC(10000),
+    id_voluntario       NUMERIC(65),
     populacao_alvo      VARCHAR(30),
 
     CONSTRAINT pk_voluntario_populacao_alvo
@@ -112,29 +126,29 @@ CREATE TABLE Voluntario_Populacao_Alvo (
         FOREIGN KEY (id_voluntario) REFERENCES Voluntario(id),
 
     CONSTRAINT fk_voluntario_populacao_alvo_populacao
-        FOREIGN KEY (populacao_alvo) REFERENCES Populacao_Alvo(populacao_alvo)
+        FOREIGN KEY (populacao_alvo) REFERENCES Populacao_Alvo(populacao)
 );
 
 /* ----------------------- DISPONIBILIDADE ----------------------- */
 
 CREATE TABLE Voluntario_Disponibilidade (
-    id_voluntario       NUMERIC(10000),
+    id_voluntario       NUMERIC(65),
     dia                 VARCHAR(30),
     hora                NUMERIC(3),
     duracao             NUMERIC(3),
 
-    pk_voluntario_disponibilidade
+    CONSTRAINT pk_voluntario_disponibilidade
         PRIMARY KEY (id_voluntario, dia, hora, duracao),
     
-    fk_voluntario_disponibilidade_voluntario
+    CONSTRAINT fk_voluntario_disponibilidade_voluntario
         FOREIGN KEY (id_voluntario) REFERENCES Voluntario(id)
 );
 
 /* ----------------------- ACAO ----------------------- */
 
 CREATE TABLE Acao (
-    id_instituicao      NUMERIC(10000),
-    id_acao             NUMERIC(10000),
+    id_instituicao      NUMERIC(65),
+    id_acao             NUMERIC(65),
     distrito            VARCHAR(50) NOT NULL,
     concelho            VARCHAR(50) NOT NULL,
     freguesia           VARCHAR(50) NOT NULL,
@@ -165,9 +179,9 @@ CREATE TABLE Acao (
 /* ----------------------- PARTICIPOU EM ACAO ----------------------- */
 
 CREATE TABLE Participou_Acao (
-    id_voluntario           NUMERIC(10000),
-    id_instituicao          NUMERIC(10000),
-    id_acao                 NUMERIC(10000),
+    id_voluntario           NUMERIC(65),
+    id_instituicao          NUMERIC(65),
+    id_acao                 NUMERIC(65),
 
     CONSTRAINT pk_participou_acao
         PRIMARY KEY (id_voluntario, id_instituicao, id_acao),
@@ -177,14 +191,14 @@ CREATE TABLE Participou_Acao (
 
     CONSTRAINT fk_participou_acao_acao
         FOREIGN KEY (id_instituicao, id_acao) REFERENCES Acao(id_instituicao, id_acao)
-)
+);
 
 /* ----------------------- PUBLICACOES ----------------------- */
 
 CREATE TABLE Publicacao (
-    id                  NUMERIC (10000),
-    dono                VARCHAR (50) NOT NULL,
-    imagem              varbinary(max),
+    id                  NUMERIC (65),
+    dono                NUMERIC(65) NOT NULL,
+    imagem              VARBINARY (65535),
     descricao           VARCHAR (150),
 
     CONSTRAINT pk_publicacao
@@ -195,8 +209,8 @@ CREATE TABLE Publicacao (
 );
 
 CREATE TABLE Participa_em_Publicacao (
-    id_publicacao      NUMERIC (10000);
-    participante       VARCHAR (50);
+    id_publicacao      NUMERIC (65),
+    participante       NUMERIC (65),
     
     CONSTRAINT pk_participa_em_publicacao
         PRIMARY KEY (id_publicacao, participante),
@@ -206,14 +220,14 @@ CREATE TABLE Participa_em_Publicacao (
 
     CONSTRAINT fk_participa_participante
         FOREIGN KEY (participante) REFERENCES Utilizador(id)
-)
+);
 
 /* ----------------------- MENSAGENS ----------------------- */
 
 CREATE TABLE Mensagem (
-    id                  NUMERIC (10000),
-    de                  NUMERIC (10000) NOT NULL,
-    para                NUMERIC (10000) NOT NULL,
+    id                  NUMERIC (65),
+    de                  NUMERIC (65) NOT NULL,
+    para                NUMERIC (65) NOT NULL,
     texto               VARCHAR (1000) NOT NULL,
     hora                NUMERIC (3) NOT NULL,
     minuto              NUMERIC (3) NOT NULL,
