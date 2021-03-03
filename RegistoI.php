@@ -7,7 +7,7 @@
 <title>Registo Instituição</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/RegistoI.php" type="text/css">
+<link rel="stylesheet" href="CSS/RegistoI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 </head>
 
