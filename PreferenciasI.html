@@ -7,8 +7,9 @@
 <title>Ação de Voluntariado</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/PreferenciasV.css" type="text/css">
+<link rel="stylesheet" href="CSS/PreferenciasI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+<script src="JavaScript/PreferenciasI.js"></script>
 </head>
 
 <header>
@@ -30,7 +31,7 @@
 
     <div id="BrancoDiv" class="w3-container">
 
-        <h2>Ações</h2>
+        <h2>Descrição</h2>
 
         <br>
 
@@ -39,6 +40,49 @@
             <label>Biografia (máx. 240 caracteres):</label>
                 <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre a ação..." name="" rows="3" maxlength="240" required></textarea>
                 
+            <hr>
+
+            <label>Ações promovidas pela instituição:</label>
+            <div id="acoes">
+                <div id="addacao">
+                    <h4 class="w3-button w3-block w3-center w3-indigo">Adiciona ação</h4>
+                </div>
+                
+                <div class="w3-card-4" id="card1">
+
+                    <header class="w3-container">
+                        <h3>Portugal Voluntário</h3>
+                    </header>
+                    
+                    <div class="w3-container">
+                        <h5>Compras para idosos</h5>
+                        <hr>
+                        <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
+                        <h6>Breve descrição da instituição</h6>
+                        <hr>
+                        <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
+                        <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
+                        <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
+                        <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
+                    </div>
+                    
+                    <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
+                    
+                </div>
+                
+            </div>
+
+    </form>
+
+    <form id="acaoform" class="w3-container hidden">
+
+            <header class="w3-container w3-indigo">
+                <h3>Nova ação</h3>
+            </header>
+            <br>
+
+            <input type="text" class="w3-input" id="tituloAcao" placeholder="Titulo da ação" name="" required>
+
             <hr>
 
             <label>Áreas de interesse:</label>
@@ -84,7 +128,7 @@
             <hr>
             
             <label>Distrito:</label>
-                <select class="w3-select" name="distrito">
+                <select class="w3-select sel" name="distrito">
                     <option value="" disabled selected>Selecione distrito</option>
                     <option value="Aveiro">Aveiro</option>
                     <option value="Beja">Beja</option>
@@ -111,7 +155,7 @@
             <hr>
 
             <label>Concelho: </label>
-                <select class="w3-select" name="concelho">
+                <select class="w3-select sel" name="concelho">
                     <option value="" disabled selected>Selecione concelho</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -122,7 +166,7 @@
 
 
             <label>Freguesia:</label>
-                <select class="w3-select" name="freguesia">
+                <select class="w3-select sel" name="freguesia">
                     <option value="" disabled selected>Selecione freguesia</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -138,14 +182,14 @@
             
             <label>Disponibilidade:</label>
                 <select class="w3-select disponibilidade" name="disponibilidade-dia">
-                    <option value="" disabled selected>Periodo do dia</option>
+                    <option value="" disabled selected>Dia</option>
                     <option value="segunda">Manhã</option>
                     <option value="terca">Tarde</option>
                     <option value="quarta">Noite</option>
                     
                 </select>
                 <select class="w3-select disponibilidade" name="disponibilidade-p-hora">
-                    <option value="" disabled selected>Hora de Começo</option>
+                    <option value="" disabled selected>Hora</option>
                     <option value="0">00:00</option>
                     <option value="1">01:00</option>
                     <option value="2">02:00</option>

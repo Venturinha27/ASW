@@ -1,0 +1,263 @@
+/* Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 */
+
+body {
+    background-color: #24305E;
+}
+
+#navigation {
+    background-color: white;
+    color: #24305E;
+}
+
+#navigation .w3-input {
+    background-color: white;
+}
+
+
+#BrancoDiv {
+    position: absolute;
+    top: 10%;
+    left: 3%;
+    width: 65%;
+    height: 90%;
+    overflow-y: scroll;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+}
+
+#BrancoDiv h2{
+    position: absolute;
+    top: 5%;
+    left: 0%;
+    width: 100%;
+    text-align: center;
+}
+
+#registertext {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+    height: fit-content;
+    padding-bottom: 3%;
+}
+
+#registertext label {
+    color: #24305E;
+}
+
+#registertext textarea {
+    margin-top: 3%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #24305E;
+}
+
+#registertext .sela {
+    color: #24305E;
+    width: 50%;
+    margin-top: 1%;
+}
+
+#registertext .selp {
+    color: #24305E;
+    width: 50%;
+    margin-top: 1%;
+}
+
+#registertext .disponibilidade {
+    color: #24305E;
+    width: 20%;
+}
+
+
+#acoes {
+    width: 100%;
+    height: 200%;
+    margin-top: 3%;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    border-style: solid;
+}
+
+.w3-card-4 {
+    width: 100%;
+
+    height: 385px;
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A8D0E6;
+}
+
+.w3-card-4 img{
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+}
+
+.w3-card-4 header{
+    background-color: #24305E;
+    color: white;
+}
+
+.w3-card-4 h5{
+    font-size: larger;
+    font-weight: bold;
+    padding-top: 2%;
+}
+
+.w3-card-4 h6 {
+    padding-left: 25%;
+}
+
+.w3-card-4 p {
+    padding-left: 25%;
+    font-size: smaller;
+}
+
+.w3-card-4 button{
+    background-color: #24305E;
+    color: white;
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: visible;
+}
+
+#acaoform {
+    background-color: white;
+    z-index: 5;
+    position: fixed;
+    top: 8%;
+    left: 20%;
+    width: 60%;
+    height: 85%;
+    overflow-y: scroll;
+}
+
+#acaoform .sel {
+    color: #24305E;
+    width: 50%;
+    margin-top: 1%;
+}
+
+#acaoform .disponibilidade {
+    color: #24305E;
+    width: 17%;
+}
+
+
+/* -----------------------------------------------Placeholder----------------------------------------- */
+
+::placeholder {
+    color: #24305E;
+}
+
+/* ---------------------------------------------- DIV VOLUNTARIO --------------------------------------- */
+
+#VolDiv {
+    position: absolute;
+    top: 10%;
+    left: 70%;
+    width: 27%;
+    height: 90%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+}
+
+#VolDiv h3{
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+}
+
+#VolDiv h4{
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+#VolDiv h5{
+    font-weight: bold;
+    width: 100%;
+}
+
+#VolDiv p{
+    font-size: smaller;
+}
+
+/* -----------------------------------------------Botão Registar----------------------------------------- */
+/*
+#submit{
+    margin-top: 15%;
+    margin-left: -27%;
+    padding: 9px;
+    width: 50%;
+    background-color: #f8f8f8;
+    border-color: #24305E;
+    text-align: center;
+}
+*/
+/* -----------------------------------------------Login----------------------------------------- */
+/*
+#home{
+    margin-top: 5%;
+    margin-left: -110%;
+    text-align: center;
+}
+*/
+/* -----------------------------------------------Fim da Página----------------------------------------- */
+
+#EndDiv{
+    margin: 0;
+    position: absolute;
+    top: 120%;
+    width: 100%;
+    height: 30%;
+    background-color: #374785;
+    color: white;
+    font-size: small;
+}
+
+.vl {
+    border-left: 4px solid white;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    top: 17%;
+  }
+
+#endContactosL{
+    position: absolute;
+    top: 21%;
+    left: 51%;
+}
+
+#endPaginas1{
+    position: absolute;
+    top: 13%;
+    left: 29%;
+}
+
+#endPaginas2{
+    position: absolute;
+    top: 23%;
+    left: 38%;
+}
+
+#endD{
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+    max-width: 50%;
+    text-align: center;
+}
