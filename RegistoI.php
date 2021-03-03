@@ -7,7 +7,7 @@
 <title>Registo Instituição</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/RegistoI.css" type="text/css">
+<link rel="stylesheet" href="CSS/RegistoI.php" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 </head>
 
@@ -34,13 +34,13 @@
 
         <br>
 
-    <form id="registertext">
+    <form id="registertext" action="RegistoI.php" method="post">
         <div id="divEsq">
             <input type="text" class="w3-input" id="nomeInstituicao" placeholder="Nome da Instituição" name="nomeInstituicao" required>
 
             <input type="text" class="w3-input" id="telefone" placeholder="Telemóvel/Telefone" name="telefone" required>
 
-            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada required>
+            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
 
             <input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito" required>
             
@@ -51,7 +51,7 @@
         </div>
         <div id="divDir">
             
-            <input type="text" class="w3-input" id="E-mail" placeholder="E-mail da Instituição" name="E-mail" required>
+            <input type="text" class="w3-input" id="E-mail" placeholder="E-mail da Instituição" name="email" required>
             
             <input type="text" class="w3-input" id="website" placeholder="Website" name="website">
             
@@ -61,12 +61,43 @@
             
             <input type="password" class="w3-input" id="password" placeholder="Palavra-Passe" name="password" required>
             
-            <input id="submit" type="submit" name="" value="Registo">
+            <input id="submit" type="submit" value="Registo">
 
             <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a></p>
         </div>
 
     </form>
+
+    <?php
+        include "openconn.php";
+
+        $nomeInstituicao = $_POST['nomeInstituicao'];
+        $telefone = $_POST['telefone'];
+        $morada = $_POST['morada'];
+        $distrito = $_POST['distrito'];
+        $concelho = $_POST['concelho'];
+        $freguesia = $_POST['freguesia'];
+        $email = $_POST['email'];
+        $website = $_POST['website'];
+        $nomeRepresentante = $_POST['nomeRepresentante'];
+        $nomeInstituicao = $_POST['nomeInstituicao'];
+        $password = $_POST['password'];
+
+        echo $nomeInstituicao;
+        echo $telefone;
+        echo $morada;
+        echo $distrito;
+        echo $concelho;
+        echo $freguesia;
+        echo $email;
+        echo $website;
+        echo $nomeRepresentante;
+        echo $nomeInstituicao;
+        echo $password;
+    ?>
+
+
+
     </div>
 
     <div id="VolDiv" class="w3-container">
