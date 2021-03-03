@@ -54,9 +54,16 @@ body {
     border-color: #24305E;
 }
 
-#registertext .sel {
+#registertext .sela {
     color: #24305E;
-    width: 65%;
+    width: 50%;
+    margin-top: 1%;
+}
+
+#registertext .selp {
+    color: #24305E;
+    width: 50%;
+    margin-top: 1%;
 }
 
 #registertext .disponibilidade {
