@@ -13,14 +13,13 @@ body {
     background-color: white;
 }
 
-/* ---------------------------------------------- DIV FORM --------------------------------------- */
-
 #BrancoDiv {
     position: absolute;
     top: 10%;
     left: 3%;
     width: 65%;
     height: 90%;
+    overflow-y: scroll;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
@@ -28,7 +27,7 @@ body {
 
 #BrancoDiv h2{
     position: absolute;
-    top: 3%;
+    top: 5%;
     left: 0%;
     width: 100%;
     text-align: center;
@@ -36,52 +35,41 @@ body {
 
 #registertext {
     position: absolute;
-    top: 17%;
+    top: 20%;
     left: 10%;
     width: 80%;
     height: fit-content;
-    background-color: yellow;
+    padding-bottom: 3%;
 }
 
-#divEsq{
-    position: absolute;
-    top: 0%;
-    left: 2%;
-    height: 100%;
-    width: 46%;
-}
-
-#divEsq input, label, select {
-    margin-bottom: 3%;
+#registertext label {
     color: #24305E;
 }
 
-#divDir{
-    position: absolute;
-    top: 0%;
-    left: 52%;
-    height: 100%;
-    width: 46%;
+#registertext textarea {
+    margin-top: 3%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #24305E;
 }
 
-#divDir input, label, select {
-    margin-bottom: 3%;
+#registertext .sel {
     color: #24305E;
+    width: 65%;
 }
 
-/* -----------------------------------------------Pormenores----------------------------------------- */
+#registertext .disponibilidade {
+    color: #24305E;
+    width: 20%;
+}
+
+
+
+/* -----------------------------------------------Placeholder----------------------------------------- */
 
 ::placeholder {
     color: #24305E;
-    opacity: 1;
-}
-
-#dataNascimento{
-    color: #24305E;
-}
-
-#avatar{
-    width: 100%;
 }
 
 /* ---------------------------------------------- DIV VOLUNTARIO --------------------------------------- */
@@ -119,9 +107,9 @@ body {
 }
 
 /* -----------------------------------------------Botão Registar----------------------------------------- */
-
+/*
 #submit{
-    margin-top: 18%;
+    margin-top: 15%;
     margin-left: -27%;
     padding: 9px;
     width: 50%;
@@ -129,15 +117,15 @@ body {
     border-color: #24305E;
     text-align: center;
 }
-
+*/
 /* -----------------------------------------------Login----------------------------------------- */
-
+/*
 #home{
     margin-top: 5%;
     margin-left: -110%;
     text-align: center;
 }
-
+*/
 /* -----------------------------------------------Fim da Página----------------------------------------- */
 
 #EndDiv{
