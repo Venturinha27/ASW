@@ -11,6 +11,10 @@
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 </head>
 
+<?php
+    session_start();
+?>
+
 <header>
     <div class="w3-bar w3-large" id="navigation">
         <a href="HomePage.html" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
@@ -57,7 +61,7 @@
             
             <input type="text" class="w3-input" id="nomeRepresentante" placeholder="Nome do Representante da Instituição" name="nomeRepresentante" required>
             
-            <input type="text" class="w3-input" id="emailRepresentante" placeholder="E-mail do Representante da Instituição" name="nomeInstituicao" required>
+            <input type="text" class="w3-input" id="emailRepresentante" placeholder="E-mail do Representante da Instituição" name="emailInstituicao" required>
             
             <input type="password" class="w3-input" id="password" placeholder="Palavra-Passe" name="password" required>
             
@@ -80,20 +84,25 @@
         $email = $_POST['email'];
         $website = $_POST['website'];
         $nomeRepresentante = $_POST['nomeRepresentante'];
-        $nomeInstituicao = $_POST['nomeInstituicao'];
+        $emailInstituicao = $_POST['emailInstituicao'];
         $password = $_POST['password'];
 
-        echo $nomeInstituicao;
-        echo $telefone;
-        echo $morada;
-        echo $distrito;
-        echo $concelho;
-        echo $freguesia;
-        echo $email;
-        echo $website;
-        echo $nomeRepresentante;
-        echo $nomeInstituicao;
-        echo $password;
+        $_SESSION['nomeInstituicao'] = $nomeInstituicao;
+        $_SESSION['telefone'] = $telefone;
+        $_SESSION['morada'] = $morada;
+        $_SESSION['distrito'] = $distrito;
+        $_SESSION['concelho'] = $concelho;
+        $_SESSION['freguesia'] = $freguesia;
+        $_SESSION['email'] = $email;
+        $_SESSION['website'] = $website;
+        $_SESSION['nomeRepresentante'] = $nomeRepresentante;
+        $_SESSION['emailInstituicao'] = $emailInstituicao;
+        $_SESSION['password'] = $password;
+
+        if ($nomeInstituicao != '') {
+            header("Location: PreferenciasI.php");
+        }
+
     ?>
 
 

@@ -12,6 +12,10 @@
 <script src="JavaScript/PreferenciasI.js"></script>
 </head>
 
+<?php
+    session_start();
+?>
+
 <header>
     <div class="w3-bar w3-large" id="navigation">
         <a href="HomePage.html" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
@@ -250,6 +254,8 @@
             <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a></p>
 
     </form>
+
+    
     </div>
 
     <div id="VolDiv" class="w3-container">
@@ -259,6 +265,23 @@
         <hr>
 
         <h5>O que são instituições de voluntariado?</h5>
+
+        <?php
+            include "openconn.php";
+
+            echo "<p>" . $_SESSION['nomeInstituicao'] .
+            $_SESSION['telefone'] .
+            $_SESSION['morada'] .
+            $_SESSION['distrito'] .
+            $_SESSION['concelho'] .
+            $_SESSION['freguesia'] .
+            $_SESSION['email'] .
+            $_SESSION['website'] .
+            $_SESSION['nomeRepresentante'] .
+            $_SESSION['emailInstituicao'] .
+            $_SESSION['password'] . "</p>"
+
+        ?>
 
         <p>As instituições de Voluntariado são um espaço de encontro entre as pessoas que expressam a sua disponibilidade e vontade para serem voluntárias e as organizações promotoras, interessadas em integrar voluntários/as nos seus projetos e coordenar o exercício da sua atividade.</p>
 
