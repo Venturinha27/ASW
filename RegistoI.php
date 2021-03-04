@@ -1,4 +1,8 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -10,10 +14,6 @@
 <link rel="stylesheet" href="CSS/RegistoI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 </head>
-
-<?php
-    session_start();
-?>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -75,17 +75,33 @@
     <?php
         include "openconn.php";
 
-        $nomeInstituicao = $_POST['nomeInstituicao'];
+        $nomeInstituicao = $_POST['nomeInstituicao']; #unique
         $telefone = $_POST['telefone'];
         $morada = $_POST['morada'];
         $distrito = $_POST['distrito'];
         $concelho = $_POST['concelho'];
         $freguesia = $_POST['freguesia'];
         $email = $_POST['email'];
-        $website = $_POST['website'];
+        $website = $_POST['website']; # pode ser null
         $nomeRepresentante = $_POST['nomeRepresentante'];
         $emailInstituicao = $_POST['emailInstituicao'];
         $password = $_POST['password'];
+
+        $check = TRUE;
+
+        $sqlNome = "SELECT nome_instituicao
+                    FROM Instituicao";    
+
+        $resultN = $conn->query($sql1);
+
+        if ($resultN->num_rows > 0) {
+            while ($row = $resultN->fetch_assoc()){
+                if ($row["nome_instituicao"] == $nomeInstituicao){
+                    $check = FALSE;
+                }
+            }
+        }
+
 
         $_SESSION['nomeInstituicao'] = $nomeInstituicao;
         $_SESSION['telefone'] = $telefone;
@@ -98,10 +114,6 @@
         $_SESSION['nomeRepresentante'] = $nomeRepresentante;
         $_SESSION['emailInstituicao'] = $emailInstituicao;
         $_SESSION['password'] = $password;
-
-        if ($nomeInstituicao != '') {
-            header("Location: PreferenciasI.php");
-        }
 
     ?>
 

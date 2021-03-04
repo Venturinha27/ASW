@@ -1,4 +1,8 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -12,9 +16,7 @@
 <script src="JavaScript/PreferenciasI.js"></script>
 </head>
 
-<?php
-    session_start();
-?>
+
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -42,7 +44,7 @@
     <form id="registertext">
 
             <label>Biografia (máx. 240 caracteres):</label>
-                <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre a ação..." name="" rows="3" maxlength="240" required></textarea>
+                <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre a instituição..." name="" rows="3" maxlength="240" required></textarea>
                 
             <hr>
 
@@ -52,7 +54,7 @@
                     <h4 class="w3-button w3-block w3-center w3-indigo">Adiciona ação</h4>
                 </div>
                 
-                <div class="w3-card-4" id="card1">
+                <div class="w3-card-4 hidden" id="card1">
 
                     <header class="w3-container">
                         <h3>Portugal Voluntário</h3>
@@ -75,6 +77,8 @@
                 </div>
                 
             </div>
+
+            <input class="w3-button w3-display-center" type="submit" value="Submit">
 
     </form>
 

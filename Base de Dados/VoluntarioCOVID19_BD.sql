@@ -46,7 +46,7 @@ CREATE TABLE Instituicao (
     concelho                VARCHAR(50) NOT NULL,
     freguesia               VARCHAR(50) NOT NULL,
     email                   NVARCHAR(255) NOT NULL,
-    website                 VARCHAR(50) NOT NULL,
+    website                 VARCHAR(50),
     nome_representante      VARCHAR(15) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
     password2               VARCHAR(20) NOT NULL,
