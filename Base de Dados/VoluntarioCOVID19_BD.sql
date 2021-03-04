@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS Utilizador;
 /* ----------------------- UTILIZADOR ----------------------- */
 
 CREATE TABLE  Utilizador (
-    id      NUMERIC(65),
+    id      VARCHAR(65),
     tipo    VARCHAR(50) NOT NULL,
 --
     CONSTRAINT pk_utilizador_id
@@ -37,19 +37,19 @@ CREATE TABLE  Utilizador (
 /* ----------------------- INSTITUICAO ----------------------- */
 
 CREATE TABLE Instituicao (
-    id                      NUMERIC(65),
+    id                      VARCHAR(65),
     nome_instituicao        VARCHAR(15) UNIQUE NOT NULL,
-    descricao               VARCHAR(240) NOT NULL,
     telefone                NUMERIC(15) NOT NULL,
     morada                  VARCHAR(100) NOT NULL,
     distrito                VARCHAR(50) NOT NULL,
     concelho                VARCHAR(50) NOT NULL,
     freguesia               VARCHAR(50) NOT NULL,
-    email                   NVARCHAR(255) NOT NULL,
-    website                 VARCHAR(50),
+    email                   NVARCHAR(255) UNIQUE NOT NULL,
+    bio                     VARCHAR(240) NOT NULL,
     nome_representante      VARCHAR(15) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
     password2               VARCHAR(20) NOT NULL,
+    website                 VARCHAR(50),
 
     CONSTRAINT pk_instituicao_id
         PRIMARY KEY (id),
@@ -61,7 +61,7 @@ CREATE TABLE Instituicao (
 /* ----------------------- VOLUNTARIO ----------------------- */
 
 CREATE TABLE Voluntario (
-    id                      NUMERIC(65),
+    id                      VARCHAR(65),
     nome_voluntario         VARCHAR(80) NOT NULL,
     data_nascimento         DATE NOT NULL,
     genero                  VARCHAR(255) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE Area_de_Interesse (
 );
 
 CREATE TABLE Voluntario_Area (
-    id_voluntario       NUMERIC(65),
+    id_voluntario       VARCHAR(65),
     area                VARCHAR(30),
 
     CONSTRAINT pk_voluntario_area
@@ -116,7 +116,7 @@ CREATE TABLE Populacao_Alvo (
 );
 
 CREATE TABLE Voluntario_Populacao_Alvo (
-    id_voluntario       NUMERIC(65),
+    id_voluntario       VARCHAR(65),
     populacao_alvo      VARCHAR(30),
 
     CONSTRAINT pk_voluntario_populacao_alvo
@@ -132,7 +132,7 @@ CREATE TABLE Voluntario_Populacao_Alvo (
 /* ----------------------- DISPONIBILIDADE ----------------------- */
 
 CREATE TABLE Voluntario_Disponibilidade (
-    id_voluntario       NUMERIC(65),
+    id_voluntario       VARCHAR(65),
     dia                 VARCHAR(30),
     hora                NUMERIC(3),
     duracao             NUMERIC(3),
@@ -147,8 +147,8 @@ CREATE TABLE Voluntario_Disponibilidade (
 /* ----------------------- ACAO ----------------------- */
 
 CREATE TABLE Acao (
-    id_instituicao      NUMERIC(65),
-    id_acao             NUMERIC(65),
+    id_instituicao      VARCHAR(65),
+    id_acao             VARCHAR(65),
     distrito            VARCHAR(50) NOT NULL,
     concelho            VARCHAR(50) NOT NULL,
     freguesia           VARCHAR(50) NOT NULL,
@@ -179,9 +179,9 @@ CREATE TABLE Acao (
 /* ----------------------- PARTICIPOU EM ACAO ----------------------- */
 
 CREATE TABLE Participou_Acao (
-    id_voluntario           NUMERIC(65),
-    id_instituicao          NUMERIC(65),
-    id_acao                 NUMERIC(65),
+    id_voluntario           VARCHAR(65),
+    id_instituicao          VARCHAR(65),
+    id_acao                 VARCHAR(65),
 
     CONSTRAINT pk_participou_acao
         PRIMARY KEY (id_voluntario, id_instituicao, id_acao),
@@ -196,8 +196,8 @@ CREATE TABLE Participou_Acao (
 /* ----------------------- PUBLICACOES ----------------------- */
 
 CREATE TABLE Publicacao (
-    id                  NUMERIC (65),
-    dono                NUMERIC(65) NOT NULL,
+    id                  VARCHAR (65),
+    dono                VARCHAR(65) NOT NULL,
     imagem              VARBINARY (65535),
     descricao           VARCHAR (150),
 
@@ -209,8 +209,8 @@ CREATE TABLE Publicacao (
 );
 
 CREATE TABLE Participa_em_Publicacao (
-    id_publicacao      NUMERIC (65),
-    participante       NUMERIC (65),
+    id_publicacao      VARCHAR (65),
+    participante       VARCHAR (65),
     
     CONSTRAINT pk_participa_em_publicacao
         PRIMARY KEY (id_publicacao, participante),
@@ -225,9 +225,9 @@ CREATE TABLE Participa_em_Publicacao (
 /* ----------------------- MENSAGENS ----------------------- */
 
 CREATE TABLE Mensagem (
-    id                  NUMERIC (65),
-    de                  NUMERIC (65) NOT NULL,
-    para                NUMERIC (65) NOT NULL,
+    id                  VARCHAR (65),
+    de                  VARCHAR (65) NOT NULL,
+    para                VARCHAR (65) NOT NULL,
     texto               VARCHAR (1000) NOT NULL,
     hora                NUMERIC (3) NOT NULL,
     minuto              NUMERIC (3) NOT NULL,

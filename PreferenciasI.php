@@ -42,9 +42,6 @@
         <br>
 
     <form id="registertext">
-
-            <label>Biografia (máx. 240 caracteres):</label>
-                <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre a instituição..." name="" rows="3" maxlength="240" required></textarea>
                 
             <hr>
 
@@ -82,19 +79,19 @@
 
     </form>
 
-    <form id="acaoform" class="w3-container hidden">
+    <form id="acaoform" class="w3-container hidden" action="PreferenciasI.php" method="post">
 
             <header class="w3-container w3-indigo">
                 <h3>Nova ação</h3>
             </header>
             <br>
 
-            <input type="text" class="w3-input" id="tituloAcao" placeholder="Titulo da ação" name="" required>
+            <input type="text" class="w3-input" id="tituloAcao" placeholder="Titulo da ação" name="titulo" required>
 
             <hr>
 
             <label>Áreas de interesse:</label>
-                <select class="w3-select sel" name="area-interesse">
+                <select class="w3-select sel" name="area-interesse" required>
                     <option value="" disabled selected>Selecione as suas áreas de interesse</option>
                     <option value="acao-social">Ação social</option>
                     <option value="educacao">Educação</option>
@@ -104,7 +101,7 @@
             <hr>
             
             <label>População-alvo:</label>
-                <select class="w3-select sel" name="populacao-alvo">
+                <select class="w3-select sel" name="populacao-alvo" required>
                     <option value="" disabled selected>Selecione a sua população-alvo</option>
                     <option value="indiferente">Indiferente</option>
                     <option value="criancas">Crianças</option>
@@ -119,7 +116,7 @@
             <hr>
             
             <label>Função: </label>
-                <select class="w3-select sel" name="populacao-alvo">
+                <select class="w3-select sel" name="funcao" required>
                     <option value="" disabled selected>Selecione a função</option>
                     <option value="Entrega ao Domicilio de bens não alimentares">Entrega ao Domicilio</option>
                     <option value="Entrega de Bens Alimentares">Entrega de Bens Alimentares</option>
@@ -136,7 +133,7 @@
             <hr>
             
             <label>Distrito:</label>
-                <select class="w3-select sel" name="distrito">
+                <select class="w3-select sel" name="distrito" required>
                     <option value="" disabled selected>Selecione distrito</option>
                     <option value="Aveiro">Aveiro</option>
                     <option value="Beja">Beja</option>
@@ -163,7 +160,7 @@
             <hr>
 
             <label>Concelho: </label>
-                <select class="w3-select sel" name="concelho">
+                <select class="w3-select sel" name="concelho" required>
                     <option value="" disabled selected>Selecione concelho</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -174,7 +171,7 @@
 
 
             <label>Freguesia:</label>
-                <select class="w3-select sel" name="freguesia">
+                <select class="w3-select sel" name="freguesia" required>
                     <option value="" disabled selected>Selecione freguesia</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -184,19 +181,23 @@
             <hr>
 
             <label>Número de Vagas:</label>
-                <input type="number" id="nVagas" name="vagas" min="1" max="1000">
+                <input type="number" id="nVagas" name="vagas" min="1" max="1000" required>
             
             <hr>
             
             <label>Disponibilidade:</label>
-                <select class="w3-select disponibilidade" name="disponibilidade-dia">
+                <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
                     <option value="" disabled selected>Dia</option>
-                    <option value="segunda">Manhã</option>
-                    <option value="terca">Tarde</option>
-                    <option value="quarta">Noite</option>
+                    <option value="segunda">Segunda</option>
+                    <option value="terca">Terça</option>
+                    <option value="quarta">Quarta</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="sexta">Sexta</option>
+                    <option value="sabado">Sábado</option>
+                    <option value="domingo">Domingo</option>
                     
                 </select>
-                <select class="w3-select disponibilidade" name="disponibilidade-p-hora">
+                <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
                     <option value="" disabled selected>Hora</option>
                     <option value="0">00:00</option>
                     <option value="1">01:00</option>
@@ -223,7 +224,7 @@
                     <option value="22">22:00</option>
                     <option value="23">23:00</option>
                 </select>
-                <select class="w3-select disponibilidade" name="disponibilidade-p-dia">
+                <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
                     <option value="" disabled selected>Duração</option>
                     <option value="1">01:00</option>
                     <option value="2">02:00</option>
@@ -234,7 +235,7 @@
                     <option value="7">07:00</option>
                     <option value="8">08:00</option>
                 </select>
-                <select class="w3-select disponibilidade" name="disponibilidade-p-dia">
+                <select class="w3-select disponibilidade" name="disponibilidade-semana" required>
                     <option value="" disabled selected>Semana</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -248,17 +249,32 @@
             
             
             <label>Número de Horas Total do Voluntariado:</label>
-                <input type="number" id="nHoras" name="horas" min="1" max="1000">
+                <input type="number" id="nHoras" name="horas" min="1" max="1000" required>
             
             <hr>
     
 
-            <input class="w3-blue" id="submit" type="submit" name="" value="Registo">
-
-            <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a></p>
+            <input class="w3-blue" id="submit" type="submit" value="Criar ação">
 
     </form>
 
+    <?php
+        include "openconn.php";
+
+        $titulo = $_POST['titulo']; 
+        $area_interesse = $_POST['area-interesse'];
+        $populacao_alvo = $_POST['populacao-alvo'];
+        $funcao = $_POST['funcao']; 
+        $distrito = $_POST['distrito'];
+        $concelho = $_POST['concelho'];
+        $freguesia = $_POST['freguesia'];
+        $vagas = $_POST['vagas']; 
+        $disponibilidade_dia = $_POST['disponibilidade-dia'];
+        $disponibilidade_hora = $_POST['disponibilidade-hora'];
+        $disponibilidade_duracao = $_POST['disponibilidade-duracao'];
+        $disponibilidade_semana = $_POST['disponibilidade-semana'];
+        $horas = $_POST['horas'];
+    ?>
     
     </div>
 
@@ -269,23 +285,6 @@
         <hr>
 
         <h5>O que são instituições de voluntariado?</h5>
-
-        <?php
-            include "openconn.php";
-
-            echo "<p>" . $_SESSION['nomeInstituicao'] .
-            $_SESSION['telefone'] .
-            $_SESSION['morada'] .
-            $_SESSION['distrito'] .
-            $_SESSION['concelho'] .
-            $_SESSION['freguesia'] .
-            $_SESSION['email'] .
-            $_SESSION['website'] .
-            $_SESSION['nomeRepresentante'] .
-            $_SESSION['emailInstituicao'] .
-            $_SESSION['password'] . "</p>"
-
-        ?>
 
         <p>As instituições de Voluntariado são um espaço de encontro entre as pessoas que expressam a sua disponibilidade e vontade para serem voluntárias e as organizações promotoras, interessadas em integrar voluntários/as nos seus projetos e coordenar o exercício da sua atividade.</p>
 

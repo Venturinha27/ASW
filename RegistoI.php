@@ -44,80 +44,115 @@
 
             <input type="text" class="w3-input" id="telefone" placeholder="Telemóvel/Telefone" name="telefone" required>
 
+            <input type="text" class="w3-input" id="E-mail" placeholder="E-mail da Instituição" name="email" required>
+
+            <input type="password" class="w3-input" id="password" placeholder="Palavra-Passe" name="password" required>
+            
+            <input type="text" class="w3-input" id="website" placeholder="Website" name="website">
+
+            <textarea type="text" class="w3-input" id="biografia" placeholder="Escreva uma pequena bio sobre a instituição..." name="bio" rows="3" maxlength="240" required></textarea>
+        </div>
+        <div id="divDir">
+                
             <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
 
             <input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito" required>
-            
+
             <input type="text" class="w3-input" id="concelho" placeholder="Concelho" name="concelho" required>
 
             <input type="text" class="w3-input" id="freguesia" placeholder="Freguesia" name="freguesia" required>
             
-        </div>
-        <div id="divDir">
-            
-            <input type="text" class="w3-input" id="E-mail" placeholder="E-mail da Instituição" name="email" required>
-            
-            <input type="text" class="w3-input" id="website" placeholder="Website" name="website">
-            
             <input type="text" class="w3-input" id="nomeRepresentante" placeholder="Nome do Representante da Instituição" name="nomeRepresentante" required>
             
-            <input type="text" class="w3-input" id="emailRepresentante" placeholder="E-mail do Representante da Instituição" name="emailInstituicao" required>
-            
-            <input type="password" class="w3-input" id="password" placeholder="Palavra-Passe" name="password" required>
+            <input type="text" class="w3-input" id="emailRepresentante" placeholder="E-mail do Representante da Instituição" name="emailRepresentante" required>
             
             <input id="submit" type="submit" value="Registo">
+
+            <?php
+                include "openconn.php";
+
+                if ($_POST['nomeInstituicao'] != ''){
+
+                    $id = uniqid();
+                    $nomeInstituicao = $_POST['nomeInstituicao']; #unique
+                    $telefone = $_POST['telefone'];
+                    $morada = $_POST['morada'];
+                    $distrito = $_POST['distrito'];
+                    $concelho = $_POST['concelho'];
+                    $freguesia = $_POST['freguesia'];
+                    $email = $_POST['email']; #unique
+                    $nomeRepresentante = $_POST['nomeRepresentante'];
+                    $emailRepresentante = $_POST['emailRepresentante'];
+                    $password = $_POST['password'];
+                    $bio = $_POST['bio'];
+                    $website = $_POST['website']; # pode ser null
+
+                    $check = 0;
+
+                    $sqlNome = "SELECT nome_instituicao, email
+                                FROM Instituicao";    
+
+                    $resultN = $conn->query($sqlNome);
+
+                    if ($resultN->num_rows > 0) {
+
+                        while ($row = $resultN->fetch_assoc()){
+                            echo "<p class='w3-blue w3-center'>".$row['nome_instituicao']." </p>";
+                            echo "<p class='w3-blue w3-center'> $nomeInstituicao </p>";
+                            if ($row["nome_instituicao"] != $nomeInstituicao and $row["email"] != $email){
+                                if (filter_var($email, FILTER_VALIDATE_EMAIL) and filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL)){
+                                    $check = 1;
+                                } else {
+                                    echo "<p class='w3-red w3-center'> Insira um e-mail válido </p>";
+                                }
+                            } else {
+                                echo "<p class='w3-red w3-center'> Username ou email já existe </p>";
+                            }
+                        }
+                    } else {
+                        echo "<p class='w3-green w3-center'>".$row['nome_instituicao']." </p>";
+                        $check = 1;
+                    }
+
+                    echo "<p class='w3-green w3-center'>".$check." </p>";
+
+                    if ($check == 1){
+
+                        $query1 = "insert into Utilizador
+                                values ('".$id."' , 'instituicao')";
+                        
+                        $res1 = mysqli_query($conn, $query1);
+                        
+                        if ($res1) {
+                        } else {
+                            echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
+                        }
+
+
+                        $query = "insert into Instituicao
+                                values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
+                                .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
+                                .$nomeRepresentante."' , '".$emailRepresentante."' , '".$password."' , '".$website."')";
+                        
+                        $res = mysqli_query($conn, $query);
+                        
+                        if ($res) {
+                            $_SESSION['loggedtype'] = "instituicao";
+                            $_SESSION['logged'] = $nomeInstituicao;
+                            header("Location: PreferenciasI.php");
+                        } else {
+                            echo "<p class='w3-red w3-center'> Algo correu mal :( </p>";
+                        }
+
+                        mysqli_close($conn);
+                }
+                }
+            ?>
 
             <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a></p>
         </div>
 
     </form>
-
-    <?php
-        include "openconn.php";
-
-        $nomeInstituicao = $_POST['nomeInstituicao']; #unique
-        $telefone = $_POST['telefone'];
-        $morada = $_POST['morada'];
-        $distrito = $_POST['distrito'];
-        $concelho = $_POST['concelho'];
-        $freguesia = $_POST['freguesia'];
-        $email = $_POST['email'];
-        $website = $_POST['website']; # pode ser null
-        $nomeRepresentante = $_POST['nomeRepresentante'];
-        $emailInstituicao = $_POST['emailInstituicao'];
-        $password = $_POST['password'];
-
-        $check = TRUE;
-
-        $sqlNome = "SELECT nome_instituicao
-                    FROM Instituicao";    
-
-        $resultN = $conn->query($sql1);
-
-        if ($resultN->num_rows > 0) {
-            while ($row = $resultN->fetch_assoc()){
-                if ($row["nome_instituicao"] == $nomeInstituicao){
-                    $check = FALSE;
-                }
-            }
-        }
-
-
-        $_SESSION['nomeInstituicao'] = $nomeInstituicao;
-        $_SESSION['telefone'] = $telefone;
-        $_SESSION['morada'] = $morada;
-        $_SESSION['distrito'] = $distrito;
-        $_SESSION['concelho'] = $concelho;
-        $_SESSION['freguesia'] = $freguesia;
-        $_SESSION['email'] = $email;
-        $_SESSION['website'] = $website;
-        $_SESSION['nomeRepresentante'] = $nomeRepresentante;
-        $_SESSION['emailInstituicao'] = $emailInstituicao;
-        $_SESSION['password'] = $password;
-
-    ?>
-
-
 
     </div>
 
