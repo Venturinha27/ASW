@@ -110,18 +110,18 @@
 
                     $check = 0;
 
-                    $sqlNome = "SELECT nome_instituicao, email
-                                FROM Instituicao";    
+                    $sqlNome = "SELECT nome_voluntario, email
+                                FROM Voluntario";    
 
                     $resultN = $conn->query($sqlNome);
 
                     if ($resultN->num_rows > 0) {
 
                         while ($row = $resultN->fetch_assoc()){
-                            echo "<p class='w3-blue w3-center'>".$row['nome_instituicao']." </p>";
-                            echo "<p class='w3-blue w3-center'> $nomeInstituicao </p>";
-                            if ($row["nome_instituicao"] != $nomeInstituicao and $row["email"] != $email){
-                                if (filter_var($email, FILTER_VALIDATE_EMAIL) and filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL)){
+                            echo "<p class='w3-blue w3-center'>".$row['nomeProprio']." </p>";
+                            echo "<p class='w3-blue w3-center'> $nomeProprio </p>";
+                            if ($row["nome_instituicao"] != $nomeProprio and $row["email"] != $email){
+                                if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                                     $check = 1;
                                 } else {
                                     echo "<p class='w3-red w3-center'> Insira um e-mail válido </p>";
