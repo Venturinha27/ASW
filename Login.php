@@ -36,13 +36,46 @@
 
     </div>
 <?php
-    include "openconn.php";
 
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $email = $_POST["email"];
 
-    
+    if (!empty($_POST)) {
+ 
+        // estabelecer ligação com a base de dados
+        include "openconn.php";
+     
+        // receber o pedido de login com segurança
+        $username = mysql_real_escape_string($_POST['username']);
+        $password = sha1($_POST['password']);
+        $email = $_POST["email"];
+     
+        // verificar o utilizador em questão (pretendemos obter uma única linha de registos)
+        $login = mysql_query("SELECT nome_instituicao, email, password2 FROM Instituicao WHERE (nome_instituicao = '$username' OR email = '$username')  AND password2 = '$password'");
+        $loginV = mysql_query("SELECT nome_voluntario, email, password1 FROM Voluntario WHERE (nome_voluntario = '$username' OR email = '$username')  AND password1 = '$password'");
+        if ($login && mysql_num_rows($login) == 1) {
+     
+            // o utilizador está correctamente validado
+            // guardamos as suas informações numa sessão
+            $_SESSION['nome_instituicao'] = mysql_result($login, 0, 0);
+            echo "<p>Sessao iniciada com sucesso como {$_SESSION['nome_instituicao']}</p>";
+            header("Location: HomePage.html");
+        } else {
+     
+            // falhou o login
+            echo "<p>Utilizador ou password invalidos. <a href=\"Login.php\">Tente novamente</a></p>";
+        }
+        if ($loginV && mysql_num_rows($loginV) == 1) {
+     
+            // o utilizador está correctamente validado
+            // guardamos as suas informações numa sessão
+            $_SESSION['nome_voluntario'] = mysql_result($loginV, 0, 0);
+     
+            echo "<p>Sessao iniciada com sucesso como {$_SESSION['nome_voluntario']}</p>";
+        } else {
+     
+            // falhou o login
+            echo "<p>Utilizador ou password invalidos. <a href=\"Login.php\">Tente novamente</a></p>";
+        }
+    }
 
     
 
