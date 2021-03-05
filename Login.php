@@ -68,8 +68,9 @@
             // o utilizador está correctamente validado
             // guardamos as suas informações numa sessão
             $_SESSION['nome_voluntario'] = mysql_result($loginV, 0, 0);
-     
             echo "<p>Sessao iniciada com sucesso como {$_SESSION['nome_voluntario']}</p>";
+            header("Location: HomePage.html");
+            
         } else {
      
             // falhou o login
