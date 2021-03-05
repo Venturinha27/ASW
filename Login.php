@@ -1,4 +1,8 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <title>Login</title>
@@ -20,18 +24,29 @@
                 <h1 class="w3-center"><i class="fa fa-user-circle"></i></h1>
             </div>
             <br><br>
-            <input class="w3-input w3-large" id="username" type="text" placeholder="Nome de utilizador ou e-mail" required>
+            <input class="w3-input w3-large" id="username" type="text" placeholder="Nome de utilizador ou e-mail" name="username" required>
             <br><br>
-            <input class="w3-input w3-large" id="userpw" type="password" placeholder="Password" required>
+            <input class="w3-input w3-large" id="userpw" type="password" placeholder="Password"  name="password" required>
             <br><br>
-            <input class="w3-large w3-indigo" id="submit" type="submit" name="" value="Entrar" href="HomePage.html">
+            <input class="w3-large w3-indigo" id="submit" type="submit" name="" value="Entrar"  name="email"href="HomePage.html">
             <br><br>
             <a class="w3-right" href="Registo.html" id="register">Ainda não tem conta? Registe-se aqui!</a>
         
         </form>
 
     </div>
+<?php
+    include "openconn.php";
+
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $email = $_POST["email"];
+
     
+
+    
+
+?>
     
     <footer>Todos os direitos reservados a Tiago Teodoro, Gonçalo Ventura, Renato Ramires e Margarida Rodrigues.</footer>
 

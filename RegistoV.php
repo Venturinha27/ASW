@@ -149,22 +149,25 @@
                             echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
                         }
 
-
+                        
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , ".$dataNascimento." , '".$genero."' , '"
-                                .$avatar."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , '".$telefone."' , '"
-                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
+                                .$avatar."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , "
+                                .$CC." , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
                         
-
+        
+                        
                         
                         $res = mysqli_query($conn, $query);
                         
                         if ($res) {
+                            echo "goncalo";
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $nomeProprio;
+                            $_SESSION['loggedid'] = $id;
                             header("Location: PreferenciasV.php");
                         } else {
-                            echo "<p class='w3-red w3-center'> Algo correu mal :( </p>";
+                            echo "<p class='w3-red'>Erro: insert failed" . $query . "<br>" . mysqli_error($conn)."</p>";
                         }
 
                         mysqli_close($conn);
