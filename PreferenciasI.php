@@ -37,11 +37,11 @@
 
     <div id="BrancoDiv" class="w3-container">
 
-        <h2>Descrição</h2>
+        <h2>Adicione ações à sua instituição</h2>
 
         <br>
 
-    <form id="registertext">
+    <div id="registertext">
                 
             <hr>
 
@@ -50,51 +50,48 @@
                 <div id="addacao">
                     <h4 class="w3-button w3-block w3-center w3-indigo">Adiciona ação</h4>
                 </div>
+
                 <?php
 
                     include "openconn.php";
+
+                    $instituicao = $_SESSION['logged'];
                     
-                    $sqlNome = "SELECT A.id_instituicao, I.nome_instituicao, I.bio, A.distrito,
-                                A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
-                                A.num_vagas, A.dia, A.hora, A.semana, A.duracao
-                                FROM Acao A, Instituicao I
-                                WHERE A.id_instituicao = ".$_SESSION['loggedid'].
-                                    "AND A.id_instituicao = I.id";
+                    $sqlNome = "SELECT id_instituicao, id_acao, titulo, distrito, concelho, freguesia, funcao, 
+                                area_interesse, populacao_alvo, num_vagas, dia, hora, semana, duracao
+                                FROM Acao
+                                WHERE id_instituicao = '".$_SESSION['loggedid']."';";
 
                     $resultN = $conn->query($sqlNome);
                     
-                    if ($resultN) {
-                        echo "<p class='erro'> CERTO :) </p>";
+                    if (!($resultN)) {
+                        echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
+                    }              
+
+                    if ($resultN->num_rows > 0) {
+
+                        while ($row = $resultN->fetch_assoc()){
+
+                            echo "<div class='w3-card-4'>
+                                        <header class='w3-container'>
+                                            <h3>".$instituicao."</h3>
+                                        </header>
+
+                                        <div class='w3-container'>
+                                            <h5>".$row['titulo']."</h5>
+                                            <hr>
+                                            <p>Distrito: ".$row['distrito']." <i class='fa fa-deviantart'></i> Concelho: ".$row['concelho']." <i class='fa fa-deviantart'></i> Freguesia: ".$row['freguesia']."</p>
+                                            <p>Função: ".$row['funcao']." <i class='fa fa-deviantart'></i> Área de interesse: ".$row['area_interesse']."</p>
+                                            <p>População-alvo: ".$row['populacao_alvo']." <i class='fa fa-deviantart'></i> Nº de vagas: ".$row['num_vagas']."</p>
+                                            <p>Data: ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
+                                        </div>
+                                </div>";
+                        }
                     } else {
-                        echo "<p class='erro'> Algo correu mal :( </p>";
+                        echo "<h3 class='w3-center'>Ainda não tem ações :(</h3>";
                     }
-
-                    #if ($resultN->num_rows > 0) {
-
-                    #    while ($row = $resultN->fetch_assoc()){
-                    #        echo $row;
-                    #    }
-                    #}
                         /*
-                        <div class="w3-card-4 hidden" id="card1">
-
-                        <header class="w3-container">
-                            <h3>Portugal Voluntário</h3>
-                        </header>
-
-                        <div class="w3-container">
-                            <h5>Compras para idosos</h5>
-                            <hr>
-                            <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-                            <h6>Breve descrição da instituição</h6>
-                            <hr>
-                            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-                            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-                            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-                            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-                        </div>
-
-                        <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
+                        
 
                         </div>*/
 
@@ -103,9 +100,9 @@
                 
             </div>
 
-            <input class="w3-button w3-display-center" type="submit" value="Submit">
+            <a href="Perfil.html"><button class="submitr w3-round-xxlarge">Avançar</button></a>
 
-    </form>
+        </div>
 
     <form id="acaoform" class="w3-container hidden" action="PreferenciasI.php" method="post">
 
@@ -303,22 +300,22 @@
 
         if ($titulo != "") {
 
-            if ($_SESSION['loggedtype'] == 'instituicao');
             $instituicao = $_SESSION['logged'];
             $id_instituicao = $_SESSION['loggedid'];
 
             $query = "insert into Acao
-                        values ('".$id_instituicao."' , '".$id_acao."' , '".$distrito."' , '".$concelho."' , '"
-                        .$freguesia."' , '".$funcao."' , '".utf8_encode($area_interesse)."' , '".$populacao_alvo."' , ".$vagas." , '"
+                        values ('".$id_instituicao."' , '".$id_acao."' , '".$titulo."' , '".$distrito."' , '".$concelho."' , '"
+                        .$freguesia."' , '".$funcao."' , '".$area_interesse."' , '".$populacao_alvo."' , ".$vagas." , '"
                         .$dia."' , ".$hora." , ".$semana." , ".$duracao.")";
 
-                $res = mysqli_query($conn, $query);
-                
-                if ($res) {
-                    echo "<p> Parabens conseguiste :) </p>";
-                } else {
-                    echo "Erro: insert failed" . $query . "<br>" . mysqli_error($conn);
-                }
+            $res = mysqli_query($conn, $query);
+            
+            if ($res) {
+                echo "<p> Parabens conseguiste :) </p>";
+                echo "<meta http-equiv='refresh' content='0'>";
+            } else {
+                echo "Erro: insert failed" . $query . "<br>" . mysqli_error($conn);
+            }
         }
         mysqli_close($conn);
     ?>

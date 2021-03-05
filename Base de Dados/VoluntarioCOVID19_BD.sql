@@ -149,6 +149,7 @@ CREATE TABLE Voluntario_Disponibilidade (
 CREATE TABLE Acao (
     id_instituicao      VARCHAR(65),
     id_acao             VARCHAR(65),
+    titulo              VARCHAR(100) NOT NULL,
     distrito            VARCHAR(50) NOT NULL,
     concelho            VARCHAR(50) NOT NULL,
     freguesia           VARCHAR(50) NOT NULL,
@@ -240,3 +241,16 @@ CREATE TABLE Mensagem (
     CONSTRAINT fk_mensagem_para
         FOREIGN KEY (para) REFERENCES Utilizador(id)
 );
+
+INSERT INTO Area_de_Interesse VALUES ("Ação social");
+INSERT INTO Area_de_Interesse VALUES ("Educação");
+INSERT INTO Area_de_Interesse VALUES ("Saúde");
+
+INSERT INTO Populacao_Alvo VALUES ("Indiferente");
+INSERT INTO Populacao_Alvo VALUES ("Crianças");
+INSERT INTO Populacao_Alvo VALUES ("Jovens");
+INSERT INTO Populacao_Alvo VALUES ("Idosos");
+INSERT INTO Populacao_Alvo VALUES ("Grávidas");
+INSERT INTO Populacao_Alvo VALUES ("Pessoas em situação de dependência (ex. acamados)");
+INSERT INTO Populacao_Alvo VALUES ("Pessoas sem-abrigo");
+INSERT INTO Populacao_Alvo VALUES ("Pessoas com deficiência");

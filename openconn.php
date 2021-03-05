@@ -9,4 +9,8 @@ $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 if (mysqli_connect_error()) {
   die("Database connection failed: " . mysqli_connect_error());
 }
+
+if (!mysqli_set_charset($conn, 'utf8')) {
+  die('Error ao usar utf8: ' . mysqli_error($conn));
+}
 ?>
