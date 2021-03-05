@@ -156,11 +156,10 @@ CREATE TABLE Acao (
     area_interesse      VARCHAR(50) NOT NULL,
     populacao_alvo      VARCHAR(50) NOT NULL,
     num_vagas           NUMERIC(5) NOT NULL,
-    dia                 NUMERIC(3) NOT NULL,
+    dia                 VARCHAR(20) NOT NULL,
     hora                NUMERIC(3) NOT NULL,
     semana              NUMERIC(3) NOT NULL,
     duracao             NUMERIC(3) NOT NULL,
-    covid               VARCHAR(10) NOT NULL,
 
     CONSTRAINT pk_acao
         PRIMARY KEY (id_instituicao, id_acao),

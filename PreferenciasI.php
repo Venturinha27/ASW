@@ -50,28 +50,56 @@
                 <div id="addacao">
                     <h4 class="w3-button w3-block w3-center w3-indigo">Adiciona ação</h4>
                 </div>
-                
-                <div class="w3-card-4 hidden" id="card1">
+                <?php
 
-                    <header class="w3-container">
-                        <h3>Portugal Voluntário</h3>
-                    </header>
+                    include "openconn.php";
                     
-                    <div class="w3-container">
-                        <h5>Compras para idosos</h5>
-                        <hr>
-                        <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-                        <h6>Breve descrição da instituição</h6>
-                        <hr>
-                        <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-                        <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-                        <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-                        <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-                    </div>
+                    $sqlNome = "SELECT A.id_instituicao, I.nome_instituicao, I.bio, A.distrito,
+                                A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
+                                A.num_vagas, A.dia, A.hora, A.semana, A.duracao
+                                FROM Acao A, Instituicao I
+                                WHERE A.id_instituicao = ".$_SESSION['loggedid'].
+                                    "AND A.id_instituicao = I.id";
+
+                    $resultN = $conn->query($sqlNome);
                     
-                    <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-                    
-                </div>
+                    if ($resultN) {
+                        echo "<p class='erro'> CERTO :) </p>";
+                    } else {
+                        echo "<p class='erro'> Algo correu mal :( </p>";
+                    }
+
+                    #if ($resultN->num_rows > 0) {
+
+                    #    while ($row = $resultN->fetch_assoc()){
+                    #        echo $row;
+                    #    }
+                    #}
+                        /*
+                        <div class="w3-card-4 hidden" id="card1">
+
+                        <header class="w3-container">
+                            <h3>Portugal Voluntário</h3>
+                        </header>
+
+                        <div class="w3-container">
+                            <h5>Compras para idosos</h5>
+                            <hr>
+                            <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
+                            <h6>Breve descrição da instituição</h6>
+                            <hr>
+                            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
+                            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
+                            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
+                            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
+                        </div>
+
+                        <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
+
+                        </div>*/
+
+                    mysqli_close($conn);
+                ?>
                 
             </div>
 
@@ -93,9 +121,9 @@
             <label>Áreas de interesse:</label>
                 <select class="w3-select sel" name="area-interesse" required>
                     <option value="" disabled selected>Selecione as suas áreas de interesse</option>
-                    <option value="acao-social">Ação social</option>
-                    <option value="educacao">Educação</option>
-                    <option value="saude">Saúde</option>
+                    <option value="Ação social">Ação social</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Saúde">Saúde</option>
                 </select>
                 
             <hr>
@@ -103,14 +131,14 @@
             <label>População-alvo:</label>
                 <select class="w3-select sel" name="populacao-alvo" required>
                     <option value="" disabled selected>Selecione a sua população-alvo</option>
-                    <option value="indiferente">Indiferente</option>
-                    <option value="criancas">Crianças</option>
-                    <option value="jovens">Jovens</option>
-                    <option value="idosos">Idosos</option>
-                    <option value="gravidas">Grávidas</option>
-                    <option value="dependencia">Pessoas em situação de dependência (ex. acamados)</option>
-                    <option value="sem-abrigo">Pessoas sem-abrigo</option>
-                    <option value="defeciencia">Pessoas com deficiência</option>
+                    <option value="Indiferente">Indiferente</option>
+                    <option value="Crianças">Crianças</option>
+                    <option value="Jovens">Jovens</option>
+                    <option value="Idosos">Idosos</option>
+                    <option value="Grávidas">Grávidas</option>
+                    <option value="Pessoas em situação de dependência (ex. acamados)">Pessoas em situação de dependência (ex. acamados)</option>
+                    <option value="Pessoas sem-abrigo">Pessoas sem-abrigo</option>
+                    <option value="Pessoas com deficiência">Pessoas com deficiência</option>
                 </select>
 
             <hr>
@@ -188,13 +216,13 @@
             <label>Disponibilidade:</label>
                 <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
                     <option value="" disabled selected>Dia</option>
-                    <option value="segunda">Segunda</option>
-                    <option value="terca">Terça</option>
-                    <option value="quarta">Quarta</option>
-                    <option value="quinta">Quinta</option>
-                    <option value="sexta">Sexta</option>
-                    <option value="sabado">Sábado</option>
-                    <option value="domingo">Domingo</option>
+                    <option value="Segunda">Segunda</option>
+                    <option value="Terça">Terça</option>
+                    <option value="Quarta">Quarta</option>
+                    <option value="Quinta">Quinta</option>
+                    <option value="Sexta">Sexta</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
                     
                 </select>
                 <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
@@ -244,9 +272,6 @@
                 </select>
             
             <hr>
-
-
-            
             
             <label>Número de Horas Total do Voluntariado:</label>
                 <input type="number" id="nHoras" name="horas" min="1" max="1000" required>
@@ -261,6 +286,7 @@
     <?php
         include "openconn.php";
 
+        $id_acao = uniqid();
         $titulo = $_POST['titulo']; 
         $area_interesse = $_POST['area-interesse'];
         $populacao_alvo = $_POST['populacao-alvo'];
@@ -269,11 +295,32 @@
         $concelho = $_POST['concelho'];
         $freguesia = $_POST['freguesia'];
         $vagas = $_POST['vagas']; 
-        $disponibilidade_dia = $_POST['disponibilidade-dia'];
-        $disponibilidade_hora = $_POST['disponibilidade-hora'];
-        $disponibilidade_duracao = $_POST['disponibilidade-duracao'];
-        $disponibilidade_semana = $_POST['disponibilidade-semana'];
+        $dia = $_POST['disponibilidade-dia'];
+        $hora = $_POST['disponibilidade-hora'];
+        $duracao = $_POST['disponibilidade-duracao'];
+        $semana = $_POST['disponibilidade-semana'];
         $horas = $_POST['horas'];
+
+        if ($titulo != "") {
+
+            if ($_SESSION['loggedtype'] == 'instituicao');
+            $instituicao = $_SESSION['logged'];
+            $id_instituicao = $_SESSION['loggedid'];
+
+            $query = "insert into Acao
+                        values ('".$id_instituicao."' , '".$id_acao."' , '".$distrito."' , '".$concelho."' , '"
+                        .$freguesia."' , '".$funcao."' , '".utf8_encode($area_interesse)."' , '".$populacao_alvo."' , ".$vagas." , '"
+                        .$dia."' , ".$hora." , ".$semana." , ".$duracao.")";
+
+                $res = mysqli_query($conn, $query);
+                
+                if ($res) {
+                    echo "<p> Parabens conseguiste :) </p>";
+                } else {
+                    echo "Erro: insert failed" . $query . "<br>" . mysqli_error($conn);
+                }
+        }
+        mysqli_close($conn);
     ?>
     
     </div>
