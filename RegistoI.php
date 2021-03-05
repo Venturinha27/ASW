@@ -97,24 +97,19 @@
                     if ($resultN->num_rows > 0) {
 
                         while ($row = $resultN->fetch_assoc()){
-                            echo "<p class='w3-blue w3-center'>".$row['nome_instituicao']." </p>";
-                            echo "<p class='w3-blue w3-center'> $nomeInstituicao </p>";
                             if ($row["nome_instituicao"] != $nomeInstituicao and $row["email"] != $email){
                                 if (filter_var($email, FILTER_VALIDATE_EMAIL) and filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL)){
                                     $check = 1;
                                 } else {
-                                    echo "<p class='w3-red w3-center'> Insira um e-mail válido </p>";
+                                    echo "<p class='erro'> Insira um e-mail válido </p>";
                                 }
                             } else {
-                                echo "<p class='w3-red w3-center'> Username ou email já existe </p>";
+                                echo "<p class='erro'> Username ou email já existe </p>";
                             }
                         }
                     } else {
-                        echo "<p class='w3-green w3-center'>".$row['nome_instituicao']." </p>";
                         $check = 1;
                     }
-
-                    echo "<p class='w3-green w3-center'>".$check." </p>";
 
                     if ($check == 1){
 
@@ -125,7 +120,7 @@
                         
                         if ($res1) {
                         } else {
-                            echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
+                            echo "<p class='erro'> Algo deu ruim :( </p>";
                         }
 
 
@@ -141,7 +136,7 @@
                             $_SESSION['logged'] = $nomeInstituicao;
                             header("Location: PreferenciasI.php");
                         } else {
-                            echo "<p class='w3-red w3-center'> Algo correu mal :( </p>";
+                            echo "<p class='erro'> Algo correu mal :( </p>";
                         }
 
                         mysqli_close($conn);
