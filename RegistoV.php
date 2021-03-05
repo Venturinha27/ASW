@@ -120,7 +120,7 @@
                         while ($row = $resultN->fetch_assoc()){
                             echo "<p class='w3-blue w3-center'>".$row['nomeProprio']." </p>";
                             echo "<p class='w3-blue w3-center'> $nomeProprio </p>";
-                            if ($row["nome_instituicao"] != $nomeProprio and $row["email"] != $email){
+                            if ($row["nomeProprio"] != $nomeProprio and $row["E-mail"] != $Email){
                                 if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                                     $check = 1;
                                 } else {
@@ -131,7 +131,7 @@
                             }
                         }
                     } else {
-                        echo "<p class='w3-green w3-center'>".$row['nome_instituicao']." </p>";
+                        echo "<p class='w3-green w3-center'>".$row['nomeProprio']." </p>";
                         $check = 1;
                     }
 
@@ -151,9 +151,11 @@
 
 
                         $query = "insert into Voluntario
-                                values ('".$id."' , '".$nomeProprio."' , ".$Email." , '".$Password."' , '"
-                                .$telefone."' , '".$dataNascimento."' , '".$CC."' , '".$avatar."' , '".$distrito."' , '"
-                                .$concelho."' , '".$freguesia."' , '".$genero."' , '".$carta."' , '".$covid."')";
+                                values ('".$id."' , '".$nomeProprio."' , ".$dataNascimento." , '".$genero."' , '"
+                                .$avatar."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , '".$telefone."' , '"
+                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
+                        
+
                         
                         $res = mysqli_query($conn, $query);
                         
