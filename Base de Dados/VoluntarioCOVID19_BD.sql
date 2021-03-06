@@ -256,6 +256,8 @@ CREATE TABLE Admins (
 
 
 
+INSERT INTO Admins VALUES ("covid19","vacina");
+INSERT INTO Admins VALUES ("Manel","farmacos");
 
 
 
