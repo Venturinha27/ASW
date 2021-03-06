@@ -242,6 +242,23 @@ CREATE TABLE Mensagem (
         FOREIGN KEY (para) REFERENCES Utilizador(id)
 );
 
+
+CREATE TABLE Admins (
+    username                  VARCHAR (65),
+    passwordA                 VARCHAR (65) NOT NULL,
+    
+
+    CONSTRAINT pk_username
+        PRIMARY KEY (username)
+        
+);
+
+
+
+
+
+
+
 INSERT INTO Area_de_Interesse VALUES ("Ação social");
 INSERT INTO Area_de_Interesse VALUES ("Educação");
 INSERT INTO Area_de_Interesse VALUES ("Saúde");
