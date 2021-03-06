@@ -1,5 +1,6 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
 <?php
+    ob_start();
     session_start();
 ?>
 
@@ -91,22 +92,24 @@
             <?php
                 include "openconn.php";
 
-                if ($_POST['nomeProprio'] != ''){
+                include "TestInput.php";
+
+                if (!empty($_POST)){
 
                     $id = uniqid();
-                    $nomeProprio = $_POST['nomeProprio']; 
-                    $Email = $_POST['E-mail'];                       #unique
-                    $Password = $_POST['Password'];
-                    $telefone = $_POST['telefone'];
-                    $dataNascimento = $_POST['dataNascimento'];
-                    $CC = $_POST['CC'];                              #unique
-                    $avatar = $_POST['avatar']; 
-                    $distrito = $_POST['distrito'];
-                    $concelho = $_POST['concelho'];
-                    $freguesia = $_POST['freguesia'];
-                    $genero = $_POST['genero'];
-                    $carta = $_POST['carta']; 
-                    $covid = $_POST['covid'];
+                    $nomeProprio = test_input($_POST['nomeProprio']); 
+                    $Email = test_input($_POST['E-mail']);                       #unique
+                    $Password = test_input($_POST['Password']);
+                    $telefone = test_input($_POST['telefone']);
+                    $dataNascimento = test_input($_POST['dataNascimento']);
+                    $CC = test_input($_POST['CC']);                              #unique
+                    $avatar = test_input($_POST['avatar']); 
+                    $distrito = test_input($_POST['distrito']);
+                    $concelho = test_input($_POST['concelho']);
+                    $freguesia = test_input($_POST['freguesia']);
+                    $genero = test_input($_POST['genero']);
+                    $carta = test_input($_POST['carta']); 
+                    $covid = test_input($_POST['covid']);
 
                     $check = 0;
 
@@ -131,11 +134,9 @@
                             }
                         }
                     } else {
-                        echo "<p class='w3-green w3-center'>".$row['nomeProprio']." </p>";
                         $check = 1;
                     }
 
-                    echo "<p class='w3-green w3-center'>".$check." </p>";
 
                     if ($check == 1){
 
@@ -148,30 +149,27 @@
                         } else {
                             echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
                         }
-
                         
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , ".$dataNascimento." , '".$genero."' , '"
                                 .$avatar."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , "
                                 .$CC." , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
                         
-        
-                        
-                        
                         $res = mysqli_query($conn, $query);
                         
                         if ($res) {
-                            echo "goncalo";
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $nomeProprio;
                             $_SESSION['loggedid'] = $id;
+                            echo "antes";
                             header("Location: PreferenciasV.php");
+                            echo "depois";
                         } else {
                             echo "<p class='w3-red'>Erro: insert failed" . $query . "<br>" . mysqli_error($conn)."</p>";
                         }
 
-                        mysqli_close($conn);
-                }
+                    }
+                mysqli_close($conn);
                 }
             
             ?>

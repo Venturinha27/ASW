@@ -35,12 +35,6 @@
 
         <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
 
-        <?php
-            echo "<h5>" . $_SESSION['loggedtype'] . "</h5>";
-            echo "<h5>" . $_SESSION['logged'] . "</h5>";
-            echo "<h5>" . $_SESSION['loggedid'] . "</h5>";
-        ?>
-
         <h5>Manel João</h5>
         <hr>
         <h6>27 publicações <i class="fa fa-deviantart"></i> 13 seguidores <i class="fa fa-deviantart"></i> 17 seguindo</h6>
