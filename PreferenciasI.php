@@ -100,7 +100,7 @@
                 
             </div>
 
-            <a href="Perfil.html"><button class="submitr w3-round-xxlarge">Avançar</button></a>
+            <a href="Perfil.php"><button class="submitr w3-round-xxlarge">Avançar</button></a>
 
         </div>
 
@@ -282,21 +282,22 @@
 
     <?php
         include "openconn.php";
+        include "TestInput.php";
 
         $id_acao = uniqid();
-        $titulo = $_POST['titulo']; 
-        $area_interesse = $_POST['area-interesse'];
-        $populacao_alvo = $_POST['populacao-alvo'];
-        $funcao = $_POST['funcao']; 
-        $distrito = $_POST['distrito'];
-        $concelho = $_POST['concelho'];
-        $freguesia = $_POST['freguesia'];
-        $vagas = $_POST['vagas']; 
-        $dia = $_POST['disponibilidade-dia'];
-        $hora = $_POST['disponibilidade-hora'];
-        $duracao = $_POST['disponibilidade-duracao'];
-        $semana = $_POST['disponibilidade-semana'];
-        $horas = $_POST['horas'];
+        $titulo = test_input($_POST['titulo']); 
+        $area_interesse = test_input($_POST['area-interesse']);
+        $populacao_alvo = test_input($_POST['populacao-alvo']);
+        $funcao = test_input($_POST['funcao']); 
+        $distrito = test_input($_POST['distrito']);
+        $concelho = test_input($_POST['concelho']);
+        $freguesia = test_input($_POST['freguesia']);
+        $vagas = test_input($_POST['vagas']); 
+        $dia = test_input($_POST['disponibilidade-dia']);
+        $hora = test_input($_POST['disponibilidade-hora']);
+        $duracao = test_input($_POST['disponibilidade-duracao']);
+        $semana = test_input($_POST['disponibilidade-semana']);
+        $horas = test_input($_POST['horas']);
 
         if ($titulo != "") {
 

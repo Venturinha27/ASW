@@ -31,31 +31,29 @@
             <input class="w3-large w3-indigo" id="submit" type="submit" name="" value="Entrar"  name="email"href="HomePage.html">
             <?php
 
-                if  (!empty($_POST)) {
+                // estabelecer ligação com a base de dados
+                include "openconn.php";
+                
+                include "TestInput.php";
 
-                    // estabelecer ligação com a base de dados
-                    include "openconn.php";
+                if  (!empty($_POST)) {
                 
                     // receber o pedido de login com segurança
-                    $username = mysql_real_escape_string($_POST['username']);
-                    $password = sha1($_POST['password']);
-                    $email = $_POST["email"];
-
-                    #echo $username;
+                    $username = test_input($_POST['username']); #mysql_real_escape_string
+                    $password = test_input($_POST['password']); #sha1
+                    $email = test_input($_POST["email"]);
                 
                     // verificar o utilizador em questão (pretendemos obter uma única linha de registos)
                     $loginquery = "SELECT id, nome_instituicao, email, password2
                                     FROM Instituicao
                                     WHERE (nome_instituicao = '". $username ."' OR email = '" . $username ."')
-                                        AND password2 = '" . $password . "'";
+                                        AND password2 = '" . $password . "';";
 
                     $resultLogin = $conn->query($loginquery);
 
                     if (!($resultLogin)) {
                         echo "Erro: insert failed" . $loginquery . "<br>" . mysqli_error($conn);
                     }
-
-                    echo "passou";
 
                     if ($resultLogin->num_rows == 1) {
                         if ($row = $resultLogin->fetch_assoc()) {
@@ -64,36 +62,40 @@
                             $_SESSION['loggedtype'] = "instituicao";
                             $_SESSION['logged'] = $row['nome_instituicao'];
                             $_SESSION['loggedid'] = $row['id'];
-                            echo "<p>Sessao iniciada com sucesso como {".$_SESSION['nome_instituicao']."}</p>";
-                            header("Location: HomePage.html");
+                            header("Location: Perfil.php");
                         } else {
-                            echo "nope";
+                            echo "<p>Utilizador ou password invalidos.</p>";
                         }
                     } else {
                         // falhou o login
-                        echo "<p>Utilizador ou password invalidos. <a href=\"Login.php\">Tente novamente</a></p>";
+                        echo "<p>Utilizador ou password invalidos.</p>";
                     }
                     
-                    
-                    mysqli_close($conn);
+                    $loginVquery = "SELECT id, nome_voluntario, email, password1
+                                    FROM Voluntario
+                                    WHERE (nome_voluntario = '" . $username . "' OR email = '" . $username ."')
+                                        AND password1 = '" . $password . "'";
 
-                    // estabelecer ligação com a base de dados
-                    include "openconn.php";
+                    $resultLoginV = $conn->query($loginVquery);
 
-                    $loginV = mysql_query($conn, "SELECT nome_voluntario, email, password1 FROM Voluntario WHERE (nome_voluntario = '$username' OR email = '$username')  AND password1 = '$password'");
+                    if (!($resultLoginV)) {
+                        echo "Erro: insert failed" . $loginVquery . "<br>" . mysqli_error($conn);
+                    }
 
-                    if ($loginV && mysql_num_rows($loginV) == 1) {
-                
-                        // o utilizador está correctamente validado
-                        // guardamos as suas informações numa sessão
-                        $_SESSION['nome_voluntario'] = mysql_result($loginV, 0, 0);
-                        echo "<p>Sessao iniciada com sucesso como {$_SESSION['nome_voluntario']}</p>";
-                        header("Location: HomePage.html");
-                        
+                    if ($resultLoginV->num_rows == 1) {
+                        if ($row = $resultLoginV->fetch_assoc()) {
+                            // o utilizador está correctamente validado
+                            // guardamos as suas informações numa sessão
+                            $_SESSION['loggedtype'] = "voluntario";
+                            $_SESSION['logged'] = $row['nome_voluntario'];
+                            $_SESSION['loggedid'] = $row['id'];
+                            header("Location: Perfil.php");
+                        } else {
+                            echo "<p>Utilizador ou password invalidos.</p>";
+                        }
                     } else {
-                
                         // falhou o login
-                        echo "<p>Utilizador ou password invalidos. <a href=\"Login.php\">Tente novamente</a></p>";
+                        echo "<p>Utilizador ou password invalidos.</p>";
                     }
                 }
 

@@ -70,22 +70,23 @@
 
             <?php
                 include "openconn.php";
+                include "TestInput.php";
 
                 if ($_POST['nomeInstituicao'] != ''){
 
                     $id = uniqid();
-                    $nomeInstituicao = $_POST['nomeInstituicao']; #unique
-                    $telefone = $_POST['telefone'];
-                    $morada = $_POST['morada'];
-                    $distrito = $_POST['distrito'];
-                    $concelho = $_POST['concelho'];
-                    $freguesia = $_POST['freguesia'];
-                    $email = $_POST['email']; #unique
-                    $nomeRepresentante = $_POST['nomeRepresentante'];
-                    $emailRepresentante = $_POST['emailRepresentante'];
-                    $password = $_POST['password'];
-                    $bio = $_POST['bio'];
-                    $website = $_POST['website']; # pode ser null
+                    $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
+                    $telefone = test_input($_POST['telefone']);
+                    $morada = test_input($_POST['morada']);
+                    $distrito = test_input($_POST['distrito']);
+                    $concelho = test_input($_POST['concelho']);
+                    $freguesia = test_input($_POST['freguesia']);
+                    $email = test_input($_POST['email']); #unique
+                    $nomeRepresentante = test_input($_POST['nomeRepresentante']);
+                    $emailRepresentante = test_input($_POST['emailRepresentante']);
+                    $password = test_input($_POST['password']);
+                    $bio = test_input($_POST['bio']);
+                    $website = test_input($_POST['website']); # pode ser null
 
                     $check = 0;
 
