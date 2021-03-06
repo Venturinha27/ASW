@@ -30,7 +30,7 @@
             <br><br>
             <input class="w3-large " id="submit" type="submit" name="" value="Entrar"  name="email"href="HomePage.html">
             <br><br>
-            <a class="w3-right" href="Registo.html" id="register">Ainda não tem conta? Registe-se aqui!</a>
+            <a class="w3-right" href="RegistoA.php" id="register">Ainda não tem conta? Registe-se aqui!</a>
         
         </form>
 
