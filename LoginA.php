@@ -19,7 +19,7 @@
 </header>
 <body>
     <div id="loginbox">
-        <form id="login" class="w3-container"  action="Login.php" method="post">
+        <form id="login" class="w3-container"  action="LoginA.php" method="post">
             <div class="w3-container" id="div">
                 <h1 class="w3-center"><i class="fa fa-user-circle"></i></h1>
             </div>
