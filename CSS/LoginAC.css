@@ -1,5 +1,6 @@
 body {
     background-image: url(../Images/admin.jpg);
+    background-size: cover;
 }
 
 #loginbox {
