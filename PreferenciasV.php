@@ -211,9 +211,9 @@
 
                     echo "<div class='w3-container w3-light-grey'>";                    
                     while ($row = $resultD->fetch_assoc()){
-                        echo "<p class='w3-center'> -> Dia " . $row['dia'] . "
-                                                    ás ". $row['hora'] ." horas, durante "
-                                                    .$row['duracao']." </p>";
+                        echo "<p class='w3-center'> -> Dia: " . $row['dia'] . "
+                                                , hora: ". $row['hora'] .":00, duração: "
+                                                    .$row['duracao']." horas.</p>";
                     }
                     echo "</div>";
                 } else {

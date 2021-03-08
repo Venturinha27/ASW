@@ -136,6 +136,9 @@
                             $_SESSION['loggedtype'] = "instituicao";
                             $_SESSION['logged'] = $nomeInstituicao;
                             $_SESSION['loggedid'] = $id;
+                            $_SESSION['opentype'] = "instituicao";
+                            $_SESSION['open'] = $nomeInstituicao;
+                            $_SESSION['openid'] = $id;
                             header("Location: PreferenciasI.php");
                         } else {
                             echo "<p class='erro'> Algo correu mal :( </p>";

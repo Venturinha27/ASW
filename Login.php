@@ -62,6 +62,9 @@
                             $_SESSION['loggedtype'] = "instituicao";
                             $_SESSION['logged'] = $row['nome_instituicao'];
                             $_SESSION['loggedid'] = $row['id'];
+                            $_SESSION['opentype'] = "instituicao";
+                            $_SESSION['open'] = $row['nome_instituicao'];
+                            $_SESSION['openid'] = $row['id'];
                             header("Location: Perfil.php");
                         } else {
                             echo "<p>Utilizador ou password invalidos.</p>";
@@ -89,6 +92,9 @@
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $row['nome_voluntario'];
                             $_SESSION['loggedid'] = $row['id'];
+                            $_SESSION['opentype'] = "voluntario";
+                            $_SESSION['open'] = $row['nome_voluntario'];
+                            $_SESSION['openid'] = $row['id'];
                             header("Location: Perfil.php");
                         } else {
                             echo "<p>Utilizador ou password invalidos.</p>";
@@ -104,7 +110,12 @@
             ?>
             
             <br><br>
-            <a class="w3-right" href="Registo.html" id="register">Ainda não tem conta? Registe-se aqui!</a>
+            <p class="w3-center">Ainda não tem conta?</p>
+            <p class="w3-center">
+                <a href="RegistoV.php">Registe-se como voluntário</a>
+                |
+                <a href="RegistoI.php">Registe-se como instituição</a>
+            </p>
         
         </form>
 

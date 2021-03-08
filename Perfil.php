@@ -1,6 +1,10 @@
 <!-- ASW -->
 <?php
     session_start();
+
+    if (!isset($_SESSION['logged'])) {
+        header("Location: Login.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -31,85 +35,127 @@
 
 <body>
 
-    <div id="AzulDiv" >
+<?php
 
-        <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
+    include "openconn.php";
 
-        <h5>Manel João</h5>
-        <hr>
-        <h6>27 publicações <i class="fa fa-deviantart"></i> 13 seguidores <i class="fa fa-deviantart"></i> 17 seguindo</h6>
-        <hr>
-        <p>Olá sou o Manel João e estou como sou no alta definição</p>
+    $loggedtype = $_SESSION['loggedtype'];
+    $logged = $_SESSION['logged'];
+    $loggedid = $_SESSION['loggedid'];
+    $opentype = $_SESSION['opentype'];
+    $open = $_SESSION['open'];
+    $openid = $_SESSION['openid'];
 
-        <a href="EditarPerfil.html"><button class="w3-button" id="EditarPerfil">
-            Editar perfil
-        </button></a>
+    if ($opentype == 'voluntario'){
 
-        <a href="Login.html"><button class="w3-button" id="TerminarSessao">
-            Terminar sessão
-        </button></a>
-    </div>
+        # -- HEADER VOLUNTARIO ---------------------------------------------------
+        $queryHeaderVoluntario = "SELECT foto, bio
+                            FROM Voluntario
+                            WHERE id = '".$openid."';";
 
-    <button id="openMensagens" class="divClosed"><i class="fas fa-comment-dots w3-left" id="openMp"></i></button>
+        $resultHeaderVoluntario = $conn->query($queryHeaderVoluntario);
 
-    <div id="MessageDiv" class="w3-sidebar hidden">
+        
 
-        <h3>Mensagens</h3>
+        if (!($resultHeaderVoluntario)) {
+            echo "Erro: search failed" . mysqli_error($conn);
+        }              
 
-        <input type="text" class="w3-bar w3-input" placeholder="Procurar conversas">
+       
+        
+        if ($row = $resultHeaderVoluntario->fetch_assoc()){
+            $foto = $row['foto'];
+            $bio = $row['bio'];
+        }
 
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Dona Dulce</h4>
-            <p>Manel João: Tão dona dulce e a familia com...</p>
-        </div>
+        
+        
+        echo "
+            <div id='AzulDiv' >
 
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Dom Manuel</h4>
-            <p>Manel João: Tão Manecas e a familia com...</p>
-        </div>
+                <img src='".$foto."' alt='Avatar' class='w3-left w3-circle'>
 
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Dona Joana</h4>
-            <p>Manel João: Tão dona joana e a familia com...</p>
-        </div>
+                <h5>".$open."</h5>
+                <hr>
+                <h6>0 publicações <i class='fa fa-deviantart'></i> 0 seguidores <i class='fa fa-deviantart'></i> 0 seguindo</h6>
+                <hr>
+                <p>".$bio."</p>
 
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Zé Tartaruga</h4>
-            <p>Manel João: Tão ZeTa e a familia com...</p>
-        </div>
+                <a href='EditarPerfil.html'><button class='w3-button' id='EditarPerfil'>
+                    Editar perfil
+                </button></a>
 
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Portugal Solidário</h4>
-            <p>Manel João: Tão Portugal Solidário e a covid com...</p>
-        </div>
-    </div>
+                <a href='Login.html'><button class='w3-button' id='TerminarSessao'>
+                    Terminar sessão
+                </button></a>
+            </div>
 
-    <div id="BodyDiv">
-        <div id="MenuBody">
-            <button class="w3-button w3-indigo" id="Perfil">
-                Perfil
-            </button>
+            
+            <div id='BodyDiv'>
+                <div id='MenuBody'>
+                    <button class='w3-button w3-indigo' id='Perfil'>
+                        Perfil
+                    </button>
 
-            <a href="PerfilFeed.html"><button class="w3-button w3-white w3-hover-indigo" id="Feed">
-                Feed
-            </button></a>
+                    <a href='PerfilFeed.html'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                        Feed
+                    </button></a>
 
-            <a href="PerfilAtividades.html"><button class="w3-button w3-white w3-hover-indigo" id="Atividades">
-                Atividades
-            </button></a>
-        </div>
-        <div class="w3-container">
-            <p>Área de interesse: Educação | Saúde</p>
-            <hr>
-            <p>População-alvo: Idosos</p>
-            <hr>
-            <p>Disponibilidade: Terça, ás 18:00, durante 2 horas</p>
-            <p>Disponibilidade: Sábado, ás 8:00, durante 8 horas</p>
-        </div>
-    </div>
+                    <a href='PerfilAtividades.html'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
+                        Atividades
+                    </button></a>
+                </div>
+                <div class='w3-container'>
+                    <p>Área de interesse: Educação | Saúde</p>
+                    <hr>
+                    <p>População-alvo: Idosos</p>
+                    <hr>
+                    <p>Disponibilidade: Terça, ás 18:00, durante 2 horas</p>
+                    <p>Disponibilidade: Sábado, ás 8:00, durante 8 horas</p>
+                </div>
+            </div>
 
+            <button id='openMensagens' class='divClosed'><i class='fas fa-comment-dots w3-left' id='openMp'></i></button>
 
-    </body>
+            <div id='MessageDiv' class='w3-sidebar hidden'>
+
+                <h3>Mensagens</h3>
+
+                <input type='text' class='w3-bar w3-input' placeholder='Procurar conversas'>
+
+                <div class='w3-card-2 w3-white conversa'>
+                    <h4>Dona Dulce</h4>
+                    <p>Manel João: Tão dona dulce e a familia com...</p>
+                </div>
+
+                <div class='w3-card-2 w3-white conversa'>
+                    <h4>Dom Manuel</h4>
+                    <p>Manel João: Tão Manecas e a familia com...</p>
+                </div>
+
+                <div class='w3-card-2 w3-white conversa'>
+                    <h4>Dona Joana</h4>
+                    <p>Manel João: Tão dona joana e a familia com...</p>
+                </div>
+
+                <div class='w3-card-2 w3-white conversa'>
+                    <h4>Zé Tartaruga</h4>
+                    <p>Manel João: Tão ZeTa e a familia com...</p>
+                </div>
+
+                <div class='w3-card-2 w3-white conversa'>
+                    <h4>Portugal Solidário</h4>
+                    <p>Manel João: Tão Portugal Solidário e a covid com...</p>
+                </div>
+            </div>
+        ";
+    }
+
+    mysqli_close($conn);
+
+?>
+
+</body>
 
     <!--
     <footer>

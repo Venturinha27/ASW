@@ -124,8 +124,6 @@
                     if ($resultN->num_rows > 0) {
 
                         while ($row = $resultN->fetch_assoc()){
-                            echo "<p class='w3-blue w3-center'>".$row['nomeProprio']." </p>";
-                            echo "<p class='w3-blue w3-center'> $nomeProprio </p>";
                             if ($row["nomeProprio"] != $nomeProprio and $row["E-mail"] != $Email){
                                 if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                                     $check = 1;
@@ -153,12 +151,11 @@
                             echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
                         }
                         
-                        echo "<p class='w3-red w3-center'> $dataNascimento </p>";
-                        
+                        echo "<p class='w3-red'>" . $CC ."</p>";
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
-                                .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , "
-                                .$CC." , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
+                                .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
+                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
                         
                         $res = mysqli_query($conn, $query);
                         
@@ -166,9 +163,12 @@
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $nomeProprio;
                             $_SESSION['loggedid'] = $id;
+                            $_SESSION['opentype'] = "voluntario";
+                            $_SESSION['open'] = $nomeProprio;
+                            $_SESSION['openid'] = $id;
                             header("Location: PreferenciasV.php");
                         } else {
-                            echo "<p class='w3-red'>Erro: insert failed" . $query . "<br>" . mysqli_error($conn)."</p>";
+                            echo "<p class='w3-red'>Erro: insert failed" . mysqli_error($conn)."</p>";
                         }
                         
                     }
