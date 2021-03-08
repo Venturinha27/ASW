@@ -53,11 +53,13 @@
 
             <input type="text" class="w3-input" id="CC" placeholder="Cartão de Cidadão" name="CC"required/>
 
-            <label>Fotografia de Perfil </label>
-            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+            <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre si..." name="bio" rows="3" maxlength="240" required></textarea>
 
         </div>
         <div id="divDir">
+
+            <label>Fotografia de Perfil </label>
+                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
 
             <input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito"required/>
 
@@ -104,6 +106,7 @@
                     $dataNascimento = test_input($_POST['dataNascimento']);
                     $CC = test_input($_POST['CC']);                              #unique
                     $avatar = test_input($_POST['avatar']); 
+                    $bio = test_input($_POST['bio']); 
                     $distrito = test_input($_POST['distrito']);
                     $concelho = test_input($_POST['concelho']);
                     $freguesia = test_input($_POST['freguesia']);
@@ -150,9 +153,11 @@
                             echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
                         }
                         
+                        echo "<p class='w3-red w3-center'> $dataNascimento </p>";
+                        
                         $query = "insert into Voluntario
-                                values ('".$id."' , '".$nomeProprio."' , ".$dataNascimento." , '".$genero."' , '"
-                                .$avatar."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , "
+                                values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
+                                .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , "
                                 .$CC." , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
                         
                         $res = mysqli_query($conn, $query);
@@ -161,13 +166,11 @@
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $nomeProprio;
                             $_SESSION['loggedid'] = $id;
-                            echo "antes";
                             header("Location: PreferenciasV.php");
-                            echo "depois";
                         } else {
                             echo "<p class='w3-red'>Erro: insert failed" . $query . "<br>" . mysqli_error($conn)."</p>";
                         }
-
+                        
                     }
                 mysqli_close($conn);
                 }

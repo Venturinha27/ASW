@@ -7,6 +7,7 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS Admins;
 DROP TABLE IF EXISTS Mensagem;
 DROP TABLE IF EXISTS Participa_em_Publicacao;
 DROP TABLE IF EXISTS Publicacao;
@@ -66,6 +67,7 @@ CREATE TABLE Voluntario (
     data_nascimento         DATE NOT NULL,
     genero                  VARCHAR(255) NOT NULL,
     foto                    VARBINARY(65535) NOT NULL,
+    bio                     VARCHAR(240) NOT NULL,
     concelho                VARCHAR(50) NOT NULL,
     distrito                VARCHAR(50) NOT NULL,
     freguesia               VARCHAR(50) NOT NULL,
@@ -258,8 +260,6 @@ CREATE TABLE Admins (
 
 INSERT INTO Admins VALUES ("covid19","vacina");
 INSERT INTO Admins VALUES ("Manel","farmacos");
-
-
 
 INSERT INTO Area_de_Interesse VALUES ("Ação social");
 INSERT INTO Area_de_Interesse VALUES ("Educação");
