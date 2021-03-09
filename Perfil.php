@@ -46,10 +46,17 @@
     $open = $_SESSION['open'];
     $openid = $_SESSION['openid'];
 
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # -- VOLUNTARIO -------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+
     if ($opentype == 'voluntario'){
 
-        # -- HEADER VOLUNTARIO ---------------------------------------------------
-        $queryHeaderVoluntario = "SELECT foto, bio
+        # -- TABLE VOLUNTARIO ---------------------------------------------------
+        $queryHeaderVoluntario = "SELECT foto, bio, data_nascimento, genero, concelho
+                            , distrito, freguesia, telefone, carta_c, covid, email
                             FROM Voluntario
                             WHERE id = '".$openid."';";
 
@@ -66,16 +73,24 @@
         if ($row = $resultHeaderVoluntario->fetch_assoc()){
             $foto = $row['foto'];
             $bio = $row['bio'];
-
+            $data_nascimento = $row['data_nascimento'];
+            $genero = $row['genero'];
+            $concelho = $row['concelho'];
+            $distrito = $row['distrito'];
+            $freguesia = $row['freguesia'];
+            $telefone = $row['telefone'];
+            $carta_c = $row['carta_c'];
+            $covid = $row['covid'];
+            $email = $row['email'];
         }
 
-        #<img src='".$foto."' alt='Avatar' class='w3-left w3-circle'>
-        echo $foto;
+        # -- PREFERENCIAS VOLUNTARIO ---------------------------------------------------
+        
         
         echo "
             <div id='AzulDiv' >
 
-                <img src='$foto' alt='Avatar' class='w3-left w3-circle'>
+            <img alt='Avatar' class='w3-left w3-circle' src='.$foto.' />
                 
                 <h5>".$open."</h5>
                 <hr>
@@ -83,74 +98,257 @@
                 <hr>
                 <p>".$bio."</p>
 
-                <a href='EditarPerfil.html'><button class='w3-button' id='EditarPerfil'>
-                    Editar perfil
-                </button></a>
+                ";
+                
+                if ($openid == $loggedid){
+                    echo "
+                    <a href='EditarPerfil.html'><button class='w3-button' id='EditarPerfil'>
+                        Editar perfil
+                    </button></a>
 
-                <a href='Login.html'><button class='w3-button' id='TerminarSessao'>
-                    Terminar sessão
-                </button></a>
-            </div>
+                    <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
+                        Terminar sessão
+                    </button></a>";
+                } else {
+                    echo "
+                    <a><button class='w3-button' id='EnviarMensagem'>
+                        Enviar Mensagem
+                    </button></a>
+
+                    <a href='Login.php'><button class='w3-button' id='Seguir'>
+                        Seguir
+                    </button></a>";
+                }
+                
+            echo "</div>";
 
             
-            <div id='BodyDiv'>
+         echo"<div id='BodyDiv'>
                 <div id='MenuBody'>
                     <button class='w3-button w3-indigo' id='Perfil'>
                         Perfil
                     </button>
 
                     <a href='PerfilFeed.html'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
-                        Feed
+                        Publicações
                     </button></a>
 
                     <a href='PerfilAtividades.html'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
-                        Atividades
+                        Ações
                     </button></a>
                 </div>
                 <div class='w3-container'>
-                    <p>Área de interesse: Educação | Saúde</p>
+                    <p><b>Data de nascimento:</b> $data_nascimento | <b>Género:</b> $genero</p>
+                    <p><b>Distrito:</b> $distrito | <b>Concelho:</b> $concelho | <b>Freguesia:</b> $freguesia</p>
+                    <p><b>Tel.:</b> $telefone | <b>E-mail:</b> $email</p>
+                    <p><b>Já teve covid-19?</b> $covid | <b>Tem carta de condução?</b> $carta_c</p>
                     <hr>
-                    <p>População-alvo: Idosos</p>
-                    <hr>
-                    <p>Disponibilidade: Terça, ás 18:00, durante 2 horas</p>
-                    <p>Disponibilidade: Sábado, ás 8:00, durante 8 horas</p>
+                    <h6><b>Áreas de interesse:</b></h6>";
+
+                    $queryVoluntarioArea = "SELECT area
+                    FROM Voluntario_Area
+                    WHERE id_voluntario = '".$openid."';";
+
+                    $resultVoluntarioArea = $conn->query($queryVoluntarioArea);
+
+                    if (!($resultVoluntarioArea)) {
+                        echo "Não tem áreas de interesse.";
+                    }              
+
+                    if ($resultVoluntarioArea->num_rows > 0) {
+                                
+                        while ($row = $resultVoluntarioArea->fetch_assoc()){
+                            echo "<p>-> ".$row['area']."</p>";
+                        }
+                    }
+
+                    echo "<hr>
+                    <h6><b>População-alvo:</b></h6>";
+                    
+                    $queryVoluntarioPopulacao = "SELECT populacao_alvo
+                    FROM Voluntario_Populacao_Alvo
+                    WHERE id_voluntario = '".$openid."';";
+
+                    $resultVoluntarioPopulacao = $conn->query($queryVoluntarioPopulacao);
+
+                    if (!($resultVoluntarioPopulacao)) {
+                        echo "Não tem população-alvo.";
+                    }              
+
+                    if ($resultVoluntarioPopulacao->num_rows > 0) {
+                                
+                        while ($row = $resultVoluntarioPopulacao->fetch_assoc()){
+                            echo "<p>-> ".$row['populacao_alvo']."</p>";
+                        }
+                    }
+
+                    echo"<hr>
+                    <h6><b>Disponibilidade:</b></h6>";
+
+                    $queryVoluntarioDispo = "SELECT dia, hora, duracao
+                    FROM Voluntario_Disponibilidade
+                    WHERE id_voluntario = '".$openid."';";
+
+                    $resultVoluntarioDispo = $conn->query($queryVoluntarioDispo);
+
+                    if (!($resultVoluntarioDispo)) {
+                        echo "Não tem disponibilidade.";
+                    }              
+
+                    if ($resultVoluntarioDispo->num_rows > 0) {
+                                
+                        while ($row = $resultVoluntarioDispo->fetch_assoc()){
+                            echo "<p>-> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</p>";
+                        }
+                    }
+
+                echo "</div>
+            </div>";
+    }
+
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # --------------- INSTITICAO ------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+
+    if ($opentype == 'instituicao'){
+
+        # -- TABLE INSTITUICAO ---------------------------------------------------
+        $queryHeaderInstituicao = "SELECT telefone, morada, distrito, concelho, freguesia,
+                            email, bio, nome_representante, email_representante, foto, website
+                            FROM Instituicao
+                            WHERE id = '".$openid."';";
+
+        $resultHeaderInstituicao = $conn->query($queryHeaderInstituicao);
+
+        
+
+        if (!($resultHeaderInstituicao)) {
+            echo "Erro: search failed" . mysqli_error($conn);
+        }              
+
+       
+        
+        if ($row = $resultHeaderInstituicao->fetch_assoc()){
+            $telefone = $row['telefone'];
+            $morada = $row['morada'];
+            $distrito = $row['distrito'];
+            $concelho = $row['concelho'];
+            $freguesia = $row['freguesia'];
+            $email = $row['email'];
+            $bio = $row['bio'];
+            $nome_representante = $row['nome_representante'];
+            $email_representante = $row['email_representante'];
+            $foto = $row['foto'];
+            $website = $row['website'];
+        }
+
+        # -- PREFERENCIAS VOLUNTARIO ---------------------------------------------------
+        
+        #<img src='$foto' alt='Avatar' class='w3-left w3-circle' >
+        
+        echo "
+            <div id='AzulDiv' >
+        
+                <img alt='Avatar' class='w3-left w3-circle' src='data:image/jpg;charset=utf8;base64,". base64_encode($row['image']) ."' />       
+                
+                <h5>".$open."</h5>
+                <hr>
+                <h6>0 publicações <i class='fa fa-deviantart'></i> 0 seguidores <i class='fa fa-deviantart'></i> 0 seguindo</h6>
+                <hr>
+                <p>".$bio."</p>
+
+                ";
+                
+                if ($openid == $loggedid){
+                    echo "
+                    <a href='EditarPerfil.html'><button class='w3-button' id='EditarPerfil'>
+                        Editar perfil
+                    </button></a>
+
+                    <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
+                        Terminar sessão
+                    </button></a>";
+                } else {
+                    echo "
+                    <a><button class='w3-button' id='EnviarMensagem'>
+                        Enviar Mensagem
+                    </button></a>
+
+                    <a href='Login.php'><button class='w3-button' id='Seguir'>
+                        Seguir
+                    </button></a>";
+                }
+                
+            echo "</div>";
+
+            
+         echo"<div id='BodyDiv'>
+                <div id='MenuBody'>
+                    <button class='w3-button w3-indigo' id='Perfil'>
+                        Perfil
+                    </button>
+
+                    <a href='PerfilFeed.html'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                        Publicações
+                    </button></a>
+
+                    <a href='PerfilAtividades.html'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
+                        Ações
+                    </button></a>
                 </div>
+                
+                <div class='w3-container'>
+                    <p><b>Tel.:</b> $telefone | <b>E-mail:</b> $email | <b>Website:</b> $website</p>
+                    <p><b>Distrito:</b> $distrito | <b>Concelho:</b> $concelho | <b>Freguesia:</b> $freguesia</p>
+                    <p><b>Morada:</b> $morada</p>
+                    <p><b>Representante:</b> $nome_representante | <b>E-mail representante:</b> $email_representante</p>
+                </div>
+            </div>";
+    }
+
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # --------------- MENSAGENS -------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+
+    if ($openid == $loggedid){
+        echo "
+        <button id='openMensagens' class='divClosed'><i class='fas fa-comment-dots w3-left' id='openMp'></i></button>
+
+        <div id='MessageDiv' class='w3-sidebar hidden'>
+
+            <h3>Mensagens</h3>
+
+            <input type='text' class='w3-bar w3-input' placeholder='Procurar conversas'>
+
+            <div class='w3-card-2 w3-white conversa'>
+                <h4>Dona Dulce</h4>
+                <p>Manel João: Tão dona dulce e a familia com...</p>
             </div>
 
-            <button id='openMensagens' class='divClosed'><i class='fas fa-comment-dots w3-left' id='openMp'></i></button>
-
-            <div id='MessageDiv' class='w3-sidebar hidden'>
-
-                <h3>Mensagens</h3>
-
-                <input type='text' class='w3-bar w3-input' placeholder='Procurar conversas'>
-
-                <div class='w3-card-2 w3-white conversa'>
-                    <h4>Dona Dulce</h4>
-                    <p>Manel João: Tão dona dulce e a familia com...</p>
-                </div>
-
-                <div class='w3-card-2 w3-white conversa'>
-                    <h4>Dom Manuel</h4>
-                    <p>Manel João: Tão Manecas e a familia com...</p>
-                </div>
-
-                <div class='w3-card-2 w3-white conversa'>
-                    <h4>Dona Joana</h4>
-                    <p>Manel João: Tão dona joana e a familia com...</p>
-                </div>
-
-                <div class='w3-card-2 w3-white conversa'>
-                    <h4>Zé Tartaruga</h4>
-                    <p>Manel João: Tão ZeTa e a familia com...</p>
-                </div>
-
-                <div class='w3-card-2 w3-white conversa'>
-                    <h4>Portugal Solidário</h4>
-                    <p>Manel João: Tão Portugal Solidário e a covid com...</p>
-                </div>
+            <div class='w3-card-2 w3-white conversa'>
+                <h4>Dom Manuel</h4>
+                <p>Manel João: Tão Manecas e a familia com...</p>
             </div>
-        ";
+
+            <div class='w3-card-2 w3-white conversa'>
+                <h4>Dona Joana</h4>
+                <p>Manel João: Tão dona joana e a familia com...</p>
+            </div>
+
+            <div class='w3-card-2 w3-white conversa'>
+                <h4>Zé Tartaruga</h4>
+                <p>Manel João: Tão ZeTa e a familia com...</p>
+            </div>
+
+            <div class='w3-card-2 w3-white conversa'>
+                <h4>Portugal Solidário</h4>
+                <p>Manel João: Tão Portugal Solidário e a covid com...</p>
+            </div>
+        </div>";
     }
 
     mysqli_close($conn);

@@ -50,6 +50,7 @@ CREATE TABLE Instituicao (
     nome_representante      VARCHAR(50) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
     password2               VARCHAR(50) NOT NULL,
+    foto                    LONGBLOB NOT NULL,
     website                 VARCHAR(50),
 
     CONSTRAINT pk_instituicao_id
@@ -66,7 +67,7 @@ CREATE TABLE Voluntario (
     nome_voluntario         VARCHAR(50) NOT NULL,
     data_nascimento         DATE NOT NULL,
     genero                  VARCHAR(50) NOT NULL,
-    foto                    LONGBLOB NOT NULL,
+    foto                    VARCHAR(500) NOT NULL,
     bio                     VARCHAR(240) NOT NULL,
     concelho                VARCHAR(50) NOT NULL,
     distrito                VARCHAR(50) NOT NULL,
