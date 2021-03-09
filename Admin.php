@@ -32,11 +32,11 @@
 <table>
 
     <div class="w3-container">
-
+        <p>Voluntário</p>
     </div>
 
     <div class="w3-container">
-    
+        <p>Instituição</p>
     </div>
 
 
