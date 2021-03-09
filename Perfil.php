@@ -66,15 +66,17 @@
         if ($row = $resultHeaderVoluntario->fetch_assoc()){
             $foto = $row['foto'];
             $bio = $row['bio'];
+
         }
 
-        
+        #<img src='".$foto."' alt='Avatar' class='w3-left w3-circle'>
+        echo $foto;
         
         echo "
             <div id='AzulDiv' >
 
-                <img src='".$foto."' alt='Avatar' class='w3-left w3-circle'>
-
+                <img src='$foto' alt='Avatar' class='w3-left w3-circle'>
+                
                 <h5>".$open."</h5>
                 <hr>
                 <h6>0 publicações <i class='fa fa-deviantart'></i> 0 seguidores <i class='fa fa-deviantart'></i> 0 seguindo</h6>

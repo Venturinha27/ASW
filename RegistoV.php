@@ -105,7 +105,7 @@
                     $telefone = test_input($_POST['telefone']);
                     $dataNascimento = test_input($_POST['dataNascimento']);
                     $CC = test_input($_POST['CC']);                              #unique
-                    $avatar = test_input($_POST['avatar']); 
+                    $avatar = test_input(base64_encode($_POST['avatar'])); 
                     $bio = test_input($_POST['bio']); 
                     $distrito = test_input($_POST['distrito']);
                     $concelho = test_input($_POST['concelho']);

@@ -66,7 +66,7 @@ CREATE TABLE Voluntario (
     nome_voluntario         VARCHAR(50) NOT NULL,
     data_nascimento         DATE NOT NULL,
     genero                  VARCHAR(50) NOT NULL,
-    foto                    VARBINARY(65535) NOT NULL,
+    foto                    LONGBLOB NOT NULL,
     bio                     VARCHAR(240) NOT NULL,
     concelho                VARCHAR(50) NOT NULL,
     distrito                VARCHAR(50) NOT NULL,
