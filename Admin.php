@@ -31,12 +31,12 @@
 <body>
 <table>
 
-    <div class="w3-container">
-        <p>Voluntário</p>
+    <div class="w3-container w3-teal">
+        <h1>Voluntário</h1>
     </div>
 
-    <div class="w3-container">
-        <p>Instituição</p>
+    <div class="w3-container w3-teal">
+        <h1>Instituição</h1>
     </div>
 
 
