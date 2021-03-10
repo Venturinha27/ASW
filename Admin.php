@@ -1,14 +1,10 @@
-<?php
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html>
 <title>Administradores</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/HomePageC.css">
+<link rel="stylesheet" href="AdminC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="JavaScript/HomePageJS.js"></script>
 
@@ -18,7 +14,7 @@
 
         <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
         
-        <a href="Perfil.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile w3-blue"><i class="fa fa-user-circle"></i></a>
+        <a href="Perfil.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile w3-ambar"><i class="fa fa-user-circle"></i></a>
         <a href="Voluntarios.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
         <a href="Instituicoes.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Instituições</a>
         <a href="Covid19.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
@@ -29,27 +25,33 @@
 </header>
 
 <body>
-<a>ola</a>
-<!-- qnd carregar em todos os usuários -->
+    <div id="Div">
+        <br>
+        <h1 class="w3-center" id="informacoesP">Informações Sobre:</h1>
+        <div id="Options">
+            <div id="voluntarioDiv">
+                <a href="#"><i class="fa fa-male" id="voluntarioIcon"></i></a>
+                <h5 id="voluntarioP">Voluntário</p>
+            </div>
+            <div id="instituicaoDiv">
+                <a href="#"><i class="fa fa-building" id="instituicaoIcon"></i></a>
+                <h5 id="instituicaoP">Instituição</p>
+            </div>
+            <div id="todosDiv">
+                <a href="#"><i class="fa fa-eye" id="todosIcon"></i></a>
+                <h5 id="TodosP">Todos</p>
+            </div>
+        </div>
+        <form action="admin.php" method="post" id="procura" class="w3-container">
+            <input class="w3-input w3-border w3-light-grey"type="text" name="search" placeholder="Digite algo: Concelho/Freguesia/Idade/Nome"/>
+            <input id="botao" type="submit" value= "PROCURAR"/>
+        </form>
+    </div>
+
 <?php
-    include openconn.php
-
-    $query= "SELECT * FROM Voluntario 
-            UNION 
-             SELECT * FROM Instituicao
-             ORDER BY id ASC;
-     
-    $result = $conn->query($query);
-
-    if (!($resultLogin)) {
-        $erroG = "Algo correu mal.";
-        echo "<p class='w3-red w3-small'>$erroG</p>";
-    }
-    
-    echo "<table>";
-    
-    echo 
+    echo "goncalo";
 ?>
+
 </body>
 
 <footer>
