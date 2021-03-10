@@ -94,7 +94,7 @@
                 
                 <h5>".$open."</h5>
                 <hr>
-                <h6>0 publicações <i class='fa fa-deviantart'></i> 0 seguidores <i class='fa fa-deviantart'></i> 0 seguindo</h6>
+                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
                 <hr>
                 <p>".$bio."</p>
 
@@ -129,11 +129,11 @@
                         Perfil
                     </button>
 
-                    <a href='PerfilFeed.html'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                    <a href='PerfilFeed.php'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
                         Publicações
                     </button></a>
 
-                    <a href='PerfilAtividades.html'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
+                    <a href='PerfilAtividades.php'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
                         Ações
                     </button></a>
                 </div>
@@ -156,10 +156,13 @@
                     }              
 
                     if ($resultVoluntarioArea->num_rows > 0) {
-                                
+                        echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                        echo "<ul class='w3-ul w3-center'>";                                    
                         while ($row = $resultVoluntarioArea->fetch_assoc()){
-                            echo "<p>-> ".$row['area']."</p>";
+                            echo "<li>".$row['area']."</li>";
                         }
+                        echo "</ul>";
+                        echo "</div>";
                     }
 
                     echo "<hr>
@@ -176,10 +179,14 @@
                     }              
 
                     if ($resultVoluntarioPopulacao->num_rows > 0) {
-                                
+                          
+                        echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                        echo "<ul class='w3-ul w3-center'>"; 
                         while ($row = $resultVoluntarioPopulacao->fetch_assoc()){
-                            echo "<p>-> ".$row['populacao_alvo']."</p>";
+                            echo "<li>".$row['populacao_alvo']."</li>";
                         }
+                        echo "</ul>";
+                        echo "</div>";
                     }
 
                     echo"<hr>
@@ -196,10 +203,13 @@
                     }              
 
                     if ($resultVoluntarioDispo->num_rows > 0) {
-                                
+                        echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                        echo "<ul class='w3-ul w3-center'>"; 
                         while ($row = $resultVoluntarioDispo->fetch_assoc()){
-                            echo "<p>-> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</p>";
+                            echo "<li>".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</li>";
                         }
+                        echo "</ul>";
+                        echo "</div>";
                     }
 
                 echo "</div>
@@ -255,7 +265,7 @@
                 
                 <h5>".$open."</h5>
                 <hr>
-                <h6>0 publicações <i class='fa fa-deviantart'></i> 0 seguidores <i class='fa fa-deviantart'></i> 0 seguindo</h6>
+                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
                 <hr>
                 <p>".$bio."</p>
 
@@ -290,11 +300,11 @@
                         Perfil
                     </button>
 
-                    <a href='PerfilFeed.html'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                    <a href='PerfilFeed.php'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
                         Publicações
                     </button></a>
 
-                    <a href='PerfilAtividades.html'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
+                    <a href='PerfilAtividades.php'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
                         Ações
                     </button></a>
                 </div>

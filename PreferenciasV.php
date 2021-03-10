@@ -246,7 +246,7 @@
                 $voluntario = $_SESSION['loggedid'];
 
                 if ($_POST['submitA']) {
-                    $area_interesse = $_POST['area-interesse'];
+                    $area_interesse = test_input($_POST['area-interesse']);
 
                     $insertArea = "insert into Voluntario_Area
                                     values ('".$voluntario."' , '".$area_interesse."')";
@@ -259,7 +259,7 @@
                 }
 
                 if ($_POST['submitP']) {
-                    $populacao_alvo = $_POST['populacao-alvo'];
+                    $populacao_alvo = test_input($_POST['populacao-alvo']);
 
                     $insertPopulacao = "insert into Voluntario_Populacao_Alvo
                                     values ('".$voluntario."' , '".$populacao_alvo."')";
@@ -272,9 +272,9 @@
                 }
 
                 if ($_POST['submitD']) {
-                    $dia = $_POST['disponibilidade-dia'];
-                    $hora = $_POST['disponibilidade-hora'];
-                    $duracao = $_POST['disponibilidade-duracao'];
+                    $dia = test_input($_POST['disponibilidade-dia']);
+                    $hora = test_input($_POST['disponibilidade-hora']);
+                    $duracao = test_input($_POST['disponibilidade-duracao']);
 
                     $insertDispo = "insert into Voluntario_Disponibilidade
                                     values ('".$voluntario."' , '".$dia."' ,

@@ -13,12 +13,14 @@ body {
     background-color: white;
 }
 
+/* ---------------------------------------------- DIV FORM --------------------------------------- */
+
 #BrancoDiv {
     position: absolute;
     top: 10%;
     left: 3%;
     width: 65%;
-    height: 90%;
+    height: 100%;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
@@ -26,7 +28,7 @@ body {
 
 #BrancoDiv h2{
     position: absolute;
-    top: 5%;
+    top: 3%;
     left: 0%;
     width: 100%;
     text-align: center;
@@ -34,17 +36,11 @@ body {
 
 #registertext {
     position: absolute;
-    top: 20%;
+    top: 17%;
     left: 10%;
     width: 80%;
     height: fit-content;
     background-color: yellow;
-}
-
-.erro{
-    margin-top: -1%;
-    margin-left: -27%;
-    color: red;
 }
 
 #divEsq{
@@ -73,11 +69,19 @@ body {
     color: #24305E;
 }
 
-/* -----------------------------------------------Placeholder----------------------------------------- */
+/* -----------------------------------------------Pormenores----------------------------------------- */
 
 ::placeholder {
     color: #24305E;
     opacity: 1;
+}
+
+#dataNascimento{
+    color: #24305E;
+}
+
+#avatar{
+    width: 100%;
 }
 
 /* ---------------------------------------------- DIV VOLUNTARIO --------------------------------------- */
@@ -117,13 +121,20 @@ body {
 /* -----------------------------------------------Botão Registar----------------------------------------- */
 
 #submit{
-    margin-top: 17%;
+    margin-top: 15%;
     margin-left: -27%;
     padding: 9px;
     width: 50%;
     background-color: #f8f8f8;
     border-color: #24305E;
     text-align: center;
+}
+
+.erro {
+    margin-top: 0%;
+    margin-left: -103%;
+    text-align: center;
+    color: red;
 }
 
 /* -----------------------------------------------Login----------------------------------------- */
