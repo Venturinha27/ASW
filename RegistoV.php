@@ -69,7 +69,7 @@
             <input type="text" class="w3-input" id="freguesia" placeholder="Freguesia" name="freguesia"required/>
 
             <label>Género</label>
-            <select class="w3-select" name="genero">
+            <select class="w3-input" name="genero">
                 <option value="" disabled selected>Selecione o seu género</option>
                 <option value="Homem">Homem</option>
                 <option value="Mulher">Mulher</option>
@@ -77,104 +77,108 @@
             </select>
 
             <label>Carta de Condução</label>
-            <select class="w3-select" name="carta">
+            <select class="w3-input" name="carta">
                 <option value="" disabled selected>Selecione se tem carta de condução</option>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
             </select>
 
             <label>Já esteve infetado com o Covid-19?</label>
-            <select class="w3-select" name="covid">
+            <select class="w3-input" name="covid">
                 <option value="" disabled selected>Selecione se já esteve infetado</option>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
             </select>
 
-            <input id="submit" type="submit" name="" value="Registar" href="InformacoesV.html">
-            
-            <?php
-                include "openconn.php";
+        <input id="submit" type="submit" name="" value="Registar" href="InformacoesV.html">
+        
+        <?php
+            include "openconn.php";
 
-                include "TestInput.php";
+            include "TestInput.php";
 
-                if (!empty($_POST)){
+            if (!empty($_POST)){
 
-                    $id = uniqid();
-                    $nomeProprio = test_input($_POST['nomeProprio']); 
-                    $Email = test_input($_POST['E-mail']);                       #unique
-                    $Password = test_input($_POST['Password']);
-                    $telefone = test_input($_POST['telefone']);
-                    $dataNascimento = test_input($_POST['dataNascimento']);
-                    $CC = test_input($_POST['CC']);                              #unique
-                    $bio = test_input($_POST['bio']); 
-                    $distrito = test_input($_POST['distrito']);
-                    $concelho = test_input($_POST['concelho']);
-                    $freguesia = test_input($_POST['freguesia']);
-                    $genero = test_input($_POST['genero']);
-                    $carta = test_input($_POST['carta']); 
-                    $covid = test_input($_POST['covid']);
+                $id = uniqid();
+                $nomeProprio = test_input($_POST['nomeProprio']); 
+                $Email = test_input($_POST['E-mail']);                       #unique
+                $Password = test_input($_POST['Password']);
+                $telefone = test_input($_POST['telefone']);
+                $dataNascimento = test_input($_POST['dataNascimento']);
+                $CC = test_input($_POST['CC']);                              #unique
+                $bio = test_input($_POST['bio']); 
+                $distrito = test_input($_POST['distrito']);
+                $concelho = test_input($_POST['concelho']);
+                $freguesia = test_input($_POST['freguesia']);
+                $genero = test_input($_POST['genero']);
+                $carta = test_input($_POST['carta']); 
+                $covid = test_input($_POST['covid']);
 
-                    try {
+                $erro = 0;
 
-                        // Previne erros (podem ser ataques informaticos mas nao so).
-                        if (
-                            !isset($_FILES['avatar']['error']) ||
-                            is_array($_FILES['avatar']['error'])
-                        ) {
-                            throw new RuntimeException('Invalid parameters.');
-                        }
+                try {
 
-                        // Verifica o valor do erro
-                        switch ($_FILES['avatar']['error']) {
-                            case UPLOAD_ERR_OK:
-                                break;
-                            case UPLOAD_ERR_NO_FILE:
-                                throw new RuntimeException('No file sent.');
-                            case UPLOAD_ERR_INI_SIZE:
-                            case UPLOAD_ERR_FORM_SIZE:
-                                throw new RuntimeException('Exceeded filesize limit.');
-                            default:
-                                throw new RuntimeException('Unknown errors.');
-                        }
-
-                        // Verifica se o tamanho limite nao foi ultrapassado
-                        if ($_FILES['avatar']['size'] > 10000000) {
-                            throw new RuntimeException('Exceeded filesize limit.');
-                        }
-
-                        // Verifica o tipo do ficheiro
-                        $finfo = new finfo(FILEINFO_MIME_TYPE);
-                        if (false === $ext = array_search(
-                            $finfo->file($_FILES['avatar']['tmp_name']),
-                            array(
-                                'jpg' => 'image/jpeg',
-                                'png' => 'image/png',
-                                'gif' => 'image/gif',
-                            ),
-                            true
-                        )) {
-                            throw new RuntimeException('Invalid file format.');
-                        }
-
-                        $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
-
-                        // Obtem um nome unico para guardar a fotografia no servidor.
-                        if (!move_uploaded_file(
-                            $_FILES['avatar']['tmp_name'],
-                            sprintf('Images/%s.%s',
-                                sha1_file($_FILES['avatar']['tmp_name']),
-                                $ext
-                            )
-                        )) {
-                            throw new RuntimeException('Failed to move uploaded file.');
-                        }
-
-                    } catch (RuntimeException $e) {
-
-                        echo $e->getMessage();
-                    
+                    // Previne erros (podem ser ataques informaticos mas nao so).
+                    if (
+                        !isset($_FILES['avatar']['error']) ||
+                        is_array($_FILES['avatar']['error'])
+                    ) {
+                        throw new RuntimeException('Imagem inválida.');
                     }
 
+                    // Verifica o valor do erro
+                    switch ($_FILES['avatar']['error']) {
+                        case UPLOAD_ERR_OK:
+                            break;
+                        case UPLOAD_ERR_NO_FILE:
+                            throw new RuntimeException('Nenhuma imagem enviada.');
+                        case UPLOAD_ERR_INI_SIZE:
+                        case UPLOAD_ERR_FORM_SIZE:
+                            throw new RuntimeException('Imagem demasiado grande.');
+                        default:
+                            throw new RuntimeException('Imagem inválida.');
+                    }
+
+                    // Verifica se o tamanho limite nao foi ultrapassado
+                    if ($_FILES['avatar']['size'] > 10000000) {
+                        throw new RuntimeException('Imagem demasiado grande.');
+                    }
+
+                    // Verifica o tipo do ficheiro
+                    $finfo = new finfo(FILEINFO_MIME_TYPE);
+                    if (false === $ext = array_search(
+                        $finfo->file($_FILES['avatar']['tmp_name']),
+                        array(
+                            'jpg' => 'image/jpeg',
+                            'png' => 'image/png',
+                            'gif' => 'image/gif',
+                        ),
+                        true
+                    )) {
+                        throw new RuntimeException('Formato da imagem inválido.');
+                    }
+
+                    $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
+
+                    // Obtem um nome unico para guardar a fotografia no servidor.
+                    if (!move_uploaded_file(
+                        $_FILES['avatar']['tmp_name'],
+                        sprintf('Images/%s.%s',
+                            sha1_file($_FILES['avatar']['tmp_name']),
+                            $ext
+                        )
+                    )) {
+                        throw new RuntimeException('Não foi possivel carregar a imagem.');
+                    }
+
+                } catch (RuntimeException $e) {
+
+                    echo "<p class='erro'>".$e->getMessage()."</p>";
+                    $erro = 1;
+                    
+                }
+
+                if ($erro == 0){
                     $check = 0;
 
                     $sqlNome = "SELECT nome_voluntario, email
@@ -186,19 +190,28 @@
                             while ($row = $resultN->fetch_assoc()){
                                 if ($row["nomeProprio"] != $nomeProprio and $row["E-mail"] != $Email){
                                     if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
-                                        $check = 1;
+                                        if (strlen((string)$telefone) == 9){
+                                            if (strlen((string)$CC) == 9){
+                                                $check = 1;
+                                            }
+                                            else {
+                                                $msgErro = "<p class='erro'> Insira um cc válido </p>";
+                                            }
+                                        } else {
+                                            $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
+                                        }
                                     } else {
-                                        echo "<p class='w3-red w3-center'> Insira um e-mail válido </p>";
+                                        $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
                                     }
                                 } else {
-                                    echo "<p class='w3-red w3-center'> Username ou email já existe </p>";
+                                    $msgErro = "<p class='erro'> Username ou email já existe </p>";
                                 }
                             }
-                        } else {
-                            $check = 1;
-                        }
+                    } else {
+                        $check = 1;
+                    }
                     
-
+                    echo $msgErro;
 
                     if ($check == 1){
 
@@ -209,10 +222,9 @@
                         
                         if ($res1) {
                         } else {
-                            echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
+                            echo "<p class='erro'> Algo deu errado. </p>";
                         }
                         
-                        echo "<p class='w3-red'>" . $CC ."</p>";
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
                                 .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
@@ -229,20 +241,18 @@
                             $_SESSION['openid'] = $id;
                             header("Location: PreferenciasV.php");
                         } else {
-                            echo "<p class='w3-red'>Erro: insert failed" . mysqli_error($conn)."</p>";
+                            echo "<p class='erro'> Algo deu errado. </p>";
                         }
                         
                     }
-                    
-                mysqli_close($conn);
                 }
-            
-            ?>
-            
-            
-            
-            
-            <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a></p>
+                
+            mysqli_close($conn);
+            }
+        
+        ?>  
+
+        <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.html" id="login">Login</a></p>
 
         </div> 
         

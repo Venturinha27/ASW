@@ -53,7 +53,7 @@
 
                     if (!($resultLogin)) {
                         $erroG = "Algo correu mal.";
-                        echo "<p class='w3-red w3-small'>$erroG</p>";
+                        echo "<p class='w3-text-red w3-center'><b>$erroG</u></b>";
                     }
 
                     if ($resultLogin->num_rows > 0) {
@@ -69,7 +69,7 @@
 
                                 if (!($resultTipo)) {
                                     $erroG = "Algo correu mal.";
-                                    echo "<p class='w3-red w3-small'>$erroG</p>";
+                                    echo "<p class='w3-text-red w3-center'><b>$erroG</u></b>";
                                 }
 
                                 if ($rowT = $resultTipo->fetch_array()) {
@@ -97,28 +97,29 @@
                         
                         if ($userExiste == 1) {
                             $erroP = "Password errada.";
-                            echo "<p class='w3-red w3-small'>$erroP</p>";
+                            echo "<p class='w3-text-red w3-center'><b>$erroP</u></b>";
                         } else {
                             $erroU = "Utilizador não existe.";
-                            echo "<p class='w3-red w3-small'>$erroU</p>";
+                            echo "<p class='w3-text-red w3-center'><b>$erroU</u></b>";
                         }
                         
                     } else {
                         $erroU = "Utilizador não existe.";
-                        echo "<p class='w3-red w3-small'>$erroU</p>";
+                        echo "<p class='w3-text-red w3-center'><b>$erroU</u></b>";
                     }
                 }
                 mysqli_close($conn);
 
             ?>
             
-            <br>
             <p class="w3-center">Ainda não tem conta?</p>
             <p class="w3-center">
                 <a href="RegistoV.php">Registe-se como voluntário</a>
                 |
                 <a href="RegistoI.php">Registe-se como instituição</a>
             </p>
+
+            <a href="EsqPass.php"><p class="w3-center">Esqueceu-se da sua palavra-passe?</p></a>
         
         </form>
 
