@@ -48,6 +48,37 @@
             <input type="password" class="w3-input" id="confCassword" placeholder="Confirme a Palavra-Passe" name="confPassword" required>
 
             <input id="submit" type="submit" name="" value="Confirmar" href="Login.html">
+        
+            <?php
+                include "openconn.php";
+
+                include "TestInput.php";
+
+                if (!empty($_POST)){
+
+                    $email = test_input($_POST['Email']);                       #unique
+                    $cc = test_input($_POST['CC']);                              #unique
+                    $novaPassword = test_input($_POST['novaPassword']);
+                    $confPassword = test_input($_POST['confPassword']);
+
+                    $check = 0;
+                    
+                }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            ?>
+        
         </div>
     </form>
 
