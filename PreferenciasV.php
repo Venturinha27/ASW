@@ -41,7 +41,7 @@
 
     <div id="registertext">
 
-            <form action="PreferenciasV.php" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <label>Áreas de interesse:</label>
                     <select class="w3-select sela" name="area-interesse" required>
                         <option value="" disabled selected>Selecione uma área de interesse</option>
@@ -87,7 +87,7 @@
 
             <hr>
             
-            <form action="PreferenciasV.php" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <label>População-alvo:</label>
                     <select class="w3-select selp" name="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
@@ -138,7 +138,7 @@
 
             <hr>
             
-            <form action="PreferenciasV.php" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <label>Disponibilidade:</label>
                     <select class="w3-select disponibilidade" name="disponibilidade-dia">
                         <option value="" disabled selected>Dia</option>

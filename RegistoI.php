@@ -38,7 +38,7 @@
 
         <br>
 
-    <form id="registertext" action="RegistoI.php" method="post">
+    <form id="registertext" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <div id="divEsq">
             <input type="text" class="w3-input" id="nomeInstituicao" placeholder="Nome da Instituição" name="nomeInstituicao" required>
 
@@ -55,7 +55,8 @@
         <div id="divDir">
                 
             <label>Fotografia de Perfil</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+            <input type="file" id="avatar" name="avatar">
 
             <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
 
@@ -90,10 +91,67 @@
                     $password = test_input($_POST['password']);
                     $bio = test_input($_POST['bio']);
                     $website = test_input($_POST['website']); # pode ser null
-                    $avatar = test_input($_POST['avatar']);
                     
-                    //$ava = $_FILES['avatar']['tmp_name'];
-                    //$avatar = addslashes(file_get_contents($ava));
+                    try {
+
+                        // Previne erros (podem ser ataques informaticos mas nao so).
+                        if (
+                            !isset($_FILES['avatar']['error']) ||
+                            is_array($_FILES['avatar']['error'])
+                        ) {
+                            throw new RuntimeException('Invalid parameters.');
+                        }
+
+                        // Verifica o valor do erro
+                        switch ($_FILES['avatar']['error']) {
+                            case UPLOAD_ERR_OK:
+                                break;
+                            case UPLOAD_ERR_NO_FILE:
+                                throw new RuntimeException('No file sent.');
+                            case UPLOAD_ERR_INI_SIZE:
+                            case UPLOAD_ERR_FORM_SIZE:
+                                throw new RuntimeException('Exceeded filesize limit.');
+                            default:
+                                throw new RuntimeException('Unknown errors.');
+                        }
+
+                        // Verifica se o tamanho limite nao foi ultrapassado
+                        if ($_FILES['avatar']['size'] > 10000000) {
+                            throw new RuntimeException('Exceeded filesize limit.');
+                        }
+
+                        // Verifica o tipo do ficheiro
+                        $finfo = new finfo(FILEINFO_MIME_TYPE);
+                        if (false === $ext = array_search(
+                            $finfo->file($_FILES['avatar']['tmp_name']),
+                            array(
+                                'jpg' => 'image/jpeg',
+                                'png' => 'image/png',
+                                'gif' => 'image/gif',
+                            ),
+                            true
+                        )) {
+                            throw new RuntimeException('Invalid file format.');
+                        }
+
+                        $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
+
+                        // Obtem um nome unico para guardar a fotografia no servidor.
+                        if (!move_uploaded_file(
+                            $_FILES['avatar']['tmp_name'],
+                            sprintf('Images/%s.%s',
+                                sha1_file($_FILES['avatar']['tmp_name']),
+                                $ext
+                            )
+                        )) {
+                            throw new RuntimeException('Failed to move uploaded file.');
+                        }
+
+                    } catch (RuntimeException $e) {
+
+                        echo $e->getMessage();
+                    
+                    }
 
                     $check = 0;
 
@@ -153,6 +211,7 @@
 
                         mysqli_close($conn);
                 }
+                
                 }
             ?>
 

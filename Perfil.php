@@ -90,7 +90,7 @@
         echo "
             <div id='AzulDiv' >
 
-            <img alt='Avatar' class='w3-left w3-circle' src='.$foto.' />
+            <img alt='Avatar' class='w3-left w3-circle' src='$foto' />
                 
                 <h5>".$open."</h5>
                 <hr>
@@ -244,14 +244,14 @@
             $website = $row['website'];
         }
 
-        # -- PREFERENCIAS VOLUNTARIO ---------------------------------------------------
+        # -- PREFERENCIAS INSTITUICAO ---------------------------------------------------
         
         #<img src='$foto' alt='Avatar' class='w3-left w3-circle' >
         
         echo "
             <div id='AzulDiv' >
         
-                <img alt='Avatar' class='w3-left w3-circle' src='data:image/jpg;charset=utf8;base64,". base64_encode($row['image']) ."' />       
+                <img alt='Avatar' class='w3-left w3-circle' src='$foto' />       
                 
                 <h5>".$open."</h5>
                 <hr>
