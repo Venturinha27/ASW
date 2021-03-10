@@ -41,7 +41,7 @@
         <div id="Esqueci">
             <input type="text" class="w3-input" id="Email" placeholder="E-mail" name="Email" required>
 
-            <input type="text" class="w3-input" id="CC" placeholder="Cartão de Cidadão" name="CC" required>
+            <input type="text" class="w3-input" id="telefone" placeholder="Telefone/Telemóvel" name="telefone" required>
 
             <input type="password" class="w3-input" id="novaPassword" placeholder="Nova Palavra-Passe" name="novaPassword" required>
             
@@ -57,11 +57,11 @@
                 if (!empty($_POST)){
 
                     $email = test_input($_POST['Email']);                       #unique
-                    $cc = test_input($_POST['CC']);                              #unique
+                    $telefone = test_input($_POST['telefone']);                              #unique
                     $novaPassword = test_input($_POST['novaPassword']);
                     $confPassword = test_input($_POST['confPassword']);
 
-                    $check = 0;
+                    
                     
                 }
         
