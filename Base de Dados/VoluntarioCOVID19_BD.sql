@@ -21,7 +21,6 @@ DROP TABLE IF EXISTS Area_de_Interesse;
 DROP TABLE IF EXISTS Voluntario;
 DROP TABLE IF EXISTS Instituicao;
 DROP TABLE IF EXISTS Utilizador;
-DROP TABLE IF EXISTS PalavraPasse;
 
 /* ----------------------- UTILIZADOR ----------------------- */
 
@@ -276,20 +275,3 @@ INSERT INTO Populacao_Alvo VALUES ("Pessoas em situação de dependência (ex. a
 INSERT INTO Populacao_Alvo VALUES ("Pessoas sem-abrigo");
 INSERT INTO Populacao_Alvo VALUES ("Pessoas com deficiência");
 
-/* ----------------------- PALAVRA-PASSE ----------------------- */
-
-CREATE TABLE PalavraPasse (
-    email           NVARCHAR(50) NOT NULL,
-    cc              NUMERIC(9) NOT NULL UNIQUE,
-    novaPassword    VARCHAR(50) NOT NULL,
-    confPassword    VARCHAR(50) NOT NULL,
-
-    CONSTRAINT pk_palavrapasse
-        PRIMARY KEY (email),
-    
-    CONSTRAINT fk_email_palavasse
-        FOREIGN KEY email REFERENCES Voluntario(email),
-
-    CONSTRAINT fk_cc_palavrapasse
-        FOREIGN KEY cc REFERENCES Voluntario(cc)
-);
