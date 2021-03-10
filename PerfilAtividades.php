@@ -101,7 +101,7 @@
                     
                     if ($openid == $loggedid){
                         echo "
-                        <a href='EditarPerfil.html'><button class='w3-button' id='EditarPerfil'>
+                        <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
                             Editar perfil
                         </button></a>
 
@@ -181,7 +181,7 @@
                     
                     if ($openid == $loggedid){
                         echo "
-                        <a href='EditarPerfil.html'><button class='w3-button' id='EditarPerfil'>
+                        <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
                             Editar perfil
                         </button></a>
 
