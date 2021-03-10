@@ -70,13 +70,16 @@
 
                 if ($resultA->num_rows > 0) {
 
-                    echo "<div class='w3-container w3-light-grey'>";                    
+                    $checkArea = 1;
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                    echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultA->fetch_assoc()){
-                        echo "<p class='w3-center'> -> " . $row['area'] . " </p>";
+                        echo "<li> " . $row['area'] . " </li>";
                     }
+                    echo "</ul>";
                     echo "</div>";
                 } else {
-                    echo "<div class='w3-container w3-light-grey'>
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
                             <p class='w3-center'>Ainda não tem áreas de interesse.</p>
                         </div>";
                 }
@@ -121,13 +124,18 @@
 
                 if ($resultP->num_rows > 0) {
 
-                    echo "<div class='w3-container w3-light-grey'>";                    
+                    $checkPopulacao = 1;
+
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                    echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultP->fetch_assoc()){
-                        echo "<p class='w3-center'> -> " . $row['populacao_alvo'] . " </p>";
+                        echo "<li> " . $row['populacao_alvo'] . " </li>";
                     }
+                    echo "</ul>";
                     echo "</div>";
+
                 } else {
-                    echo "<div class='w3-container w3-light-grey'>
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
                             <p class='w3-center'>Ainda não tem nenhuma população-alvo.</p>
                         </div>";
                 }
@@ -209,15 +217,18 @@
 
                 if ($resultD->num_rows > 0) {
 
-                    echo "<div class='w3-container w3-light-grey'>";                    
+                    $checkDisponibilidade = 1;
+
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                    echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultD->fetch_assoc()){
-                        echo "<p class='w3-center'> -> Dia: " . $row['dia'] . "
-                                                , hora: ". $row['hora'] .":00, duração: "
-                                                    .$row['duracao']." horas.</p>";
+                        echo "<li> Dia: " . $row['dia'] . ", hora: ". $row['hora'] .":00, duração: ".$row['duracao']." horas. </li>";
                     }
+                    echo "</ul>";
                     echo "</div>";
+
                 } else {
-                    echo "<div class='w3-container w3-light-grey'>
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
                             <p class='w3-center'>Ainda não tem disponibilidade.</p>
                         </div>";
                 }
@@ -278,8 +289,13 @@
 
             ?>
 
-            <a href="Perfil.php"><button id="avancar">Avançar</button></a>
-
+            <?php
+                if ($checkArea == 1 and $checkPopulacao == 1 and $checkDisponibilidade == 1){
+                    echo "<a href='Perfil.php'><button class='w3-button w3-border w3-center' id='avancar'>Avançar</button></a>";
+                } else {
+                    echo "<p>Escolha, pelo menos, uma área de interesse, uma população-alvo e uma disponibilidade.</p>";
+                }
+            ?>
     </div>
 
 
