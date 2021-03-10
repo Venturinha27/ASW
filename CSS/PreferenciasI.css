@@ -90,7 +90,7 @@ body {
 
 #acoes {
     width: 100%;
-    height: 200%;
+    height: 500%;
     margin-top: 3%;
     overflow-y: scroll;
     box-sizing: border-box;
@@ -133,10 +133,10 @@ body {
     background-color: white;
     z-index: 5;
     position: fixed;
-    top: 8%;
+    top: 12%;
     left: 20%;
     width: 60%;
-    height: 85%;
+    height: 80%;
     overflow-y: scroll;
 }
 
@@ -151,6 +151,34 @@ body {
     width: 17%;
 }
 
+#esq{
+    position: absolute;
+    margin-top: 0%;
+    left: 2%;
+    height: 50%;
+    width: 46%;
+}
+
+#dir{
+    position: absolute;
+    margin-top: 0%;
+    left: 52%;
+    height: 50%;
+    width: 46%;
+}
+
+#submit{
+    position: absolute;
+    top: 85%;
+    left: 37.5%;
+    height: 8%;
+    width: 25%;
+}
+
+#closeActionForm {
+    margin-top: 1%;
+    margin-right: 2.5%;
+}
 
 /* -----------------------------------------------Placeholder----------------------------------------- */
 
@@ -192,18 +220,7 @@ body {
     font-size: smaller;
 }
 
-/* -----------------------------------------------Botão Registar----------------------------------------- */
-/*
-#submit{
-    margin-top: 15%;
-    margin-left: -27%;
-    padding: 9px;
-    width: 50%;
-    background-color: #f8f8f8;
-    border-color: #24305E;
-    text-align: center;
-}
-*/
+
 /* -----------------------------------------------Login----------------------------------------- */
 /*
 #home{

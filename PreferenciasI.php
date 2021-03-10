@@ -58,7 +58,7 @@
                     $instituicao = $_SESSION['logged'];
                     
                     $sqlNome = "SELECT id_instituicao, id_acao, titulo, distrito, concelho, freguesia, funcao, 
-                                area_interesse, populacao_alvo, num_vagas, dia, hora, semana, duracao
+                                area_interesse, populacao_alvo, num_vagas, dia, hora, duracao
                                 FROM Acao
                                 WHERE id_instituicao = '".$_SESSION['loggedid']."';";
 
@@ -88,7 +88,7 @@
                                 </div>";
                         }
                     } else {
-                        echo "<h3 class='w3-center'>Ainda não tem ações :(</h3>";
+                        echo "<p class='w3-display-middle'>Ainda não tem ações :(</p>";
                     }
                         /*
                         
@@ -108,6 +108,8 @@
 
             <header class="w3-container w3-indigo">
                 <h3>Nova ação</h3>
+
+                <button class="w3-button w3-display-topright w3-large w3-hover-indigo" id="closeActionForm">X</button>
             </header>
             <br>
 
@@ -115,168 +117,161 @@
 
             <hr>
 
-            <label>Áreas de interesse:</label>
-                <select class="w3-select sel" name="area-interesse" required>
-                    <option value="" disabled selected>Selecione as suas áreas de interesse</option>
-                    <option value="Ação social">Ação social</option>
-                    <option value="Educação">Educação</option>
-                    <option value="Saúde">Saúde</option>
-                </select>
-                
-            <hr>
-            
-            <label>População-alvo:</label>
-                <select class="w3-select sel" name="populacao-alvo" required>
-                    <option value="" disabled selected>Selecione a sua população-alvo</option>
-                    <option value="Indiferente">Indiferente</option>
-                    <option value="Crianças">Crianças</option>
-                    <option value="Jovens">Jovens</option>
-                    <option value="Idosos">Idosos</option>
-                    <option value="Grávidas">Grávidas</option>
-                    <option value="Pessoas em situação de dependência (ex. acamados)">Pessoas em situação de dependência (ex. acamados)</option>
-                    <option value="Pessoas sem-abrigo">Pessoas sem-abrigo</option>
-                    <option value="Pessoas com deficiência">Pessoas com deficiência</option>
-                </select>
+            <div id="esq">
 
-            <hr>
-            
-            <label>Função: </label>
-                <select class="w3-select sel" name="funcao" required>
-                    <option value="" disabled selected>Selecione a função</option>
-                    <option value="Entrega ao Domicilio de bens não alimentares">Entrega ao Domicilio</option>
-                    <option value="Entrega de Bens Alimentares">Entrega de Bens Alimentares</option>
-                    <option value="Prestação de Cuidados Básicos">Prestação de Cuidados Básicos</option>
-                    <option value="Apoio a Lares">Apoio a Lares</option>
-                    <option value="Cozinhar">Cozinhar</option>
-                    <option value="Limpar">Limpar</option>
-                    <option value="Apoio à infância e à Juventude">Apoio à infância e à Juventude</option>
-                    <option value="Apoio Social a familias Carenciadas">Apoio Social a familias Carenciadas</option>
-                    <option value="Apoios à angariação de bens para Animais de Companhia">Apoios à angariação de bens para Animais de Companhia</option>
-
-                </select>
-
-            <hr>
-            
-            <label>Distrito:</label>
-                <select class="w3-select sel" name="distrito" required>
-                    <option value="" disabled selected>Selecione distrito</option>
-                    <option value="Aveiro">Aveiro</option>
-                    <option value="Beja">Beja</option>
-                    <option value="Braga">Braga</option>
-                    <option value="Bragança">Bragança</option>
-                    <option value="Castelo Branco">Castelo Branco</option>
-                    <option value="Coimbra">Coimbra</option>
-                    <option value="Évora">Évora</option>
-                    <option value="Faro">Faro</option>
-                    <option value="Guarda">Guarda</option>
-                    <option value="Leiria">Leiria</option>
-                    <option value="Lisboa">Lisboa</option>
-                    <option value="Portalegre">Portalegre</option>
-                    <option value="Porto">Porto</option>
-                    <option value="Santarém">Santarém</option>
-                    <option value="Setúbal">Setúbal</option>
-                    <option value="Viana do Castelo">Viana do Castelo</option>
-                    <option value="Vila Real">Vila Real</option>
-                    <option value="Viseu">Viseu</option>
-                    <option value="Região Autónoma Açores">Região Autónoma Açores</option>
-                    <option value="Região Autónoma Madeira">Região Autónoma Madeira</option>
-                </select>
-            
-            <hr>
-
-            <label>Concelho: </label>
-                <select class="w3-select sel" name="concelho" required>
-                    <option value="" disabled selected>Selecione concelho</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-
-            <hr>
-
-
-            <label>Freguesia:</label>
-                <select class="w3-select sel" name="freguesia" required>
-                    <option value="" disabled selected>Selecione freguesia</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-            
-            <hr>
-
-            <label>Número de Vagas:</label>
-                <input type="number" id="nVagas" name="vagas" min="1" max="1000" required>
-            
-            <hr>
-            
-            <label>Disponibilidade:</label>
-                <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
-                    <option value="" disabled selected>Dia</option>
-                    <option value="Segunda">Segunda</option>
-                    <option value="Terça">Terça</option>
-                    <option value="Quarta">Quarta</option>
-                    <option value="Quinta">Quinta</option>
-                    <option value="Sexta">Sexta</option>
-                    <option value="Sábado">Sábado</option>
-                    <option value="Domingo">Domingo</option>
+                <label>Áreas de interesse:</label>
+                    <select class="w3-select sel" name="area-interesse" required>
+                        <option value="" disabled selected>Selecione as suas áreas de interesse</option>
+                        <option value="Ação social">Ação social</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Saúde">Saúde</option>
+                    </select>
                     
-                </select>
-                <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
-                    <option value="" disabled selected>Hora</option>
-                    <option value="0">00:00</option>
-                    <option value="1">01:00</option>
-                    <option value="2">02:00</option>
-                    <option value="3">03:00</option>
-                    <option value="4">04:00</option>
-                    <option value="5">05:00</option>
-                    <option value="6">06:00</option>
-                    <option value="7">07:00</option>
-                    <option value="8">08:00</option>
-                    <option value="9">09:00</option>
-                    <option value="10">10:00</option>
-                    <option value="11">11:00</option>
-                    <option value="12">12:00</option>
-                    <option value="13">13:00</option>
-                    <option value="14">14:00</option>
-                    <option value="15">15:00</option>
-                    <option value="16">16:00</option>
-                    <option value="17">17:00</option>
-                    <option value="18">18:00</option>
-                    <option value="19">19:00</option>
-                    <option value="20">20:00</option>
-                    <option value="21">21:00</option>
-                    <option value="22">22:00</option>
-                    <option value="23">23:00</option>
-                </select>
-                <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
-                    <option value="" disabled selected>Duração</option>
-                    <option value="1">01:00</option>
-                    <option value="2">02:00</option>
-                    <option value="3">03:00</option>
-                    <option value="4">04:00</option>
-                    <option value="5">05:00</option>
-                    <option value="6">06:00</option>
-                    <option value="7">07:00</option>
-                    <option value="8">08:00</option>
-                </select>
-                <select class="w3-select disponibilidade" name="disponibilidade-semana" required>
-                    <option value="" disabled selected>Semana</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-            
-            <hr>
-            
-            <label>Número de Horas Total do Voluntariado:</label>
-                <input type="number" id="nHoras" name="horas" min="1" max="1000" required>
-            
-            <hr>
-    
+                <hr>
+                
+                <label>População-alvo:</label>
+                    <select class="w3-select sel" name="populacao-alvo" required>
+                        <option value="" disabled selected>Selecione a sua população-alvo</option>
+                        <option value="Indiferente">Indiferente</option>
+                        <option value="Crianças">Crianças</option>
+                        <option value="Jovens">Jovens</option>
+                        <option value="Idosos">Idosos</option>
+                        <option value="Grávidas">Grávidas</option>
+                        <option value="Pessoas em situação de dependência (ex. acamados)">Pessoas em situação de dependência (ex. acamados)</option>
+                        <option value="Pessoas sem-abrigo">Pessoas sem-abrigo</option>
+                        <option value="Pessoas com deficiência">Pessoas com deficiência</option>
+                    </select>
 
-            <input class="w3-blue" id="submit" type="submit" value="Criar ação">
+                <hr>
+                
+                <label>Função: </label>
+                    <select class="w3-select sel" name="funcao" required>
+                        <option value="" disabled selected>Selecione a função</option>
+                        <option value="Entrega ao Domicilio de bens não alimentares">Entrega ao Domicilio</option>
+                        <option value="Entrega de Bens Alimentares">Entrega de Bens Alimentares</option>
+                        <option value="Prestação de Cuidados Básicos">Prestação de Cuidados Básicos</option>
+                        <option value="Apoio a Lares">Apoio a Lares</option>
+                        <option value="Cozinhar">Cozinhar</option>
+                        <option value="Limpar">Limpar</option>
+                        <option value="Apoio à infância e à Juventude">Apoio à infância e à Juventude</option>
+                        <option value="Apoio Social a familias Carenciadas">Apoio Social a familias Carenciadas</option>
+                        <option value="Apoios à angariação de bens para Animais de Companhia">Apoios à angariação de bens para Animais de Companhia</option>
+
+                    </select>
+
+                <hr>
+
+                <label>Número de Vagas:</label>
+                    <input type="number" id="nVagas" name="vagas" min="1" max="1000" required>
+
+            </div>
+
+            <div id="dir">
+            
+                <label>Distrito:</label>
+                    <select class="w3-select sel" name="distrito" required>
+                        <option value="" disabled selected>Selecione distrito</option>
+                        <option value="Aveiro">Aveiro</option>
+                        <option value="Beja">Beja</option>
+                        <option value="Braga">Braga</option>
+                        <option value="Bragança">Bragança</option>
+                        <option value="Castelo Branco">Castelo Branco</option>
+                        <option value="Coimbra">Coimbra</option>
+                        <option value="Évora">Évora</option>
+                        <option value="Faro">Faro</option>
+                        <option value="Guarda">Guarda</option>
+                        <option value="Leiria">Leiria</option>
+                        <option value="Lisboa">Lisboa</option>
+                        <option value="Portalegre">Portalegre</option>
+                        <option value="Porto">Porto</option>
+                        <option value="Santarém">Santarém</option>
+                        <option value="Setúbal">Setúbal</option>
+                        <option value="Viana do Castelo">Viana do Castelo</option>
+                        <option value="Vila Real">Vila Real</option>
+                        <option value="Viseu">Viseu</option>
+                        <option value="Região Autónoma Açores">Região Autónoma Açores</option>
+                        <option value="Região Autónoma Madeira">Região Autónoma Madeira</option>
+                    </select>
+                
+                <hr>
+
+                <label>Concelho: </label>
+                    <select class="w3-select sel" name="concelho" required>
+                        <option value="" disabled selected>Selecione concelho</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+
+                <hr>
+
+
+                <label>Freguesia:</label>
+                    <select class="w3-select sel" name="freguesia" required>
+                        <option value="" disabled selected>Selecione freguesia</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                
+                <hr>
+                
+                <label>Disponibilidade:</label>
+                    <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
+                        <option value="" disabled selected>Dia</option>
+                        <option value="Segunda">Segunda</option>
+                        <option value="Terça">Terça</option>
+                        <option value="Quarta">Quarta</option>
+                        <option value="Quinta">Quinta</option>
+                        <option value="Sexta">Sexta</option>
+                        <option value="Sábado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
+                        
+                    </select>
+                    <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
+                        <option value="" disabled selected>Hora</option>
+                        <option value="0">00:00</option>
+                        <option value="1">01:00</option>
+                        <option value="2">02:00</option>
+                        <option value="3">03:00</option>
+                        <option value="4">04:00</option>
+                        <option value="5">05:00</option>
+                        <option value="6">06:00</option>
+                        <option value="7">07:00</option>
+                        <option value="8">08:00</option>
+                        <option value="9">09:00</option>
+                        <option value="10">10:00</option>
+                        <option value="11">11:00</option>
+                        <option value="12">12:00</option>
+                        <option value="13">13:00</option>
+                        <option value="14">14:00</option>
+                        <option value="15">15:00</option>
+                        <option value="16">16:00</option>
+                        <option value="17">17:00</option>
+                        <option value="18">18:00</option>
+                        <option value="19">19:00</option>
+                        <option value="20">20:00</option>
+                        <option value="21">21:00</option>
+                        <option value="22">22:00</option>
+                        <option value="23">23:00</option>
+                    </select>
+                    <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
+                        <option value="" disabled selected>Duração</option>
+                        <option value="1">01:00</option>
+                        <option value="2">02:00</option>
+                        <option value="3">03:00</option>
+                        <option value="4">04:00</option>
+                        <option value="5">05:00</option>
+                        <option value="6">06:00</option>
+                        <option value="7">07:00</option>
+                        <option value="8">08:00</option>
+                    </select>
+                
+                <hr>
+
+            </div>
+
+            <input class="w3-button w3-indigo" id="submit" type="submit" value="Criar ação">
 
     </form>
 
@@ -296,10 +291,8 @@
         $dia = test_input($_POST['disponibilidade-dia']);
         $hora = test_input($_POST['disponibilidade-hora']);
         $duracao = test_input($_POST['disponibilidade-duracao']);
-        $semana = test_input($_POST['disponibilidade-semana']);
-        $horas = test_input($_POST['horas']);
 
-        if ($titulo != "") {
+        if (isset($_POST['titulo'])) {
 
             $instituicao = $_SESSION['logged'];
             $id_instituicao = $_SESSION['loggedid'];
@@ -307,7 +300,7 @@
             $query = "insert into Acao
                         values ('".$id_instituicao."' , '".$id_acao."' , '".$titulo."' , '".$distrito."' , '".$concelho."' , '"
                         .$freguesia."' , '".$funcao."' , '".$area_interesse."' , '".$populacao_alvo."' , ".$vagas." , '"
-                        .$dia."' , ".$hora." , ".$semana." , ".$duracao.")";
+                        .$dia."' , ".$hora." , ".$duracao.")";
 
             $res = mysqli_query($conn, $query);
             

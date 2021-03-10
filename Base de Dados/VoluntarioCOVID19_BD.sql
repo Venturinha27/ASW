@@ -162,7 +162,6 @@ CREATE TABLE Acao (
     num_vagas           NUMERIC(5) NOT NULL,
     dia                 VARCHAR(20) NOT NULL,
     hora                NUMERIC(2) NOT NULL,
-    semana              NUMERIC(2) NOT NULL,
     duracao             NUMERIC(2) NOT NULL,
 
     CONSTRAINT pk_acao
