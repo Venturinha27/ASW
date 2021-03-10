@@ -54,6 +54,9 @@
         </div>
         <div id="divDir">
                 
+            <label>Fotografia de Perfil</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+
             <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
 
             <input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito" required>
@@ -87,6 +90,10 @@
                     $password = test_input($_POST['password']);
                     $bio = test_input($_POST['bio']);
                     $website = test_input($_POST['website']); # pode ser null
+                    $avatar = test_input($_POST['avatar']);
+                    
+                    //$ava = $_FILES['avatar']['tmp_name'];
+                    //$avatar = addslashes(file_get_contents($ava));
 
                     $check = 0;
 
@@ -128,7 +135,7 @@
                         $query = "insert into Instituicao
                                 values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
                                 .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
-                                .$nomeRepresentante."' , '".$emailRepresentante."' , '".$password."' , '".$website."')";
+                                .$nomeRepresentante."' , '".$emailRepresentante."' , '".$password."' , '".$avatar."' , '".$website."')";
                         
                         $res = mysqli_query($conn, $query);
                         
@@ -136,6 +143,9 @@
                             $_SESSION['loggedtype'] = "instituicao";
                             $_SESSION['logged'] = $nomeInstituicao;
                             $_SESSION['loggedid'] = $id;
+                            $_SESSION['opentype'] = "instituicao";
+                            $_SESSION['open'] = $nomeInstituicao;
+                            $_SESSION['openid'] = $id;
                             header("Location: PreferenciasI.php");
                         } else {
                             echo "<p class='erro'> Algo correu mal :( </p>";

@@ -73,6 +73,23 @@ body {
     border-radius: 100px;
 }
 
+#AzulDiv #EnviarMensagem {
+    position: absolute;
+    top: 5%;
+    right: 19.5%;
+    background-color: #24305E;
+    color: white;
+    border-radius: 100px;
+}
+
+#AzulDiv #Seguir {
+    position: absolute;
+    top: 5%;
+    right: 1.5%;
+    background-color: #24305E;
+    color: white;
+    border-radius: 100px;
+}
 /* ---------------------------------------------- */
 
 .hidden{

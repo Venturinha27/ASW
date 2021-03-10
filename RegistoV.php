@@ -59,7 +59,7 @@
         <div id="divDir">
 
             <label>Fotografia de Perfil </label>
-                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                <input type="file" id="avatar" name="avatar">  <!--accept="image/png, image/jpeg"-->
 
             <input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito"required/>
 
@@ -70,23 +70,23 @@
             <label>Género</label>
             <select class="w3-select" name="genero">
                 <option value="" disabled selected>Selecione o seu género</option>
-                <option value="homem">Homem</option>
-                <option value="mulher">Mulher</option>
-                <option value="outro">Prefiro não dizer</option>
+                <option value="Homem">Homem</option>
+                <option value="Mulher">Mulher</option>
+                <option value="Prefiro não dizer">Prefiro não dizer</option>
             </select>
 
             <label>Carta de Condução</label>
             <select class="w3-select" name="carta">
                 <option value="" disabled selected>Selecione se tem carta de condução</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
             </select>
 
             <label>Já esteve infetado com o Covid-19?</label>
             <select class="w3-select" name="covid">
                 <option value="" disabled selected>Selecione se já esteve infetado</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
             </select>
 
             <input id="submit" type="submit" name="" value="Registar" href="InformacoesV.html">
@@ -105,7 +105,6 @@
                     $telefone = test_input($_POST['telefone']);
                     $dataNascimento = test_input($_POST['dataNascimento']);
                     $CC = test_input($_POST['CC']);                              #unique
-                    $avatar = test_input($_POST['avatar']); 
                     $bio = test_input($_POST['bio']); 
                     $distrito = test_input($_POST['distrito']);
                     $concelho = test_input($_POST['concelho']);
@@ -113,7 +112,14 @@
                     $genero = test_input($_POST['genero']);
                     $carta = test_input($_POST['carta']); 
                     $covid = test_input($_POST['covid']);
+                    $avatar = test_input($_POST['avatar']);
 
+                    // NOT WORKING
+                    //$avatar = basename($_FILES["avatar"]["name"]);
+                    //$targetAvatarPath = "Images/" . $avatar;
+                    //echo "<p class='w3-red w3-center'> ".$avatar." </p>";
+                    //echo "<p class='w3-red w3-center'> ".$targetAvatarPath." </p>";
+                    
                     $check = 0;
 
                     $sqlNome = "SELECT nome_voluntario, email
@@ -122,23 +128,21 @@
                     $resultN = $conn->query($sqlNome);
 
                     if ($resultN->num_rows > 0) {
-
-                        while ($row = $resultN->fetch_assoc()){
-                            echo "<p class='w3-blue w3-center'>".$row['nomeProprio']." </p>";
-                            echo "<p class='w3-blue w3-center'> $nomeProprio </p>";
-                            if ($row["nomeProprio"] != $nomeProprio and $row["E-mail"] != $Email){
-                                if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
-                                    $check = 1;
+                            while ($row = $resultN->fetch_assoc()){
+                                if ($row["nomeProprio"] != $nomeProprio and $row["E-mail"] != $Email){
+                                    if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
+                                        $check = 1;
+                                    } else {
+                                        echo "<p class='w3-red w3-center'> Insira um e-mail válido </p>";
+                                    }
                                 } else {
-                                    echo "<p class='w3-red w3-center'> Insira um e-mail válido </p>";
+                                    echo "<p class='w3-red w3-center'> Username ou email já existe </p>";
                                 }
-                            } else {
-                                echo "<p class='w3-red w3-center'> Username ou email já existe </p>";
                             }
+                        } else {
+                            $check = 1;
                         }
-                    } else {
-                        $check = 1;
-                    }
+                    
 
 
                     if ($check == 1){
@@ -153,12 +157,11 @@
                             echo "<p class='w3-red w3-center'> Algo deu ruim :( </p>";
                         }
                         
-                        echo "<p class='w3-red w3-center'> $dataNascimento </p>";
-                        
+                        echo "<p class='w3-red'>" . $CC ."</p>";
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
-                                .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , "
-                                .$CC." , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
+                                .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
+                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
                         
                         $res = mysqli_query($conn, $query);
                         
@@ -166,9 +169,12 @@
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $nomeProprio;
                             $_SESSION['loggedid'] = $id;
+                            $_SESSION['opentype'] = "voluntario";
+                            $_SESSION['open'] = $nomeProprio;
+                            $_SESSION['openid'] = $id;
                             header("Location: PreferenciasV.php");
                         } else {
-                            echo "<p class='w3-red'>Erro: insert failed" . $query . "<br>" . mysqli_error($conn)."</p>";
+                            echo "<p class='w3-red'>Erro: insert failed" . mysqli_error($conn)."</p>";
                         }
                         
                     }

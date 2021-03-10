@@ -39,17 +39,18 @@ CREATE TABLE  Utilizador (
 
 CREATE TABLE Instituicao (
     id                      VARCHAR(65),
-    nome_instituicao        VARCHAR(15) UNIQUE NOT NULL,
-    telefone                NUMERIC(15) NOT NULL,
-    morada                  VARCHAR(100) NOT NULL,
+    nome_instituicao        VARCHAR(50) UNIQUE NOT NULL,
+    telefone                NUMERIC(9) NOT NULL,
+    morada                  VARCHAR(50) NOT NULL,
     distrito                VARCHAR(50) NOT NULL,
     concelho                VARCHAR(50) NOT NULL,
     freguesia               VARCHAR(50) NOT NULL,
     email                   NVARCHAR(255) UNIQUE NOT NULL,
     bio                     VARCHAR(240) NOT NULL,
-    nome_representante      VARCHAR(15) NOT NULL,
+    nome_representante      VARCHAR(50) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
-    password2               VARCHAR(20) NOT NULL,
+    password2               VARCHAR(50) NOT NULL,
+    foto                    LONGBLOB NOT NULL,
     website                 VARCHAR(50),
 
     CONSTRAINT pk_instituicao_id
@@ -63,20 +64,20 @@ CREATE TABLE Instituicao (
 
 CREATE TABLE Voluntario (
     id                      VARCHAR(65),
-    nome_voluntario         VARCHAR(80) NOT NULL,
+    nome_voluntario         VARCHAR(50) NOT NULL,
     data_nascimento         DATE NOT NULL,
-    genero                  VARCHAR(255) NOT NULL,
-    foto                    VARBINARY(65535) NOT NULL,
+    genero                  VARCHAR(50) NOT NULL,
+    foto                    VARCHAR(500) NOT NULL,
     bio                     VARCHAR(240) NOT NULL,
     concelho                VARCHAR(50) NOT NULL,
     distrito                VARCHAR(50) NOT NULL,
     freguesia               VARCHAR(50) NOT NULL,
-    telefone                NUMERIC(15) NOT NULL,
-    cc                      NUMERIC(8) NOT NULL UNIQUE,
-    carta_c                 VARCHAR(255) NOT NULL,
-    covid                   VARCHAR(255) NOT NULL,
-    email                   NVARCHAR(255) NOT NULL,
-    password1               VARCHAR(20) NOT NULL,
+    telefone                NUMERIC(9) NOT NULL,
+    cc                      NUMERIC(9) NOT NULL UNIQUE,
+    carta_c                 VARCHAR(50) NOT NULL,
+    covid                   VARCHAR(50) NOT NULL,
+    email                   NVARCHAR(50) NOT NULL,
+    password1               VARCHAR(50) NOT NULL,
 
     CONSTRAINT pk_voluntario_id
         PRIMARY KEY (id),
@@ -96,7 +97,7 @@ CREATE TABLE Area_de_Interesse (
 
 CREATE TABLE Voluntario_Area (
     id_voluntario       VARCHAR(65),
-    area                VARCHAR(30),
+    area                VARCHAR(50),
 
     CONSTRAINT pk_voluntario_area
         PRIMARY KEY (id_voluntario, area),
@@ -119,7 +120,7 @@ CREATE TABLE Populacao_Alvo (
 
 CREATE TABLE Voluntario_Populacao_Alvo (
     id_voluntario       VARCHAR(65),
-    populacao_alvo      VARCHAR(30),
+    populacao_alvo      VARCHAR(50),
 
     CONSTRAINT pk_voluntario_populacao_alvo
         PRIMARY KEY (id_voluntario, populacao_alvo),
@@ -135,9 +136,9 @@ CREATE TABLE Voluntario_Populacao_Alvo (
 
 CREATE TABLE Voluntario_Disponibilidade (
     id_voluntario       VARCHAR(65),
-    dia                 VARCHAR(30),
-    hora                NUMERIC(3),
-    duracao             NUMERIC(3),
+    dia                 VARCHAR(50),
+    hora                NUMERIC(2),
+    duracao             NUMERIC(2),
 
     CONSTRAINT pk_voluntario_disponibilidade
         PRIMARY KEY (id_voluntario, dia, hora, duracao),
@@ -151,7 +152,7 @@ CREATE TABLE Voluntario_Disponibilidade (
 CREATE TABLE Acao (
     id_instituicao      VARCHAR(65),
     id_acao             VARCHAR(65),
-    titulo              VARCHAR(100) NOT NULL,
+    titulo              VARCHAR(150) NOT NULL,
     distrito            VARCHAR(50) NOT NULL,
     concelho            VARCHAR(50) NOT NULL,
     freguesia           VARCHAR(50) NOT NULL,
@@ -160,9 +161,9 @@ CREATE TABLE Acao (
     populacao_alvo      VARCHAR(50) NOT NULL,
     num_vagas           NUMERIC(5) NOT NULL,
     dia                 VARCHAR(20) NOT NULL,
-    hora                NUMERIC(3) NOT NULL,
-    semana              NUMERIC(3) NOT NULL,
-    duracao             NUMERIC(3) NOT NULL,
+    hora                NUMERIC(2) NOT NULL,
+    semana              NUMERIC(2) NOT NULL,
+    duracao             NUMERIC(2) NOT NULL,
 
     CONSTRAINT pk_acao
         PRIMARY KEY (id_instituicao, id_acao),
@@ -201,7 +202,7 @@ CREATE TABLE Publicacao (
     id                  VARCHAR (65),
     dono                VARCHAR(65) NOT NULL,
     imagem              VARBINARY (65535),
-    descricao           VARCHAR (150),
+    descricao           VARCHAR (240),
 
     CONSTRAINT pk_publicacao
         PRIMARY KEY (id),
@@ -231,8 +232,8 @@ CREATE TABLE Mensagem (
     de                  VARCHAR (65) NOT NULL,
     para                VARCHAR (65) NOT NULL,
     texto               VARCHAR (1000) NOT NULL,
-    hora                NUMERIC (3) NOT NULL,
-    minuto              NUMERIC (3) NOT NULL,
+    hora                NUMERIC (2) NOT NULL,
+    minuto              NUMERIC (2) NOT NULL,
 
     CONSTRAINT pk_mensagem
         PRIMARY KEY (id),
