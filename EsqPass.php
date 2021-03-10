@@ -61,21 +61,15 @@
                     $novaPassword = test_input($_POST['novaPassword']);
                     $confPassword = test_input($_POST['confPassword']);
 
-                    
-                    
-                }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                    $passquery = "SELECT I.email, I.telefone
+                                    FROM Instituicao I
+                                    UNION
+                                    SELECT V.email, V.telefone
+                                    FROM Voluntario V";
+
+                    $resultPass = $conn->query($passquery);
+
+                }  
         
             ?>
         
