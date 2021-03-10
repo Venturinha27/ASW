@@ -104,7 +104,7 @@
 
         </div>
 
-    <form id="acaoform" class="w3-container hidden" action="PreferenciasI.php" method="post">
+    <form id="acaoform" class="w3-container hidden" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
             <header class="w3-container w3-indigo">
                 <h3>Nova ação</h3>
