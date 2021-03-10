@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html>
-<title>Home Page</title>
+<title>Administradores</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -29,15 +29,26 @@
 </header>
 
 <body>
-<table>
-    <tr>
-        <td> Username </td>
-        <td> Password </td>
-    </tr>
-
-
+<a>ola</a>
+<!-- qnd carregar em todos os usuários -->
 <?php
-        echo"farto disto"
+    include openconn.php
+
+    $query= "SELECT * FROM Voluntario 
+            UNION 
+             SELECT * FROM Instituicao
+             ORDER BY id ASC;
+     
+    $result = $conn->query($query);
+
+    if (!($resultLogin)) {
+        $erroG = "Algo correu mal.";
+        echo "<p class='w3-red w3-small'>$erroG</p>";
+    }
+    
+    echo "<table>";
+    
+    echo 
 ?>
 </body>
 
