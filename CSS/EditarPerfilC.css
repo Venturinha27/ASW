@@ -21,7 +21,7 @@ body {
     top: 10%;
     left: 7.5%;
     width: 85%;
-    height: 113%;
+    height: 118%;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
@@ -107,16 +107,25 @@ body {
 
 #submitV{
     position: absolute;
-    top: 91%;
+    top: 87%;
     left: 45%;
     width: 10%;
 }
 
 #submitI{
     position: absolute;
-    top: 91%;
+    top: 87%;
     left: 45%;
     width: 10%;
+}
+
+.erro{
+    position: absolute;
+    top: 117%;
+    left: 30%;
+    width: 40%;
+    text-align: center;
+    color: red;
 }
 
 

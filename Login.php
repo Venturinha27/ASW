@@ -43,10 +43,10 @@
                     $password = test_input($_POST['password']); #sha1
 
                     // verificar o utilizador em questão (pretendemos obter uma única linha de registos)
-                    $loginquery = "SELECT I.id, I.email, I.password2
+                    $loginquery = "SELECT I.id, I.nome_instituicao, I.email, I.password2
                                     FROM Instituicao I
                                     UNION
-                                    SELECT V.id, V.email, V.password1
+                                    SELECT V.id, V.nome_voluntario, V.email, V.password1
                                     FROM Voluntario V";
 
                     $resultLogin = $conn->query($loginquery);
@@ -59,7 +59,7 @@
                     if ($resultLogin->num_rows > 0) {
                         $userExiste = 0;
                         while ($row = $resultLogin->fetch_array()) {
-                            if (($row[1] == $email) and ($password == $row[2])){
+                            if (($row[2] == $email) and ($password == $row[3])){
 
                                 $tipoquery = "SELECT tipo, id
                                     FROM Utilizador

@@ -23,7 +23,7 @@
 
         <input type='text' class='w3-bar-item w3-input' placeholder='Procura...'>
         
-        <a href='Login.php' class='w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>
+        <a href='Perfil.php' class='w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>
         <a href='Voluntarios.html' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>Voluntários</a>
         <a href='Instituicoes.html' class='w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile'>Instituições</a>
         <a href='Covid19.html' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>COVID-19</a>
@@ -366,7 +366,7 @@
                             $_SESSION['opentype'] = "voluntario";
                             $_SESSION['open'] = $nomeProprio;
                             $_SESSION['openid'] = $id;
-                            header("Refresh:0");
+                            echo "<meta http-equiv='refresh' content='0'>";
                         } else {
                             echo "<h1 class='erro'> Algo deu errado. </h1>";
                         }
@@ -622,7 +622,7 @@
                             $_SESSION['opentype'] = "instituicao";
                             $_SESSION['open'] = $nomeInstituicao;
                             $_SESSION['openid'] = $id;
-                            header("Refresh:0");
+                            echo "<meta http-equiv='refresh' content='0'>";
                         } else {
                             echo "<h1 class='erro'> Algo deu errado. </h1>";
                         }
