@@ -122,9 +122,18 @@ body {
     color: white;
 }
 
+.resultado {
+    position: absolute;
+    top: 113.5%;
+    left: 5%;
+    width: 90%;
+    background-color: #24305E;
+    color: white;
+}
+
 #todosVol{
     position: absolute;
-    top: 115%;
+    top: 125%;
     left: 5%;
     width: 90%;
     margin-bottom: 5%;

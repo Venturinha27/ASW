@@ -172,29 +172,29 @@
                     <select class="w3-input dis" name="disponibilidade-hora">
                         <option value="" disabled selected>Hora</option>
                         <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
+                        <option value="1">01:00</option>
+                        <option value="2">02:00</option>
+                        <option value="3">03:00</option>
+                        <option value="4">04:00</option>
+                        <option value="5">05:00</option>
+                        <option value="6">06:00</option>
+                        <option value="7">07:00</option>
+                        <option value="8">08:00</option>
+                        <option value="9">09:00</option>
+                        <option value="10">10:00</option>
+                        <option value="11">11:00</option>
+                        <option value="12">12:00</option>
+                        <option value="13">13:00</option>
+                        <option value="14">14:00</option>
+                        <option value="15">15:00</option>
+                        <option value="16">16:00</option>
+                        <option value="17">17:00</option>
+                        <option value="18">18:00</option>
+                        <option value="19">19:00</option>
+                        <option value="20">20:00</option>
+                        <option value="21">21:00</option>
+                        <option value="22">22:00</option>
+                        <option value="23">23:00</option>
                     </select>
                     <select class="w3-input dis" name="disponibilidade-duracao">
                         <option value="" disabled selected>Duração</option>
@@ -355,16 +355,56 @@
         }
 
         if (!empty($_POST['area-interesse'])) {
-            
-            $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
-                                FROM Voluntario_Area
-                                WHERE area = '".$_POST['area-interesse']."') ";
-            
-            #echo "<h1 class='entrou'>".$queryVoluntario."</h1>";
+            if ($primeiro == 0){
+                $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
+                                    FROM Voluntario_Area
+                                    WHERE area = '".$_POST['area-interesse']."') ";
+                $primeiro = 1;
+            } else {
+                $queryVoluntario .= "AND id IN (SELECT id_voluntario
+                                    FROM Voluntario_Area
+                                    WHERE area = '".$_POST['area-interesse']."') ";
+            }
+        }
+
+        if (!empty($_POST['populacao-alvo'])) {
+            if ($primeiro == 0){
+                $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
+                                    FROM Voluntario_Populacao_Alvo
+                                    WHERE populacao_alvo = '".$_POST['populacao-alvo']."') ";
+                $primeiro = 1;
+            } else {
+                $queryVoluntario .= "AND id IN (SELECT id_voluntario
+                                    FROM Voluntario_Populacao_Alvo
+                                    WHERE populacao_alvo = '".$_POST['populacao-alvo']."') ";
+            }
+        }
+
+        if (!empty($_POST['disponibilidade-dia']) and 
+        !empty($_POST['disponibilidade-hora']) and
+        !empty($_POST['disponibilidade-duracao'])) {
+
+            $intervalo = intval($_POST['disponibilidade-hora']) + intval($_POST['disponibilidade-duracao']);
+
+            if ($primeiro == 0){
+                $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
+                                    FROM Voluntario_Disponibilidade
+                                    WHERE dia = '".$_POST['disponibilidade-dia']."'
+                                        AND hora >= ".$_POST['disponibilidade-hora']."
+                                        AND hora <= ".$intervalo.") ";
+                $primeiro = 1;
+            } else {
+                $queryVoluntario .= "AND id IN (SELECT id_voluntario
+                                    FROM Voluntario_Disponibilidade
+                                    WHERE dia = '".$_POST['disponibilidade-dia']."'
+                                        AND hora >= ".$_POST['disponibilidade-hora']."
+                                        AND hora <= ".$intervalo.") ";
+            }
         }
 
         $queryVoluntario .= "ORDER BY nome_voluntario ";
         
+        #echo "<h1 class='entrou'>".$queryVoluntario."</h1>";
 
         #echo "<h1 class='entrou'>".$queryVoluntario."</h1>";
         
@@ -387,7 +427,11 @@
 
     if (!($resultVoluntario)) {
         echo "Erro: search failed" . mysqli_error($conn);
-    }              
+    }     
+    
+    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red w3-small resultado'>";
+    echo "<p>Encontrou ".($resultVoluntario->num_rows)." resultados para a pesquisa.</p>";
+    echo "</div>";
 
     echo "<table class='w3-table w3-striped w3-tiny w3-hoverable w3-middle' id='todosVol'>
             <tr class='w3-red'>
