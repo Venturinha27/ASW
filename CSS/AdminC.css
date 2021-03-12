@@ -82,6 +82,20 @@ body {
     width: 95%;
 }
 
+.dis {
+    width: 25% !important;
+    display: inline;
+}
+
+.entrou{
+    z-index: 30;
+    background-color: orangered;
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    width: 90%;
+}
+
 #esq{
     position: absolute;
     margin-top: 0%;
@@ -100,7 +114,7 @@ body {
 
 #procura {
     position: absolute;
-    margin-top: 21.2%;
+    margin-top: 26.5%;
     margin-left: 7%;
     height: 15%;
     width: 15% !important;
@@ -110,7 +124,7 @@ body {
 
 #todosVol{
     position: absolute;
-    top: 105%;
+    top: 115%;
     left: 5%;
     width: 90%;
     margin-bottom: 5%;
