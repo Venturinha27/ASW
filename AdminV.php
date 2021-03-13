@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/AdminC.css">
+<link rel="stylesheet" href="CSS/AdminV.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 
 <header>
@@ -55,6 +55,7 @@
     <div class="w3-container w3-small">
         <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
                 <div id="esq">
+                    <label><b>Nome</b></label>
                     <input type="text" class="w3-input" name="nome" placeholder="Nome" name="nome"/>
                     <br>
                     <label><b>Idade</b></label>
@@ -120,6 +121,7 @@
                     </select>
                 </div>
                 <div id="dir">
+                    <label><b>Email</b></label>
                     <input type="text" class="w3-input" name="email" placeholder="Email" name="email"/>
                     <br>
                     <label><b>Carta de Condução</b></label>
@@ -430,10 +432,12 @@
     }     
     
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red w3-small resultado'>";
-    echo "<p>Encontrou ".($resultVoluntario->num_rows)." resultados para a pesquisa.</p>";
+    echo "<p>Encontrou ".($resultVoluntario->num_rows)." resultado(s) para a pesquisa.</p>";
     echo "</div>";
 
-    echo "<table class='w3-table w3-striped w3-tiny w3-hoverable w3-middle' id='todosVol'>
+    if ($resultVoluntario->num_rows > 0) {
+
+        echo "<table class='w3-table w3-striped w3-tiny w3-hoverable w3-middle' id='todosVol'>
             <tr class='w3-red'>
                 <th>Nome</th>
                 <th>Bio</th>
@@ -451,7 +455,6 @@
                 <th>População Alvo</th>
                 <th>Disponibilidade</th>
             </tr>";
-    if ($resultVoluntario->num_rows > 0) {
         
         while ($row = $resultVoluntario->fetch_assoc()){
             echo "
@@ -514,8 +517,8 @@
             echo "</tr>
             ";
         }
+        echo "</table>";
     }
-    echo "</table>";
 ?>
 
 </body>

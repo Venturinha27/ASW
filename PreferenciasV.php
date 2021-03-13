@@ -74,7 +74,12 @@
                     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                     echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultA->fetch_assoc()){
-                        echo "<li> " . $row['area'] . " </li>";
+                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['area'] . "
+                            <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['area']."' name='removeA'>
+                                <i class='fa fa-trash-alt'></i>
+                            </button>
+                            </form> 
+                        </li>";
                     }
                     echo "</ul>";
                     echo "</div>";
@@ -129,7 +134,12 @@
                     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                     echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultP->fetch_assoc()){
-                        echo "<li> " . $row['populacao_alvo'] . " </li>";
+                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['populacao_alvo'] . "
+                            <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['populacao_alvo']."' name='removeP'>
+                                <i class='fa fa-trash-alt'></i>
+                            </button>
+                            </form> 
+                        </li>";
                     }
                     echo "</ul>";
                     echo "</div>";
@@ -222,7 +232,15 @@
                     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                     echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultD->fetch_assoc()){
-                        echo "<li> Dia: " . $row['dia'] . ", hora: ". $row['hora'] .":00, duração: ".$row['duracao']." horas. </li>";
+                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                            Dia: " . $row['dia'] . ", hora: ". $row['hora'] .":00, duração: ".$row['duracao']." horas.
+                            <button class='w3-right w3-red w3-round-xxlarge' type='submit'
+                                 value='".$row['dia']."/".$row['hora']."/".$row['duracao']."' 
+                                 name='removeD'>
+                                <i class='fa fa-trash-alt'></i>
+                            </button>
+                            </form> 
+                        </li>";
                     }
                     echo "</ul>";
                     echo "</div>";
@@ -283,6 +301,55 @@
                     $resDispo = mysqli_query($conn, $insertDispo);
                     
                     if ($resDispo) {
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+
+                if (!empty($_POST['removeA'])){
+                    $rArea = test_input($_POST['removeA']);
+
+                    $removeArea = "DELETE FROM Voluntario_Area
+                                WHERE id_voluntario = '".$voluntario."' 
+                                AND area = '".$rArea."';";
+
+                    $resrArea = mysqli_query($conn, $removeArea);
+                    
+                    if ($resrArea) {
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+
+                if (!empty($_POST['removeP'])){
+                    $rPopulacao = test_input($_POST['removeP']);
+
+                    $removePopulacao = "DELETE FROM Voluntario_Populacao_Alvo
+                                WHERE id_voluntario = '".$voluntario."' 
+                                AND populacao_alvo = '".$rPopulacao."';";
+
+                    $resrPopulacao = mysqli_query($conn, $removePopulacao);
+                    
+                    if ($resrPopulacao) {
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+
+                if (!empty($_POST['removeD'])){
+                    $rDispo = test_input($_POST['removeD']);
+
+                    $rDis = explode("/", $rDispo);
+                    $rDia = $rDis[0];
+                    $rHora = $rDis[1];
+                    $rDuracao = $rDis[2];
+
+                    $removeDispo = "DELETE FROM Voluntario_Disponibilidade
+                                WHERE id_voluntario = '".$voluntario."' 
+                                AND dia = '".$rDia."'
+                                AND hora = '".$rHora."'
+                                AND duracao = '".$rDuracao."';";
+
+                    $resrDispo = mysqli_query($conn, $removeDispo);
+                    
+                    if ($resrDispo) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }

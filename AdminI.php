@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/AdminC.css">
+<link rel="stylesheet" href="CSS/AdminI.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 
 <header>
@@ -55,6 +55,7 @@
     <div class="w3-container w3-small">
         <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
                 <div id="esq">
+                    <label><b>Nome</b></label>
                     <input type="text" class="w3-input" name="nome" placeholder="Nome" name="nome"/>
                     <br>
                     <label><b>Distrito</b></label>
@@ -91,6 +92,7 @@
                     </select>
                 </div>
                 <div id="dir">
+                    <label><b>Email</b></label>
                     <input type="text" class="w3-input" name="email" placeholder="Email" name="email"/>
                     <br>
                     <label><b>Freguesia</b></label>
@@ -108,18 +110,81 @@
 <?php
     include "openconn.php";
 
-    $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, distrito, concelho, freguesia,
+    if (!empty($_POST)){
+
+        $primeiro = 0;
+
+        $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, distrito, concelho, freguesia,
+                        email, bio, nome_representante, email_representante, foto, website
+                        FROM Instituicao ";
+
+        if (!empty($_POST['nome'])){
+            if ($primeiro == 0){
+                $queryInstituicao .= "WHERE nome_instituicao = '".$_POST['nome']."' ";
+                $primeiro = 1;
+            } else {
+                $queryInstituicao .= "AND nome_instituicao = '".$_POST['nome']."' ";
+            }
+        }
+
+        if (!empty($_POST['email'])) {
+            if ($primeiro == 0){
+                $queryInstituicao .= "WHERE email = '".$_POST['email']."' ";
+                $primeiro = 1;
+            } else {
+                $queryInstituicao .= "AND email = '".$_POST['email']."' ";
+            }
+        }
+
+        if (!empty($_POST['distrito'])) {
+            if ($primeiro == 0){
+                $queryInstituicao .= "WHERE distrito = '".$_POST['distrito']."' ";
+                $primeiro = 1;
+            } else {
+                $queryInstituicao .= "AND distrito = '".$_POST['distrito']."' ";
+            }
+        }
+
+        if (!empty($_POST['concelho'])) {
+            if ($primeiro == 0){
+                $queryInstituicao .= "WHERE concelho = '".$_POST['concelho']."' ";
+                $primeiro = 1;
+            } else {
+                $queryInstituicao .= "AND concelho = '".$_POST['concelho']."' ";
+            }
+        }
+
+        if (!empty($_POST['freguesia'])) {
+            if ($primeiro == 0){
+                $queryInstituicao .= "WHERE freguesia = '".$_POST['freguesia']."' ";
+                $primeiro = 1;
+            } else {
+                $queryInstituicao .= "AND freguesia = '".$_POST['freguesia']."' ";
+            }
+        }
+
+        $queryInstituicao .= "ORDER BY nome_instituicao ";
+        
+    } else {
+        $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, distrito, concelho, freguesia,
                         email, bio, nome_representante, email_representante, foto, website
                         FROM Instituicao
                         ORDER BY nome_instituicao;";
+    }
 
     $resultInstituicao = $conn->query($queryInstituicao);
 
     if (!($resultInstituicao)) {
         echo "Erro: search failed" . mysqli_error($conn);
-    }              
+    }       
+    
+    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue w3-small resultado'>";
+    echo "<p>Encontrou ".($resultInstituicao->num_rows)." resultado(s) para a pesquisa.</p>";
+    echo "</div>";
 
-    echo "<table class='w3-table w3-striped w3-small w3-hoverable' id='todosVol'>
+    if ($resultInstituicao->num_rows > 0) {
+
+        echo "<table class='w3-table w3-striped w3-small w3-hoverable' id='todosVol'>
             <tr class='w3-blue'>
                 <th>Nome</th>
                 <th>Tel.</th>
@@ -133,7 +198,6 @@
                 <th>Email Rep.</th>
                 <th>Website</th>
             </tr>";
-    if ($resultInstituicao->num_rows > 0) {
         
         while ($row = $resultInstituicao->fetch_assoc()){
             echo "
@@ -152,8 +216,9 @@
             </tr>
             ";
         }
+        echo "</table><br><br><br>";
     }
-    echo "</table><br><br><br>";
+    
 ?>
 
 </body>

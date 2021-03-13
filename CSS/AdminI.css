@@ -72,6 +72,7 @@ body {
     top: 59%;
     left: 5%;
     width: 90%;
+    height: 27%;
 }
 
 #filtrar input {
@@ -113,18 +114,19 @@ body {
 }
 
 #procura {
-    position: absolute;
-    margin-top: 26.5%;
-    margin-left: 7%;
-    height: 15%;
+    position: absolute !important;
+    top: 106% !important;
+    left: 42.5% !important;
+    height: 18% !important;
     width: 15% !important;
     background-color: #24305E;
     color: white;
+    z-index: 50 !important;
 }
 
 .resultado {
     position: absolute;
-    top: 113.5%;
+    top: 92.5%;
     left: 5%;
     width: 90%;
     background-color: #24305E;
@@ -133,7 +135,7 @@ body {
 
 #todosVol{
     position: absolute;
-    top: 125%;
+    top: 103.5%;
     left: 5%;
     width: 90%;
     margin-bottom: 5%;
