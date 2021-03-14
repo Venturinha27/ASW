@@ -1,5 +1,5 @@
 body {
-    background-color: #F8E9A1;
+    background-color: white;
 }
 
 #navigation {
@@ -60,11 +60,85 @@ body {
 #Div{
     margin: 0;
     position: absolute;
-    top: 4%;
+    top: 6%;
     width: 100%;
-    height: 70%;
-    background-color: #F8E9A1;
-    color: #A8D0E6;
+    height: 50%;
+    background-color: #24305E;
+    color: white;
+}
+
+#filtrar{
+    position: absolute;
+    top: 59%;
+    left: 5%;
+    width: 90%;
+    height: 27%;
+}
+
+#filtrar input {
+    width: 95%;
+}
+
+#filtrar select {
+    width: 95%;
+}
+
+.dis {
+    width: 25% !important;
+    display: inline;
+}
+
+.entrou{
+    z-index: 30;
+    background-color: orangered;
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    width: 90%;
+}
+
+#esq{
+    position: absolute;
+    margin-top: 0%;
+    left: 2%;
+    height: 50%;
+    width: 46%;
+}
+
+#dir{
+    position: absolute;
+    margin-top: 0%;
+    left: 52%;
+    height: 50%;
+    width: 46%;
+}
+
+#procura {
+    position: absolute !important;
+    top: 106% !important;
+    left: 42.5% !important;
+    height: 18% !important;
+    width: 15% !important;
+    background-color: #24305E;
+    color: white;
+    z-index: 50 !important;
+}
+
+.resultado {
+    position: absolute;
+    top: 92.5%;
+    left: 5%;
+    width: 90%;
+    background-color: #24305E;
+    color: white;
+}
+
+#todosVol{
+    position: absolute;
+    top: 103.5%;
+    left: 5%;
+    width: 90%;
+    margin-bottom: 5%;
 }
 
 #informacoesP{
@@ -83,70 +157,75 @@ body {
 }
 
 #voluntarioDiv{
-    position: relative;
-    left: 5%;
-    top: 5%;
+    position: absolute;
+    left: 33%;
+    top: 18%;
     width: 30%;
     height: 90%;
-    
 }
 
 #voluntarioIcon{
     position: absolute;
-    top: 10%;
-    left: 60%;
-    font-size: 1200%;
+    top: 18%;
+    left: 42%;
+    font-size: 800%;
+    color: palevioletred;
 }
 
 #voluntarioP {
     position: absolute;
     top: 73%;
-    left: 45%;
-    font-size: xx-large;
+    left: 28%;
+    font-size: x-large;
+    color: palevioletred;
 }
 
 #instituicaoDiv{
-    position: relative;
-    left: 58%;
-    top: -85%;
+    position: absolute;
+    left: 63%;
+    top: 18%;
     width: 30%;
     height: 90%;
 }
 
 #instituicaoIcon{
     position: absolute;
-    top: 10%;
-    left: 40%;
-    font-size: 1200%;
+    top: 18%;
+    left: 31%;
+    font-size: 800%;
+    color: paleturquoise;
 }
 
 #instituicaoP {
     position: absolute;
     top: 73%;
-    left: 40%;
-    font-size: xx-large;
-}
-#todosDiv{
-    position: relative;
-    left: 70%;
-    bottom: 110%;
-    width: 50%;
-    height: 40%;
-    
-}
-#todosIcon{
-    position: absolute;
-    bottom: 150%;
-    left: 90%;
-    font-size: 1200%;
-    
+    left: 28%;
+    font-size: x-large;
+    color: paleturquoise;
 }
 
-#TodosP {
+#acaoDiv{
     position: absolute;
-    top: 4%;
-    left: 105%;
-    font-size: xx-large;
+    left: 93%;
+    top: 18%;
+    width: 30%;
+    height: 90%;
+}
+
+#acaoIcon{
+    position: absolute;
+    top: 18%;
+    left: 31%;
+    font-size: 800%;
+    color: palegreen;
+}
+
+#acaoP {
+    position: absolute;
+    top: 73%;
+    left: 48%;
+    font-size: x-large;
+    color: palegreen;
 }
 
 

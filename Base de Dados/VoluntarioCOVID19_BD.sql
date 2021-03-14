@@ -50,7 +50,7 @@ CREATE TABLE Instituicao (
     nome_representante      VARCHAR(50) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
     password2               VARCHAR(50) NOT NULL,
-    foto                    LONGBLOB NOT NULL,
+    foto                    VARCHAR(500) NOT NULL,
     website                 VARCHAR(50),
 
     CONSTRAINT pk_instituicao_id
@@ -162,7 +162,6 @@ CREATE TABLE Acao (
     num_vagas           NUMERIC(5) NOT NULL,
     dia                 VARCHAR(20) NOT NULL,
     hora                NUMERIC(2) NOT NULL,
-    semana              NUMERIC(2) NOT NULL,
     duracao             NUMERIC(2) NOT NULL,
 
     CONSTRAINT pk_acao

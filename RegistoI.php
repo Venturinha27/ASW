@@ -76,7 +76,7 @@
                 include "openconn.php";
                 include "TestInput.php";
 
-                if ($_POST['nomeInstituicao'] != ''){
+                if (!empty($_POST)){
 
                     $id = uniqid();
                     $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
@@ -92,6 +92,8 @@
                     $bio = test_input($_POST['bio']);
                     $website = test_input($_POST['website']); # pode ser null
                     
+                    $erro = 0;
+
                     try {
 
                         // Previne erros (podem ser ataques informaticos mas nao so).
@@ -99,7 +101,7 @@
                             !isset($_FILES['avatar']['error']) ||
                             is_array($_FILES['avatar']['error'])
                         ) {
-                            throw new RuntimeException('Invalid parameters.');
+                            throw new RuntimeException('Imagem inválida.');
                         }
 
                         // Verifica o valor do erro
@@ -107,17 +109,17 @@
                             case UPLOAD_ERR_OK:
                                 break;
                             case UPLOAD_ERR_NO_FILE:
-                                throw new RuntimeException('No file sent.');
+                                throw new RuntimeException('Nenhuma imagem enviada.');
                             case UPLOAD_ERR_INI_SIZE:
                             case UPLOAD_ERR_FORM_SIZE:
-                                throw new RuntimeException('Exceeded filesize limit.');
+                                throw new RuntimeException('Imagem demasiado grande.');
                             default:
-                                throw new RuntimeException('Unknown errors.');
+                                throw new RuntimeException('Imagem inválida.');
                         }
 
                         // Verifica se o tamanho limite nao foi ultrapassado
                         if ($_FILES['avatar']['size'] > 10000000) {
-                            throw new RuntimeException('Exceeded filesize limit.');
+                            throw new RuntimeException('Imagem demasiado grande.');
                         }
 
                         // Verifica o tipo do ficheiro
@@ -131,7 +133,7 @@
                             ),
                             true
                         )) {
-                            throw new RuntimeException('Invalid file format.');
+                            throw new RuntimeException('Formato da imagem inválido.');
                         }
 
                         $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
@@ -144,72 +146,85 @@
                                 $ext
                             )
                         )) {
-                            throw new RuntimeException('Failed to move uploaded file.');
+                            throw new RuntimeException('Não foi possivel carregar a imagem.');
                         }
 
                     } catch (RuntimeException $e) {
 
-                        echo $e->getMessage();
-                    
+                        echo "<p class='erro'>".$e->getMessage()."</p>";
+                        $erro = 1;
+                        
                     }
 
-                    $check = 0;
+                    if ($erro == 0){
 
-                    $sqlNome = "SELECT nome_instituicao, email
-                                FROM Instituicao";    
+                        $sqlEmail = "SELECT email
+                                    FROM Instituicao";    
 
-                    $resultN = $conn->query($sqlNome);
+                        $resultE = $conn->query($sqlEmail);
 
-                    if ($resultN->num_rows > 0) {
+                        unset($msgErro);
 
-                        while ($row = $resultN->fetch_assoc()){
-                            if ($row["nome_instituicao"] != $nomeInstituicao and $row["email"] != $email){
-                                if (filter_var($email, FILTER_VALIDATE_EMAIL) and filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL)){
-                                    $check = 1;
+                        if (filter_var($email, FILTER_VALIDATE_EMAIL) ){
+                            if (filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL) ){
+                                if (strlen((string)$telefone) == 9){
+                                    if (strlen((string)$password) > 6){
+                                        if ($resultE->num_rows > 0) {
+                                            while ($rowE = $resultE->fetch_assoc()){
+                                                if ($rowE[0] == $email){
+                                                    $msgErro = "<p class='erro'> E-mail já existe </p>";
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
+                                    }
                                 } else {
-                                    echo "<p class='erro'> Insira um e-mail válido </p>";
+                                    $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
                                 }
                             } else {
-                                echo "<p class='erro'> Username ou email já existe </p>";
+                                $msgErro = "<p class='erro'> Insira um e-mail do representante válido </p>";
                             }
+                        } else {
+                            $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
                         }
-                    } else {
-                        $check = 1;
+                        
+                        echo $msgErro;
+
+                        if (!isset($msgErro)){
+
+                            $query1 = "insert into Utilizador
+                                    values ('".$id."' , 'instituicao')";
+                            
+                            $res1 = mysqli_query($conn, $query1);
+                            
+                            if ($res1) {
+                            } else {
+                                echo "<p class='erro'> Algo deu ruim :( </p>";
+                            }
+
+
+                            $query = "insert into Instituicao
+                                    values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
+                                    .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
+                                    .$nomeRepresentante."' , '".$emailRepresentante."' , '".$password."' , '".$avatar."' , '".$website."')";
+                            
+                            $res = mysqli_query($conn, $query);
+                            
+                            if ($res) {
+                                $_SESSION['loggedtype'] = "instituicao";
+                                $_SESSION['logged'] = $nomeInstituicao;
+                                $_SESSION['loggedid'] = $id;
+                                $_SESSION['opentype'] = "instituicao";
+                                $_SESSION['open'] = $nomeInstituicao;
+                                $_SESSION['openid'] = $id;
+                                header("Location: PreferenciasI.php");
+                            } else {
+                                echo "<p class='erro'> Algo correu mal :( </p>";
+                            }
                     }
 
-                    if ($check == 1){
-
-                        $query1 = "insert into Utilizador
-                                values ('".$id."' , 'instituicao')";
-                        
-                        $res1 = mysqli_query($conn, $query1);
-                        
-                        if ($res1) {
-                        } else {
-                            echo "<p class='erro'> Algo deu ruim :( </p>";
-                        }
-
-
-                        $query = "insert into Instituicao
-                                values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
-                                .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
-                                .$nomeRepresentante."' , '".$emailRepresentante."' , '".$password."' , '".$avatar."' , '".$website."')";
-                        
-                        $res = mysqli_query($conn, $query);
-                        
-                        if ($res) {
-                            $_SESSION['loggedtype'] = "instituicao";
-                            $_SESSION['logged'] = $nomeInstituicao;
-                            $_SESSION['loggedid'] = $id;
-                            $_SESSION['opentype'] = "instituicao";
-                            $_SESSION['open'] = $nomeInstituicao;
-                            $_SESSION['openid'] = $id;
-                            header("Location: PreferenciasI.php");
-                        } else {
-                            echo "<p class='erro'> Algo correu mal :( </p>";
-                        }
-
-                        mysqli_close($conn);
+                    mysqli_close($conn);
                 }
                 
                 }

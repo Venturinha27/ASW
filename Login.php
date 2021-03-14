@@ -24,7 +24,7 @@
                 <h1 class="w3-center"><i class="fa fa-user-circle"></i></h1>
             </div>
             <br><br>
-            <input class="w3-input w3-large" id="username" type="text" placeholder="Nome de utilizador ou e-mail" name="username" required>
+            <input class="w3-input w3-large" id="username" type="text" placeholder="E-mail" name="email" required>
             <br><br>
             <input class="w3-input w3-large" id="userpw" type="password" placeholder="Password"  name="password" required>
             <br><br>
@@ -39,7 +39,7 @@
                 if  (!empty($_POST)) {
                 
                     // receber o pedido de login com segurança
-                    $username = test_input($_POST['username']); #mysql_real_escape_string
+                    $email = test_input($_POST['email']); #mysql_real_escape_string
                     $password = test_input($_POST['password']); #sha1
 
                     // verificar o utilizador em questão (pretendemos obter uma única linha de registos)
@@ -59,7 +59,7 @@
                     if ($resultLogin->num_rows > 0) {
                         $userExiste = 0;
                         while ($row = $resultLogin->fetch_array()) {
-                            if (($row[1] == $username or $row[2] == $username) and ($password == $row[3])){
+                            if (($row[2] == $email) and ($password == $row[3])){
 
                                 $tipoquery = "SELECT tipo, id
                                     FROM Utilizador

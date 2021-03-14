@@ -181,39 +181,56 @@
                 if ($erro == 0){
                     $check = 0;
 
-                    $sqlNome = "SELECT nome_voluntario, email
-                                FROM Voluntario";    
+                    $sqlNome = "SELECT V.email
+                                FROM Voluntario V
+                                UNION
+                                SELECT I.email
+                                FROM Instituicao I";    
 
                     $resultN = $conn->query($sqlNome);
 
-                    if ($resultN->num_rows > 0) {
-                            while ($row = $resultN->fetch_assoc()){
-                                if ($row["nomeProprio"] != $nomeProprio and $row["E-mail"] != $Email){
-                                    if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
-                                        if (strlen((string)$telefone) == 9){
-                                            if (strlen((string)$CC) == 9){
-                                                $check = 1;
+
+                    $sqlCC = "SELECT cc
+                                FROM Voluntario";  
+
+                    $resultCC = $conn->query($sqlCC);
+
+                    unset($msgErro);
+
+                    if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
+                        if (strlen((string)$telefone) == 9){
+                            if (strlen((string)$CC) == 9){
+                                if (strlen((string)$Password) > 6){
+                                    if ($resultN->num_rows > 0) {
+                                        while ($row = $resultN->fetch_assoc()){
+                                            if ($row[0] == $Email){
+                                                $msgErro = "<p class='erro'> E-mail já existe </p>";
                                             }
-                                            else {
-                                                $msgErro = "<p class='erro'> Insira um cc válido </p>";
-                                            }
-                                        } else {
-                                            $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
                                         }
-                                    } else {
-                                        $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
+                                    }
+                                    if ($resultCC->num_rows > 0) {
+                                        while ($rowC = $resultCC->fetch_assoc()){
+                                            if ($rowC[0] == $CC){
+                                                $msgErro = "<p class='erro'> CC já existe </p>";
+                                            }
+                                        }
                                     }
                                 } else {
-                                    $msgErro = "<p class='erro'> Username ou email já existe </p>";
+                                    $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
                                 }
+                            } else {
+                                $msgErro = "<p class='erro'> Insira um cc válido </p>";
                             }
+                        } else {
+                            $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
+                        }
                     } else {
-                        $check = 1;
+                        $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
                     }
                     
                     echo $msgErro;
 
-                    if ($check == 1){
+                    if (!isset($msgErro)){
 
                         $query1 = "insert into Utilizador
                                 values ('".$id."' , 'voluntario')";
