@@ -85,6 +85,12 @@
                                             <p>População-alvo: ".$row['populacao_alvo']." <i class='fa fa-deviantart'></i> Nº de vagas: ".$row['num_vagas']."</p>
                                             <p>Data: ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
                                         </div>
+
+                                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                                            <button class='w3-button w3-block w3-hover-red' type='submit' value='".$row['id_acao']."' name='removeAcao'>
+                                                Eliminar ação
+                                            </button>
+                                        </form>
                                 </div>";
                         }
                     } else {
@@ -309,6 +315,19 @@
                 echo "<meta http-equiv='refresh' content='0'>";
             } else {
                 echo "Erro: insert failed" . $query . "<br>" . mysqli_error($conn);
+            }
+        }
+
+        if (!empty($_POST['removeAcao'])){
+            $rAcao = test_input($_POST['removeAcao']);
+
+            $removeAcao = "DELETE FROM Acao
+                        WHERE id_acao = '".$rAcao."';";
+
+            $resrAcao = mysqli_query($conn, $removeAcao);
+            
+            if ($resrAcao) {
+                echo "<meta http-equiv='refresh' content='0'>";
             }
         }
         mysqli_close($conn);
