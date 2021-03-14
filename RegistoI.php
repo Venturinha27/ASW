@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="CSS/RegistoI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+<script src="JavaScript/DCF.js"></script>
 </head>
 
 <header>
@@ -60,12 +61,30 @@
 
             <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
 
-            <input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito" required>
+            <!--<input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito" required>
 
             <input type="text" class="w3-input" id="concelho" placeholder="Concelho" name="concelho" required>
 
             <input type="text" class="w3-input" id="freguesia" placeholder="Freguesia" name="freguesia" required>
-            
+            -->
+
+            <form name="myform" id="myForm">
+                Distrito: 
+                <select name="state" id="distrito" size="1">
+                    <option value="" disabled selected>Selecione o seu Distrito:</option>
+                </select> <br>
+                
+                Concelho: 
+                <select name="countrya" id="concelho" size="1">
+                    <option value="" disabled selected>Selecione o seu Concelho:</option>
+                </select> <br>
+                
+                Freguesia: 
+                <select name="district" id="freguesia" size="1">
+                    <option value="" disabled selected>Selecione o seu Freguesia:</option>
+                </select> <br>
+            </form>
+
             <input type="text" class="w3-input" id="nomeRepresentante" placeholder="Nome do Representante da Instituição" name="nomeRepresentante" required>
             
             <input type="text" class="w3-input" id="emailRepresentante" placeholder="E-mail do Representante da Instituição" name="emailRepresentante" required>
