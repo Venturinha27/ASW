@@ -323,27 +323,37 @@ var stateObject = {
     
 }
 window.onload = function () {
-var distrito = document.getElementById("distrito"),
-concelho = document.getElementById("concelho"),
-freguesia = document.getElementById("freguesia");
-for (var distrit in stateObject) {
-distrito.options[distrito.options.length] = new Option(distrit, distrit);
-}
-distrito.onchange = function () {
-concelho.length = 1; // remove all options bar first
-freguesia.length = 1; // remove all options bar first
-if (this.selectedIndex < 1) return; // done 
-for (var state in stateObject[this.value]) {
-concelho.options[concelho.options.length] = new Option(state, state);
-}
-}
-distrito.onchange(); // reset in case page is reloaded
-concelho.onchange = function () {
-freguesia.length = 1; // remove all options bar first
-if (this.selectedIndex < 1) return; // done 
-var district = stateObject[distrito.value][this.value];
-for (var i = 0; i < district.length; i++) {
-freguesia.options[freguesia.options.length] = new Option(district[i], district[i]);
-}
-}
+        var distrito = document.getElementById("distrito"),
+        concelho = document.getElementById("concelho"),
+        freguesia = document.getElementById("freguesia");
+
+        for (var distrit in stateObject) {
+                let dis = new Option(distrit, distrit);
+                distrito.options[distrito.options.length] = dis;
+                dis.setAttribute("name",distrit);
+        }
+
+        distrito.onchange = function () {
+                concelho.length = 1; // remove all options bar first
+                freguesia.length = 1; // remove all options bar first
+                if (this.selectedIndex < 1) return; // done 
+                for (var state in stateObject[this.value]) {
+                        let con = new Option(state, state);
+                        concelho.options[concelho.options.length] = con;
+                        con.setAttribute("name",state)
+                }
+        }
+
+        distrito.onchange(); // reset in case page is reloaded
+        concelho.onchange = function () {
+                freguesia.length = 1; // remove all options bar first
+                if (this.selectedIndex < 1) return; // done 
+                var district = stateObject[distrito.value][this.value];
+
+                for (var i = 0; i < district.length; i++) {
+                        let freg = new Option(district[i], district[i]);
+                        freguesia.options[freguesia.options.length] = freg;
+                        freg.setAttribute("name", district[i])
+                }
+        }
 }

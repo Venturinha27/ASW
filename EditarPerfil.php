@@ -1,6 +1,7 @@
 <!-- ASW -->
 <?php
     session_start();
+    ob_start();
 
     if (!isset($_SESSION['logged'])) {
         header('Location: Login.php');
@@ -15,7 +16,7 @@
 <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
 <link rel='stylesheet' href='CSS/EditarPerfilC.css'>
 <script src='https://kit.fontawesome.com/91ccf300f9.js' crossorigin='anonymous'></script>
-<script src=></script>
+<script src="JavaScript/DCF.js"></script>
 
 <header>
     <div class='w3-bar w3-large' id='navigation'>
@@ -128,17 +129,20 @@
                 <input type='file' id='avatar' name='avatar'/>  <!--accept='image/png, image/jpeg'-->
                 <br><br>
 
-                <label> <b>Distrito</b> </label>
-                <input type='text' value='$distrito' class='w3-input' id='distrito' placeholder='Distrito' name='distrito'required/>
-
-                <label> <b>Concelho</b> </label>
-                <input type='text' value='$concelho' class='w3-input' id='concelho' placeholder='Concelho' name='concelho'required/>
-
-                <label> <b>Freguesia</b> </label>
-                <input type='text' value='$freguesia' class='w3-input' id='freguesia' placeholder='Freguesia' name='freguesia'required/>
-
+                <label>Distrito:</label>
+                <select class='w3-input' name='distrito' id='distrito' size='1' required>
+                    <option value='$distrito' name='$distrito' selected>$distrito</option>
+                </select> 
                 
-                 
+                <label>Concelho:</label>
+                <select class='w3-input' name='concelho' id='concelho' size='1' required>
+                    <option value='$concelho' name='$concelho' selected>$concelho</option>
+                </select> 
+                
+                <label>Freguesia:</label>
+                <select class='w3-input' name='freguesia' id='freguesia' size='1' required>
+                    <option value='$freguesia' name='$freguesia' selected>$freguesia</option>
+                </select> 
             
                 <label> <b>Género</b> </label>
                 <select class='w3-input' name='genero'>
@@ -499,13 +503,6 @@
             if ($resrDispo) {
                 echo "<meta http-equiv='refresh' content='0'>";
             }
-        }
-
-
-        if ($checkArea == 1 and $checkPopulacao == 1 and $checkDisponibilidade == 1){
-            echo "<a href='Perfil.php'><button class='w3-button w3-border w3-center' id='avancar'>Avançar</button></a>";
-        } else {
-            echo "<p>Escolha, pelo menos, uma área de interesse, uma população-alvo e uma disponibilidade.</p>";
         }
         
         echo "</div>
