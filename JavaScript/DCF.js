@@ -55,7 +55,7 @@ var stateObject = {
          "Vizela": ["Caldas de Vizela ", "Santa Eulália" , "Santo Adrião de Vizela", "Tagilde e Vizela"]
 },
 
-" Bragança": { "Alfândega da Fé": ["Agrobom, Saldonha e Vale Pereiro", "Cerejais" , "Vilar Chão", "Vilarelhos"],    
+"Bragança": { "Alfândega da Fé": ["Agrobom, Saldonha e Vale Pereiro", "Cerejais" , "Vilar Chão", "Vilarelhos"],    
         "Bragança": ["Alfaião","Baçal","Grijó de Parada","Serapicos"],
         "Carrazeda de Ansiães": ["Amedo e Zedes","Carrazeda de Ansiães","Marzagão","Seixo de Ansiães"],
         "Freixo de Espada à Cinta": ["Freixo de Espada à Cinta e Mazouco","Lagoaça e Fornos","Ligares","Poiares"],
@@ -68,7 +68,7 @@ var stateObject = {
         "Vimioso": ["Argozelo","Vilar Seco","Vimioso"],
         "Vinhais": ["Agrochão","Candedo","Curopos e Vale de Janeiro","Travanca e Santa Cruz"]
 },
-" Castelo Branco": { "Castelo Branco": ["Alcains, Saldonha e Vale Pereiro", "Castelo Branco" , "Cebolais de Cima e Retaxo", "Lardosa"],    
+"Castelo Branco": { "Castelo Branco": ["Alcains, Saldonha e Vale Pereiro", "Castelo Branco" , "Cebolais de Cima e Retaxo", "Lardosa"],    
         "Covilhã": ["Aldeia de São Francisco de Assis","Boidobra","Paul","Sobral de São Miguel"],
         "Fundão": ["Alcaria","Castelo Novo","Pêro Viseu","Três Povos"],
         "Idanha-a-Nova": ["Idanha-a-Nova e Alcafozes","Ladoeiro","Medelim","São Miguel de Acha"],
@@ -80,7 +80,7 @@ var stateObject = {
         "Vila Velha de Ródão": ["Fratel","Perais","Sarnadas de Ródão","Vila Velha de Ródão"]
         
 },
-" Coimbra": { "Arganil": ["Arganil", "Celavisa" , "Pombeiro da Beira", "Vila Cova de Alva e Anseriz"],    
+"Coimbra": { "Arganil": ["Arganil", "Celavisa" , "Pombeiro da Beira", "Vila Cova de Alva e Anseriz"],    
         "Cantanhede": ["Covões e Camarneira","Sanguinheira","Vilamar e Corticeiro de Cima","Tocha"],
         "Coimbra": ["Almalaguês","Cernache","Coimbra","Torres do Mondego"],
         "Condeixa-a-Nova": ["Anobra","Furadouro","Sebal e Belide","Zambujal"],
@@ -99,7 +99,7 @@ var stateObject = {
         "Vila Nova de Poiares": ["Arrifana","Lavegadas","Poiares","São Miguel de Poiares"]   
         
 },
-" Évora": { "Alandroal": ["Alandroal, São Brás dos Matos e Juromenha", "Capelins" , "Santiago Maior", "Terena"],    
+"Évora": { "Alandroal": ["Alandroal, São Brás dos Matos e Juromenha", "Capelins" , "Santiago Maior", "Terena"],    
         "Arraiolos": ["Arraiolos","Gafanhoeira e Sabugueiro","São Gregório e Santa Justa","Vimieiro"],
         "Borba": ["Matriz","Orada","Rio de Moinhos","São Bartolomeu"],
         "Estremoz": ["Ameixial","Estremoz","São Domingos de Ana Loura","Veiros"],
@@ -115,7 +115,7 @@ var stateObject = {
         "Vila Viçosa": ["Nossa Senhora da Conceição e São Bartolomeu","Bencatel","Ciladas","Pardais"],
 
 },
-" Faro": { "Albufeira": ["Albufeira e Olhos de Água", "Ferreiras" , "Guia", "Paderne"],    
+"Faro": { "Albufeira": ["Albufeira e Olhos de Água", "Ferreiras" , "Guia", "Paderne"],    
         "Alcoutim": ["Alcoutim e Pereiro","Giões","Martim Longo","Vaqueiros"],
         "Aljezur": ["Aljezur","Odeceixe"],
         "Castro Marim": ["Altura","Castro Marim","Odeleite"],
@@ -137,7 +137,7 @@ var stateObject = {
 
 
 },
-" Guarda": { "Aguiar da Beira": ["Carapito", "Dornelas" , "Pinheiro", "Sequeiros e Gradiz"],    
+"Guarda": { "Aguiar da Beira": ["Carapito", "Dornelas" , "Pinheiro", "Sequeiros e Gradiz"],    
         "Almeida": ["Almeida","Freineda","Malhada Sorda","Vale da Mula"],
         "Celorico da Beira": ["Baraçal","Forno Telheiro","Maçal do Chão","Ratoeira"],
         "Figueira de Castelo Rodrigo": ["Almofala e Escarigo","Cinco Vilas e Reigada","Colmeal e Vilar Torpim","Vermiosa"],
@@ -153,7 +153,7 @@ var stateObject = {
         "Vila Nova de Foz Côa": ["Almendra","Cedovim","Muxagata","Santa Comba"]
 },
 
-" Leiria": { "Alcobaça": ["Aljubarrota", "Évora de Alcobaça" , "Turquel", "Vimeiro"],    
+"Leiria": { "Alcobaça": ["Aljubarrota", "Évora de Alcobaça" , "Turquel", "Vimeiro"],    
         "Alvaiázere": ["Almoster","Alvaiázere ","Maçãs de Dona Maria","Pussos São Pedro"],
         "Ansião": ["Ansião","Chão de Couce","Pousaflores","Santiago da Guarda"],
         "Batalha": ["Batalha","Golpilheira","São Mamede"],
@@ -171,7 +171,7 @@ var stateObject = {
         "Porto de Mós": ["Alqueidão da Serra","Mira de Aire","Porto de Mós - São João Baptista e São Pedro","Serro Ventoso"]
 
 },
-" Lisboa": { "Alenquer": ["Alenquer", "Carregado e Cadafais" , "Ribafria e Pereiro de Palhacana", "Vila Verde dos Francos"],    
+"Lisboa": { "Alenquer": ["Alenquer", "Carregado e Cadafais" , "Ribafria e Pereiro de Palhacana", "Vila Verde dos Francos"],    
         "Amadora": ["Águas Livres","Encosta do Sol","Mina de Água","Venteira"],
         "Azambuja": ["Alcoentre","Azambuja","Vale do Paraíso","Vila Nova da Rainha"],
         "Cadaval": ["Alguber","Peral","Vermelha","Vilar"],
@@ -187,7 +187,7 @@ var stateObject = {
         "Torres Vedras": ["Ramalhal","Turcifal","Ventosa"],
         "Vila Franca de Xira": ["Alhandra, São João dos Montes e Calhandriz","Póvoa de Santa Iria e Forte da Casa","Vialonga"]
 },
-" Portalegre": { "Alter do Chão": ["Alter do Chão", "Chancelaria" , "Cunheira", "Seda"],    
+"Portalegre": { "Alter do Chão": ["Alter do Chão", "Chancelaria" , "Cunheira", "Seda"],    
         "Arronches": ["Assunção","Esperança","Mosteiros"],
         "Avis": ["Alcórrego e Maranhão","Avis","Ervedal","Figueira e Barros"],
         "Campo Maior": ["Nossa Senhora da Expectação","Nossa Senhora da Graça dos Degolados","São João Baptista"],
@@ -204,7 +204,7 @@ var stateObject = {
         "Sousel": ["Cano","Casa Branca","Santo Amaro"]
     
 },
-" Porto": { "Amarante": ["Aboadela, Sanche e Várzea", "Candemil" , "Fridão", "Vila Garcia, Aboim e Chapa"],    
+"Porto": { "Amarante": ["Aboadela, Sanche e Várzea", "Candemil" , "Fridão", "Vila Garcia, Aboim e Chapa"],    
         "Baião": ["Ancede e Ribadouro","Gestaçô","Loivos da Ribeira e Tresouras","Viariz"],
         "Felgueiras": ["Aião","Jugueiros","Penacova","Vila Cova da Lixa e Borba de Godim"],
         "Gondomar": ["Baguim do Monte ","Foz do Sousa e Covelo","Lomba","Rio Tinto"],
@@ -225,7 +225,7 @@ var stateObject = {
         
         
 },
-" Santarém": { "Abrantes": ["Abrantes e Alferrarede", "Bemposta" , "Mouriscas", "São Miguel do Rio Torto e Rossio ao Sul do Tejo"],    
+"Santarém": { "Abrantes": ["Abrantes e Alferrarede", "Bemposta" , "Mouriscas", "São Miguel do Rio Torto e Rossio ao Sul do Tejo"],    
         "Alcanena": ["Bugalhos","Minde","Moitas Venda","Serra de Santo António"],
         "Almeirim": ["Almeirim","Benfica do Ribatejo","Fazendas de Almeirim","Raposa"],
         "Alpiarça": ["Alpiarça"],
@@ -246,7 +246,7 @@ var stateObject = {
         "Tomar": ["Além da Ribeira e Pedreira","Casais e Alviobeira","Sabacheira","Tomar e Santa Maria dos Olivais"],
         "Torres Novas": ["Assentiz","Olaia e Paço","Santa Maria, Salvador e Santiag","Zibreira"]     
 },
-" Setúbal": { "Alcácer do Sal": ["Alcácer do Sal e Santa Susana", "Comporta" , "São Martinho", "Torrão"],    
+"Setúbal": { "Alcácer do Sal": ["Alcácer do Sal e Santa Susana", "Comporta" , "São Martinho", "Torrão"],    
         "Alcochete": ["Alcochete","Samouco","São Francisco"],
         "Almada": ["Caparica e Trafaria","Costa de Caparica","Laranjeiro e Feijó "],
         "Barreiro": ["Alto do Seixalinho, Santo André e Verderena","Barreiro e Lavradio","Palhais e Coina","Santo António da Charneca"],
@@ -261,7 +261,7 @@ var stateObject = {
         "Sines": ["Porto Covo","Sines"]
 
 },
-" Viana do Castelo": { "Arcos de Valdevez": ["Aboim das Choças", "Arcos de Valdevez, Vila Fonche e Parada" , "Oliveira", "Rio de Moinhos"],    
+"Viana do Castelo": { "Arcos de Valdevez": ["Aboim das Choças", "Arcos de Valdevez, Vila Fonche e Parada" , "Oliveira", "Rio de Moinhos"],    
         "Caminha": ["Caminha e Vilarelho","Gondar e Orbacém","Vilar de Mouros","Vile"],
         "Melgaço": ["Castro Laboreiro e Lamas de Mouro","Parada do Monte e Cubalhão","Penso","Prado e Remoães"],
         "Monção": ["Cambeses","Messegães, Valadares e Sá","Portela","Trute"],
@@ -273,7 +273,7 @@ var stateObject = {
         "Vila Nova de Cerveira": ["Campos e Vila Meã","Gondarém","Reboreda e Nogueira","Vila Nova de Cerveira e Lovelhe"]
         
 },
-" Vila Real": { "Alijó": ["Alijó", "Favaios" , "Santa Eugénia", "Vila Verde"],    
+"Vila Real": { "Alijó": ["Alijó", "Favaios" , "Santa Eugénia", "Vila Verde"],    
         "Boticas": ["Beça","Boticas e Granja","Codessoso, Curros e Fiães do Tâmega","Vilar e Viveiro"],
         "Chaves": ["Calvão e Soutelinho da Raia","Loivos e Póvoa de Agrações","Oura","Santo António de Monforte"],
         "Mesão Frio": ["Mesão Frio","Vila Marim"],
@@ -289,7 +289,7 @@ var stateObject = {
         "Vila Real": ["Adoufe e Vilarinho de Samardã","Borbela e Lamas de Olo","Mouçós e Lamares","São Tomé do Castelo e Justes"]
 
 },
-" Viseu": { "Armamar": ["Aricera e Goujoim", "Santa Cruz" , "São Romão e Santiago", "Vila Seca e Santo Adrião"],    
+"Viseu": { "Armamar": ["Aricera e Goujoim", "Santa Cruz" , "São Romão e Santiago", "Vila Seca e Santo Adrião"],    
         "Carregal do Sal": ["Beijós","Carregal do Sal","Oliveira do Conde","Parada"],
         "Castro Daire": ["Castro Daire","Mamouros, Alva e Ribolhos","Parada de Ester e Ester","São Joaninho"],
         "Cinfães": ["Alhões, Bustelo, Gralheira e Ramires","Ferreiros de Tendais","Oliveira do Douro","Tarouquela"],

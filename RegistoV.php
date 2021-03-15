@@ -216,7 +216,7 @@
 
                     if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                         if (strlen((string)$telefone) == 9){
-                            if (strlen((string)$CC) == 9){
+                            if (strlen((string)$CC) == 8){
                                 if (strlen((string)$Password) > 6){
                                     if ($resultN->num_rows > 0) {
                                         while ($row = $resultN->fetch_assoc()){

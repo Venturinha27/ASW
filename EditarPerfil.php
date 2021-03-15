@@ -626,7 +626,7 @@
 
                     if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                         if (strlen((string)$telefone) == 9){
-                            if (strlen((string)$CC) == 9){
+                            if (strlen((string)$CC) == 8){
                                 if (strlen((string)$Password) > 6){
                                     if ($resultN->num_rows > 0) {
                                         while ($row = $resultN->fetch_assoc()){
@@ -763,14 +763,20 @@
                 <label> <b>Morada</b> </label>
                 <input type='text' value='$morada' class='w3-input' id='morada' placeholder='Morada' name='morada' required>
 
-                <label> <b>Distrito</b> </label>
-                <input type='text' value='$distrito' class='w3-input' id='distrito' placeholder='Distrito' name='distrito' required>
-
-                <label> <b>Concelho</b> </label>
-                <input type='text' value='$concelho' class='w3-input' id='concelho' placeholder='Concelho' name='concelho' required>
-
-                <label> <b>Freguesia</b> </label>
-                <input type='text' value='$freguesia' class='w3-input' id='freguesia' placeholder='Freguesia' name='freguesia' required>
+                <label>Distrito:</label>
+                <select class='w3-input' name='distrito' id='distrito' size='1' required>
+                    <option value='$distrito' name='$distrito' selected>$distrito</option>
+                </select> 
+                
+                <label>Concelho:</label>
+                <select class='w3-input' name='concelho' id='concelho' size='1' required>
+                    <option value='$concelho' name='$concelho' selected>$concelho</option>
+                </select> 
+                
+                <label>Freguesia:</label>
+                <select class='w3-input' name='freguesia' id='freguesia' size='1' required>
+                    <option value='$freguesia' name='$freguesia' selected>$freguesia</option>
+                </select> 
                 
                 <label> <b>Nome do Representante da Instituição</b> </label>
                 <input type='text' value='$nome_representante' class='w3-input' id='nomeRepresentante' placeholder='Nome do Representante da Instituição' name='nomeRepresentante' required>

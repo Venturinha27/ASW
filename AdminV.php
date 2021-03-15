@@ -1,5 +1,6 @@
 <!-- ASW -->
 <?php
+    ob_start();
     session_start();
 ?>
 <!DOCTYPE html>
@@ -10,6 +11,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="CSS/AdminV.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+<script src="JavaScript/DCF.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -71,46 +73,20 @@
                         <option value="81+">81+</option>
                     </select>
                     <br>
-                    <label><b>Distrito</b></label>
-                    <select class="w3-input" name="distrito">
-                        <option value="" disabled selected>Distrito</option>
-                        <option value="Aveiro">Aveiro</option>
-                        <option value="Beja">Beja</option>
-                        <option value="Braga">Braga</option>
-                        <option value="Bragança">Bragança</option>
-                        <option value="Castelo Branco">Castelo Branco</option>
-                        <option value="Coimbra">Coimbra</option>
-                        <option value="Évora">Évora</option>
-                        <option value="Faro">Faro</option>
-                        <option value="Guarda">Guarda</option>
-                        <option value="Leiria">Leiria</option>
-                        <option value="Lisboa">Lisboa</option>
-                        <option value="Portalegre">Portalegre</option>
-                        <option value="Porto">Porto</option>
-                        <option value="Santarém">Santarém</option>
-                        <option value="Setúbal">Setúbal</option>
-                        <option value="Viana do Castelo">Viana do Castelo</option>
-                        <option value="Vila Real">Vila Real</option>
-                        <option value="Viseu">Viseu</option>
-                        <option value="Região Autónoma Açores">Região Autónoma Açores</option>
-                        <option value="Região Autónoma Madeira">Região Autónoma Madeira</option>
-                    </select>
+                    <label><b>Distrito:</b></label>
+                    <select class="w3-input" name="distrito" id="distrito" size="1">
+                        <option value="" disabled selected>Selecione o seu Distrito:</option>
+                    </select> 
                     <br>
-                    <label><b>Concelho</b></label>
-                    <select class="w3-input" name="concelho">
-                        <option value="" disabled selected>Concelho</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+                    <label><b>Concelho:</b></label>
+                    <select class="w3-input" name="concelho" id="concelho" size="1">
+                        <option value="" disabled selected>Selecione o seu Concelho:</option>
+                    </select> 
                     <br>
-                    <label><b>Freguesia</b></label>
-                    <select class="w3-input" name="freguesia">
-                        <option value="" disabled selected>Freguesia</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+                    <label><b>Freguesia:</b></label>
+                    <select class="w3-input" name="freguesia" id="freguesia" size="1">
+                        <option value="" disabled selected>Selecione a sua Freguesia:</option>
+                    </select> 
                     <br>
                     <label><b>Género</b></label>
                     <select class="w3-input" name="genero">
