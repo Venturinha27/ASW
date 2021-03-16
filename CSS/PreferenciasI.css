@@ -98,7 +98,7 @@ body {
     border-style: solid;
 }
 
-.w3-card-4 {
+#BrancoDiv .w3-card-4 {
     width: 100%;
     height: fit-content;
     box-sizing: border-box;
@@ -107,22 +107,22 @@ body {
     border-color: #A8D0E6;
 }
 
-.w3-card-4 header{
+#BrancoDiv .w3-card-4 header{
     background-color: #24305E;
     color: white;
 }
 
-.w3-card-4 h5{
+#BrancoDiv .w3-card-4 h5{
     font-size: larger;
     font-weight: bold;
     padding-top: 2%;
 }
 
-.w3-card-4 p {
+#BrancoDiv .w3-card-4 p {
     font-size: smaller;
 }
 
-.w3-card-4 button{
+#BrancoDiv .w3-card-4 button{
     background-color: #E25241;
     color: white;
 }
