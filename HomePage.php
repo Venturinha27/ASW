@@ -124,11 +124,11 @@
         <h1 class="w3-center">Como posso contribuir?</h1>
         <div id="contribuirOptions">
             <div id="voluntarioDiv">
-                <a href="#"><i class="fa fa-male" id="voluntarioIcon"></i></a>
+                <a href="RegistoV.php"><i class="fa fa-male" id="voluntarioIcon"></i></a>
                 <h5 id="voluntarioP">Voluntário</p>
             </div>
             <div id="instituicaoDiv">
-                <a href="#"><i class="fa fa-building" id="instituicaoIcon"></i></a>
+                <a href="RegistoI.php"><i class="fa fa-building" id="instituicaoIcon"></i></a>
                 <h5 id="instituicaoP">Instituição</p>
             </div>
         </div>

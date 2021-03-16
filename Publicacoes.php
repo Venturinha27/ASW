@@ -60,7 +60,7 @@
                         <button class='w3-button w3-hover-blue'>
                             <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
                         </button>
-                        <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
+                        <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0% !important; z-index: 100 !important; width:10% !important;'>
                             <a href='Perfil.php' class='w3-bar-item w3-button'>Ver perfil</a>
                             <a href='EditarPerfil.php' class='w3-bar-item w3-button'>Editar perfil</a>
                             <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
