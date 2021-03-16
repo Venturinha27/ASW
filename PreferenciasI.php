@@ -1,6 +1,7 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
 <?php
     session_start();
+    ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +15,7 @@
 <link rel="stylesheet" href="CSS/PreferenciasI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="JavaScript/PreferenciasI.js"></script>
+<script src="JavaScript/DCF.js"></script>
 </head>
 
 
@@ -175,50 +177,23 @@
             <div id="dir">
             
                 <label>Distrito:</label>
-                    <select class="w3-select sel" name="distrito" required>
-                        <option value="" disabled selected>Selecione distrito</option>
-                        <option value="Aveiro">Aveiro</option>
-                        <option value="Beja">Beja</option>
-                        <option value="Braga">Braga</option>
-                        <option value="Bragança">Bragança</option>
-                        <option value="Castelo Branco">Castelo Branco</option>
-                        <option value="Coimbra">Coimbra</option>
-                        <option value="Évora">Évora</option>
-                        <option value="Faro">Faro</option>
-                        <option value="Guarda">Guarda</option>
-                        <option value="Leiria">Leiria</option>
-                        <option value="Lisboa">Lisboa</option>
-                        <option value="Portalegre">Portalegre</option>
-                        <option value="Porto">Porto</option>
-                        <option value="Santarém">Santarém</option>
-                        <option value="Setúbal">Setúbal</option>
-                        <option value="Viana do Castelo">Viana do Castelo</option>
-                        <option value="Vila Real">Vila Real</option>
-                        <option value="Viseu">Viseu</option>
-                        <option value="Região Autónoma Açores">Região Autónoma Açores</option>
-                        <option value="Região Autónoma Madeira">Região Autónoma Madeira</option>
-                    </select>
+                <select class="w3-select sel" name="distrito" id="distrito" required>
+                    <option value="" disabled selected>Selecione o seu Distrito:</option>
+                </select> 
+
+                <hr>
+                
+                <label>Concelho:</label>
+                <select class="w3-select sel" name="concelho" id="concelho" required>
+                    <option value="" disabled selected>Selecione o seu Concelho:</option>
+                </select>
                 
                 <hr>
-
-                <label>Concelho: </label>
-                    <select class="w3-select sel" name="concelho" required>
-                        <option value="" disabled selected>Selecione concelho</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
-
-                <hr>
-
-
+                
                 <label>Freguesia:</label>
-                    <select class="w3-select sel" name="freguesia" required>
-                        <option value="" disabled selected>Selecione freguesia</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
+                <select class="w3-select sel" name="freguesia" id="freguesia" required>
+                    <option value="" disabled selected>Selecione a sua Freguesia:</option>
+                </select> 
                 
                 <hr>
                 

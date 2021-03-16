@@ -243,6 +243,59 @@
         </div>
 
         <div id="AtividadesDiv">
+
+            <?php
+                if ($opentype == 'instituicao'){
+                    
+                    $sqlNome = "SELECT id_instituicao, id_acao, titulo, distrito, concelho, freguesia, funcao, 
+                                area_interesse, populacao_alvo, num_vagas, dia, hora, duracao
+                                FROM Acao
+                                WHERE id_instituicao = '".$openid."';";
+
+                    $resultN = $conn->query($sqlNome);
+
+                    $sqlImg = "SELECT id, foto
+                                FROM Instituicao
+                                WHERE id = '".$openid."';";
+
+                    $resultImg = $conn->query($sqlImg);
+
+                    if ($rowI = $resultImg->fetch_assoc()){
+                        $ava = $rowI['foto'];
+                    }
+                    
+                    if (!($resultN)) {
+                        echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
+                    }              
+
+                    if ($resultN->num_rows > 0) {
+
+                        while ($row = $resultN->fetch_assoc()){
+
+                            echo "<div class='w3-card-4'>
+
+                                    <header class='w3-container'>
+                                        <h3>$open</h3>
+                                    </header>
+                                    
+                                    <div class='w3-container'>
+                                        <h5>".$row['titulo']."</h5>
+                                        <hr>
+                                        <img src='$ava' alt='Avatar' class='w3-left w3-circle'>
+                                        
+                                        <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
+                                        <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
+                                        <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
+                                        <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</p>
+                                    </div>
+                                    
+                                    <button class='w3-button w3-block w3-hover-blue'>Ver Mais</button>
+                                    
+                                </div>";
+                        }
+                    }
+                }
+            ?>
             <!--
             <div class="w3-card-4" id="card1">
 

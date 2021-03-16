@@ -70,22 +70,20 @@
             <input type="text" class="w3-input" id="freguesia" placeholder="Freguesia" name="freguesia"required/>
             -->
 
-            <form name="myform" id="myForm">
-                Distrito: 
-                <select name="state" id="distrito" size="1">
-                    <option value="" disabled selected>Selecione o seu Distrito:</option>
-                </select> <br>
-                
-                Concelho: 
-                <select name="countrya" id="concelho" size="1">
-                    <option value="" disabled selected>Selecione o seu Concelho:</option>
-                </select> <br>
-                
-                Freguesia: 
-                <select name="district" id="freguesia" size="1">
-                    <option value="" disabled selected>Selecione o seu Freguesia:</option>
-                </select> <br>
-            </form>
+            <label>Distrito:</label>
+            <select class="w3-input" name="distrito" id="distrito" size="1" required>
+                <option value="" disabled selected>Selecione o seu Distrito:</option>
+            </select> 
+            
+            <label>Concelho:</label>
+            <select class="w3-input" name="concelho" id="concelho" size="1" required>
+                <option value="" disabled selected>Selecione o seu Concelho:</option>
+            </select> 
+            
+            <label>Freguesia:</label>
+            <select class="w3-input" name="freguesia" id="freguesia" size="1" required>
+                <option value="" disabled selected>Selecione a sua Freguesia:</option>
+            </select> 
 
             <label>Género</label>
             <select class="w3-input" name="genero">
@@ -218,7 +216,7 @@
 
                     if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                         if (strlen((string)$telefone) == 9){
-                            if (strlen((string)$CC) == 9){
+                            if (strlen((string)$CC) == 8){
                                 if (strlen((string)$Password) > 6){
                                     if ($resultN->num_rows > 0) {
                                         while ($row = $resultN->fetch_assoc()){
