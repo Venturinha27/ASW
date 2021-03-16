@@ -61,25 +61,30 @@
                     $pegaEmailV = mysql_query("SELECT * FROM Voluntario WHERE email = '$email'");
                     $resultVoluntario = $conn->query($pegaEmailV);
                     
-                    $pegaEmailI = mysql_query("SELECT * FROM instituicao WHERE email = '$email'");
+                    $pegaEmailI = mysql_query("SELECT * FROM Instituicao WHERE email = '$email'");
                     $resultInstituicao = $conn->query($pegaEmailI);
 
                     if ($novaPassword == $confPassword){
                         if( $resultVoluntario->num_rows > 0 ) { // se retorna resultado
                             $query = mysql_query("UPDATE Voluntario SET password1 ='$_POST['novaPassword']' WHERE email = '$email'"  );
-                          } else {
-                            echo 'Não existe nenhum utilizador registado!';
+                            //$v = $conn->query($query);
+                        } else {
+                            $erro1 = "Não existe nenhum utilizador registado!";
+                            echo "<p class='w3-text-red w3-center'><b>$erro1</u></b>";
                         }
                         if( $resultInstituicao->num_rows > 0 ) { // se retorna resultado
-                            $query2 = mysql_query("UPDATE instituicao SET password2 ='$_POST['novaPassword']' WHERE email = '$email'"  );
-                          } else {
-                            echo 'Não existe nenhum utilizador registado!';
+                            $query2 = mysql_query("UPDATE Instituicao SET password2 ='$_POST['novaPassword']' WHERE email = '$email'"  );
+                            //$i = $conn->query($query2);
+                        } else {
+                            $erro2 = "Não existe nenhum utilizador registado!";
+                            echo "<p class='w3-text-red w3-center'><b>$erro2</u></b>";
                         }
 
                     } else{
-                        echo "As palavras-passes não coincidem"
+                        $erro3 = "As Palavras Passes não coincidem , tente novamente!";
+                        echo "<p class='w3-text-red w3-center'><b>$erro3</u></b>";
                     }
-                    
+                }  
         
             ?>
         
