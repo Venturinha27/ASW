@@ -17,6 +17,10 @@ body {
     vertical-align: middle;
 }
 
+.zin {
+    z-index: 100;
+}
+
 #slideDiv{
     position: absolute;
     width: 100%;
