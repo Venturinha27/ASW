@@ -37,7 +37,7 @@
 
     </div>
 
-    <form id="registertext">
+    <form id="registertext" action="ForgotPassword.php" method="post">
         <div id="Esqueci">
             <input type="text" class="w3-input" id="Email" placeholder="E-mail" name="Email" required>
 
