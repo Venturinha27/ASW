@@ -110,7 +110,7 @@
 
             <input type="text" class="w3-input" id="telefone" placeholder="Telemóvel/Telefone" name="telefone"required/>
 
-            <input type="date" class="w3-input" id="dataNascimento" placeholder="Data de Nascimento" name="dataNascimento" required/>
+            <input type="date" class="w3-input" id="dataNascimento" placeholder="Data de Nascimento (AAAA-MM-DD)" name="dataNascimento" required/>
 
             <input type="text" class="w3-input" id="CC" placeholder="Cartão de Cidadão" name="CC"required/>
 
@@ -277,23 +277,28 @@
                     if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                         if (strlen((string)$telefone) == 9){
                             if (strlen((string)$CC) == 8){
-                                if (strlen((string)$Password) > 6){
-                                    if ($resultN->num_rows > 0) {
-                                        while ($row = $resultN->fetch_assoc()){
-                                            if ($row[0] == $Email){
-                                                $msgErro = "<p class='erro'> E-mail já existe </p>";
+                                $datnasc = explode("-", $dataNascimento);
+                                if (strlen((string)$datnasc[0]) == 4 and strlen((string)$datnasc[1]) == 2 and strlen((string)$datnasc[2]) == 2){
+                                    if (strlen((string)$Password) > 6){
+                                        if ($resultN->num_rows > 0) {
+                                            while ($row = $resultN->fetch_assoc()){
+                                                if ($row[0] == $Email){
+                                                    $msgErro = "<p class='erro'> E-mail já existe </p>";
+                                                }
                                             }
                                         }
-                                    }
-                                    if ($resultCC->num_rows > 0) {
-                                        while ($rowC = $resultCC->fetch_assoc()){
-                                            if ($rowC[0] == $CC){
-                                                $msgErro = "<p class='erro'> CC já existe </p>";
+                                        if ($resultCC->num_rows > 0) {
+                                            while ($rowC = $resultCC->fetch_assoc()){
+                                                if ($rowC[0] == $CC){
+                                                    $msgErro = "<p class='erro'> CC já existe </p>";
+                                                }
                                             }
                                         }
+                                    } else {
+                                        $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
                                     }
                                 } else {
-                                    $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
+                                    $msgErro = "<p class='erro'> Data de nascimento deve ser do tipo (AAAA-MM-DD). </p>";
                                 }
                             } else {
                                 $msgErro = "<p class='erro'> Insira um cc válido </p>";
@@ -322,7 +327,7 @@
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
                                 .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
-                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
+                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".password_hash($Password, PASSWORD_DEFAULT)."')";
                         
                         $res = mysqli_query($conn, $query);
                         
@@ -340,7 +345,6 @@
                         
                     }
                 }
-                
             mysqli_close($conn);
             }
         

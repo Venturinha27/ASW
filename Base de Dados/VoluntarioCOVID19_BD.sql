@@ -49,7 +49,7 @@ CREATE TABLE Instituicao (
     bio                     VARCHAR(240) NOT NULL,
     nome_representante      VARCHAR(50) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
-    password2               VARCHAR(50) NOT NULL,
+    password2               VARCHAR(100) NOT NULL,
     foto                    VARCHAR(500) NOT NULL,
     website                 VARCHAR(50),
 
@@ -77,7 +77,7 @@ CREATE TABLE Voluntario (
     carta_c                 VARCHAR(50) NOT NULL,
     covid                   VARCHAR(50) NOT NULL,
     email                   NVARCHAR(50) NOT NULL,
-    password1               VARCHAR(50) NOT NULL,
+    password1               VARCHAR(100) NOT NULL,
 
     CONSTRAINT pk_voluntario_id
         PRIMARY KEY (id),

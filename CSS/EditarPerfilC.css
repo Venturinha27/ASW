@@ -107,21 +107,21 @@ body {
 
 #submitV{
     position: absolute;
-    top: 87%;
+    top: 91%;
     left: 45%;
     width: 10%;
 }
 
 #submitI{
     position: absolute;
-    top: 87%;
+    top: 91%;
     left: 45%;
     width: 10%;
 }
 
 .erro{
     position: absolute;
-    top: 117%;
+    top: 121%;
     left: 30%;
     width: 40%;
     text-align: center;
