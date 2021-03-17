@@ -66,7 +66,8 @@
 
                     if ($novaPassword == $confPassword){
                         if( $resultVoluntario->num_rows > 0 ) { // se retorna resultado
-                            $query = mysql_query("UPDATE Voluntario SET password1 ='$_POST['novaPassword']' WHERE email = '$email'"  );
+                            $query = mysql_query("UPDATE Voluntario SET password1 ='".$_POST."['novaPassword']' WHERE email = '$email'"  );
+                            '".$_SESSION['loggedid']."'
                             //$v = $conn->query($query);
                         } else {
                             $erro1 = "Não existe nenhum utilizador registado!";
