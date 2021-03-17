@@ -166,10 +166,10 @@
                 <input type='text' value='$email' class='w3-input' id='E-mail' placeholder='E-mail' name='E-mail' required/>
 
                 <label> <b>Palavra-Passe Antiga</b> </label>
-                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'required/>
+                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'/>
 
                 <label> <b>Palavra-Passe Nova</b> </label>
-                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'required/>
+                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'/>
 
                 <label> <b>Telemóvel/Telefone</b> </label>
                 <input type='text' value='$telefone' class='w3-input' id='telefone' placeholder='Telemóvel/Telefone' name='telefone'required/>
@@ -834,10 +834,10 @@
                 <input type='text' value='$email' class='w3-input' id='E-mail' placeholder='E-mail da Instituição' name='email' required>
 
                 <label> <b>Palavra-Passe Antiga</b> </label>
-                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'required/>
+                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'/>
 
                 <label> <b>Palavra-Passe Nova</b> </label>
-                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'required/>
+                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'/>
                 
                 <label> <b>Website</b> </label>
                 <input type='text' value='$website' class='w3-input' id='website' placeholder='Website' name='website'>
