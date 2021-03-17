@@ -165,8 +165,11 @@
                 <label> <b>E-mail</b> </label>
                 <input type='text' value='$email' class='w3-input' id='E-mail' placeholder='E-mail' name='E-mail' required/>
 
-                <label> <b>Palavra-Passe</b> </label>
-                <input type='text' value='$password' class='w3-input' id='Password' placeholder='Palavra-Passe' name='Password'required/>
+                <label> <b>Palavra-Passe Antiga</b> </label>
+                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'required/>
+
+                <label> <b>Palavra-Passe Nova</b> </label>
+                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'required/>
 
                 <label> <b>Telemóvel/Telefone</b> </label>
                 <input type='text' value='$telefone' class='w3-input' id='telefone' placeholder='Telemóvel/Telefone' name='telefone'required/>
@@ -580,7 +583,8 @@
                 $id = $loggedid;
                 $nomeProprio = test_input($_POST['nomeProprio']); 
                 $Email = test_input($_POST['E-mail']);                       #unique
-                $Password = test_input($_POST['Password']);
+                $PasswordA = test_input($_POST['PasswordA']);
+                $PasswordN = test_input($_POST['PasswordN']);
                 $telefone = test_input($_POST['telefone']);
                 $dataNascimento = test_input($_POST['dataNascimento']);
                 $CC = test_input($_POST['CC']);                              #unique
@@ -687,23 +691,19 @@
                     if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
                         if (strlen((string)$telefone) == 9){
                             if (strlen((string)$CC) == 8){
-                                if (strlen((string)$Password) > 6){
-                                    if ($resultN->num_rows > 0) {
-                                        while ($row = $resultN->fetch_assoc()){
-                                            if ($row[0] == $Email){
-                                                $msgErro = "<p class='erro'> E-mail já existe </p>";
-                                            }
+                                if ($resultN->num_rows > 0) {
+                                    while ($row = $resultN->fetch_assoc()){
+                                        if ($row[0] == $Email){
+                                            $msgErro = "<p class='erro'> E-mail já existe </p>";
                                         }
                                     }
-                                    if ($resultCC->num_rows > 0) {
-                                        while ($rowC = $resultCC->fetch_assoc()){
-                                            if ($rowC[0] == $CC){
-                                                $msgErro = "<p class='erro'> CC já existe </p>";
-                                            }
+                                }
+                                if ($resultCC->num_rows > 0) {
+                                    while ($rowC = $resultCC->fetch_assoc()){
+                                        if ($rowC[0] == $CC){
+                                            $msgErro = "<p class='erro'> CC já existe </p>";
                                         }
                                     }
-                                } else {
-                                    $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
                                 }
                             } else {
                                 $msgErro = "<p class='erro'> Insira um cc válido </p>";
@@ -714,22 +714,52 @@
                     } else {
                         $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
                     }
+                    if (!empty($PasswordA) and !empty($PasswordN)){
+                        
+                        $sqlPw = "SELECT V.password1
+                                FROM Voluntario V
+                                WHERE V.id = '".$loggedid."'";    
+
+                        $resultPw = $conn->query($sqlPw);
+                        
+                        if ($rowPw = $resultPw->fetch_array()){
+                            if (password_verify($PasswordA, $rowPw[0])){
+                                if (strlen((string)$PasswordN) > 6){
+                                    $Password = password_hash($PasswordN, PASSWORD_DEFAULT);
+                                } else {
+                                    $msgErro = "<p class='erro'> Nova password deve ter pelo menos 7 carácteres </p>";
+                                }
+                            } else {
+                                $msgErro = "<p class='erro'> Password antiga não corresponde </p>";
+                            }
+                        }
+                    }
                     
                     echo $msgErro;
 
                     if (!isset($msgErro)){
-                        
-                        $query = "UPDATE Voluntario
-                                SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
-                                genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
-                                distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
-                                cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email',
-                                password1 = '$Password'
-                                WHERE id = '$loggedid'";
+
+                        if (isset($Password)){
+                            $query = "UPDATE Voluntario
+                                    SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
+                                    genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
+                                    distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
+                                    cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email',
+                                    password1 = '$Password'
+                                    WHERE id = '$loggedid'";
+                        } else {
+                            $query = "UPDATE Voluntario
+                                    SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
+                                    genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
+                                    distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
+                                    cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email' 
+                                    WHERE id = '$loggedid'";
+                        }
                         
                         $res = mysqli_query($conn, $query);
                         
                         if ($res) {
+                            #echo "<p class='erro'> ".$rowPw[0]." e $PasswordA </p>";
                             $_SESSION['loggedtype'] = "voluntario";
                             $_SESSION['logged'] = $nomeProprio;
                             $_SESSION['loggedid'] = $id;
@@ -803,8 +833,11 @@
                 <label> <b>E-mail da Instituição</b> </label>
                 <input type='text' value='$email' class='w3-input' id='E-mail' placeholder='E-mail da Instituição' name='email' required>
 
-                <label> <b>Palavra-Passe</b> </label>
-                <input type='text' value='$password2' class='w3-input' id='password' placeholder='Palavra-Passe' name='password' required>
+                <label> <b>Palavra-Passe Antiga</b> </label>
+                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'required/>
+
+                <label> <b>Palavra-Passe Nova</b> </label>
+                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'required/>
                 
                 <label> <b>Website</b> </label>
                 <input type='text' value='$website' class='w3-input' id='website' placeholder='Website' name='website'>
@@ -871,7 +904,8 @@
                 $email = test_input($_POST['email']); #unique
                 $nomeRepresentante = test_input($_POST['nomeRepresentante']);
                 $emailRepresentante = test_input($_POST['emailRepresentante']);
-                $password = test_input($_POST['password']);
+                $PasswordA = test_input($_POST['PasswordA']);
+                $PasswordN = test_input($_POST['PasswordN']);
                 $bio = test_input($_POST['bio']);
                 $website = test_input($_POST['website']); # pode ser null
 
@@ -956,16 +990,12 @@
                     if (filter_var($email, FILTER_VALIDATE_EMAIL) ){
                         if (filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL) ){
                             if (strlen((string)$telefone) == 9){
-                                if (strlen((string)$password) > 6){
-                                    if ($resultE->num_rows > 0) {
-                                        while ($rowE = $resultE->fetch_assoc()){
-                                            if ($rowE[0] == $email){
-                                                $msgErro = "<p class='erro'> E-mail já existe </p>";
-                                            }
+                                if ($resultE->num_rows > 0) {
+                                    while ($rowE = $resultE->fetch_assoc()){
+                                        if ($rowE[0] == $email){
+                                            $msgErro = "<p class='erro'> E-mail já existe </p>";
                                         }
                                     }
-                                } else {
-                                    $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
                                 }
                             } else {
                                 $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
@@ -976,18 +1006,48 @@
                     } else {
                         $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
                     }
+                    if (!empty($PasswordA) and !empty($PasswordN)){
+                        
+                        $sqlPw = "SELECT I.password2
+                                FROM Instituicao I
+                                WHERE I.id = '".$loggedid."'";    
+
+                        $resultPw = $conn->query($sqlPw);
+                        
+                        if ($rowPw = $resultPw->fetch_array()){
+                            if (password_verify($PasswordA, $rowPw[0])){
+                                if (strlen((string)$PasswordN) > 6){
+                                    $Password = password_hash($PasswordN, PASSWORD_DEFAULT);
+                                } else {
+                                    $msgErro = "<p class='erro'> Nova password deve ter pelo menos 7 carácteres </p>";
+                                }
+                            } else {
+                                $msgErro = "<p class='erro'> Password antiga não corresponde </p>";
+                            }
+                        }
+                    }
                     
                     echo $msgErro;
 
                     if (!isset($msgErro)){
-                        
-                        $query = "UPDATE Instituicao
-                                SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
-                                morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
-                                email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
-                                email_representante = '$email_representante', password2 = '$password', foto = '$avatar',
-                                website = '$website'
-                                WHERE id = '$loggedid'";
+
+                        if (isset($Password)){
+                            $query = "UPDATE Instituicao
+                                    SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
+                                    morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
+                                    email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
+                                    email_representante = '$email_representante', password2 = '$Password', foto = '$avatar',
+                                    website = '$website'
+                                    WHERE id = '$loggedid'";
+                        } else {
+                            $query = "UPDATE Instituicao
+                                    SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
+                                    morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
+                                    email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
+                                    email_representante = '$email_representante', foto = '$avatar',
+                                    website = '$website'
+                                    WHERE id = '$loggedid'";
+                        }
                         
                         $res = mysqli_query($conn, $query);
                         

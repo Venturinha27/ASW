@@ -59,7 +59,7 @@
                     if ($resultLogin->num_rows > 0) {
                         $userExiste = 0;
                         while ($row = $resultLogin->fetch_array()) {
-                            if (($row[2] == $email) and ($password == $row[3])){
+                            if (($row[2] == $email) and password_verify($password, $row[3])){
 
                                 $tipoquery = "SELECT tipo, id
                                     FROM Utilizador
@@ -75,9 +75,7 @@
                                 if ($rowT = $resultTipo->fetch_array()) {
                                     if ($rowT[0] == 'voluntario'){
                                         $_SESSION['loggedtype'] = "voluntario";
-                                        
                                         $_SESSION['opentype'] = "voluntario";
-                                        
                                     } else {
                                         $_SESSION['loggedtype'] = "instituicao";
                                         $_SESSION['opentype'] = "instituicao";

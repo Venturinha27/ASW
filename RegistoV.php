@@ -322,7 +322,7 @@
                         $query = "insert into Voluntario
                                 values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
                                 .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
-                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".$Password."')";
+                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".password_hash($Password, PASSWORD_DEFAULT)."')";
                         
                         $res = mysqli_query($conn, $query);
                         

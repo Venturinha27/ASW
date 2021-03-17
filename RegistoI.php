@@ -285,7 +285,7 @@
                             $query = "insert into Instituicao
                                     values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
                                     .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
-                                    .$nomeRepresentante."' , '".$emailRepresentante."' , '".$password."' , '".$avatar."' , '".$website."')";
+                                    .$nomeRepresentante."' , '".$emailRepresentante."' , '".password_hash($password, PASSWORD_DEFAULT)."' , '".$avatar."' , '".$website."')";
                             
                             $res = mysqli_query($conn, $query);
                             
