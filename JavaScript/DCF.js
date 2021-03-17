@@ -351,11 +351,6 @@ var stateObject = {
             "São Vicente": ["Boa Ventura","Ponta Delgada","São Vicente"]
 }
 
-
-
-
-
-
     
 }
 window.onload = function () {
@@ -372,7 +367,7 @@ window.onload = function () {
         distrito.onchange = function () {
                 concelho.length = 1; // remove all options bar first
                 freguesia.length = 1; // remove all options bar first
-                if (this.selectedIndex < 1) return; // done 
+                if (this.selectedIndex < 1) return; 
                 for (var state in stateObject[this.value]) {
                         let con = new Option(state, state);
                         concelho.options[concelho.options.length] = con;
@@ -383,7 +378,7 @@ window.onload = function () {
         distrito.onchange(); // reset in case page is reloaded
         concelho.onchange = function () {
                 freguesia.length = 1; // remove all options bar first
-                if (this.selectedIndex < 1) return; // done 
+                if (this.selectedIndex < 1) return; 
                 var district = stateObject[distrito.value][this.value];
 
                 for (var i = 0; i < district.length; i++) {
