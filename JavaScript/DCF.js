@@ -315,7 +315,41 @@ var stateObject = {
         "Vila Nova de Paiva": ["Pendilhe","Queiriga","Vila Cova à Coelheira","Vila Nova de Paiva, Alhais e Fráguas"],
         "Viseu": ["Calde","Fail e Vila Chã de Sá","Orgens","Viseu"],
         "Vouzela": ["Cambra e Carvalhal de Vermilhas","Fornelo do Monte","Queirã","Vouzela e Paços de Vilharigues"]
-}       
+},
+
+"Açores": { "Angra do Heroísmo": ["Altares", "Porto Judeu" , "Santa Bárbara", "Vila de São Sebastião"],
+            "Calheta": ["Calheta","Norte Pequeno", "Rosário","Ribeira Seca","Topo"],
+            "Corvo": ["Corvo"],
+            "Horta": ["Angústias","Conceição","Pedro Miguel","Salão"],
+            "Lagoa": ["Água de Pau","Cabouco","Nossa Senhora do Rosário","Santa Cruz"],
+            "Lajes das Flores": ["Fajãzinha","Lajedo","Lajes das Flores","Mosteiro"],
+            "Lajes do Pico": ["Calheta de Nesquim","Lajes do Pico","Ribeiras","São João"],
+            "Madalena": ["Candelária","Criação Velha","Madalena","São Mateus"],
+            "Nordeste": ["Achadinha","Lomba da Fazenda","Salga","Santo António de Nordestinho"],
+            "Ponta Delgada": ["Arrifes","Pilar da Bretanha","Santa Clara","São Sebastião"],
+            "Povoação": ["Faial da Terra","Nossa Senhora dos Remédios","Povoação","Ribeira Quente"],
+            "Praia da Vitória": ["Fonte do Bastardo","Porto Martins","Quatro Ribeiras","Vila Nova"],
+            "Ribeira Grande": ["Lomba de São Pedro","Pico da Pedra","Rabo de Peixe","São Brás"],
+            "Santa Cruz da Graciosa": ["Guadalupe","Luz","São Mateus","Santa Cruz"],
+            "Santa Cruz das Flores": ["Caveira","Cedros","Ponta Delgada","Santa Cruz"],
+            "São Roque do Pico": ["Prainha","Santa Luzia","Santo António","São Roque do Pico"],
+            "Velas": ["Norte Grande","Rosais","Santo Amaro","Velas"],
+            "Vila do Porto": ["Santa Bárbara","Santo Espírito","São Pedro","Vila do Porto"],
+            "Vila Franca do Campo": ["Água de Alto","Ribeira das Tainhas","Ribeira Seca","São Pedro"]
+},
+
+"Madeira": { "Calheta": ["Arco da Calheta", "Estreito da Calheta" , "Paul do Mar", "Ponta do Pargo"],
+            "Câmara de Lobos": ["Câmara de Lobos","Curral das Freiras","Estreito de Câmara de Lobos","Jardim da Serra","Quinta Grande"],
+            "Funchal": ["Imaculado Coração de Maria","Santa Maria Maior","Santo António","São Martinho","São Roque"],
+            "Machico": ["Água de Pena","Caniçal","Machico","Porto da Cruz","Santo António da Serra"],
+            "Ponta do Sol": ["Ponta do Sol","Canhas","Madalena do Mar"],
+            "Porto Moniz": ["Achadas da Cruz","Porto Moniz","Ribeira da Janela","Seixal"],
+            "Porto Santo": ["Porto Santo"],
+            "Ribeira Brava": ["Campanário","Ribeira Brava","Serra de Água","Tabua"],
+            "Santa Cruz": ["Camacha","Caniço","Gaula","Santa Cruz","Santo António da Serra"],
+            "Santana": ["Arco de São Jorge","Faial","Ilha","São Jorge","São Roque do Faial"],
+            "São Vicente": ["Boa Ventura","Ponta Delgada","São Vicente"]
+}
 
 
 
