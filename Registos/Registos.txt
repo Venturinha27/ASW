@@ -1,7 +1,28 @@
 		Registos do Site “Voluntario Covid-19”
 
+                    Voluntários
+
          Email                                Password                                 
 asw013goncalocruz@gmail.com                	ventu013
 asw013tiagoteodoro@gmail.com               	ventu013
 asw013margaridarodrigues@gmail.com      	ventu013
 asw013renatoramires@gmail.com              	ventu013
+afonsomanuel@gmail.com                      afonsoman
+joanacabral@gmail.com                       joanaca
+joaomaria@gmail.com                         joaomaria
+lauramartins@gmail.com                      laumartins
+
+
+                    Instituições
+
+         Email                                Password                                 
+ajudamais@gmail.com                	        ajudamais
+ajudarcomtodos@hotmail.com               	ajutodos
+anticovid@gmail.com                         anti123
+apoiomaior@gmail.com                        apoiomaior
+
+
+                    Administrador
+
+         Username                              Password                                 
+asw013                	                    asw2021

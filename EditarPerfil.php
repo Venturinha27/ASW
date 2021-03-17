@@ -192,17 +192,17 @@
                 <input type='file' id='avatar' name='avatar'/>  <!--accept='image/png, image/jpeg'-->
                 <br><br>
 
-                <label>Distrito:</label>
+                <label> <b>Distrito:</b> </label>
                 <select class='w3-input' name='distrito' id='distrito' size='1' required>
                     <option value='$distrito' name='$distrito' selected>$distrito</option>
                 </select> 
                 
-                <label>Concelho:</label>
+                <label> <b>Concelho:</b> </label>
                 <select class='w3-input' name='concelho' id='concelho' size='1' required>
                     <option value='$concelho' name='$concelho' selected>$concelho</option>
                 </select> 
                 
-                <label>Freguesia:</label>
+                <label> <b>Freguesia:</b> </label>
                 <select class='w3-input' name='freguesia' id='freguesia' size='1' required>
                     <option value='$freguesia' name='$freguesia' selected>$freguesia</option>
                 </select> 
@@ -856,17 +856,17 @@
                 <label> <b>Morada</b> </label>
                 <input type='text' value='$morada' class='w3-input' id='morada' placeholder='Morada' name='morada' required>
 
-                <label>Distrito:</label>
+                <label> <b>Distrito:</b> </label>
                 <select class='w3-input' name='distrito' id='distrito' size='1' required>
                     <option value='$distrito' name='$distrito' selected>$distrito</option>
                 </select> 
                 
-                <label>Concelho:</label>
+                <label> <b>Concelho:</b> </label>
                 <select class='w3-input' name='concelho' id='concelho' size='1' required>
                     <option value='$concelho' name='$concelho' selected>$concelho</option>
                 </select> 
                 
-                <label>Freguesia:</label>
+                <label> <b>Freguesia:</b> </label>
                 <select class='w3-input' name='freguesia' id='freguesia' size='1' required>
                     <option value='$freguesia' name='$freguesia' selected>$freguesia</option>
                 </select> 

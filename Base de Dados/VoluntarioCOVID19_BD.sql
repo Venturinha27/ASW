@@ -258,8 +258,7 @@ CREATE TABLE Admins (
 
 
 
-INSERT INTO Admins VALUES ("covid19","vacina");
-INSERT INTO Admins VALUES ("Manel","farmacos");
+INSERT INTO Admins VALUES ("asw013","asw2021");
 
 INSERT INTO Area_de_Interesse VALUES ("Ação social");
 INSERT INTO Area_de_Interesse VALUES ("Educação");
