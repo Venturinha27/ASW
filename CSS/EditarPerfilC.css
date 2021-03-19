@@ -1,4 +1,4 @@
-/* ASW */
+/*Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 */
 body {
     background-color: #24305E;
 }
@@ -21,7 +21,7 @@ body {
     top: 10%;
     left: 7.5%;
     width: 85%;
-    height: 100%;
+    height: 118%;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
@@ -35,7 +35,7 @@ body {
 
 #BrancoDiv h2{
     position: absolute;
-    top: 0%;
+    top: 2%;
     left: 0%;
     width: 100%;
     text-align: center;
@@ -44,6 +44,42 @@ body {
 #BrancoDiv h3{
     position: absolute;
     top: 9%;
+}
+
+#divEsq{
+    position: absolute;
+    margin-top: 7%;
+    left: 2%;
+    height: 50%;
+    width: 46%;
+}
+
+#divEsq input, label, select {
+    margin-bottom: 3%;
+    color: #24305E;
+}
+
+#divDir{
+    position: absolute;
+    margin-top: 7%;
+    left: 52%;
+    height: 50%;
+    width: 46%;
+}
+
+#divDir input, label, select {
+    margin-bottom: 3%;
+    color: #24305E;
+}
+
+::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+#foto {
+    width: 70px;
+    height: 70px;
 }
 
 #dados1{
@@ -67,6 +103,29 @@ body {
     top: 17%;
     width: 28%;
     height: 42%;
+}
+
+#submitV{
+    position: absolute;
+    top: 91%;
+    left: 45%;
+    width: 10%;
+}
+
+#submitI{
+    position: absolute;
+    top: 91%;
+    left: 45%;
+    width: 10%;
+}
+
+.erro{
+    position: absolute;
+    top: 121%;
+    left: 30%;
+    width: 40%;
+    text-align: center;
+    color: red;
 }
 
 
@@ -96,6 +155,75 @@ body {
     position: absolute;
     left: 10%;
     top: 12%;
+}
+
+#PreferenciasDiv {
+    position: absolute;
+    top: 132%;
+    left: 7.5%;
+    width: 85%;
+    height: 118%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+}
+
+#PreferenciasDiv p {
+    max-width: 65%;
+    text-align: center;
+    margin: auto;
+}
+
+#PreferenciasDiv h2{
+    position: absolute;
+    top: 2%;
+    left: 0%;
+    width: 100%;
+    text-align: center;
+}
+
+#PreferenciasDiv h3{
+    position: absolute;
+    top: 9%;
+}
+
+#preftext {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+    height: 75%;
+    overflow: scroll;
+    padding-bottom: 3%;
+}
+
+#preftext label {
+    color: #24305E;
+}
+
+#preftext textarea {
+    margin-top: 3%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #24305E;
+}
+
+#preftext .sela {
+    color: #24305E;
+    width: 50%;
+    margin-top: 1%;
+}
+
+#preftext .selp {
+    color: #24305E;
+    width: 50%;
+    margin-top: 1%;
+}
+
+#preftext .disponibilidade {
+    color: #24305E;
+    width: 20%;
 }
 
 /*
@@ -169,7 +297,7 @@ body {
 #EndDiv{
     margin: 0;
     position: absolute;
-    top: 220%;
+    top: 280%;
     width: 100%;
     height: 30%;
     background-color: #374785;

@@ -49,8 +49,8 @@ CREATE TABLE Instituicao (
     bio                     VARCHAR(240) NOT NULL,
     nome_representante      VARCHAR(50) NOT NULL,
     email_representante     NVARCHAR(255) NOT NULL,
-    password2               VARCHAR(50) NOT NULL,
-    foto                    LONGBLOB NOT NULL,
+    password2               VARCHAR(100) NOT NULL,
+    foto                    VARCHAR(500) NOT NULL,
     website                 VARCHAR(50),
 
     CONSTRAINT pk_instituicao_id
@@ -77,7 +77,7 @@ CREATE TABLE Voluntario (
     carta_c                 VARCHAR(50) NOT NULL,
     covid                   VARCHAR(50) NOT NULL,
     email                   NVARCHAR(50) NOT NULL,
-    password1               VARCHAR(50) NOT NULL,
+    password1               VARCHAR(100) NOT NULL,
 
     CONSTRAINT pk_voluntario_id
         PRIMARY KEY (id),
@@ -162,7 +162,6 @@ CREATE TABLE Acao (
     num_vagas           NUMERIC(5) NOT NULL,
     dia                 VARCHAR(20) NOT NULL,
     hora                NUMERIC(2) NOT NULL,
-    semana              NUMERIC(2) NOT NULL,
     duracao             NUMERIC(2) NOT NULL,
 
     CONSTRAINT pk_acao
@@ -259,8 +258,7 @@ CREATE TABLE Admins (
 
 
 
-INSERT INTO Admins VALUES ("covid19","vacina");
-INSERT INTO Admins VALUES ("Manel","farmacos");
+INSERT INTO Admins VALUES ("asw013","asw2021");
 
 INSERT INTO Area_de_Interesse VALUES ("Ação social");
 INSERT INTO Area_de_Interesse VALUES ("Educação");
@@ -274,3 +272,4 @@ INSERT INTO Populacao_Alvo VALUES ("Grávidas");
 INSERT INTO Populacao_Alvo VALUES ("Pessoas em situação de dependência (ex. acamados)");
 INSERT INTO Populacao_Alvo VALUES ("Pessoas sem-abrigo");
 INSERT INTO Populacao_Alvo VALUES ("Pessoas com deficiência");
+

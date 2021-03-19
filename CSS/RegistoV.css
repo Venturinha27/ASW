@@ -20,7 +20,7 @@ body {
     top: 10%;
     left: 3%;
     width: 65%;
-    height: 90%;
+    height: 100%;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
@@ -121,13 +121,20 @@ body {
 /* -----------------------------------------------Botão Registar----------------------------------------- */
 
 #submit{
-    margin-top: 15%;
+    margin-top: 5%;
     margin-left: -27%;
     padding: 9px;
     width: 50%;
     background-color: #f8f8f8;
     border-color: #24305E;
     text-align: center;
+}
+
+.erro {
+    margin-top: 0%;
+    margin-left: -103%;
+    text-align: center;
+    color: red;
 }
 
 /* -----------------------------------------------Login----------------------------------------- */

@@ -1,3 +1,4 @@
+/*Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 */
 body {
     background-color: #A8D0E6;
 }
@@ -219,7 +220,7 @@ hr {
     display: none;
 }
 
-.w3-card-4{
+#bodydiv .w3-card-4{
     position: fixed;
     top: 22%;
     left: 20%;
@@ -230,12 +231,12 @@ hr {
     display: visible;
 }
 
-.w3-card-4 #headerAdd {
+#bodydiv .w3-card-4 #headerAdd {
     background-color: #374785;
     color: white;
 }
 
-.w3-card-4 #closeButton {
+#bodydiv .w3-card-4 #closeButton {
     position: absolute;
     right: 2%;
     top: 2%;
@@ -243,13 +244,13 @@ hr {
     font-size: x-large;
 }
 
-.w3-card-4 #containIn {
+#bodydiv .w3-card-4 #containIn {
     position: relative;
     top: 4%;
     color: #374785;
 }
 
-.w3-card-4 #submit {
+#bodydiv .w3-card-4 #submit {
     position: relative;
     bottom: -10%;
     left: 87%;

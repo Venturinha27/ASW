@@ -19,103 +19,105 @@
 </header>
 <body>
     <div id="loginbox">
-        <form id="login" class="w3-container" action="Login.php" method="post">
+        <form id="login" class="w3-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <div class="w3-container w3-indigo">
                 <h1 class="w3-center"><i class="fa fa-user-circle"></i></h1>
             </div>
             <br><br>
-            <input class="w3-input w3-large" id="username" type="text" placeholder="Nome de utilizador ou e-mail" name="username" required>
+            <input class="w3-input w3-large" id="username" type="text" placeholder="E-mail" name="email" required>
             <br><br>
             <input class="w3-input w3-large" id="userpw" type="password" placeholder="Password"  name="password" required>
             <br><br>
-            <input class="w3-large w3-indigo" id="submit" type="submit" name="" value="Entrar"  name="email"href="HomePage.html">
+            <input class="w3-large w3-indigo" id="submit" type="submit" name="" value="Entrar" href="HomePage.html">
+            
             <?php
 
                 // estabelecer ligação com a base de dados
                 include "openconn.php";
-                
                 include "TestInput.php";
 
                 if  (!empty($_POST)) {
                 
                     // receber o pedido de login com segurança
-                    $username = test_input($_POST['username']); #mysql_real_escape_string
+                    $email = test_input($_POST['email']); #mysql_real_escape_string
                     $password = test_input($_POST['password']); #sha1
-                    $email = test_input($_POST["email"]);
-                
+
                     // verificar o utilizador em questão (pretendemos obter uma única linha de registos)
-                    $loginquery = "SELECT id, nome_instituicao, email, password2
-                                    FROM Instituicao
-                                    WHERE (nome_instituicao = '". $username ."' OR email = '" . $username ."')
-                                        AND password2 = '" . $password . "';";
+                    $loginquery = "SELECT I.id, I.nome_instituicao, I.email, I.password2
+                                    FROM Instituicao I
+                                    UNION
+                                    SELECT V.id, V.nome_voluntario, V.email, V.password1
+                                    FROM Voluntario V";
 
                     $resultLogin = $conn->query($loginquery);
 
                     if (!($resultLogin)) {
-                        echo "Erro: insert failed" . $loginquery . "<br>" . mysqli_error($conn);
+                        $erroG = "Algo correu mal.";
+                        echo "<p class='w3-text-red w3-center'><b>$erroG</u></b>";
                     }
 
-                    if ($resultLogin->num_rows == 1) {
-                        if ($row = $resultLogin->fetch_assoc()) {
-                            // o utilizador está correctamente validado
-                            // guardamos as suas informações numa sessão
-                            $_SESSION['loggedtype'] = "instituicao";
-                            $_SESSION['logged'] = $row['nome_instituicao'];
-                            $_SESSION['loggedid'] = $row['id'];
-                            $_SESSION['opentype'] = "instituicao";
-                            $_SESSION['open'] = $row['nome_instituicao'];
-                            $_SESSION['openid'] = $row['id'];
-                            header("Location: Perfil.php");
-                        } else {
-                            echo "<p>Utilizador ou password invalidos.</p>";
+                    if ($resultLogin->num_rows > 0) {
+                        $userExiste = 0;
+                        while ($row = $resultLogin->fetch_array()) {
+                            if (($row[2] == $email) and password_verify($password, $row[3])){
+
+                                $tipoquery = "SELECT tipo, id
+                                    FROM Utilizador
+                                    WHERE id = '" . $row[0] . "'";
+
+                                $resultTipo = $conn->query($tipoquery);
+
+                                if (!($resultTipo)) {
+                                    $erroG = "Algo correu mal.";
+                                    echo "<p class='w3-text-red w3-center'><b>$erroG</u></b>";
+                                }
+
+                                if ($rowT = $resultTipo->fetch_array()) {
+                                    if ($rowT[0] == 'voluntario'){
+                                        $_SESSION['loggedtype'] = "voluntario";
+                                        $_SESSION['opentype'] = "voluntario";
+                                    } else {
+                                        $_SESSION['loggedtype'] = "instituicao";
+                                        $_SESSION['opentype'] = "instituicao";
+                                    }
+                                    $_SESSION['logged'] = $row[1];
+                                    $_SESSION['loggedid'] = $row[0];
+                                    $_SESSION['open'] = $row[1];
+                                    $_SESSION['openid'] = $row[0];
+                                    header("Location: Perfil.php");
+                                }
+                                
+                            }
+                            if ($row[1] == $username or $row[2] == $username) {
+                                $userExiste = 1;
+                            }
                         }
-                    } else {
-                        // falhou o login
-                        echo "<p>Utilizador ou password invalidos.</p>";
-                    }
-                    
-                    $loginVquery = "SELECT id, nome_voluntario, email, password1
-                                    FROM Voluntario
-                                    WHERE (nome_voluntario = '" . $username . "' OR email = '" . $username ."')
-                                        AND password1 = '" . $password . "'";
-
-                    $resultLoginV = $conn->query($loginVquery);
-
-                    if (!($resultLoginV)) {
-                        echo "Erro: insert failed" . $loginVquery . "<br>" . mysqli_error($conn);
-                    }
-
-                    if ($resultLoginV->num_rows == 1) {
-                        if ($row = $resultLoginV->fetch_assoc()) {
-                            // o utilizador está correctamente validado
-                            // guardamos as suas informações numa sessão
-                            $_SESSION['loggedtype'] = "voluntario";
-                            $_SESSION['logged'] = $row['nome_voluntario'];
-                            $_SESSION['loggedid'] = $row['id'];
-                            $_SESSION['opentype'] = "voluntario";
-                            $_SESSION['open'] = $row['nome_voluntario'];
-                            $_SESSION['openid'] = $row['id'];
-                            header("Location: Perfil.php");
+                        
+                        if ($userExiste == 1) {
+                            $erroP = "Password errada.";
+                            echo "<p class='w3-text-red w3-center'><b>$erroP</u></b>";
                         } else {
-                            echo "<p>Utilizador ou password invalidos.</p>";
+                            $erroU = "Utilizador não existe.";
+                            echo "<p class='w3-text-red w3-center'><b>$erroU</u></b>";
                         }
+                        
                     } else {
-                        // falhou o login
-                        echo "<p>Utilizador ou password invalidos.</p>";
+                        $erroU = "Utilizador não existe.";
+                        echo "<p class='w3-text-red w3-center'><b>$erroU</u></b>";
                     }
                 }
-
                 mysqli_close($conn);
 
             ?>
             
-            <br><br>
             <p class="w3-center">Ainda não tem conta?</p>
             <p class="w3-center">
                 <a href="RegistoV.php">Registe-se como voluntário</a>
                 |
                 <a href="RegistoI.php">Registe-se como instituição</a>
             </p>
+
+            <a href="EsqPass.php"><p class="w3-center">Esqueceu-se da sua palavra-passe?</p></a>
         
         </form>
 

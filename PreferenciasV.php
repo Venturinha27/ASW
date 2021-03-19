@@ -1,6 +1,7 @@
 <!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
 <?php
     session_start();
+    ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -18,16 +19,76 @@
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
-        <a href="HomePage.html" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
+        <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
 
         <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
         
-        <a href="Login.html" class="w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile"><i class="fa fa-user-circle"></i></a>
-        <a href="Voluntarios.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
-        <a href="Instituicoes.html" class="w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile">Instituições</a>
-        <a href="Covid19.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
-        <a href="Publicacoes.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
-        <a href="Sobre.html" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>    
+        <?php
+            include 'openconn.php';
+
+            if (!isset($_SESSION['logged'])) {
+                echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
+            } else {
+                $queryUtilizador = "SELECT id, tipo 
+                            FROM Utilizador 
+                            WHERE id = '".$_SESSION['loggedid']."';";
+
+                $resultUtilizador = $conn->query($queryUtilizador);
+
+                if ($row = $resultUtilizador->fetch_assoc()){
+                    
+                    if ($row['tipo'] == "voluntario"){
+                        $queryVoluntario = "SELECT id, foto
+                            FROM Voluntario
+                            WHERE id = '".$_SESSION['loggedid']."';";
+
+                        $resultVoluntario = $conn->query($queryVoluntario);
+
+                        if ($rowV = $resultVoluntario->fetch_assoc()){
+                            $foto = $rowV['foto'];
+                        }
+                    } else {
+                        $queryInstituicao = "SELECT id, foto
+                            FROM Instituicao
+                            WHERE id = '".$_SESSION['loggedid']."';";
+
+                        $resultInstituicao = $conn->query($queryInstituicao);
+
+                        if ($rowI = $resultInstituicao->fetch_assoc()){
+                            $foto = $rowI['foto'];
+                        }
+                    }
+                }
+
+                echo "<div class='w3-dropdown-hover w3-right w3-mobile'>
+                        <button class='w3-button w3-hover-blue'>
+                            <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
+                        </button>
+                        <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
+                            <a href='Perfil.php' class='w3-bar-item w3-button'>Ver perfil</a>
+                            <a href='EditarPerfil.php' class='w3-bar-item w3-button'>Editar perfil</a>
+                            <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                                <button type='submit' value='terminarS' name='terminarS' class='w3-bar-item w3-button w3-white w3-text-red'>Terminar sessão</button>
+                            </form>
+                        </div>
+                    </div>";
+            }
+
+            if ($_POST['terminarS']){
+                unset ($_SESSION['loggedtype']);
+                unset ($_SESSION['logged']);
+                unset ($_SESSION['loggedid']);
+                unset ($_SESSION['opentype']);
+                unset ($_SESSION['open']);
+                unset ($_SESSION['openid']);
+                echo "<meta http-equiv='refresh' content='0'>";
+            }
+        ?>
+        <a href="Voluntarios.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
+        <a href="Instituicoes.php" class="w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile">Instituições</a>
+        <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
+        <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
+        <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>    
     </div>
 </header>
 
@@ -41,8 +102,8 @@
 
     <div id="registertext">
 
-            <form action="PreferenciasV.php" method="post">
-                <label>Áreas de interesse:</label>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                <label><b>Áreas de interesse:</b></label>
                     <select class="w3-select sela" name="area-interesse" required>
                         <option value="" disabled selected>Selecione uma área de interesse</option>
                         <option value="Ação social">Ação social</option>
@@ -70,13 +131,21 @@
 
                 if ($resultA->num_rows > 0) {
 
-                    echo "<div class='w3-container w3-light-grey'>";                    
+                    $checkArea = 1;
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                    echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultA->fetch_assoc()){
-                        echo "<p class='w3-center'> -> " . $row['area'] . " </p>";
+                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['area'] . "
+                            <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['area']."' name='removeA'>
+                                <i class='fa fa-trash-alt'></i>
+                            </button>
+                            </form> 
+                        </li>";
                     }
+                    echo "</ul>";
                     echo "</div>";
                 } else {
-                    echo "<div class='w3-container w3-light-grey'>
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
                             <p class='w3-center'>Ainda não tem áreas de interesse.</p>
                         </div>";
                 }
@@ -87,8 +156,8 @@
 
             <hr>
             
-            <form action="PreferenciasV.php" method="post">
-                <label>População-alvo:</label>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                <label><b>População-alvo:</b></label>
                     <select class="w3-select selp" name="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
@@ -121,13 +190,23 @@
 
                 if ($resultP->num_rows > 0) {
 
-                    echo "<div class='w3-container w3-light-grey'>";                    
+                    $checkPopulacao = 1;
+
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                    echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultP->fetch_assoc()){
-                        echo "<p class='w3-center'> -> " . $row['populacao_alvo'] . " </p>";
+                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['populacao_alvo'] . "
+                            <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['populacao_alvo']."' name='removeP'>
+                                <i class='fa fa-trash-alt'></i>
+                            </button>
+                            </form> 
+                        </li>";
                     }
+                    echo "</ul>";
                     echo "</div>";
+
                 } else {
-                    echo "<div class='w3-container w3-light-grey'>
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
                             <p class='w3-center'>Ainda não tem nenhuma população-alvo.</p>
                         </div>";
                 }
@@ -138,8 +217,8 @@
 
             <hr>
             
-            <form action="PreferenciasV.php" method="post">
-                <label>Disponibilidade:</label>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                <label><b>Disponibilidade:</b></label>
                     <select class="w3-select disponibilidade" name="disponibilidade-dia">
                         <option value="" disabled selected>Dia</option>
                         <option value="Segunda-feira">Segunda-feira</option>
@@ -209,15 +288,26 @@
 
                 if ($resultD->num_rows > 0) {
 
-                    echo "<div class='w3-container w3-light-grey'>";                    
+                    $checkDisponibilidade = 1;
+
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
+                    echo "<ul class='w3-ul w3-center'>";            
                     while ($row = $resultD->fetch_assoc()){
-                        echo "<p class='w3-center'> -> Dia: " . $row['dia'] . "
-                                                , hora: ". $row['hora'] .":00, duração: "
-                                                    .$row['duracao']." horas.</p>";
+                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                            Dia: " . $row['dia'] . ", hora: ". $row['hora'] .":00, duração: ".$row['duracao']." horas.
+                            <button class='w3-right w3-red w3-round-xxlarge' type='submit'
+                                 value='".$row['dia']."/".$row['hora']."/".$row['duracao']."' 
+                                 name='removeD'>
+                                <i class='fa fa-trash-alt'></i>
+                            </button>
+                            </form> 
+                        </li>";
                     }
+                    echo "</ul>";
                     echo "</div>";
+
                 } else {
-                    echo "<div class='w3-container w3-light-grey'>
+                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
                             <p class='w3-center'>Ainda não tem disponibilidade.</p>
                         </div>";
                 }
@@ -235,7 +325,7 @@
                 $voluntario = $_SESSION['loggedid'];
 
                 if ($_POST['submitA']) {
-                    $area_interesse = $_POST['area-interesse'];
+                    $area_interesse = test_input($_POST['area-interesse']);
 
                     $insertArea = "insert into Voluntario_Area
                                     values ('".$voluntario."' , '".$area_interesse."')";
@@ -248,7 +338,7 @@
                 }
 
                 if ($_POST['submitP']) {
-                    $populacao_alvo = $_POST['populacao-alvo'];
+                    $populacao_alvo = test_input($_POST['populacao-alvo']);
 
                     $insertPopulacao = "insert into Voluntario_Populacao_Alvo
                                     values ('".$voluntario."' , '".$populacao_alvo."')";
@@ -261,9 +351,9 @@
                 }
 
                 if ($_POST['submitD']) {
-                    $dia = $_POST['disponibilidade-dia'];
-                    $hora = $_POST['disponibilidade-hora'];
-                    $duracao = $_POST['disponibilidade-duracao'];
+                    $dia = test_input($_POST['disponibilidade-dia']);
+                    $hora = test_input($_POST['disponibilidade-hora']);
+                    $duracao = test_input($_POST['disponibilidade-duracao']);
 
                     $insertDispo = "insert into Voluntario_Disponibilidade
                                     values ('".$voluntario."' , '".$dia."' ,
@@ -276,10 +366,64 @@
                     }
                 }
 
+                if (!empty($_POST['removeA'])){
+                    $rArea = test_input($_POST['removeA']);
+
+                    $removeArea = "DELETE FROM Voluntario_Area
+                                WHERE id_voluntario = '".$voluntario."' 
+                                AND area = '".$rArea."';";
+
+                    $resrArea = mysqli_query($conn, $removeArea);
+                    
+                    if ($resrArea) {
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+
+                if (!empty($_POST['removeP'])){
+                    $rPopulacao = test_input($_POST['removeP']);
+
+                    $removePopulacao = "DELETE FROM Voluntario_Populacao_Alvo
+                                WHERE id_voluntario = '".$voluntario."' 
+                                AND populacao_alvo = '".$rPopulacao."';";
+
+                    $resrPopulacao = mysqli_query($conn, $removePopulacao);
+                    
+                    if ($resrPopulacao) {
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+
+                if (!empty($_POST['removeD'])){
+                    $rDispo = test_input($_POST['removeD']);
+
+                    $rDis = explode("/", $rDispo);
+                    $rDia = $rDis[0];
+                    $rHora = $rDis[1];
+                    $rDuracao = $rDis[2];
+
+                    $removeDispo = "DELETE FROM Voluntario_Disponibilidade
+                                WHERE id_voluntario = '".$voluntario."' 
+                                AND dia = '".$rDia."'
+                                AND hora = '".$rHora."'
+                                AND duracao = '".$rDuracao."';";
+
+                    $resrDispo = mysqli_query($conn, $removeDispo);
+                    
+                    if ($resrDispo) {
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+
             ?>
 
-            <a href="Perfil.php"><button id="avancar">Avançar</button></a>
-
+            <?php
+                if ($checkArea == 1 and $checkPopulacao == 1 and $checkDisponibilidade == 1){
+                    echo "<a href='Perfil.php'><button class='w3-button w3-border w3-center' id='avancar'>Avançar</button></a>";
+                } else {
+                    echo "<p>Escolha, pelo menos, uma área de interesse, uma população-alvo e uma disponibilidade.</p>";
+                }
+            ?>
     </div>
 
 
@@ -323,16 +467,16 @@
         <div class="vl"></div>
 
         <ul id="endPaginas1">
-            <a href="Sobre.html"><li>Sobre</li></a>
+            <a href="Sobre.php"><li>Sobre</li></a>
             <br>
-            <a href="#"><li>Publicações</li></a>
+            <a href="Publicacoes.php"><li>Publicações</li></a>
             <br>
-            <a href="Covid19.html"><li>COVID-19</li></a>
+            <a href="Covid19.php"><li>COVID-19</li></a>
         </ul>
         <ul id="endPaginas2">
-            <a href="Instituicoes.html"><li>Instituições</li></a>
+            <a href="Instituicoes.php"><li>Instituições</li></a>
             <br>
-            <a href="Voluntarios.html"><li>Voluntários</li></a>
+            <a href="Voluntarios.php"><li>Voluntários</li></a>
         </ul>
 
         <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
