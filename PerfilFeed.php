@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="CSS/PerfilFeedC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src="JavaScript/MessageJS.js"></script>
+<!-- <script src="JavaScript/MessageJS.js"></script> -->
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -376,6 +376,7 @@
         </div>
     </div>
 
+    <!--
     <button id="openMensagens" class="divClosed"><i class="fas fa-comment-dots w3-left" id="openMp"></i></button>
 
     <div id="MessageDiv" class="w3-sidebar hidden">
@@ -409,7 +410,7 @@
             <p>Manel João: Tão Portugal Solidário e a covid com...</p>
         </div>
     </div>
-
+    -->
 
     </body>
 

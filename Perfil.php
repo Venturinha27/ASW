@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="CSS/PerfilC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src="JavaScript/MessageJS.js"></script>
+<!-- <script src="JavaScript/MessageJS.js"></script> -->
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -379,52 +379,101 @@
             </div>";
     }
 
+
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
     # --------------- MENSAGENS -------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
 
-    if ($openid == $loggedid){
-        echo "
-        <button id='openMensagens' class='divClosed'><i class='fas fa-comment-dots w3-left' id='openMp'></i></button>
+    
+    // if ($openid == $loggedid){
+    //     echo "
+    //     <button id='openMensagens' class='divClosed'><i class='fas fa-comment-dots w3-left' id='openMp'></i></button>
 
-        <div id='MessageDiv' class='w3-sidebar hidden'>
+    //     <div id='MessageDiv' class='w3-sidebar hidden'>
 
-            <h3>Mensagens</h3>
+    //         <h3>Mensagens</h3>
 
-            <input type='text' class='w3-bar w3-input' placeholder='Procurar conversas'>
+    //         <input type='text' class='w3-bar w3-input' placeholder='Procurar conversas'>
 
-            <div class='w3-card-2 w3-white conversa'>
-                <h4>Dona Dulce</h4>
-                <p>Manel João: Tão dona dulce e a familia com...</p>
-            </div>
+    //         <div class='w3-card-2 w3-white conversa'>
+    //             <h4>Dona Dulce</h4>
+    //             <p>Manel João: Tão dona dulce e a familia com...</p>
+    //         </div>
 
-            <div class='w3-card-2 w3-white conversa'>
-                <h4>Dom Manuel</h4>
-                <p>Manel João: Tão Manecas e a familia com...</p>
-            </div>
+    //         <div class='w3-card-2 w3-white conversa'>
+    //             <h4>Dom Manuel</h4>
+    //             <p>Manel João: Tão Manecas e a familia com...</p>
+    //         </div>
 
-            <div class='w3-card-2 w3-white conversa'>
-                <h4>Dona Joana</h4>
-                <p>Manel João: Tão dona joana e a familia com...</p>
-            </div>
+    //         <div class='w3-card-2 w3-white conversa'>
+    //             <h4>Dona Joana</h4>
+    //             <p>Manel João: Tão dona joana e a familia com...</p>
+    //         </div>
 
-            <div class='w3-card-2 w3-white conversa'>
-                <h4>Zé Tartaruga</h4>
-                <p>Manel João: Tão ZeTa e a familia com...</p>
-            </div>
+    //         <div class='w3-card-2 w3-white conversa'>
+    //             <h4>Zé Tartaruga</h4>
+    //             <p>Manel João: Tão ZeTa e a familia com...</p>
+    //         </div>
 
-            <div class='w3-card-2 w3-white conversa'>
-                <h4>Portugal Solidário</h4>
-                <p>Manel João: Tão Portugal Solidário e a covid com...</p>
-            </div>
-        </div>";
-    }
+    //         <div class='w3-card-2 w3-white conversa'>
+    //             <h4>Portugal Solidário</h4>
+    //             <p>Manel João: Tão Portugal Solidário e a covid com...</p>
+    //         </div>
+    //     </div>";
+    // }
 
     mysqli_close($conn);
 
 ?>
+
+        <div id='SugDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><b>Sugestões</b></h3>
+            </header>
+            <div id='Sug'>
+                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                    <h5 class='nomeS'><b>Manuel</b></h5>
+                    <p class='sugestaoTxt w3-small'>Utilizador</p>
+                </div>
+                
+                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                    <h5 class='nomeS'><b>AjudaAi</b></h5>
+                    <p class='sugestaoTxt w3-small'>Instituicao</p>
+                </div>
+                
+                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                    <h5 class='nomeS'><b>Ajuda Lx</b></h5>
+                    <p class='sugestaoTxt w3-small'>Acao</p>
+                </div>
+            </div>
+        </div>
+
+        <div id='MsgDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><b>Mensagens</b></h3>
+            </header>
+            <div id='Msg'>
+                <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                    <h5 class='nomeM'><b>Manuel</b></h5>
+                    <p class='mensagemTxt w3-small'>Eai manecas</p>
+                </div>
+                
+                <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                    <h5 class='nomeM'><b>Manuel</b></h5>
+                    <p class='mensagemTxt w3-small'>Eai manecas</p>
+                </div>
+                
+                <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                    <h5 class='nomeM'><b>Manuel</b></h5>
+                    <p class='mensagemTxt w3-small'>Eai manecas</p>
+                </div>
+            </div>
+            <div id='Mmais'>
+                <p>Mostrar mais</p>
+            </div>
+        </div>
 
 </body>
 

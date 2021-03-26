@@ -15,8 +15,8 @@ body {
 #AzulDiv {
     position: absolute;
     top: 10%;
-    left: 15%;
-    width: 70%;
+    left: 10%;
+    width: 57%;
     height: 37%;
     background-color: white;
     color: #24305E;
@@ -58,7 +58,7 @@ body {
 #AzulDiv #EditarPerfil {
     position: absolute;
     top: 5%;
-    right: 19.5%;
+    right: 22.5%;
     background-color: #24305E;
     color: white;
     border-radius: 100px;
@@ -185,7 +185,40 @@ body {
     padding-left: 2%;
 }
 
+#MsgDiv {
+    position: absolute;
+    top: 52%;
+    left: 68.5%;
+    width: 23%;
+    height: 40%;
+    display: inline-block;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+    overflow-y: scroll;
+}
 
+#SugDiv {
+    position: absolute;
+    top: 10%;
+    left: 68.5%;
+    width: 23%;
+    height: 40%;
+    display: inline-block;
+    background-color: white;
+    color: #24305E;
+    border-radius: 5px;
+}
+
+#Sug{
+    height: 80%;
+    overflow-y: scroll;
+}
+
+#Msg{
+    height: 80%;
+    overflow-y: scroll;
+}
 
 
 
@@ -194,8 +227,8 @@ body {
 #BodyDiv {
     position: absolute;
     top: 50%;
-    left: 15%;
-    width: 70%;
+    left: 10%;
+    width: 57%;
     display: inline-block;
     background-color: white;
     color: #24305E;
@@ -210,14 +243,14 @@ body {
 #BodyDiv #Perfil {
     margin-top: 0.25%;
     margin-left: 0.25%;
-    width: 33%;
+    width: 32.5%;
     border-radius: 100px;
     z-index: 10;
 }
 
 #BodyDiv #Feed {
     margin-top: 0.25%;
-    width: 33%;
+    width: 32.5%;
     border-radius: 100px;
     z-index: 10;
 }
