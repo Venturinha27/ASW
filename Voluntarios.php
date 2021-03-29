@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="CSS/VoluntariosC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src=></script>
+<script src="JavaScript/VoluntariosJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -97,7 +97,9 @@
 
     <h2 id="hp" class='w3-center'><b>Procura voluntários</b></h2>
 
-    <div class="w3-container w3-small">
+    <button id='filterb' class='w3-button w3-center w3-indigo'><i class="fas fa-filter"></i> &nbsp Filtrar &nbsp <i class="fas fa-angle-down"></i></button>
+
+    <div class="w3-container w3-small hidden" id='divFiltrar'>
         <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
                 <div id="esq">
                     <label><b>Nome</b></label>
@@ -446,7 +448,7 @@
             while ($row = $resultVoluntario->fetch_assoc()){
 
                 echo "
-                <div class='w3-card-4'>
+                <div class='w3-card-4 w3-round-xxlarge'>
 
                     <header class='w3-container'>
                         <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
@@ -455,8 +457,8 @@
                     <div class='w3-container'>
                         <h5><b>".$row['nome_voluntario']."</b></h5>
                         <img src='".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                        <h6 class='w3-small'>".$row['bio']."</h6>
-                        <p><b>Áreas de interesse</b>: ";
+                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
+                        <p><i class='fas fa-heart'></i> &nbsp ";
 
                 $queryArea = "SELECT id_voluntario, area
                 FROM Voluntario_Area
@@ -465,15 +467,28 @@
                 $resultArea = $conn->query($queryArea);            
 
                 if ($resultArea->num_rows > 0) {
-                    echo "<ul class='w3-small'>";
+                    
+                    $areas = array();
                     while ($rowA = $resultArea->fetch_assoc()){
-                        echo "<li> " . $rowA['area'] . " </li>";
+                        array_push($areas, $rowA['area']);
                     }
-                    echo "</ul>";
+
+                    $ultimo = count($areas);
+
+                    $c = 0;
+                    foreach ($areas as $are) {
+                        $c = $c + 1;
+                        if ($c == $ultimo){
+                            echo "$are";
+                        } else {
+                            echo "$are, ";
+                        }
+                    }
+
                 }
 
                 echo "</p>
-                        <p><b>População-alvo</b>: ";
+                        <p><i class='fas fa-users'></i> &nbsp ";
 
                 $queryPopulacao = "SELECT id_voluntario, populacao_alvo
                 FROM Voluntario_Populacao_Alvo
@@ -482,34 +497,45 @@
                 $resultPopulacao = $conn->query($queryPopulacao);            
 
                 if ($resultPopulacao->num_rows > 0) {
-                    echo "<ul class='w3-small'>";
+                    $populacao = array();
                     while ($rowP = $resultPopulacao->fetch_assoc()){
-                        echo "<li> " . $rowP['populacao_alvo'] . " </li>";
+                        array_push($populacao, $rowP['populacao_alvo']);
                     }
-                    echo "</ul>";
+
+                    $ultimo = count($populacao);
+
+                    $c = 0;
+                    foreach ($populacao as $pop) {
+                        $c = $c + 1;
+                        if ($c == $ultimo){
+                            echo "$pop";
+                        } else {
+                            echo "$pop, ";
+                        }
+                    }
                 }
 
                         
-                echo "</p>
-                        <p><b>Disponibilidade</b>: ";
+                echo "</p>";
+                //         <p><b>Disponibilidade</b>: ";
 
-                $queryDispo = "SELECT id_voluntario, dia, hora, duracao
-                        FROM Voluntario_Disponibilidade
-                        WHERE id_voluntario = '".$row['id']."'";
+                // $queryDispo = "SELECT id_voluntario, dia, hora, duracao
+                //         FROM Voluntario_Disponibilidade
+                //         WHERE id_voluntario = '".$row['id']."'";
 
-                $resultDispo = $conn->query($queryDispo);            
+                // $resultDispo = $conn->query($queryDispo);            
 
-                if ($resultDispo->num_rows > 0) {
-                    echo "<ul class='w3-small'>";
-                    while ($rowD = $resultDispo->fetch_assoc()){
-                        echo "<li> ".$rowD['dia'].", ás ".$rowD['hora'].":00, durante ".$rowD['duracao']." horas</li>";
-                    }
-                    echo "</ul>";
-                }
+                // if ($resultDispo->num_rows > 0) {
+                //     echo "<ul class='w3-small'>";
+                //     while ($rowD = $resultDispo->fetch_assoc()){
+                //         echo "<li> ".$rowD['dia'].", ás ".$rowD['hora'].":00, durante ".$rowD['duracao']." horas</li>";
+                //     }
+                //     echo "</ul>";
+                // }
                         
                        
-                    echo "</p>
-                    </div>
+                //    echo "</p>
+                echo    "</div>
                     
                     <button class='w3-button w3-block w3-hover-blue'>Ver Mais</button>
                     
