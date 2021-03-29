@@ -154,9 +154,9 @@
             <img alt='Avatar' class='w3-left w3-circle' src='$foto' />
                 
                 <h5>".$open."</h5>
-                <hr>
+                <br>
                 <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
-                <hr>
+                <br>
                 <p>".$bio."</p>
 
                 ";
@@ -325,9 +325,9 @@
                 <img alt='Avatar' class='w3-left w3-circle' src='$foto' />       
                 
                 <h5>".$open."</h5>
-                <hr>
+                <br>
                 <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
-                <hr>
+                <br>
                 <p>".$bio."</p>
 
                 ";
@@ -430,49 +430,49 @@
 
         <div id='SugDiv'>
             <header class='w3-container w3-indigo w3-round'>
-                <h3><b>Sugestões</b></h3>
+                <h3><i class="fas fa-lightbulb"></i> &nbsp<b>Sugestões</b></h3>
             </header>
             <div id='Sug'>
                 <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                    <h5 class='nomeS'><b>Manuel</b></h5>
-                    <p class='sugestaoTxt w3-small'>Utilizador</p>
+                    <h6 class='nomeS w3-small'><b>Manuel</b></h6>
+                    <p class='sugestaoTxt w3-tiny'>Utilizador</p>
                 </div>
                 
                 <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                    <h5 class='nomeS'><b>AjudaAi</b></h5>
-                    <p class='sugestaoTxt w3-small'>Instituicao</p>
+                    <h6 class='nomeS w3-small'><b>AjudaAi</b></h6>
+                    <p class='sugestaoTxt w3-tiny'>Instituicao</p>
                 </div>
                 
                 <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                    <h5 class='nomeS'><b>Ajuda Lx</b></h5>
-                    <p class='sugestaoTxt w3-small'>Acao</p>
+                    <h6 class='nomeS w3-small'><b>Ajuda Lx</b></h6>
+                    <p class='sugestaoTxt w3-tiny'>Acao</p>
                 </div>
+                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
             </div>
         </div>
 
         <div id='MsgDiv'>
             <header class='w3-container w3-indigo w3-round'>
-                <h3><b>Mensagens</b></h3>
+                <h3><i class="fas fa-inbox"></i> &nbsp<b>Mensagens</b></h3>
             </header>
             <div id='Msg'>
                 <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                    <h5 class='nomeM'><b>Manuel</b></h5>
-                    <p class='mensagemTxt w3-small'>Eai manecas</p>
+                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
                 </div>
                 
                 <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                    <h5 class='nomeM'><b>Manuel</b></h5>
-                    <p class='mensagemTxt w3-small'>Eai manecas</p>
+                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
                 </div>
                 
                 <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                    <h5 class='nomeM'><b>Manuel</b></h5>
-                    <p class='mensagemTxt w3-small'>Eai manecas</p>
+                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
                 </div>
+                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
             </div>
-            <div id='Mmais'>
-                <p>Mostrar mais</p>
-            </div>
+            
         </div>
 
 </body>

@@ -33,17 +33,17 @@ body {
 #AzulDiv h5{
     font-size: larger;
     font-weight: bold;
-    padding-left: 30%;
-    padding-top: 2%;
+    padding-left: 33%;
+    padding-top: 4%;
 }
 
 #AzulDiv h6 {
-    padding-left: 30%;
+    padding-left: 33%;
     font-size: small;
 }
 
 #AzulDiv p {
-    padding-left: 30%;
+    padding-left: 33%;
     font-size: small;
 }
 
@@ -190,12 +190,11 @@ body {
     top: 52%;
     left: 68.5%;
     width: 23%;
-    height: 40%;
+    height: 39%;
     display: inline-block;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
-    overflow-y: scroll;
 }
 
 #SugDiv {
@@ -203,22 +202,13 @@ body {
     top: 10%;
     left: 68.5%;
     width: 23%;
-    height: 40%;
+    height: 39%;
     display: inline-block;
     background-color: white;
     color: #24305E;
     border-radius: 5px;
 }
 
-#Sug{
-    height: 80%;
-    overflow-y: scroll;
-}
-
-#Msg{
-    height: 80%;
-    overflow-y: scroll;
-}
 
 
 
