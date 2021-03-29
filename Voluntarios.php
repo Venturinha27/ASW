@@ -536,11 +536,31 @@
                        
                 //    echo "</p>
                 echo    "</div>
-                    
-                    <button class='w3-button w3-block w3-hover-blue'>Ver Mais</button>
+                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                        <button type='submit' value='".$row['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                    </form>
                     
                 </div>";
             }
+        }
+
+        if (!empty($_POST['verPerfil'])){
+            $id = $_POST['verPerfil'];
+
+            $queryVol = "SELECT id, nome_voluntario
+                FROM Voluntario
+                WHERE id = '".$id."'";
+
+            $resultV = $conn->query($queryVol);
+
+            if ($rowV = $resultV->fetch_assoc()) {
+                $nomeV = $rowV['nome_voluntario'];
+            }
+
+            $_SESSION['opentype'] = "voluntario";
+            $_SESSION['open'] = $nomeV;
+            $_SESSION['openid'] = $id;
+            header("Location: Perfil.php");
         }
 
     ?>
