@@ -29,7 +29,7 @@
 
         $tipoquery = "SELECT tipo, id
             FROM Utilizador
-            WHERE id = '" . $uderid . "'";
+            WHERE id = '" . $userid . "'";
 
         $resultTipo = $conn->query($tipoquery);
 
@@ -41,6 +41,48 @@
         mysqli_close($conn);
 
         return $resultTipo;
+
+    }
+
+    function foto_voluntario($userid) {
+
+        include "openconn.php";
+
+        $queryFotoV = "SELECT id, foto
+                    FROM Voluntario
+                    WHERE id = '".$userid."';";
+    
+        $resultFotoV = $conn->query($queryFotoV);
+
+        if (!($resultFotoV)) {
+            mysqli_close($conn);
+            return "Utilizador não existe";
+        }
+
+        mysqli_close($conn);
+
+        return $resultFotoV;
+
+    }
+
+    function foto_instituicao($userid) {
+
+        include "openconn.php";
+
+        $queryFotoI = "SELECT id, foto
+                    FROM Instituicao
+                    WHERE id = '".$userid."';";
+    
+        $resultFotoI = $conn->query($queryFotoI);
+
+        if (!($resultFotoI)) {
+            mysqli_close($conn);
+            return "Utilizador não existe";
+        }
+
+        mysqli_close($conn);
+
+        return $resultFotoI;
 
     }
 
