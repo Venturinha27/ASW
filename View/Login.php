@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/LoginC.css">
+<link rel="stylesheet" href="../CSS/LoginC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 
 <header>
@@ -32,8 +32,29 @@
             
             <?php
 
+                if  (!empty($_POST)) {
+
+                    // testar o input do utilizador
+                    include "../TestInput.php";
+
+                    //incluir controlador
+                    include "../Controller/LoginController.php";
+
+                    // receber o pedido de login com segurança
+                    $email = test_input($_POST['email']); #mysql_real_escape_string
+                    $password = test_input($_POST['password']); #sha1
+
+                    $resultc = clogin($email, $password);
+
+                    echo "<p class='w3-text-red w3-center'><b>$resultc</u></b>";
+
+                }
+
+
+
+
                 // estabelecer ligação com a base de dados
-                include "openconn.php";
+                /* include "openconn.php";
                 include "TestInput.php";
 
                 if  (!empty($_POST)) {
@@ -106,7 +127,7 @@
                         echo "<p class='w3-text-red w3-center'><b>$erroU</u></b>";
                     }
                 }
-                mysqli_close($conn);
+                mysqli_close($conn); */
 
             ?>
             
