@@ -14,22 +14,21 @@
     
                 if ($rowV = $resultFotoV->fetch_assoc()){
                     $foto = $rowV['foto'];
+                    return $foto;
                 }
 
             } else {
 
-                $resultFotoI = foto_voluntario($_SESSION['loggedid']);
+                $resultFotoI = foto_instituicao($_SESSION['loggedid']);
     
                 if ($rowI = $resultFotoI->fetch_assoc()){
                     $foto = $rowI['foto'];
+                    return $foto;
                 }
 
             }
 
-            return $foto;
-
         }
-
 
     }
 

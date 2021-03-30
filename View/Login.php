@@ -13,10 +13,8 @@
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 
 <header>
-
-    
-
 </header>
+
 <body>
     <div id="loginbox">
         <form id="login" class="w3-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
@@ -35,7 +33,7 @@
                 if  (!empty($_POST)) {
 
                     // testar o input do utilizador
-                    include "../TestInput.php";
+                    include "TestInput.php";
 
                     //incluir controlador
                     include "../Controller/LoginController.php";

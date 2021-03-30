@@ -8,8 +8,6 @@
 
         if ($respostal != "Utilizador não existe" and $respostal->num_rows > 0) {
 
-            $userExiste = 0;
-
             while ($row = $respostal->fetch_array()) {
 
                 if ($row[2] == $email) {
@@ -36,26 +34,28 @@
                                 $_SESSION['openid'] = $row[0];
                                 header("Location: ../View/Perfil.php");
                             } else {
-                                return "Utilizador não existe";
+                                $erro = "Utilizador não existe";
                             }
                             
                         } else {
-                            return "Utilizador não existe";
+                            $erro = "Utilizador não existe";
                         }
 
                     } else {
-                        return "Password errada.";
+                        $erro = "Password errada.";
                     }
 
                 } else {
-                    return "Utilizador não existe";
+                    $erro = "Utilizador não existe";
                 }
                     
             }
             
         } else {
-            return "Utilizador não existe";
+            $erro = "Utilizador não existe";
         }
+
+        return $erro;
         
     }
 ?>

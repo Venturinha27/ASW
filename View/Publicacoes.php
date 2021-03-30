@@ -11,9 +11,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/PublicacoesC.css">
+<link rel="stylesheet" href="../CSS/PublicacoesC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src="JavaScript/PublicacoesJS.js"></script>
+<script src="../JavaScript/PublicacoesJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -22,64 +22,49 @@
         <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
         
         <?php
-            include 'openconn.php';
 
+            include "../Controller/HeaderController.php";
+            include "../Controller/SessionController.php";
+            
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
             } else {
-                $queryUtilizador = "SELECT id, tipo 
-                            FROM Utilizador 
-                            WHERE id = '".$_SESSION['loggedid']."';";
-
-                $resultUtilizador = $conn->query($queryUtilizador);
-
-                if ($row = $resultUtilizador->fetch_assoc()){
-                    
-                    if ($row['tipo'] == "voluntario"){
-                        $queryVoluntario = "SELECT id, foto
-                            FROM Voluntario
-                            WHERE id = '".$_SESSION['loggedid']."';";
-
-                        $resultVoluntario = $conn->query($queryVoluntario);
-
-                        if ($rowV = $resultVoluntario->fetch_assoc()){
-                            $foto = $rowV['foto'];
-                        }
-                    } else {
-                        $queryInstituicao = "SELECT id, foto
-                            FROM Instituicao
-                            WHERE id = '".$_SESSION['loggedid']."';";
-
-                        $resultInstituicao = $conn->query($queryInstituicao);
-
-                        if ($rowI = $resultInstituicao->fetch_assoc()){
-                            $foto = $rowI['foto'];
-                        }
-                    }
-                }
+                $foto = "../" . loggedHeader();
 
                 echo "<div class='w3-dropdown-hover w3-right w3-mobile'>
-                        <button class='w3-button w3-hover-blue'>
-                            <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
-                        </button>
-                        <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0% !important; z-index: 100 !important; width:10% !important;'>
-                            <a href='Perfil.php' class='w3-bar-item w3-button'>Ver perfil</a>
-                            <a href='EditarPerfil.php' class='w3-bar-item w3-button'>Editar perfil</a>
-                            <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                                <button type='submit' value='terminarS' name='terminarS' class='w3-bar-item w3-button w3-white w3-text-red'>Terminar sessão</button>
-                            </form>
-                        </div>
-                    </div>";
+                    <button class='w3-button w3-hover-blue'>
+                        <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
+                    </button>
+                    <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
+                        
+                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                            <a type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'>Ver perfil</a>
+                        </form>
+                        
+                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                            <a type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'>Editar perfil</a>
+                        </form>
+                        
+                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                            <button type='submit' value='terminarS' name='terminarS' class='w3-bar-item w3-button w3-white w3-text-red'>Terminar sessão</button>
+                        </form>
+
+                    </div>
+                </div>";
             }
 
             if ($_POST['terminarS']){
-                unset ($_SESSION['loggedtype']);
-                unset ($_SESSION['logged']);
-                unset ($_SESSION['loggedid']);
-                unset ($_SESSION['opentype']);
-                unset ($_SESSION['open']);
-                unset ($_SESSION['openid']);
+                TerminarSessao();
                 echo "<meta http-equiv='refresh' content='0'>";
+            }
+
+            if ($_POST['selfopen']){
+                SelfOpen();
+                if ($_POST['selfopen'] = "selfopenP"){
+                    header("Location: Perfil.php");
+                } else {
+                    header("Location: EditarPerfil.php");
+                }
             }
         ?>
         <a href="Voluntarios.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
@@ -94,9 +79,9 @@
 <div id="BodyDiv">
     <div id="pubs">
         <div class="pubpar">
-            <img src="Images/slide2.jpg">
+            <img src="../Images/slide2.jpg">
 
-            <div class="divnome_par"><img src="Images/slide7.jpg" class="w3-circle" id="avatar">
+            <div class="divnome_par"><img src="../Images/slide7.jpg" class="w3-circle" id="avatar">
                 <h6>Portugal Voluntário</h6></div>
 
             <div class="divcom_par">
@@ -111,9 +96,9 @@
         </div>
 
         <div class="pubimpar">
-            <img src="Images/slide5.jpg">
+            <img src="../Images/slide5.jpg">
 
-            <div class="divnome_impar"><img src="Images/slide6.jpg" class="w3-circle" id="avatar">
+            <div class="divnome_impar"><img src="../Images/slide6.jpg" class="w3-circle" id="avatar">
                 <h6>Filipe Eduardo</h6></div>
 
             <div class="divcom_impar">
@@ -128,9 +113,9 @@
         </div>
 
         <div class="pubpar">
-            <img src="Images/slide4.jpg">
+            <img src="../Images/slide4.jpg">
 
-            <div class="divnome_par"><img src="Images/slide5.jpg" class="w3-circle" id="avatar">
+            <div class="divnome_par"><img src="../Images/slide5.jpg" class="w3-circle" id="avatar">
                 <h6>Portugal Agora Nós</h6></div>
 
             <div class="divcom_par">
@@ -145,9 +130,9 @@
         </div>
 
         <div class="pubimpar">
-            <img src="Images/slide3.jpg">
+            <img src="../Images/slide3.jpg">
 
-            <div class="divnome_impar"><img src="Images/slide4.jpg" class="w3-circle" id="avatar">
+            <div class="divnome_impar"><img src="../Images/slide4.jpg" class="w3-circle" id="avatar">
                 <h6>Eduardo Jorge</h6></div>
 
             <div class="divcom_impar">

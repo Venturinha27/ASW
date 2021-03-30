@@ -9,14 +9,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="CSS/LoginAC.css">
+<link rel="stylesheet" href="../CSS/LoginAC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 
 <header>
-
-    
-
 </header>
+
 <body>
     <div id="loginbox">
         <form id="login" class="w3-container"  action="LoginA.php" method="post">

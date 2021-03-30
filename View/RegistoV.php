@@ -31,9 +31,9 @@
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
             } else {
-                $foto = loggedHeader();
+                $foto = "../" . loggedHeader();
 
-                "<div class='w3-dropdown-hover w3-right w3-mobile'>
+                echo "<div class='w3-dropdown-hover w3-right w3-mobile'>
                     <button class='w3-button w3-hover-blue'>
                         <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
                     </button>
