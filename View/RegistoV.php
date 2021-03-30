@@ -145,11 +145,11 @@
                 <option value="Não">Não</option>
             </select>
 
-        <input id="submit" type="submit" name="" value="Registar" href="InformacoesV.php">
+        <input id="submit" type="submit" name="" value="Registar">
         
         <?php
-            include "openconn.php";
 
+            include "../Controller/RegistoVController.php";            
             include "TestInput.php";
 
             if (!empty($_POST)){
@@ -169,161 +169,21 @@
                 $carta = test_input($_POST['carta']); 
                 $covid = test_input($_POST['covid']);
 
-                $erro = 0;
+                include "../Controller/InputPhotoController.php";
 
-                try {
+                $avatar = test_photo();
 
-                    // Previne erros (podem ser ataques informaticos mas nao so).
-                    if (
-                        !isset($_FILES['avatar']['error']) ||
-                        is_array($_FILES['avatar']['error'])
-                    ) {
-                        throw new RuntimeException('Imagem inválida.');
-                    }
+                if (substr($avatar,0,6) == "Images") {
 
-                    // Verifica o valor do erro
-                    switch ($_FILES['avatar']['error']) {
-                        case UPLOAD_ERR_OK:
-                            break;
-                        case UPLOAD_ERR_NO_FILE:
-                            throw new RuntimeException('Nenhuma imagem enviada.');
-                        case UPLOAD_ERR_INI_SIZE:
-                        case UPLOAD_ERR_FORM_SIZE:
-                            throw new RuntimeException('Imagem demasiado grande.');
-                        default:
-                            throw new RuntimeException('Imagem inválida.');
-                    }
+                    $registoV = registo_voluntario($id, $nomeProprio, $Email, $Password, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
 
-                    // Verifica se o tamanho limite nao foi ultrapassado
-                    if ($_FILES['avatar']['size'] > 10000000) {
-                        throw new RuntimeException('Imagem demasiado grande.');
-                    }
+                    echo $registoV;
 
-                    // Verifica o tipo do ficheiro
-                    $finfo = new finfo(FILEINFO_MIME_TYPE);
-                    if (false === $ext = array_search(
-                        $finfo->file($_FILES['avatar']['tmp_name']),
-                        array(
-                            'jpg' => 'image/jpeg',
-                            'png' => 'image/png',
-                            'gif' => 'image/gif',
-                        ),
-                        true
-                    )) {
-                        throw new RuntimeException('Formato da imagem inválido.');
-                    }
-
-                    $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
-
-                    // Obtem um nome unico para guardar a fotografia no servidor.
-                    if (!move_uploaded_file(
-                        $_FILES['avatar']['tmp_name'],
-                        sprintf('Images/%s.%s',
-                            sha1_file($_FILES['avatar']['tmp_name']),
-                            $ext
-                        )
-                    )) {
-                        throw new RuntimeException('Não foi possivel carregar a imagem.');
-                    }
-
-                } catch (RuntimeException $e) {
-
-                    echo "<p class='erro'>".$e->getMessage()."</p>";
-                    $erro = 1;
-                    
+                } else {
+                    // Erro no input da fotografia
+                    echo "<p class='erro'> ". $avatar ." </p>";
                 }
 
-                if ($erro == 0){
-                    $check = 0;
-
-                    $sqlNome = "SELECT V.email
-                                FROM Voluntario V
-                                UNION
-                                SELECT I.email
-                                FROM Instituicao I";    
-
-                    $resultN = $conn->query($sqlNome);
-
-
-                    $sqlCC = "SELECT cc
-                                FROM Voluntario";  
-
-                    $resultCC = $conn->query($sqlCC);
-
-                    unset($msgErro);
-
-                    if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
-                        if (strlen((string)$telefone) == 9){
-                            if (strlen((string)$CC) == 8){
-                                $datnasc = explode("-", $dataNascimento);
-                                if (strlen((string)$datnasc[0]) == 4 and strlen((string)$datnasc[1]) == 2 and strlen((string)$datnasc[2]) == 2){
-                                    if (strlen((string)$Password) > 6){
-                                        if ($resultN->num_rows > 0) {
-                                            while ($row = $resultN->fetch_assoc()){
-                                                if ($row[0] == $Email){
-                                                    $msgErro = "<p class='erro'> E-mail já existe </p>";
-                                                }
-                                            }
-                                        }
-                                        if ($resultCC->num_rows > 0) {
-                                            while ($rowC = $resultCC->fetch_assoc()){
-                                                if ($rowC[0] == $CC){
-                                                    $msgErro = "<p class='erro'> CC já existe </p>";
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
-                                    }
-                                } else {
-                                    $msgErro = "<p class='erro'> Data de nascimento deve ser do tipo (AAAA-MM-DD). </p>";
-                                }
-                            } else {
-                                $msgErro = "<p class='erro'> Insira um cc válido </p>";
-                            }
-                        } else {
-                            $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
-                        }
-                    } else {
-                        $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
-                    }
-                    
-                    echo $msgErro;
-
-                    if (!isset($msgErro)){
-
-                        $query1 = "insert into Utilizador
-                                values ('".$id."' , 'voluntario')";
-                        
-                        $res1 = mysqli_query($conn, $query1);
-                        
-                        if ($res1) {
-                        } else {
-                            echo "<p class='erro'> Algo deu errado. </p>";
-                        }
-                        
-                        $query = "insert into Voluntario
-                                values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
-                                .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
-                                .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".password_hash($Password, PASSWORD_DEFAULT)."')";
-                        
-                        $res = mysqli_query($conn, $query);
-                        
-                        if ($res) {
-                            $_SESSION['loggedtype'] = "voluntario";
-                            $_SESSION['logged'] = $nomeProprio;
-                            $_SESSION['loggedid'] = $id;
-                            $_SESSION['opentype'] = "voluntario";
-                            $_SESSION['open'] = $nomeProprio;
-                            $_SESSION['openid'] = $id;
-                            header("Location: PreferenciasV.php");
-                        } else {
-                            echo "<p class='erro'> Algo deu errado. </p>";
-                        }
-                        
-                    }
-                }
-            mysqli_close($conn);
             }
         
         ?>  

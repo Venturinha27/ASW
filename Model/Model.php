@@ -86,4 +86,87 @@
 
     }
 
+    function emails_utilizadores() {
+
+        include "openconn.php";
+
+        $queryEmailU = "SELECT V.email
+                    FROM Voluntario V
+                    UNION
+                    SELECT I.email
+                    FROM Instituicao I";    
+
+        $resultEmailU = $conn->query($queryEmailU);
+
+        if (!($resultEmailU)) {
+            mysqli_close($conn);
+            return "Utilizador não existe";
+        }
+
+        mysqli_close($conn);
+
+        return $resultEmailU;
+    }
+
+    function ccs_voluntarios() {
+
+        include "openconn.php";
+
+        $sqlCC = "SELECT cc
+                    FROM Voluntario";  
+
+        $resultCC = $conn->query($sqlCC);
+
+        if (!($resultCC)) {
+            mysqli_close($conn);
+            return "Utilizador não existe";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCC;
+    }
+
+    function inserir_utilizador($id, $tipo) {
+
+        include "openconn.php";
+
+        $inserirU = "insert into Utilizador
+                    values ('".$id."' , '".$tipo."')";
+        
+        $resU = mysqli_query($conn, $inserirU);
+
+        if (!($resU)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar utilizador.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function inserir_voluntario($id, $nomeProprio, $Email, $Password, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar) {
+
+        include "openconn.php";
+
+        $inserirV = "insert into Voluntario
+            values ('".$id."' , '".$nomeProprio."' , '".$dataNascimento."' , '".$genero."' , '"
+            .$avatar."' , '".$bio."' , '".$concelho."' , '".$distrito."' , '".$freguesia."' , ".$telefone." , '"
+            .$CC."' , '".$carta."' , '".$covid."' , '".$Email."' , '".password_hash($Password, PASSWORD_DEFAULT)."')";
+
+        $resV = mysqli_query($conn, $inserirV);
+
+        if (!($resV)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar voluntário.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
 ?>
