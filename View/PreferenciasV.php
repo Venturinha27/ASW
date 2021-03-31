@@ -2,6 +2,8 @@
 <?php
     session_start();
     ob_start();
+
+    include "../Controller/PreferenciasVController.php";
 ?>
 
 <!DOCTYPE html>
@@ -100,26 +102,16 @@
             </form>
 
             <?php
-                include "openconn.php";
 
                 $voluntario = $_SESSION['loggedid'];
-                    
-                $sqlArea = "SELECT area
-                            FROM Voluntario_Area
-                            WHERE id_voluntario = '".$voluntario."';";
 
-                $resultA = $conn->query($sqlArea);
-                
-                if (!($resultA)) {
-                    echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-                }              
+                $areasV = areasV($voluntario);           
 
-                if ($resultA->num_rows > 0) {
-
+                if ($areasV->num_rows > 0) {
                     $checkArea = 1;
                     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                     echo "<ul class='w3-ul w3-center'>";            
-                    while ($row = $resultA->fetch_assoc()){
+                    while ($row = $areasV->fetch_assoc()){
                         echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['area'] . "
                             <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['area']."' name='removeA'>
                                 <i class='fa fa-trash-alt'></i>
@@ -134,8 +126,6 @@
                             <p class='w3-center'>Ainda não tem áreas de interesse.</p>
                         </div>";
                 }
-
-                mysqli_close($conn);
             
             ?>
 
@@ -159,27 +149,16 @@
             </form>
 
             <?php
-                include "openconn.php";
 
                 $voluntario = $_SESSION['loggedid'];
-                    
-                $sqlPopulacao = "SELECT populacao_alvo
-                            FROM Voluntario_Populacao_Alvo
-                            WHERE id_voluntario = '".$voluntario."';";
 
-                $resultP = $conn->query($sqlPopulacao);
-                
-                if (!($resultP)) {
-                    echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-                }              
+                $populacaoV = populacaoV($voluntario);             
 
-                if ($resultP->num_rows > 0) {
-
+                if ($populacaoV->num_rows > 0) {
                     $checkPopulacao = 1;
-
                     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                     echo "<ul class='w3-ul w3-center'>";            
-                    while ($row = $resultP->fetch_assoc()){
+                    while ($row = $populacaoV->fetch_assoc()){
                         echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['populacao_alvo'] . "
                             <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['populacao_alvo']."' name='removeP'>
                                 <i class='fa fa-trash-alt'></i>
@@ -195,8 +174,6 @@
                             <p class='w3-center'>Ainda não tem nenhuma população-alvo.</p>
                         </div>";
                 }
-
-                mysqli_close($conn);
             
             ?>
 
@@ -257,27 +234,16 @@
             </form>
 
             <?php
-                include "openconn.php";
 
                 $voluntario = $_SESSION['loggedid'];
-                    
-                $sqlDisponibilidade = "SELECT dia, hora, duracao
-                            FROM Voluntario_Disponibilidade
-                            WHERE id_voluntario = '".$voluntario."';";
 
-                $resultD = $conn->query($sqlDisponibilidade);
-                
-                if (!($resultD)) {
-                    echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-                }              
+                $disponibilidadeV = disponibilidadeV($voluntario);             
 
-                if ($resultD->num_rows > 0) {
-
+                if ($disponibilidadeV->num_rows > 0) {
                     $checkDisponibilidade = 1;
-
                     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                     echo "<ul class='w3-ul w3-center'>";            
-                    while ($row = $resultD->fetch_assoc()){
+                    while ($row = $disponibilidadeV->fetch_assoc()){
                         echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                             Dia: " . $row['dia'] . ", hora: ". $row['hora'] .":00, duração: ".$row['duracao']." horas.
                             <button class='w3-right w3-red w3-round-xxlarge' type='submit'
@@ -296,15 +262,12 @@
                             <p class='w3-center'>Ainda não tem disponibilidade.</p>
                         </div>";
                 }
-
-                mysqli_close($conn);
             
             ?>
 
             <hr>
 
             <?php
-                include "openconn.php";
                 include "TestInput.php";
 
                 $voluntario = $_SESSION['loggedid'];
@@ -312,25 +275,20 @@
                 if ($_POST['submitA']) {
                     $area_interesse = test_input($_POST['area-interesse']);
 
-                    $insertArea = "insert into Voluntario_Area
-                                    values ('".$voluntario."' , '".$area_interesse."')";
+                    $insertA = insertA($voluntario, $area_interesse);
 
-                    $resArea = mysqli_query($conn, $insertArea);
-                    
-                    if ($resArea) {
+                    if ($insertA == TRUE){
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
+                    
                 }
 
                 if ($_POST['submitP']) {
                     $populacao_alvo = test_input($_POST['populacao-alvo']);
 
-                    $insertPopulacao = "insert into Voluntario_Populacao_Alvo
-                                    values ('".$voluntario."' , '".$populacao_alvo."')";
-
-                    $resPopulacao = mysqli_query($conn, $insertPopulacao);
+                    $insertP = insertP($voluntario, $populacao_alvo);
                     
-                    if ($resPopulacao) {
+                    if ($insertP) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }
@@ -340,13 +298,9 @@
                     $hora = test_input($_POST['disponibilidade-hora']);
                     $duracao = test_input($_POST['disponibilidade-duracao']);
 
-                    $insertDispo = "insert into Voluntario_Disponibilidade
-                                    values ('".$voluntario."' , '".$dia."' ,
-                                     '".$hora."' , '".$duracao."')";
-
-                    $resDispo = mysqli_query($conn, $insertDispo);
+                    $insertD = insertD($voluntario, $dia, $hora, $duracao);
                     
-                    if ($resDispo) {
+                    if ($insertD) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }
@@ -354,13 +308,9 @@
                 if (!empty($_POST['removeA'])){
                     $rArea = test_input($_POST['removeA']);
 
-                    $removeArea = "DELETE FROM Voluntario_Area
-                                WHERE id_voluntario = '".$voluntario."' 
-                                AND area = '".$rArea."';";
-
-                    $resrArea = mysqli_query($conn, $removeArea);
+                    $removeArea = removeArea($voluntario, $rArea);
                     
-                    if ($resrArea) {
+                    if ($removeArea) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }
@@ -368,13 +318,9 @@
                 if (!empty($_POST['removeP'])){
                     $rPopulacao = test_input($_POST['removeP']);
 
-                    $removePopulacao = "DELETE FROM Voluntario_Populacao_Alvo
-                                WHERE id_voluntario = '".$voluntario."' 
-                                AND populacao_alvo = '".$rPopulacao."';";
-
-                    $resrPopulacao = mysqli_query($conn, $removePopulacao);
+                    $removePopulacao = removePopulacao($voluntario, $rPopulacao);
                     
-                    if ($resrPopulacao) {
+                    if ($removePopulacao) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }
@@ -382,20 +328,9 @@
                 if (!empty($_POST['removeD'])){
                     $rDispo = test_input($_POST['removeD']);
 
-                    $rDis = explode("/", $rDispo);
-                    $rDia = $rDis[0];
-                    $rHora = $rDis[1];
-                    $rDuracao = $rDis[2];
-
-                    $removeDispo = "DELETE FROM Voluntario_Disponibilidade
-                                WHERE id_voluntario = '".$voluntario."' 
-                                AND dia = '".$rDia."'
-                                AND hora = '".$rHora."'
-                                AND duracao = '".$rDuracao."';";
-
-                    $resrDispo = mysqli_query($conn, $removeDispo);
+                    $removeDisponibilidade = removeDisponibilidade($voluntario, $rDispo);
                     
-                    if ($resrDispo) {
+                    if ($removeDisponibilidade) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }

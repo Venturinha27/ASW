@@ -169,4 +169,187 @@
 
     }
 
+    function areas_voluntario($id){
+
+        include "openconn.php";
+
+        $sqlArea = "SELECT area
+                    FROM Voluntario_Area
+                    WHERE id_voluntario = '".$id."';";
+
+        $resultA = $conn->query($sqlArea);
+
+        if (!($resultA)) {
+            mysqli_close($conn);
+            return "Ainda não tem áreas de interesse..";
+        }
+
+        mysqli_close($conn);
+
+        return $resultA;
+
+    }
+
+    function populacao_voluntario($id){
+
+        include "openconn.php";
+
+        $sqlPopulacao = "SELECT populacao_alvo
+                    FROM Voluntario_Populacao_Alvo
+                    WHERE id_voluntario = '".$id."';";
+
+        $resultP = $conn->query($sqlPopulacao);
+
+        if (!($resultP)) {
+            mysqli_close($conn);
+            return "Ainda não tem nenhuma população-alvo.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultP;
+
+    }
+
+    function disponibilidade_voluntario($id){
+
+        include "openconn.php";
+
+        $sqlDisponibilidade = "SELECT dia, hora, duracao
+                                FROM Voluntario_Disponibilidade
+                                WHERE id_voluntario = '".$id."';";
+
+        $resultD = $conn->query($sqlDisponibilidade);
+
+        if (!($resultD)) {
+            mysqli_close($conn);
+            return "Ainda não tem disponibilidade.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultD;
+
+    }
+
+    function insert_area($voluntario, $area_interesse) {
+
+        include "openconn.php";
+
+        $insertArea = "insert into Voluntario_Area
+                        values ('".$voluntario."' , '".$area_interesse."')";
+
+        $resArea = mysqli_query($conn, $insertArea);
+
+        if (!($resArea)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+        return TRUE;
+
+    }
+
+    function insert_populacao($voluntario, $populacao_alvo) {
+
+        include "openconn.php";
+
+        $insertPopulacao = "insert into Voluntario_Populacao_Alvo
+                        values ('".$voluntario."' , '".$populacao_alvo."')";
+
+        $resPopulacao = mysqli_query($conn, $insertPopulacao);
+
+        if (!($resPopulacao)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+        return TRUE;
+
+    }
+
+    function insert_disponibilidade($voluntario, $dia, $hora, $duracao) {
+
+        include "openconn.php";
+
+        $insertDispo = "insert into Voluntario_Disponibilidade
+                        values ('".$voluntario."' , '".$dia."' ,
+                            '".$hora."' , '".$duracao."')";
+
+        $resDispo = mysqli_query($conn, $insertDispo);
+
+        if (!($resDispo)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+        return TRUE;
+
+    }
+
+    function remove_area($voluntario, $area) {
+
+        include "openconn.php";
+
+        $removeArea = "DELETE FROM Voluntario_Area
+                    WHERE id_voluntario = '".$voluntario."' 
+                    AND area = '".$area."';";
+
+        $resrArea = mysqli_query($conn, $removeArea);
+
+        if (!($resrArea)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+        return TRUE;
+
+    }
+
+    function remove_populacao($voluntario, $populacao){
+
+        include "openconn.php";
+
+        $removePopulacao = "DELETE FROM Voluntario_Populacao_Alvo
+                            WHERE id_voluntario = '".$voluntario."' 
+                            AND populacao_alvo = '".$populacao."';";
+
+        $resrPopulacao = mysqli_query($conn, $removePopulacao);
+
+        if (!($resrPopulacao)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+        return TRUE;
+
+    }
+
+    function remove_disponibilidade($voluntario, $dia, $hora, $duracao){
+
+        include "openconn.php";
+
+        $removeDispo = "DELETE FROM Voluntario_Disponibilidade
+                        WHERE id_voluntario = '".$voluntario."' 
+                        AND dia = '".$dia."'
+                        AND hora = '".$hora."'
+                        AND duracao = '".$duracao."';";
+
+        $resrDispo = mysqli_query($conn, $removeDispo);
+
+        if (!($resrDispo)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+        return TRUE;
+
+    }
+
 ?>
