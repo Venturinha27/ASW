@@ -187,33 +187,3 @@
 ?>
 
 </body>
-<!--
-<footer>
-    <div id="EndDiv">
-    
-        <ul id="endContactosL">
-            <li>Tel.: 214938000</li>
-            <li>Mail: VoluntárioCOVID19@gmail.com</li>
-            <li>Morada: Rua D. Francisco, nº 92, Amadora </li>
-        </ul>
-    
-
-        <div class="vl"></div>
-
-        <ul id="endPaginas1">
-            <a href="Sobre.php"><li>Sobre</li></a>
-            <br>
-            <a href="Publicacoes.php"><li>Publicações</li></a>
-            <br>
-            <a href="Covid19.php"><li>COVID-19</li></a>
-        </ul>
-        <ul id="endPaginas2">
-            <a href="Instituicoes.php"><li>Instituições</li></a>
-            <br>
-            <a href="Voluntarios.php"><li>Voluntários</li></a>
-        </ul>
-
-        <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
-    </div>
-</footer>
--->

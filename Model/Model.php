@@ -418,5 +418,122 @@
 
     }
 
+    function emails_diferentes_logged($id) {
+
+        include "openconn.php";
+
+        $sqlEmailsD = "SELECT V.email
+                    FROM Voluntario V
+                    WHERE V.id <> '".$id."'
+                    UNION
+                    SELECT I.email
+                    FROM Instituicao I
+                    WHERE I.id <> '".$id."'";
+
+        $resultEmailsD = $conn->query($sqlEmailsD);
+
+        if (!($resultEmailsD)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultEmailsD;
+    }
+
+    function ccs_diferentes_logged($id) {
+
+        include "openconn.php";
+
+        $sqlCC = "SELECT cc
+                    FROM Voluntario
+                    WHERE V.id <> '".$id."'";  
+
+        $resultCC = $conn->query($sqlCC);
+
+        if (!($resultCC)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCC;
+    }
+
+    function select_password_vol($id){
+
+        include "openconn.php";
+
+        $sqlPw = "SELECT V.password1
+                FROM Voluntario V
+                WHERE V.id = '".$id."'";    
+
+        $resultPw = $conn->query($sqlPw);
+
+        if (!($resultPw)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultPw;
+
+    }
+
+    function update_voluntario_w_password($id, $nomeProprio, $dataNascimento, $genero, $avatar, $bio, $concelho, $distrito, $freguesia, $telefone, $CC, $carta, $covid, $Email, $Password){
+
+        include "openconn.php";
+
+        $query = "UPDATE Voluntario
+                SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
+                genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
+                distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
+                cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email',
+                password1 = '$Password'
+                WHERE id = '$id'"; 
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function update_voluntario($id, $nomeProprio, $dataNascimento, $genero, $avatar, $bio, $concelho, $distrito, $freguesia, $telefone, $CC, $carta, $covid, $Email){
+
+        include "openconn.php";
+
+        $query = "UPDATE Voluntario
+                SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
+                genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
+                distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
+                cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email' 
+                WHERE id = '$id'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+    
+
+    
+
 
 ?>

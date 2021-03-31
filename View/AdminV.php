@@ -35,11 +35,7 @@
                 <h5 id="acaoP">Ações</p>
             </div>
         </div>
-        <!--
-        <form action="admin.php" method="post" id="procura" class="w3-container">
-            <input class="w3-input w3-border w3-light-grey"type="text" name="search" placeholder="Digite algo: Concelho/Freguesia/Idade/Nome"/>
-            <input id="botao" type="submit" value= "PROCURAR"/>
-        </form>-->
+        
     </div>
 
     <div class="w3-container w3-small">
@@ -486,33 +482,3 @@
 ?>
 
 </body>
-<!--
-<footer>
-    <div id="EndDiv">
-    
-        <ul id="endContactosL">
-            <li>Tel.: 214938000</li>
-            <li>Mail: VoluntárioCOVID19@gmail.com</li>
-            <li>Morada: Rua D. Francisco, nº 92, Amadora </li>
-        </ul>
-    
-
-        <div class="vl"></div>
-
-        <ul id="endPaginas1">
-            <a href="Sobre.php"><li>Sobre</li></a>
-            <br>
-            <a href="Publicacoes.php"><li>Publicações</li></a>
-            <br>
-            <a href="Covid19.php"><li>COVID-19</li></a>
-        </ul>
-        <ul id="endPaginas2">
-            <a href="Instituicoes.php"><li>Instituições</li></a>
-            <br>
-            <a href="Voluntarios.php"><li>Voluntários</li></a>
-        </ul>
-
-        <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
-    </div>
-</footer>
--->

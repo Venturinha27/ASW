@@ -7,6 +7,12 @@
         header('Location: Login.php');
     }
 
+    include "../Model/Model.php";
+    include "../Controller/EditarPerfilController.php";
+    echo "here";
+    include "../Controller/HeaderController.php";
+    include "../Controller/SessionController.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,13 +31,11 @@
         <input type='text' class='w3-bar-item w3-input' placeholder='Procura...'>
         
         <?php
-
-            include "../Controller/HeaderController.php";
-            include "../Controller/SessionController.php";
             
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
             } else {
+                
                 $foto = "../" . loggedHeader();
 
                 echo "<div class='w3-dropdown-hover w3-right w3-mobile'>
@@ -83,7 +87,6 @@
 
 <?php
 
-    include 'openconn.php';
     include "TestInput.php";
 
     $loggedtype = $_SESSION['loggedtype'];
@@ -105,6 +108,8 @@
 
 <?php
 
+    echo "AQUIIIIIII";
+
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
     # -- VOLUNTARIO -------------------------------------------------------------------------
@@ -113,33 +118,22 @@
 
     if ($loggedtype == 'voluntario'){
 
-        $queryVoluntario = "SELECT id, nome_voluntario, foto, bio, data_nascimento, genero, concelho
-                            , distrito, freguesia, telefone, cc, carta_c, covid, email, password1
-                            FROM Voluntario
-                            WHERE id = '".$loggedid."';";
+        $queryVoluntario = openVoluntario($loggedid);   
 
-        $resultVoluntario = $conn->query($queryVoluntario);
-
-        if (!($resultVoluntario)) {
-            echo "Erro: search failed" . mysqli_error($conn);
-        }              
-
-        if ($row = $resultVoluntario->fetch_assoc()){
-            $nome_voluntario = $row['nome_voluntario'];
-            $foto = $row['foto'];
-            $bio = $row['bio'];
-            $data_nascimento = $row['data_nascimento'];
-            $genero = $row['genero'];
-            $concelho = $row['concelho'];
-            $distrito = $row['distrito'];
-            $freguesia = $row['freguesia'];
-            $telefone = $row['telefone'];
-            $cc = $row['cc'];
-            $carta_c = $row['carta_c'];
-            $covid = $row['covid'];
-            $email = $row['email'];
-            $password = $row['password1'];
-        }
+        $nome_voluntario = $queryVoluntario['nome_voluntario'];
+        $foto = $queryVoluntario['foto'];
+        $bio = $queryVoluntario['bio'];
+        $data_nascimento = $queryVoluntario['data_nascimento'];
+        $genero = $queryVoluntario['genero'];
+        $concelho = $queryVoluntario['concelho'];
+        $distrito = $queryVoluntario['distrito'];
+        $freguesia = $queryVoluntario['freguesia'];
+        $telefone = $queryVoluntario['telefone'];
+        $cc = $queryVoluntario['cc'];
+        $carta_c = $queryVoluntario['carta_c'];
+        $covid = $queryVoluntario['covid'];
+        $email = $queryVoluntario['email'];
+        $password = $queryVoluntario['password1'];
 
 
         echo "
@@ -172,7 +166,7 @@
             <div id='divDir'>
 
                 <label> <b>Fotografia de Perfil</b> </label> <br><br>
-                <img alt='Avatar' class='w3-circle' id='foto' src='$foto' />
+                <img alt='Avatar' class='w3-circle' id='foto' src='../$foto' />
                 <input type='hidden' name='MAX_FILE_SIZE' value='10000000' />
                 <input type='file' id='avatar' name='avatar'/>  <!--accept='image/png, image/jpeg'-->
                 <br><br>
@@ -275,15 +269,7 @@
 
         $voluntario = $_SESSION['loggedid'];
             
-        $sqlArea = "SELECT area
-                    FROM Voluntario_Area
-                    WHERE id_voluntario = '".$voluntario."';";
-
-        $resultA = $conn->query($sqlArea);
-            
-        if (!($resultA)) {
-            echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-        }              
+        $resultA = areasV($voluntario);     
 
         if ($resultA->num_rows > 0) {
 
@@ -328,15 +314,7 @@
 
         $voluntario = $_SESSION['loggedid'];
             
-        $sqlPopulacao = "SELECT populacao_alvo
-                    FROM Voluntario_Populacao_Alvo
-                    WHERE id_voluntario = '".$voluntario."';";
-
-        $resultP = $conn->query($sqlPopulacao);
-        
-        if (!($resultP)) {
-            echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-        }              
+        $resultP = populacaoV($voluntario);
 
         if ($resultP->num_rows > 0) {
 
@@ -420,15 +398,7 @@
         
         $voluntario = $_SESSION['loggedid'];
             
-        $sqlDisponibilidade = "SELECT dia, hora, duracao
-                    FROM Voluntario_Disponibilidade
-                    WHERE id_voluntario = '".$voluntario."';";
-
-        $resultD = $conn->query($sqlDisponibilidade);
-        
-        if (!($resultD)) {
-            echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-        }              
+        $resultD = disponibilidadeV($voluntario);
 
         if ($resultD->num_rows > 0) {
 
@@ -463,10 +433,7 @@
         if ($_POST['submitA']) {
             $area_interesse = test_input($_POST['area-interesse']);
 
-            $insertArea = "insert into Voluntario_Area
-                            values ('".$voluntario."' , '".$area_interesse."')";
-
-            $resArea = mysqli_query($conn, $insertArea);
+            $resArea = insertA($voluntario, $area_interesse);
             
             if ($resArea) {
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -476,12 +443,7 @@
         if ($_POST['submitP']) {
             $populacao_alvo = test_input($_POST['populacao-alvo']);
 
-            $insertPopulacao = "insert into Voluntario_Populacao_Alvo
-                            values ('".$voluntario."' , '".$populacao_alvo."')";
-
-            echo $insertPopulacao;
-
-            $resPopulacao = mysqli_query($conn, $insertPopulacao);
+            $resPopulacao = insertP($voluntario, $populacao_alvo);
             
             if ($resPopulacao) {
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -493,11 +455,7 @@
             $hora = test_input($_POST['disponibilidade-hora']);
             $duracao = test_input($_POST['disponibilidade-duracao']);
 
-            $insertDispo = "insert into Voluntario_Disponibilidade
-                            values ('".$voluntario."' , '".$dia."' ,
-                                '".$hora."' , '".$duracao."')";
-
-            $resDispo = mysqli_query($conn, $insertDispo);
+            $resDispo = insertD($voluntario, $dia, $hora, $duracao);
             
             if ($resDispo) {
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -507,11 +465,7 @@
         if (!empty($_POST['removeA'])){
             $rArea = test_input($_POST['removeA']);
 
-            $removeArea = "DELETE FROM Voluntario_Area
-                        WHERE id_voluntario = '".$voluntario."' 
-                        AND area = '".$rArea."';";
-
-            $resrArea = mysqli_query($conn, $removeArea);
+            $resrArea = removeArea($voluntario, $rArea);
             
             if ($resrArea) {
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -521,11 +475,7 @@
         if (!empty($_POST['removeP'])){
             $rPopulacao = test_input($_POST['removeP']);
 
-            $removePopulacao = "DELETE FROM Voluntario_Populacao_Alvo
-                        WHERE id_voluntario = '".$voluntario."' 
-                        AND populacao_alvo = '".$rPopulacao."';";
-
-            $resrPopulacao = mysqli_query($conn, $removePopulacao);
+            $resrPopulacao = removePopulacao($voluntario, $rPopulacao);
             
             if ($resrPopulacao) {
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -535,18 +485,7 @@
         if (!empty($_POST['removeD'])){
             $rDispo = test_input($_POST['removeD']);
 
-            $rDis = explode("/", $rDispo);
-            $rDia = $rDis[0];
-            $rHora = $rDis[1];
-            $rDuracao = $rDis[2];
-
-            $removeDispo = "DELETE FROM Voluntario_Disponibilidade
-                        WHERE id_voluntario = '".$voluntario."' 
-                        AND dia = '".$rDia."'
-                        AND hora = '".$rHora."'
-                        AND duracao = '".$rDuracao."';";
-
-            $resrDispo = mysqli_query($conn, $removeDispo);
+            $resrDispo = removeDisponibilidade($voluntario, $rDispo);
             
             if ($resrDispo) {
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -555,6 +494,8 @@
         
         echo "</div>
         </div>";
+
+    }
         
    
 ?>
@@ -563,7 +504,7 @@
 
 
 <?php
-            if (!empty($_POST['editarPerfilV'])){
+            /* if (!empty($_POST['editarPerfilV'])){
 
                 $id = $loggedid;
                 $nomeProprio = test_input($_POST['nomeProprio']); 
@@ -581,192 +522,30 @@
                 $carta = test_input($_POST['carta']); 
                 $covid = test_input($_POST['covid']);
 
-                $erro = 0;
+                include "../Controller/InputPhotoController.php";
 
-                if (($_FILES['avatar']['tmp_name']) != ''){
+                $avatar = test_photo();
 
-                    try {
+                if (substr($avatar,0,6) == "Images") {
 
-                        // Previne erros (podem ser ataques informaticos mas nao so).
-                        if (
-                            !isset($_FILES['avatar']['error']) ||
-                            is_array($_FILES['avatar']['error'])
-                        ) {
-                            throw new RuntimeException('Imagem inválida.');
-                        }
+                    $updateV = update_voluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
 
-                        // Verifica o valor do erro
-                        switch ($_FILES['avatar']['error']) {
-                            case UPLOAD_ERR_OK:
-                                break;
-                            case UPLOAD_ERR_NO_FILE:
-                                throw new RuntimeException('Nenhuma imagem enviada.');
-                            case UPLOAD_ERR_INI_SIZE:
-                            case UPLOAD_ERR_FORM_SIZE:
-                                throw new RuntimeException('Imagem demasiado grande.');
-                            default:
-                                throw new RuntimeException('Imagem inválida.');
-                        }
-
-                        // Verifica se o tamanho limite nao foi ultrapassado
-                        if ($_FILES['avatar']['size'] > 10000000) {
-                            throw new RuntimeException('Imagem demasiado grande.');
-                        }
-
-                        // Verifica o tipo do ficheiro
-                        $finfo = new finfo(FILEINFO_MIME_TYPE);
-                        if (false === $ext = array_search(
-                            $finfo->file($_FILES['avatar']['tmp_name']),
-                            array(
-                                'jpg' => 'image/jpeg',
-                                'png' => 'image/png',
-                                'gif' => 'image/gif',
-                            ),
-                            true
-                        )) {
-                            throw new RuntimeException('Formato da imagem inválido.');
-                        }
-
-                        $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
-
-                        // Obtem um nome unico para guardar a fotografia no servidor.
-                        if (!move_uploaded_file(
-                            $_FILES['avatar']['tmp_name'],
-                            sprintf('Images/%s.%s',
-                                sha1_file($_FILES['avatar']['tmp_name']),
-                                $ext
-                            )
-                        )) {
-                            throw new RuntimeException('Não foi possivel carregar a imagem.');
-                        }
-
-                    } catch (RuntimeException $e) {
-
-                        echo "<p class='erro'>".$e->getMessage()."</p>";
-                        $erro = 1;
-                        
-                    }
+                    echo $updateV;
 
                 } else {
-                    $avatar = $foto;
+                    // Erro no input da fotografia
+                    echo "<p class='erro'> ". $avatar ." </p>";
                 }
 
-                if ($erro == 0){
-                    $check = 0;
-
-                    $sqlNome = "SELECT V.email
-                                FROM Voluntario V
-                                WHERE V.id != '".$loggedid."'
-                                UNION
-                                SELECT I.email
-                                FROM Instituicao I
-                                WHERE I.id <> '".$loggedid."'";    
-
-                    $resultN = $conn->query($sqlNome);
-
-
-                    $sqlCC = "SELECT cc
-                                FROM Voluntario
-                                WHERE V.id <> '".$loggedid."'";  
-
-                    $resultCC = $conn->query($sqlCC);
-
-                    unset($msgErro);
-
-                    if (filter_var($Email, FILTER_VALIDATE_EMAIL) ){
-                        if (strlen((string)$telefone) == 9){
-                            if (strlen((string)$CC) == 8){
-                                if ($resultN->num_rows > 0) {
-                                    while ($row = $resultN->fetch_assoc()){
-                                        if ($row[0] == $Email){
-                                            $msgErro = "<p class='erro'> E-mail já existe </p>";
-                                        }
-                                    }
-                                }
-                                if ($resultCC->num_rows > 0) {
-                                    while ($rowC = $resultCC->fetch_assoc()){
-                                        if ($rowC[0] == $CC){
-                                            $msgErro = "<p class='erro'> CC já existe </p>";
-                                        }
-                                    }
-                                }
-                            } else {
-                                $msgErro = "<p class='erro'> Insira um cc válido </p>";
-                            }
-                        } else {
-                            $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
-                        }
-                    } else {
-                        $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
-                    }
-                    if (!empty($PasswordA) and !empty($PasswordN)){
-                        
-                        $sqlPw = "SELECT V.password1
-                                FROM Voluntario V
-                                WHERE V.id = '".$loggedid."'";    
-
-                        $resultPw = $conn->query($sqlPw);
-                        
-                        if ($rowPw = $resultPw->fetch_array()){
-                            if (password_verify($PasswordA, $rowPw[0])){
-                                if (strlen((string)$PasswordN) > 6){
-                                    $Password = password_hash($PasswordN, PASSWORD_DEFAULT);
-                                } else {
-                                    $msgErro = "<p class='erro'> Nova password deve ter pelo menos 7 carácteres </p>";
-                                }
-                            } else {
-                                $msgErro = "<p class='erro'> Password antiga não corresponde </p>";
-                            }
-                        }
-                    }
-                    
-                    echo $msgErro;
-
-                    if (!isset($msgErro)){
-
-                        if (isset($Password)){
-                            $query = "UPDATE Voluntario
-                                    SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
-                                    genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
-                                    distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
-                                    cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email',
-                                    password1 = '$Password'
-                                    WHERE id = '$loggedid'";
-                        } else {
-                            $query = "UPDATE Voluntario
-                                    SET id = '$id',nome_voluntario = '$nomeProprio', data_nascimento = '$dataNascimento',
-                                    genero = '$genero', foto = '$avatar', bio = '$bio', concelho = '$concelho',
-                                    distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
-                                    cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email' 
-                                    WHERE id = '$loggedid'";
-                        }
-                        
-                        $res = mysqli_query($conn, $query);
-                        
-                        if ($res) {
-                            #echo "<p class='erro'> ".$rowPw[0]." e $PasswordA </p>";
-                            $_SESSION['loggedtype'] = "voluntario";
-                            $_SESSION['logged'] = $nomeProprio;
-                            $_SESSION['loggedid'] = $id;
-                            $_SESSION['opentype'] = "voluntario";
-                            $_SESSION['open'] = $nomeProprio;
-                            $_SESSION['openid'] = $id;
-                            echo "<meta http-equiv='refresh' content='0'>";
-                        } else {
-                            echo "<h1 class='erro'> Algo deu errado. </h1>";
-                        }
-                        
-                    }
-                }
             }
                 
-    }
+    } */
 ?>
 
 
 
 
-<?php
+<?php /*
 
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
@@ -867,7 +646,7 @@
             <input id='submitI' class='w3-button w3-indigo w3-hover-blue' type='submit' name='editarPerfilI' value='Submeter'>
 
         </form>
-    </div>";
+    </div>"; */
 ?>
 
 
@@ -877,7 +656,7 @@
 
 <?php
 
-            if (!empty($_POST['editarPerfilI'])){
+            /* if (!empty($_POST['editarPerfilI'])){
 
                 $id = $loggedid;
                 $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
@@ -1052,90 +831,9 @@
                 }
             }
                 
-    }
+    } */
 
 ?>
-
-
-<!--
-    <div id='BrancoDiv' class='w3-container'>
-
-        <h2>Editar Perfil</h2>
-
-        <br>
-
-        <h3 class='w3-left-align'>Foto de Perfil:</h3>
-       
-        <div id='fotoPerfil'>
-            <h1></h1> Foto do utilizador
-        </div>
-
-        <form id='dados1'>
-            <label> Nome Completo:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label> E-mail:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Distrito:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Concelho:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Freguesia:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Data de Nascimento:</label>
-            <input type='text' class='w3-input' >
-            <br>
-        </form>
-        <form id='dados2'>
-            <label>Palavra-Passe:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Género:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Cartão do Cidadão:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Carta de Condução (S / N):</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Covid (S / N):</label>
-            <input type='text' class='w3-input' >
- 
-        </form>
-    </div>
-
-    <div id='DesDiv' class='w3-container'>
-
-        <h2>Editar Descrição</h2>
-
-        <form id='dadose'>
-            <br>
-            <label> Biografia: </label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label> Área de Interesse: </label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>População alvo:</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Disponibilidade (dia da semana):</label>
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Disponibilidade (perído do dia):</label>    
-            <input type='text' class='w3-input' >
-            <br>
-            <label>Disponibilidade (número de horas):</label>
-            <input type='text' class='w3-input' >
-        
-        </form>
-    </div>
- -->
 
 
 </body>
