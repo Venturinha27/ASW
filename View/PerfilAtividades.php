@@ -42,11 +42,11 @@
                     <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <a type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'>Ver perfil</a>
+                            <button type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'>Ver perfil</button>
                         </form>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <a type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'>Editar perfil</a>
+                            <button type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'>Editar perfil</button>
                         </form>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
@@ -64,7 +64,7 @@
 
             if ($_POST['selfopen']){
                 SelfOpen();
-                if ($_POST['selfopen'] = "selfopenP"){
+                if ($_POST['selfopen'] == "selfopenP"){
                     header("Location: Perfil.php");
                 } else {
                     header("Location: EditarPerfil.php");
