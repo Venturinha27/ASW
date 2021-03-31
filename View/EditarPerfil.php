@@ -7,11 +7,7 @@
         header('Location: Login.php');
     }
 
-    include "../Model/Model.php";
     include "../Controller/EditarPerfilController.php";
-    echo "here";
-    include "../Controller/HeaderController.php";
-    include "../Controller/SessionController.php";
 
 ?>
 <!DOCTYPE html>
@@ -31,6 +27,11 @@
         <input type='text' class='w3-bar-item w3-input' placeholder='Procura...'>
         
         <?php
+            
+            
+            include "../Controller/HeaderController.php";
+            echo "algo";
+            include "../Controller/SessionController.php";
             
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";

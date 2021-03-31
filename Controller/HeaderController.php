@@ -1,5 +1,7 @@
 <?php
 
+    include "../Model/Model.php";
+
     function loggedHeader(){
 
         $resultUtilizador = tipo_utilizador_query($_SESSION['loggedid']);
