@@ -352,4 +352,48 @@
 
     }
 
+    function query_voluntario($id) {
+
+        include "openconn.php";
+
+        $queryVoluntario = "SELECT id, nome_voluntario, foto, bio, data_nascimento,
+                             genero, concelho, distrito, freguesia, telefone, cc,
+                             carta_c, covid, email, password1
+                            FROM Voluntario
+                            WHERE id = '".$id."';";
+
+        $resultVoluntario = $conn->query($queryVoluntario);  
+        
+        if (!($resultVoluntario)) {
+            mysqli_close($conn);
+            return "Voluntário não existe.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultVoluntario;
+    }
+
+    function query_instituicao($id) {
+
+        include "openconn.php";
+
+        $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, distrito,
+                             concelho, freguesia, email, bio, nome_representante,
+                             email_representante, foto, website, password2
+                            FROM Instituicao
+                            WHERE id = '".$id."';";
+
+        $resultInstituicao = $conn->query($queryInstituicao); 
+        
+        if (!($resultInstituicao)) {
+            mysqli_close($conn);
+            return "Instituição não existe.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultInstituicao;
+    }
+
 ?>

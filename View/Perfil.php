@@ -6,6 +6,8 @@
     if (!isset($_SESSION['logged'])) {
         header("Location: Login.php");
     }
+
+    include "../Controller/PerfilController.php";
 ?>
 
 <!DOCTYPE html>
@@ -83,8 +85,6 @@
 
 <?php
 
-    include "openconn.php";
-
     $loggedtype = $_SESSION['loggedtype'];
     $logged = $_SESSION['logged'];
     $loggedid = $_SESSION['loggedid'];
@@ -98,47 +98,37 @@
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
 
+
+
     if ($opentype == 'voluntario'){
 
         # -- TABLE VOLUNTARIO ---------------------------------------------------
-        $queryHeaderVoluntario = "SELECT foto, bio, data_nascimento, genero, concelho
-                            , distrito, freguesia, telefone, carta_c, covid, email
-                            FROM Voluntario
-                            WHERE id = '".$openid."';";
-
-        $resultHeaderVoluntario = $conn->query($queryHeaderVoluntario);
-
         
+        $resultVoluntario = openVoluntario($openid);
 
-        if (!($resultHeaderVoluntario)) {
-            echo "Erro: search failed" . mysqli_error($conn);
-        }              
-
-       
-        
-        if ($row = $resultHeaderVoluntario->fetch_assoc()){
-            $foto = $row['foto'];
-            $bio = $row['bio'];
-            $data_nascimento = $row['data_nascimento'];
-            $genero = $row['genero'];
-            $concelho = $row['concelho'];
-            $distrito = $row['distrito'];
-            $freguesia = $row['freguesia'];
-            $telefone = $row['telefone'];
-            $carta_c = $row['carta_c'];
-            $covid = $row['covid'];
-            $email = $row['email'];
-        }
+        $id = $resultVoluntario['id'];
+        $nome_voluntario = $resultVoluntario['nome_voluntario'];
+        $foto = $resultVoluntario['foto'];
+        $bio = $resultVoluntario['bio'];
+        $data_nascimento = $resultVoluntario['data_nascimento'];
+        $genero = $resultVoluntario['genero'];
+        $concelho = $resultVoluntario['concelho'];
+        $distrito = $resultVoluntario['distrito'];
+        $freguesia = $resultVoluntario['freguesia'];
+        $telefone = $resultVoluntario['telefone'];
+        $cc = $resultVoluntario['cc'];
+        $carta_c = $resultVoluntario['carta_c'];
+        $covid = $resultVoluntario['covid'];
+        $email = $resultVoluntario['email'];
 
         # -- PREFERENCIAS VOLUNTARIO ---------------------------------------------------
-        
         
         echo "
             <div id='AzulDiv' >
 
-            <img alt='Avatar' class='w3-left w3-circle' src='$foto' />
+            <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />
                 
-                <h5>".$open."</h5>
+                <h5>".$nome_voluntario."</h5>
                 <br>
                 <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
                 <br>
@@ -191,20 +181,16 @@
                     <hr>
                     <h6><b>Áreas de interesse:</b></h6>";
 
-                    $queryVoluntarioArea = "SELECT area
-                    FROM Voluntario_Area
-                    WHERE id_voluntario = '".$openid."';";
-
-                    $resultVoluntarioArea = $conn->query($queryVoluntarioArea);
-
-                    if (!($resultVoluntarioArea)) {
+                    $areas = AreasVoluntario($openid);
+                    
+                    if (!($areas)) {
                         echo "Não tem áreas de interesse.";
                     }              
 
-                    if ($resultVoluntarioArea->num_rows > 0) {
+                    if ($areas->num_rows > 0) {
                         echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                         echo "<ul class='w3-ul w3-center'>";                                    
-                        while ($row = $resultVoluntarioArea->fetch_assoc()){
+                        while ($row = $areas->fetch_assoc()){
                             echo "<li>".$row['area']."</li>";
                         }
                         echo "</ul>";
@@ -213,22 +199,17 @@
 
                     echo "<hr>
                     <h6><b>População-alvo:</b></h6>";
-                    
-                    $queryVoluntarioPopulacao = "SELECT populacao_alvo
-                    FROM Voluntario_Populacao_Alvo
-                    WHERE id_voluntario = '".$openid."';";
 
-                    $resultVoluntarioPopulacao = $conn->query($queryVoluntarioPopulacao);
-
-                    if (!($resultVoluntarioPopulacao)) {
+                    $populacaoAlvo = PopulacaoVoluntario($openid);
+                
+                    if (!($populacaoAlvo)) {
                         echo "Não tem população-alvo.";
                     }              
 
-                    if ($resultVoluntarioPopulacao->num_rows > 0) {
-                          
+                    if ($populacaoAlvo->num_rows > 0) {
                         echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                         echo "<ul class='w3-ul w3-center'>"; 
-                        while ($row = $resultVoluntarioPopulacao->fetch_assoc()){
+                        while ($row = $populacaoAlvo->fetch_assoc()){
                             echo "<li>".$row['populacao_alvo']."</li>";
                         }
                         echo "</ul>";
@@ -238,20 +219,16 @@
                     echo"<hr>
                     <h6><b>Disponibilidade:</b></h6>";
 
-                    $queryVoluntarioDispo = "SELECT dia, hora, duracao
-                    FROM Voluntario_Disponibilidade
-                    WHERE id_voluntario = '".$openid."';";
+                    $disponibilidade = DisponibilidadeVoluntario($openid);
 
-                    $resultVoluntarioDispo = $conn->query($queryVoluntarioDispo);
-
-                    if (!($resultVoluntarioDispo)) {
+                    if (!($disponibilidade)) {
                         echo "Não tem disponibilidade.";
                     }              
 
-                    if ($resultVoluntarioDispo->num_rows > 0) {
+                    if ($disponibilidade->num_rows > 0) {
                         echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
                         echo "<ul class='w3-ul w3-center'>"; 
-                        while ($row = $resultVoluntarioDispo->fetch_assoc()){
+                        while ($row = $disponibilidade->fetch_assoc()){
                             echo "<li>".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</li>";
                         }
                         echo "</ul>";
@@ -270,46 +247,32 @@
 
     if ($opentype == 'instituicao'){
 
-        # -- TABLE INSTITUICAO ---------------------------------------------------
-        $queryHeaderInstituicao = "SELECT telefone, morada, distrito, concelho, freguesia,
-                            email, bio, nome_representante, email_representante, foto, website
-                            FROM Instituicao
-                            WHERE id = '".$openid."';";
+        $resultInstituicao = openInstituicao($openid);
 
-        $resultHeaderInstituicao = $conn->query($queryHeaderInstituicao);
+        # -- TABLE INSTITUICAO ---------------------------------------------------              
 
-        
-
-        if (!($resultHeaderInstituicao)) {
-            echo "Erro: search failed" . mysqli_error($conn);
-        }              
-
-       
-        
-        if ($row = $resultHeaderInstituicao->fetch_assoc()){
-            $telefone = $row['telefone'];
-            $morada = $row['morada'];
-            $distrito = $row['distrito'];
-            $concelho = $row['concelho'];
-            $freguesia = $row['freguesia'];
-            $email = $row['email'];
-            $bio = $row['bio'];
-            $nome_representante = $row['nome_representante'];
-            $email_representante = $row['email_representante'];
-            $foto = $row['foto'];
-            $website = $row['website'];
-        }
+        $id = $resultInstituicao['id'];
+        $nome_instituicao = $resultInstituicao['nome_instituicao'];
+        $telefone = $resultInstituicao['telefone'];
+        $morada = $resultInstituicao['morada'];
+        $distrito = $resultInstituicao['distrito'];
+        $concelho = $resultInstituicao['concelho'];
+        $freguesia = $resultInstituicao['freguesia'];
+        $email = $resultInstituicao['email'];
+        $bio = $resultInstituicao['bio'];
+        $nome_representante = $resultInstituicao['nome_representante'];
+        $email_representante = $resultInstituicao['email_representante'];
+        $foto = $resultInstituicao['foto'];
+        $website = $resultInstituicao['website'];
 
         # -- PREFERENCIAS INSTITUICAO ---------------------------------------------------
-        
-        #<img src='$foto' alt='Avatar' class='w3-left w3-circle' >
         
         echo "
             <div id='AzulDiv' >
         
-                <img alt='Avatar' class='w3-left w3-circle' src='$foto' />       
+                <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />       
                 
-                <h5>".$open."</h5>
+                <h5>".$nome_instituicao."</h5>
                 <br>
                 <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
                 <br>
@@ -364,53 +327,6 @@
             </div>";
     }
 
-
-    # ---------------------------------------------------------------------------------------
-    # ---------------------------------------------------------------------------------------
-    # --------------- MENSAGENS -------------------------------------------------------------
-    # ---------------------------------------------------------------------------------------
-    # ---------------------------------------------------------------------------------------
-
-    
-    // if ($openid == $loggedid){
-    //     echo "
-    //     <button id='openMensagens' class='divClosed'><i class='fas fa-comment-dots w3-left' id='openMp'></i></button>
-
-    //     <div id='MessageDiv' class='w3-sidebar hidden'>
-
-    //         <h3>Mensagens</h3>
-
-    //         <input type='text' class='w3-bar w3-input' placeholder='Procurar conversas'>
-
-    //         <div class='w3-card-2 w3-white conversa'>
-    //             <h4>Dona Dulce</h4>
-    //             <p>Manel João: Tão dona dulce e a familia com...</p>
-    //         </div>
-
-    //         <div class='w3-card-2 w3-white conversa'>
-    //             <h4>Dom Manuel</h4>
-    //             <p>Manel João: Tão Manecas e a familia com...</p>
-    //         </div>
-
-    //         <div class='w3-card-2 w3-white conversa'>
-    //             <h4>Dona Joana</h4>
-    //             <p>Manel João: Tão dona joana e a familia com...</p>
-    //         </div>
-
-    //         <div class='w3-card-2 w3-white conversa'>
-    //             <h4>Zé Tartaruga</h4>
-    //             <p>Manel João: Tão ZeTa e a familia com...</p>
-    //         </div>
-
-    //         <div class='w3-card-2 w3-white conversa'>
-    //             <h4>Portugal Solidário</h4>
-    //             <p>Manel João: Tão Portugal Solidário e a covid com...</p>
-    //         </div>
-    //     </div>";
-    // }
-
-    mysqli_close($conn);
-
 ?>
 
         <div id='SugDiv'>
@@ -461,34 +377,3 @@
         </div>
 
 </body>
-
-    <!--
-    <footer>
-        <div id="EndDiv">
-        
-            <ul id="endContactosL">
-                <li>Tel.: 93-77-tira-tira-mete-mete</li>
-                <li>Mail: VoluntárioCOVID19@mail.com</li>
-                <li>Morada: Rua D. Francisco, nº 92, Amadora city</li>
-            </ul>
-        
-    
-            <div class="vl"></div>
-    
-            <ul id="endPaginas1">
-                <a href="Sobre.php"><li>Sobre</li></a>
-                <br>
-                <a href="Publicacoes.php"><li>Publicações</li></a>
-                <br>
-                <a href="Covid19.php"><li>COVID-19</li></a>
-            </ul>
-            <ul id="endPaginas2">
-                <a href="Instituicoes.php"><li>Instituições</li></a>
-                <br>
-                <a href="Voluntarios.php"><li>Voluntários</li></a>
-            </ul>
-    
-            <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
-        </div>
-    </footer>
-    -->

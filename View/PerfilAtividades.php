@@ -251,28 +251,6 @@
 
     ?>
 
-<!--
-    <div id="AzulDiv" >
-
-        <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
-
-        <h5>Manel João</h5>
-        <hr>
-        <h6>27 publicações <i class="fa fa-deviantart"></i> 13 seguidores <i class="fa fa-deviantart"></i> 17 seguindo</h6>
-        <hr>
-        <p>Olá sou o Manel João e estou como sou no alta definição</p>
-
-        <a href="EditarPerfil.php"><button class="w3-button" id="EditarPerfil">
-            Editar perfil
-        </button></a>
-
-        <a href="Login.php"><button class="w3-button" id="TerminarSessao">
-            Terminar sessão
-        </button></a>
-    </div>
-    -->
-
-
     <div id="BodyDiv">
         <div id="MenuBody">
             <a href="Perfil.php"><button class="w3-button w3-white w3-hover-indigo" id="Perfil">
@@ -342,113 +320,11 @@
                     }
                 }
             ?>
-            <!--
-            <div class="w3-card-4" id="card1">
-
-                <header class="w3-container">
-                    <h3>Portugal Voluntário</h3>
-                </header>
-                
-                <div class="w3-container">
-                    <h5>Compras para idosos</h5>
-                    <hr>
-                    <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-                    <h6>Breve descrição da instituição</h6>
-                    <hr>
-                    <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-                    <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-                    <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-                    <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-                </div>
-                
-                <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-                
-            </div>
-
-            <div class="w3-card-4" id="card2">
-        
-                <header class="w3-container">
-                    <h3>Programa Agora Nós</h3>
-                </header>
-                
-                <div class="w3-container">
-                    <h5>Distribuir comida</h5>
-                    <hr>
-                    <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-                    <h6>Breve descrição da instituição</h6>
-                    <hr>
-                    <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-                    <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-                    <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-                    <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-                </div>
-                
-                <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-                
-            </div>
-        
-            <div class="w3-card-4" id="card3">
-        
-                <header class="w3-container">
-                    <h3>Portugal Voluntário</h3>
-                </header>
-                
-                <div class="w3-container">
-                    <h5>Apoiar o lar xd</h5>
-                    <hr>
-                    <img src="Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-                    <h6>Breve descrição da instituição</h6>
-                    <hr>
-                    <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-                    <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-                    <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-                    <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-                </div>
-                
-                <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-                
-            </div>
-            -->
+            
             
         </div>
 
     </div>
-
-    <!--
-    <button id="openMensagens" class="divClosed"><i class="fas fa-comment-dots w3-left" id="openMp"></i></button>
-
-    <div id="MessageDiv" class="w3-sidebar hidden">
-
-        <h3>Mensagens</h3>
-
-        <input type="text" class="w3-bar w3-input" placeholder="Procurar conversas">
-
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Dona Dulce</h4>
-            <p>Manel João: Tão dona dulce e a familia com...</p>
-        </div>
-
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Dom Manuel</h4>
-            <p>Manel João: Tão Manecas e a familia com...</p>
-        </div>
-
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Dona Joana</h4>
-            <p>Manel João: Tão dona joana e a familia com...</p>
-        </div>
-
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Zé Tartaruga</h4>
-            <p>Manel João: Tão ZeTa e a familia com...</p>
-        </div>
-
-        <div class="w3-card-2 w3-white conversa">
-            <h4>Portugal Solidário</h4>
-            <p>Manel João: Tão Portugal Solidário e a covid com...</p>
-        </div>
-    </div>
-    -->
 
         <div id='SugDiv'>
                 <header class='w3-container w3-indigo w3-round'>
@@ -500,33 +376,3 @@
 
     </body>
 
-<!--
-    <footer>
-        <div id="EndDiv">
-        
-            <ul id="endContactosL">
-                <li>Tel.: 93-77-tira-tira-mete-mete</li>
-                <li>Mail: VoluntárioCOVID19@mail.com</li>
-                <li>Morada: Rua D. Francisco, nº 92, Amadora city</li>
-            </ul>
-        
-    
-            <div class="vl"></div>
-    
-            <ul id="endPaginas1">
-                <a href="Sobre.php"><li>Sobre</li></a>
-                <br>
-                <a href="Publicacoes.php"><li>Publicações</li></a>
-                <br>
-                <a href="Covid19.php"><li>COVID-19</li></a>
-            </ul>
-            <ul id="endPaginas2">
-                <a href="Instituicoes.php"><li>Instituições</li></a>
-                <br>
-                <a href="Voluntarios.php"><li>Voluntários</li></a>
-            </ul>
-    
-            <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
-        </div>
-    </footer>
--->
