@@ -6,7 +6,7 @@
         if ($row = $voluntario->fetch_assoc()){
             return $row;
         }
-        
+
     }
 
     function AreasVoluntario($id) {
@@ -37,6 +37,18 @@
             return $row;
         }
 
+    }
+
+    function AcoesInstituicao($id) {
+        $acoes = acoes_instituicao($id);
+        return $acoes;
+    }
+
+    function FotoInstituicao($id) {
+        $foto = foto_instituicao($id);
+        if ($row = $foto->fetch_assoc()){
+            return $row;
+        }
     }
 
 ?>

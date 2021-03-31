@@ -396,4 +396,27 @@
         return $resultInstituicao;
     }
 
+    function acoes_instituicao($id) {
+
+        include "openconn.php";
+
+        $queryAcoes = "SELECT id_instituicao, id_acao, titulo, distrito, concelho, freguesia, funcao, 
+                    area_interesse, populacao_alvo, num_vagas, dia, hora, duracao
+                    FROM Acao
+                    WHERE id_instituicao = '".$id."';";
+
+        $resultA = $conn->query($queryAcoes);
+        
+        if (!($resultA)) {
+            mysqli_close($conn);
+            return "Instituição não tem ações.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultA;
+
+    }
+
+
 ?>

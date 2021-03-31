@@ -6,6 +6,8 @@
     if (!isset($_SESSION['logged'])) {
         header("Location: Login.php");
     }
+
+    include "../Controller/PerfilController.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,195 +84,145 @@
 
     <?php
 
-        include "openconn.php";
+    $loggedtype = $_SESSION['loggedtype'];
+    $logged = $_SESSION['logged'];
+    $loggedid = $_SESSION['loggedid'];
+    $opentype = $_SESSION['opentype'];
+    $open = $_SESSION['open'];
+    $openid = $_SESSION['openid'];
 
-        $loggedtype = $_SESSION['loggedtype'];
-        $logged = $_SESSION['logged'];
-        $loggedid = $_SESSION['loggedid'];
-        $opentype = $_SESSION['opentype'];
-        $open = $_SESSION['open'];
-        $openid = $_SESSION['openid'];
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # -- VOLUNTARIO -------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
 
-        # ---------------------------------------------------------------------------------------
-        # ---------------------------------------------------------------------------------------
-        # -- VOLUNTARIO -------------------------------------------------------------------------
-        # ---------------------------------------------------------------------------------------
-        # ---------------------------------------------------------------------------------------
+    if ($opentype == 'voluntario'){
 
-        if ($opentype == 'voluntario'){
-
-            # -- TABLE VOLUNTARIO ---------------------------------------------------
-            $queryHeaderVoluntario = "SELECT foto, bio, data_nascimento, genero, concelho
-                                , distrito, freguesia, telefone, carta_c, covid, email
-                                FROM Voluntario
-                                WHERE id = '".$openid."';";
-
-            $resultHeaderVoluntario = $conn->query($queryHeaderVoluntario);
-
-            
-
-            if (!($resultHeaderVoluntario)) {
-                echo "Erro: search failed" . mysqli_error($conn);
-            }              
-
+        # -- TABLE VOLUNTARIO ---------------------------------------------------
         
-            
-            if ($row = $resultHeaderVoluntario->fetch_assoc()){
-                $foto = $row['foto'];
-                $bio = $row['bio'];
-                $data_nascimento = $row['data_nascimento'];
-                $genero = $row['genero'];
-                $concelho = $row['concelho'];
-                $distrito = $row['distrito'];
-                $freguesia = $row['freguesia'];
-                $telefone = $row['telefone'];
-                $carta_c = $row['carta_c'];
-                $covid = $row['covid'];
-                $email = $row['email'];
-            }
+        $resultVoluntario = openVoluntario($openid);
 
-            # -- PREFERENCIAS VOLUNTARIO ---------------------------------------------------
-            
-            
-            echo "
-                <div id='AzulDiv' >
+        $id = $resultVoluntario['id'];
+        $nome_voluntario = $resultVoluntario['nome_voluntario'];
+        $foto = $resultVoluntario['foto'];
+        $bio = $resultVoluntario['bio'];
+        $data_nascimento = $resultVoluntario['data_nascimento'];
+        $genero = $resultVoluntario['genero'];
+        $concelho = $resultVoluntario['concelho'];
+        $distrito = $resultVoluntario['distrito'];
+        $freguesia = $resultVoluntario['freguesia'];
+        $telefone = $resultVoluntario['telefone'];
+        $cc = $resultVoluntario['cc'];
+        $carta_c = $resultVoluntario['carta_c'];
+        $covid = $resultVoluntario['covid'];
+        $email = $resultVoluntario['email'];
 
-                <img alt='Avatar' class='w3-left w3-circle' src='$foto' />
-                    
-                    <h5>".$open."</h5>
-                    <hr>
-                    <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
-                    <hr>
-                    <p>".$bio."</p>
-
-                    ";
-                    
-                    if ($openid == $loggedid){
-                        echo "
-                        <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
-                            Editar perfil
-                        </button></a>
-
-                        <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
-                            Terminar sessão
-                        </button></a>";
-                    } else {
-                        echo "
-                        <a><button class='w3-button' id='EnviarMensagem'>
-                            Enviar Mensagem
-                        </button></a>
-
-                        <a href='Login.php'><button class='w3-button' id='Seguir'>
-                            Seguir
-                        </button></a>";
-                    }
-                    
-                echo "</div>";
-
-        }
-
-
-        # ---------------------------------------------------------------------------------------
-        # ---------------------------------------------------------------------------------------
-        # --------------- INSTITICAO ------------------------------------------------------------
-        # ---------------------------------------------------------------------------------------
-        # ---------------------------------------------------------------------------------------
-
-        if ($opentype == 'instituicao'){
-
-            # -- TABLE INSTITUICAO ---------------------------------------------------
-            $queryHeaderInstituicao = "SELECT telefone, morada, distrito, concelho, freguesia,
-                                email, bio, nome_representante, email_representante, foto, website
-                                FROM Instituicao
-                                WHERE id = '".$openid."';";
-
-            $resultHeaderInstituicao = $conn->query($queryHeaderInstituicao);
-
-            
-
-            if (!($resultHeaderInstituicao)) {
-                echo "Erro: search failed" . mysqli_error($conn);
-            }              
-
+        # -- PREFERENCIAS VOLUNTARIO ---------------------------------------------------
         
-            
-            if ($row = $resultHeaderInstituicao->fetch_assoc()){
-                $telefone = $row['telefone'];
-                $morada = $row['morada'];
-                $distrito = $row['distrito'];
-                $concelho = $row['concelho'];
-                $freguesia = $row['freguesia'];
-                $email = $row['email'];
-                $bio = $row['bio'];
-                $nome_representante = $row['nome_representante'];
-                $email_representante = $row['email_representante'];
-                $foto = $row['foto'];
-                $website = $row['website'];
-            }
+        echo "
+            <div id='AzulDiv' >
 
-            # -- PREFERENCIAS INSTITUICAO ---------------------------------------------------
-            
-            #<img src='$foto' alt='Avatar' class='w3-left w3-circle' >
-            
+            <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />
+                
+                <h5>".$nome_voluntario."</h5>
+                <br>
+                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
+                <br>
+                <p>".$bio."</p>
+        ";
+                
+        if ($openid == $loggedid){
             echo "
-                <div id='AzulDiv' >
-            
-                    <img alt='Avatar' class='w3-left w3-circle' src='$foto' />       
-                    
-                    <h5>".$open."</h5>
-                    <hr>
-                    <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
-                    <hr>
-                    <p>".$bio."</p>
+            <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
+                Editar perfil
+            </button></a>
 
-                    ";
-                    
-                    if ($openid == $loggedid){
-                        echo "
-                        <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
-                            Editar perfil
-                        </button></a>
+            <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
+                Terminar sessão
+            </button></a>";
+        } else {
+            echo "
+            <a><button class='w3-button' id='EnviarMensagem'>
+                Enviar Mensagem
+            </button></a>
 
-                        <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
-                            Terminar sessão
-                        </button></a>";
-                    } else {
-                        echo "
-                        <a><button class='w3-button' id='EnviarMensagem'>
-                            Enviar Mensagem
-                        </button></a>
-
-                        <a href='Login.php'><button class='w3-button' id='Seguir'>
-                            Seguir
-                        </button></a>";
-                    }
-                    
-                echo "</div>";
-
+            <a href='Login.php'><button class='w3-button' id='Seguir'>
+                Seguir
+            </button></a>";
         }
+                
+        echo "</div>";
+
+    }
+
+
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # --------------- INSTITICAO ------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+
+    if ($opentype == 'instituicao'){
+
+        $resultInstituicao = openInstituicao($openid);
+
+        # -- TABLE INSTITUICAO ---------------------------------------------------              
+
+        $id = $resultInstituicao['id'];
+        $nome_instituicao = $resultInstituicao['nome_instituicao'];
+        $telefone = $resultInstituicao['telefone'];
+        $morada = $resultInstituicao['morada'];
+        $distrito = $resultInstituicao['distrito'];
+        $concelho = $resultInstituicao['concelho'];
+        $freguesia = $resultInstituicao['freguesia'];
+        $email = $resultInstituicao['email'];
+        $bio = $resultInstituicao['bio'];
+        $nome_representante = $resultInstituicao['nome_representante'];
+        $email_representante = $resultInstituicao['email_representante'];
+        $foto = $resultInstituicao['foto'];
+        $website = $resultInstituicao['website'];
+
+        # -- PREFERENCIAS INSTITUICAO ---------------------------------------------------
+        
+        echo "
+            <div id='AzulDiv' >
+        
+                <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />       
+                
+                <h5>".$nome_instituicao."</h5>
+                <br>
+                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
+                <br>
+                <p>".$bio."</p>
+        ";
+                
+        if ($openid == $loggedid){
+            echo "
+            <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
+                Editar perfil
+            </button></a>
+
+            <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
+                Terminar sessão
+            </button></a>";
+        } else {
+            echo "
+            <a><button class='w3-button' id='EnviarMensagem'>
+                Enviar Mensagem
+            </button></a>
+
+            <a href='Login.php'><button class='w3-button' id='Seguir'>
+                Seguir
+            </button></a>";
+        }
+                
+        echo "</div>";
+
+    }
 
     ?>
 
-<!--
-    <div id="AzulDiv" >
-
-        <img src="Images/voluntario.jpg" alt="Avatar" class="w3-left w3-circle">
-
-        <h5>Manel João</h5>
-        <hr>
-        <h6>27 publicações <i class="fa fa-deviantart"></i> 13 seguidores <i class="fa fa-deviantart"></i> 17 seguindo</h6>
-        <hr>
-        <p>Olá sou o Manel João e estou como sou no alta definição</p>
-
-        <a href="EditarPerfil.php"><button class="w3-button" id="EditarPerfil">
-            Editar perfil
-        </button></a>
-
-        <a href="Login.php"><button class="w3-button" id="TerminarSessao">
-            Terminar sessão
-        </button></a>
-    </div>
-    -->
 
     <div id="BodyDiv">
         <div id="MenuBody">
