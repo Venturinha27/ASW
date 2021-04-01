@@ -50,7 +50,7 @@
         return remove_disponibilidade($voluntario, $dia, $hora, $duracao);
     }
 
-    function update_voluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar) {
+    function updateVoluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar) {
         
         $emailsDif = emails_diferentes_logged($loggedid);
 

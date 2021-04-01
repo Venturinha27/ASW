@@ -8,7 +8,7 @@
     }
 
     include "../Controller/EditarPerfilController.php";
-
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,10 +27,8 @@
         <input type='text' class='w3-bar-item w3-input' placeholder='Procura...'>
         
         <?php
-            
-            
+
             include "../Controller/HeaderController.php";
-            echo "algo";
             include "../Controller/SessionController.php";
             
             if (!isset($_SESSION['logged'])) {
@@ -73,7 +71,7 @@
                 } else {
                     header("Location: EditarPerfil.php");
                 }
-            }
+            } 
         ?>
         <a href='Voluntarios.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>Voluntários</a>
         <a href='Instituicoes.php' class='w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile'>Instituições</a>
@@ -86,6 +84,14 @@
 
 <body>
 
+<div id='BrancoDiv' class='w3-container'>
+
+    <h2><b>Editar Perfil</b></h2>
+
+    <br>
+
+    <form id='registertext' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method='post'>
+
 <?php
 
     include "TestInput.php";
@@ -97,20 +103,6 @@
     $open = $_SESSION['open'];
     $openid = $_SESSION['openid'];
 
-?>
-
-<div id='BrancoDiv' class='w3-container'>
-
-    <h2><b>Editar Perfil</b></h2>
-
-    <br>
-
-    <form id='registertext' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method='post'>
-
-<?php
-
-    echo "AQUIIIIIII";
-
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
     # -- VOLUNTARIO -------------------------------------------------------------------------
@@ -119,7 +111,8 @@
 
     if ($loggedtype == 'voluntario'){
 
-        $queryVoluntario = openVoluntario($loggedid);   
+        # ERRO
+        $queryVoluntario = openVoluntario($loggedid);
 
         $nome_voluntario = $queryVoluntario['nome_voluntario'];
         $foto = $queryVoluntario['foto'];
@@ -529,7 +522,7 @@
 
                 if (substr($avatar,0,6) == "Images") {
 
-                    $updateV = update_voluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
+                    $updateV = updateVoluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
 
                     echo $updateV;
 

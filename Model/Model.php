@@ -508,7 +508,8 @@
 
     }
 
-    function update_voluntario($id, $nomeProprio, $dataNascimento, $genero, $avatar, $bio, $concelho, $distrito, $freguesia, $telefone, $CC, $carta, $covid, $Email){
+    function update_voluntario($id, $nomeProprio, $dataNascimento, $genero, $avatar, $bio, $concelho,
+                                 $distrito, $freguesia, $telefone, $CC, $carta, $covid, $Email){
 
         include "openconn.php";
 
@@ -531,9 +532,5 @@
         return $result;
 
     }
-    
-
-    
-
 
 ?>
