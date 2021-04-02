@@ -489,57 +489,54 @@
         echo "</div>
         </div>";
 
-    }
-        
-   
+    } 
+?>
+
+<?php
+        if (!empty($_POST['editarPerfilV'])){
+
+            $id = $loggedid;
+            $nomeProprio = test_input($_POST['nomeProprio']); 
+            $Email = test_input($_POST['E-mail']);                       #unique
+            $PasswordA = test_input($_POST['PasswordA']);
+            $PasswordN = test_input($_POST['PasswordN']);
+            $telefone = test_input($_POST['telefone']);
+            $dataNascimento = test_input($_POST['dataNascimento']);
+            $CC = test_input($_POST['CC']);                              #unique
+            $bio = test_input($_POST['bio']); 
+            $distrito = test_input($_POST['distrito']);
+            $concelho = test_input($_POST['concelho']);
+            $freguesia = test_input($_POST['freguesia']);
+            $genero = test_input($_POST['genero']);
+            $carta = test_input($_POST['carta']); 
+            $covid = test_input($_POST['covid']);
+
+            include "../Controller/InputPhotoController.php";
+
+            $avatar = test_photo();
+
+            if ($avatar == 'Nenhuma imagem enviada.') {
+                $avatar = $foto;
+            }
+
+            if (substr($avatar,0,6) == "Images") {
+
+                $updateV = updateVoluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
+
+                echo $updateV;
+
+            } else {
+                // Erro no input da fotografia
+                echo "<p class='erro'> ". $avatar ." </p>";
+            }
+
+        }
 ?>
 
 
 
 
 <?php
-            /* if (!empty($_POST['editarPerfilV'])){
-
-                $id = $loggedid;
-                $nomeProprio = test_input($_POST['nomeProprio']); 
-                $Email = test_input($_POST['E-mail']);                       #unique
-                $PasswordA = test_input($_POST['PasswordA']);
-                $PasswordN = test_input($_POST['PasswordN']);
-                $telefone = test_input($_POST['telefone']);
-                $dataNascimento = test_input($_POST['dataNascimento']);
-                $CC = test_input($_POST['CC']);                              #unique
-                $bio = test_input($_POST['bio']); 
-                $distrito = test_input($_POST['distrito']);
-                $concelho = test_input($_POST['concelho']);
-                $freguesia = test_input($_POST['freguesia']);
-                $genero = test_input($_POST['genero']);
-                $carta = test_input($_POST['carta']); 
-                $covid = test_input($_POST['covid']);
-
-                include "../Controller/InputPhotoController.php";
-
-                $avatar = test_photo();
-
-                if (substr($avatar,0,6) == "Images") {
-
-                    $updateV = updateVoluntario($id, $nomeProprio, $Email, $PasswordA, $PasswordN, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
-
-                    echo $updateV;
-
-                } else {
-                    // Erro no input da fotografia
-                    echo "<p class='erro'> ". $avatar ." </p>";
-                }
-
-            }
-                
-    } */
-?>
-
-
-
-
-<?php /*
 
     # ---------------------------------------------------------------------------------------
     # ---------------------------------------------------------------------------------------
@@ -549,36 +546,22 @@
 
     if ($loggedtype == 'instituicao'){
 
-        $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, concelho, distrito, 
-                            freguesia, email, bio, nome_representante, email_representante, password2, foto,
-                            website
-                            FROM Instituicao
-                            WHERE id = '".$loggedid."';";
+        $instituicao = openInstituicao($loggedid);
 
-        $resultInstituicao = $conn->query($queryInstituicao);
-
-        if (!($resultInstituicao)) {
-            echo "Erro: search failed" . mysqli_error($conn);
-        }              
-
-        if ($row = $resultInstituicao->fetch_assoc()){
-
-            $id = $row['id'];
-            $nome_instituicao = $row['nome_instituicao'];
-            $telefone = $row['telefone'];
-            $morada = $row['morada'];
-            $concelho = $row['concelho'];
-            $distrito = $row['distrito'];
-            $freguesia = $row['freguesia'];
-            $email = $row['email'];
-            $bio = $row['bio'];
-            $nome_representante = $row['nome_representante'];
-            $email_representante = $row['email_representante'];
-            $password2 = $row['password2'];
-            $foto = $row['foto'];
-            $website = $row['website'];
-        }
-
+        $id = $instituicao['id'];
+        $nome_instituicao = $instituicao['nome_instituicao'];
+        $telefone = $instituicao['telefone'];
+        $morada = $instituicao['morada'];
+        $concelho = $instituicao['concelho'];
+        $distrito = $instituicao['distrito'];
+        $freguesia = $instituicao['freguesia'];
+        $email = $instituicao['email'];
+        $bio = $instituicao['bio'];
+        $nome_representante = $instituicao['nome_representante'];
+        $email_representante = $instituicao['email_representante'];
+        $password2 = $instituicao['password2'];
+        $foto = $instituicao['foto'];
+        $website = $instituicao['website'];
 
         echo "
             <div id='divEsq'>
@@ -606,7 +589,7 @@
             <div id='divDir'>
                         
                 <label> <b>Fotografia de Perfil</b> </label> <br><br>
-                <img alt='Avatar' class='w3-circle' id='foto' src='$foto' />
+                <img alt='Avatar' class='w3-circle' id='foto' src='../$foto' />
                 <input type='hidden' name='MAX_FILE_SIZE' value='10000000' />
                 <input type='file' id='avatar' name='avatar'>
                 <br><br>
@@ -640,192 +623,47 @@
             <input id='submitI' class='w3-button w3-indigo w3-hover-blue' type='submit' name='editarPerfilI' value='Submeter'>
 
         </form>
-    </div>"; */
-?>
+    </div>"; 
+    }
 
+    if (!empty($_POST['editarPerfilI'])){
 
+        $id = $loggedid;
+        $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
+        $telefone = test_input($_POST['telefone']);
+        $morada = test_input($_POST['morada']);
+        $distrito = test_input($_POST['distrito']);
+        $concelho = test_input($_POST['concelho']);
+        $freguesia = test_input($_POST['freguesia']);
+        $email = test_input($_POST['email']); #unique
+        $nomeRepresentante = test_input($_POST['nomeRepresentante']);
+        $emailRepresentante = test_input($_POST['emailRepresentante']);
+        $PasswordA = test_input($_POST['PasswordA']);
+        $PasswordN = test_input($_POST['PasswordN']);
+        $bio = test_input($_POST['bio']);
+        $website = test_input($_POST['website']); # pode ser null
 
+        include "../Controller/InputPhotoController.php";
 
+        $instituicao = openInstituicao($loggedid);
+        $fotografia = $instituicao['foto'];
 
+        $avatar = test_photo();
 
-<?php
+        if ($avatar == 'Nenhuma imagem enviada.') {
+            $avatar = $fotografia;
+        }
 
-            /* if (!empty($_POST['editarPerfilI'])){
+        if (substr($avatar,0,6) == "Images") {
 
-                $id = $loggedid;
-                $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
-                $telefone = test_input($_POST['telefone']);
-                $morada = test_input($_POST['morada']);
-                $distrito = test_input($_POST['distrito']);
-                $concelho = test_input($_POST['concelho']);
-                $freguesia = test_input($_POST['freguesia']);
-                $email = test_input($_POST['email']); #unique
-                $nomeRepresentante = test_input($_POST['nomeRepresentante']);
-                $emailRepresentante = test_input($_POST['emailRepresentante']);
-                $PasswordA = test_input($_POST['PasswordA']);
-                $PasswordN = test_input($_POST['PasswordN']);
-                $bio = test_input($_POST['bio']);
-                $website = test_input($_POST['website']); # pode ser null
+            $updateI = updateInstituicao($id, $nomeInstituicao, $telefone, $morada, $distrito, $concelho, $freguesia, $email, $nomeRepresentante, $emailRepresentante, $PasswordA, $PasswordN, $bio, $website, $avatar);
+            echo $updateI;
 
-                $erro = 0;
-
-                if (($_FILES['avatar']['tmp_name']) != ''){
-
-                    try {
-
-                        // Previne erros (podem ser ataques informaticos mas nao so).
-                        if (
-                            !isset($_FILES['avatar']['error']) ||
-                            is_array($_FILES['avatar']['error'])
-                        ) {
-                            throw new RuntimeException('Imagem inválida.');
-                        }
-
-                        // Verifica o valor do erro
-                        switch ($_FILES['avatar']['error']) {
-                            case UPLOAD_ERR_OK:
-                                break;
-                            case UPLOAD_ERR_NO_FILE:
-                                throw new RuntimeException('Nenhuma imagem enviada.');
-                            case UPLOAD_ERR_INI_SIZE:
-                            case UPLOAD_ERR_FORM_SIZE:
-                                throw new RuntimeException('Imagem demasiado grande.');
-                            default:
-                                throw new RuntimeException('Imagem inválida.');
-                        }
-
-                        // Verifica se o tamanho limite nao foi ultrapassado
-                        if ($_FILES['avatar']['size'] > 10000000) {
-                            throw new RuntimeException('Imagem demasiado grande.');
-                        }
-
-                        // Verifica o tipo do ficheiro
-                        $finfo = new finfo(FILEINFO_MIME_TYPE);
-                        if (false === $ext = array_search(
-                            $finfo->file($_FILES['avatar']['tmp_name']),
-                            array(
-                                'jpg' => 'image/jpeg',
-                                'png' => 'image/png',
-                                'gif' => 'image/gif',
-                            ),
-                            true
-                        )) {
-                            throw new RuntimeException('Formato da imagem inválido.');
-                        }
-
-                        $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
-
-                        // Obtem um nome unico para guardar a fotografia no servidor.
-                        if (!move_uploaded_file(
-                            $_FILES['avatar']['tmp_name'],
-                            sprintf('Images/%s.%s',
-                                sha1_file($_FILES['avatar']['tmp_name']),
-                                $ext
-                            )
-                        )) {
-                            throw new RuntimeException('Não foi possivel carregar a imagem.');
-                        }
-
-                    } catch (RuntimeException $e) {
-
-                        echo "<p class='erro'>".$e->getMessage()."</p>";
-                        $erro = 1;
-                        
-                    }
-
-                } else {
-                    $avatar = $foto;
-                }
-
-                if ($erro == 0){
-                    $sqlEmail = "SELECT email
-                                    FROM Instituicao";    
-
-                    $resultE = $conn->query($sqlEmail);
-
-                    unset($msgErro);
-
-                    if (filter_var($email, FILTER_VALIDATE_EMAIL) ){
-                        if (filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL) ){
-                            if (strlen((string)$telefone) == 9){
-                                if ($resultE->num_rows > 0) {
-                                    while ($rowE = $resultE->fetch_assoc()){
-                                        if ($rowE[0] == $email){
-                                            $msgErro = "<p class='erro'> E-mail já existe </p>";
-                                        }
-                                    }
-                                }
-                            } else {
-                                $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
-                            }
-                        } else {
-                            $msgErro = "<p class='erro'> Insira um e-mail do representante válido </p>";
-                        }
-                    } else {
-                        $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
-                    }
-                    if (!empty($PasswordA) and !empty($PasswordN)){
-                        
-                        $sqlPw = "SELECT I.password2
-                                FROM Instituicao I
-                                WHERE I.id = '".$loggedid."'";    
-
-                        $resultPw = $conn->query($sqlPw);
-                        
-                        if ($rowPw = $resultPw->fetch_array()){
-                            if (password_verify($PasswordA, $rowPw[0])){
-                                if (strlen((string)$PasswordN) > 6){
-                                    $Password = password_hash($PasswordN, PASSWORD_DEFAULT);
-                                } else {
-                                    $msgErro = "<p class='erro'> Nova password deve ter pelo menos 7 carácteres </p>";
-                                }
-                            } else {
-                                $msgErro = "<p class='erro'> Password antiga não corresponde </p>";
-                            }
-                        }
-                    }
-                    
-                    echo $msgErro;
-
-                    if (!isset($msgErro)){
-
-                        if (isset($Password)){
-                            $query = "UPDATE Instituicao
-                                    SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
-                                    morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
-                                    email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
-                                    email_representante = '$email_representante', password2 = '$Password', foto = '$avatar',
-                                    website = '$website'
-                                    WHERE id = '$loggedid'";
-                        } else {
-                            $query = "UPDATE Instituicao
-                                    SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
-                                    morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
-                                    email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
-                                    email_representante = '$email_representante', foto = '$avatar',
-                                    website = '$website'
-                                    WHERE id = '$loggedid'";
-                        }
-                        
-                        $res = mysqli_query($conn, $query);
-                        
-                        if ($res) {
-                            $_SESSION['loggedtype'] = "instituicao";
-                            $_SESSION['logged'] = $nomeInstituicao;
-                            $_SESSION['loggedid'] = $id;
-                            $_SESSION['opentype'] = "instituicao";
-                            $_SESSION['open'] = $nomeInstituicao;
-                            $_SESSION['openid'] = $id;
-                            echo "<meta http-equiv='refresh' content='0'>";
-                        } else {
-                            echo "<h1 class='erro'> Algo deu errado. </h1>";
-                        }
-                        
-                    }
-                }
-            }
-                
-    } */
+        } else {
+            // Erro no input da fotografia
+            echo "<p class='erro'> ". $avatar ." </p>";
+        }
+    }
 
 ?>
 

@@ -462,13 +462,34 @@
         return $resultCC;
     }
 
-    function select_password_vol($id){
+    function select_password_vol ($id){
 
         include "openconn.php";
 
         $sqlPw = "SELECT V.password1
                 FROM Voluntario V
-                WHERE V.id = '".$id."'";    
+                WHERE V.id = '".$id."'";
+
+        $resultPw = $conn->query($sqlPw);
+
+        if (!($resultPw)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultPw;
+
+    }
+
+    function select_password_ins ($id){
+
+        include "openconn.php";
+
+        $sqlPw = "SELECT I.password2
+                FROM Instituicao I
+                WHERE I.id = '".$id."'";
 
         $resultPw = $conn->query($sqlPw);
 
@@ -519,6 +540,56 @@
                 distrito = '$distrito', freguesia = '$freguesia', telefone = '$telefone',
                 cc = '$CC', carta_c = '$carta', covid = '$covid', email = '$Email' 
                 WHERE id = '$id'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function update_instituicao_w_password($id, $nomeInstituicao, $telefone, $morada, $distrito, $concelho, $freguesia, $email, $bio, $nomeRepresentante, $email_representante, $Password, $avatar, $website){
+
+        include "openconn.php";
+
+        $query = "UPDATE Instituicao
+                    SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
+                    morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
+                    email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
+                    email_representante = '$email_representante', password2 = '$Password', foto = '$avatar',
+                    website = '$website'
+                    WHERE id = '$id'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function update_instituicao($id, $nomeInstituicao, $telefone, $morada, $distrito, $concelho, $freguesia, $email, $bio, $nomeRepresentante, $email_representante, $avatar, $website){
+
+        include "openconn.php";
+
+        $query = "UPDATE Instituicao
+                    SET id = '$id', nome_instituicao = '$nomeInstituicao', telefone = '$telefone',
+                    morada = '$morada', distrito = '$distrito', concelho = '$concelho', freguesia = '$freguesia',
+                    email = '$email', bio = '$bio', nome_representante = '$nomeRepresentante',
+                    email_representante = '$email_representante', foto = '$avatar',
+                    website = '$website'
+                    WHERE id = '$id'";
 
         $result = $conn->query($query);
 
