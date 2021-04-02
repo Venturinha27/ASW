@@ -604,4 +604,42 @@
 
     }
 
+    function free_query($query){
+
+        include "openconn.php";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function nome_voluntario($id){
+
+        include "openconn.php";
+
+        $query = "SELECT id, nome_voluntario
+                FROM Voluntario
+                WHERE id = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
 ?>
