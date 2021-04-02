@@ -40,15 +40,17 @@
                     <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <button type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'>Ver perfil</button>
+                            <button type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-circle'></i> Ver perfil</button>
+                        </form>
+
+                        <button class='w3-bar-item w3-button'><i class='fas fa-bell'></i> Notificações</button>
+                        
+                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                            <button type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-edit'></i> Editar perfil</button>
                         </form>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <button type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'>Editar perfil</button>
-                        </form>
-                        
-                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <button type='submit' value='terminarS' name='terminarS' class='w3-bar-item w3-button w3-white w3-text-red'>Terminar sessão</button>
+                            <button type='submit' value='terminarS' name='terminarS' class='w3-bar-item w3-button w3-white w3-text-red'><i class='fas fa-sign-out-alt'></i> Terminar sessão</button>
                         </form>
 
                     </div>
@@ -71,8 +73,8 @@
         ?>
         <a href="Voluntarios.php" class="w3-bar-item w3-button w3-blue w3-hover-blue w3-right w3-mobile">Voluntários</a>
         <a href="Instituicoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Instituições</a>
-        <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
-        <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
+        <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>  
+        <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a> 
         <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
     </div>
 
