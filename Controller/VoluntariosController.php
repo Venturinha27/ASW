@@ -186,18 +186,139 @@
             }
         }
 
+        if (isset($_SESSION['loggedid'])) {
+
+            $loggedid = $_SESSION['loggedid'];
+            $logged = query_voluntario($loggedid);
+
+            $queryVoluntario .= "AND id <> '".$_SESSION['loggedid']."' 
+                                    ORDER BY nome_voluntario ";
+
+            $all = free_query($queryVoluntario);
+
+            $final = array();
+
+            if ($loggedv = $logged->fetch_assoc()) {
+
+                while ($voluntario = $all->fetch_assoc()) {
+                    
+                    // POR DISTRITO
+                    $points = 0; 
+                    if ($voluntario['distrito'] == $loggedv['distrito']) {
+                        $points = $points + 5;
+                    }
+
+                    // POR AREA
+                    $areas_logged = areas_voluntario($loggedid);
+                    while ($rowA_logged = $areas_logged->fetch_assoc()){
+                        $areas_vol = areas_voluntario($voluntario['id']);
+                        while ($rowA_vol = $areas_vol->fetch_assoc()) {
+                            if ($rowA_vol['area'] == $rowA_logged['area']){
+                                $points = $points + 2;
+                            }
+                        }
+                    }
+
+                    // POR POPULACAO ALVO
+                    $populacao_logged = populacao_voluntario($loggedid);
+                    while ($rowP_logged = $populacao_logged->fetch_assoc()){
+                        $populacao_vol = populacao_voluntario($voluntario['id']);
+                        while ($rowP_vol = $populacao_vol->fetch_assoc()) {
+                            if ($rowP_vol['populacao_alvo'] == $rowP_logged['populacao_alvo']){
+                                $points = $points + 2;
+                            }
+                        }
+                    }
+
+                    $voluntario['points'] = $points;
+
+                    array_push($final, $voluntario);
+
+                }
+
+            }
+            
+            usort($final, 'comparePoints');
+
+            return $final;
+
+        }
+
         $queryVoluntario .= "ORDER BY nome_voluntario ";
 
         return free_query($queryVoluntario);
 
     }
 
+    function comparePoints($a, $b) {
+        return $b['points'] - $a['points'];
+    }
+
     function searchVoluntarios() {
 
         $queryVoluntario = "SELECT id, nome_voluntario, bio, data_nascimento, genero, concelho
                         , distrito, freguesia, telefone, cc, carta_c, covid, email, foto
-                        FROM Voluntario
-                        ORDER BY nome_voluntario;";
+                        FROM Voluntario 
+                        WHERE id <> '".$_SESSION['loggedid']."' ";
+
+        if (isset($_SESSION['loggedid'])) {
+
+            $loggedid = $_SESSION['loggedid'];
+            $logged = query_voluntario($loggedid);
+
+            $queryVoluntario .= "ORDER BY nome_voluntario ";
+
+            $all = free_query($queryVoluntario);
+
+            $final = array();
+
+            if ($loggedv = $logged->fetch_assoc()) {
+
+                while ($voluntario = $all->fetch_assoc()) {
+                    
+                    // POR DISTRITO
+                    $points = 0; 
+                    if ($voluntario['distrito'] == $loggedv['distrito']) {
+                        $points = $points + 5;
+                    }
+
+                    // POR AREA
+                    $areas_logged = areas_voluntario($loggedid);
+                    while ($rowA_logged = $areas_logged->fetch_assoc()){
+                        $areas_vol = areas_voluntario($voluntario['id']);
+                        while ($rowA_vol = $areas_vol->fetch_assoc()) {
+                            if ($rowA_vol['area'] == $rowA_logged['area']){
+                                $points = $points + 2;
+                            }
+                        }
+                    }
+
+                    // POR POPULACAO ALVO
+                    $populacao_logged = populacao_voluntario($loggedid);
+                    while ($rowP_logged = $populacao_logged->fetch_assoc()){
+                        $populacao_vol = populacao_voluntario($voluntario['id']);
+                        while ($rowP_vol = $populacao_vol->fetch_assoc()) {
+                            if ($rowP_vol['populacao_alvo'] == $rowP_logged['populacao_alvo']){
+                                $points = $points + 2;
+                            }
+                        }
+                    }
+
+                    $voluntario['points'] = $points;
+
+                    array_push($final, $voluntario);
+
+                }
+
+            }
+            
+            usort($final, 'comparePoints');
+
+            return $final;
+
+        }
+
+        $queryVoluntario .= "ORDER BY nome_voluntario ";
 
         return free_query($queryVoluntario);
 
