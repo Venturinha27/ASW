@@ -67,76 +67,130 @@ body {
 
 #hp {
     position: absolute;
-    left: 5%;
+    width: 100%;
     top: 74%;
     color: #24305E;
 }
 
-.w3-ul {
+#filterb{
     position: absolute;
-    top: 80%;
+    top: 84%;
+    left: 45%;
+    width: 10%;
+    height: 5%;
+}
+
+#filtrar{
+    position: absolute;
+    top: 93%;
     left: 5%;
-    max-width: 50%;
-    color: #24305E;
+    width: 90%;
+    height: 55%;
 }
 
-.w3-ul select {
-    position: relative;
+#filtrar input {
+    width: 95%;
+}
+
+#filtrar select {
+    width: 95%;
+}
+
+.dis {
+    width: 25% !important;
+    display: inline;
+}
+
+.entrou{
+    z-index: 30;
+    background-color: orangered;
+    position: absolute;
+    top: 100%;
     left: 5%;
-    color: #24305E;
+    width: 90%;
 }
 
-#card1{
+#esq{
     position: absolute;
-    top: 75%;
-    right: 5%;
+    margin-top: 0%;
+    left: 2%;
+    height: 50%;
+    width: 46%;
 }
 
-#card2{
+#dir{
     position: absolute;
-    top: 137%;
-    right: 5%;
+    margin-top: 0%;
+    left: 52%;
+    height: 50%;
+    width: 46%;
 }
 
-#card3{
-    position: absolute;
-    top: 199%;
-    right: 5%;
+
+#procura {
+    position: absolute !important;
+    top: 105.5% !important;
+    left: 42.5% !important;
+    height: 10%;
+    width: 15% !important;
+    background-color: #24305E;
+    color: white;
+    z-index: 50 !important;
 }
 
-.w3-card-4 {
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: visible;
+}
+
+#VolDiv .w3-card-4 {
     width: 50%;
+    margin-left: 25%;
+    margin-top: 2%;
 }
 
-.w3-card-4 img{
-    width: 120px;
-    height: 120px;
-    padding: 10px;
+#VolDiv .w3-card-4 img{
+    margin-left: 4%;
+    margin-top: -4.5%;
+    height: 100px;
+    width: 100px;
 }
 
-.w3-card-4 header{
+#VolDiv .w3-card-4 header{
     background-color: #24305E;
     color: white;
 }
 
-.w3-card-4 h5{
-    font-size: larger;
+#VolDiv .w3-card-4 h5{
+    font-size: x-large;
     font-weight: bold;
-    padding-top: 2%;
+    padding-top: 0%;
+    padding-left: 30%;
 }
 
-.w3-card-4 h6 {
-    padding-left: 25%;
+#VolDiv .w3-card-4 h6 {
+    padding-left: 30%;
 }
 
-.w3-card-4 p {
-    padding-left: 25%;
+#VolDiv .w3-card-4 p {
+    padding-left: 30%;
     font-size: smaller;
 }
 
-.w3-card-4 button{
+#VolDiv .w3-card-4 button{
     background-color: #24305E;
     color: white;
+}
+
+#VolDiv .w3-card-4 ul{
+    padding-left: 35%;
+}
+
+#VolDiv {
+    margin-top: 46%;
 }
 
 /* ------------------------------------------------------- */
