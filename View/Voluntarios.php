@@ -230,158 +230,52 @@
 
     <?php
 
-        if (!empty($_POST)){
+        if (empty($_POST['verPerfil'])){
+            if (!empty($_POST)){
 
-            include "TestInput.php";
+                include "TestInput.php";
 
-            $nome = test_input($_POST['nome']);
-            $email = test_input($_POST['email']);
-            $idade = test_input($_POST['idade']);
-            $distrito = test_input($_POST['distrito']);
-            $concelho = test_input($_POST['concelho']);
-            $freguesia = test_input($_POST['freguesia']);
-            $genero = test_input($_POST['genero']);
-            $carta = test_input($_POST['carta']);
-            $covid = test_input($_POST['covid']);
-            $areaInteresse = test_input($_POST['area-interesse']);
-            $populacaoAlvo = test_input($_POST['populacao-alvo']);
-            $disDia = test_input($_POST['disponibilidade-dia']);
-            $disHora = test_input($_POST['disponibilidade-hora']);
-            $disDuracao = test_input($_POST['disponibilidade-duracao']);
+                $nome = test_input($_POST['nome']);
+                $email = test_input($_POST['email']);
+                $idade = test_input($_POST['idade']);
+                $distrito = test_input($_POST['distrito']);
+                $concelho = test_input($_POST['concelho']);
+                $freguesia = test_input($_POST['freguesia']);
+                $genero = test_input($_POST['genero']);
+                $carta = test_input($_POST['carta']);
+                $covid = test_input($_POST['covid']);
+                $areaInteresse = test_input($_POST['area-interesse']);
+                $populacaoAlvo = test_input($_POST['populacao-alvo']);
+                $disDia = test_input($_POST['disponibilidade-dia']);
+                $disHora = test_input($_POST['disponibilidade-hora']);
+                $disDuracao = test_input($_POST['disponibilidade-duracao']);
 
-            $voluntarios = searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao);
+                $voluntarios = searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao);
 
-        } else {
+            } else {
 
-            $voluntarios = searchVoluntarios();
-            
-        }   
-
-        // SE ESTIVER LOGGADO
-
-        if ($voluntarios->num_rows > 0) {
-            
-            while ($row = $voluntarios->fetch_assoc()){
-
-                echo "
-                <div class='w3-card-4 w3-round-xxlarge'>
-
-                    <header class='w3-container'>
-                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
-                    </header>
-                    
-                    <div class='w3-container'>
-                        <h5><b>".$row['nome_voluntario']."</b></h5>
-                        <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
-                        <p><i class='fas fa-heart'></i> &nbsp ";
-
-                $areas = areasVoluntario($row['id']);         
-
-                $ultimo = count($areas);
-
-                $c = 0;
-                foreach ($areas as $are) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$are";
-                    } else {
-                        echo "$are, ";
-                    }
-                }
-
-
-                echo "</p>
-                        <p><i class='fas fa-users'></i> &nbsp ";
-
-                $populacao = populacaoVoluntario($row['id']);
-
-                $ultimo = count($populacao);
-
-                $c = 0;
-                foreach ($populacao as $pop) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$pop";
-                    } else {
-                        echo "$pop, ";
-                    }
-                }
-       
-                echo "</p>";
+                $voluntarios = searchVoluntarios();
                 
-                echo    "</div>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$row['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>
-                    
-                </div>";
             }
-        } 
 
-        // SE NÃO ESTIVER LOGGADO
-        
-        else {
-            foreach ($voluntarios as $row) {
-                echo "
-                <div class='w3-card-4 w3-round-xxlarge'>
-
-                    <header class='w3-container'>
-                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
-                    </header>
-                    
-                    <div class='w3-container'>
-                        <h5><b>".$row['nome_voluntario']."</b></h5>
-                        <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
-                        <p><i class='fas fa-heart'></i> &nbsp ";
-
-                $areas = areasVoluntario($row['id']);         
-
-                $ultimo = count($areas);
-
-                $c = 0;
-                foreach ($areas as $are) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$are";
-                    } else {
-                        echo "$are, ";
-                    }
+            // SE ESTIVER LOGGADO
+            if ($voluntarios->num_rows > 0) {
+                while ($row = $voluntarios->fetch_assoc()){
+                    echo_voluntarios($row);
                 }
+            } 
 
-
-                echo "</p>
-                        <p><i class='fas fa-users'></i> &nbsp ";
-
-                $populacao = populacaoVoluntario($row['id']);
-
-                $ultimo = count($populacao);
-
-                $c = 0;
-                foreach ($populacao as $pop) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$pop";
-                    } else {
-                        echo "$pop, ";
-                    }
+            // SE NÃO ESTIVER LOGGADO
+            else {
+                foreach ($voluntarios as $row) {
+                    echo_voluntarios($row);
                 }
-       
-                echo "</p>";
-                
-                echo    "</div>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$row['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>
-                    
-                </div>";
             }
         }
 
         if (!empty($_POST['verPerfil'])){
 
-            $id = test_input($_POST['verPerfil']);
+            $id = $_POST['verPerfil'];
 
             $nomeV = nomeVoluntario($id);
 
@@ -389,6 +283,62 @@
             $_SESSION['open'] = $nomeV;
             $_SESSION['openid'] = $id;
             header("Location: Perfil.php");
+        }
+
+        function echo_voluntarios($row) {
+            echo "
+                <div class='w3-card-4 w3-round-xxlarge'>
+
+                    <header class='w3-container'>
+                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                    </header>
+                    
+                    <div class='w3-container'>
+                        <h5><b>".$row['nome_voluntario']."</b></h5>
+                        <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
+                        <p><i class='fas fa-heart'></i> &nbsp ";
+
+                $areas = areasVoluntario($row['id']);         
+
+                $ultimo = count($areas);
+
+                $c = 0;
+                foreach ($areas as $are) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$are";
+                    } else {
+                        echo "$are, ";
+                    }
+                }
+
+
+                echo "</p>
+                        <p><i class='fas fa-users'></i> &nbsp ";
+
+                $populacao = populacaoVoluntario($row['id']);
+
+                $ultimo = count($populacao);
+
+                $c = 0;
+                foreach ($populacao as $pop) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$pop";
+                    } else {
+                        echo "$pop, ";
+                    }
+                }
+       
+                echo "</p>";
+                
+                echo    "</div>
+                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                        <button type='submit' value='".$row['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                    </form>
+                    
+                </div>";
         }
 
     ?>
