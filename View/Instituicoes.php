@@ -282,20 +282,30 @@
 
                     <header class='w3-container'>
                         <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
-                    </header>
+                    </header>";
+
+            if ($_SESSION['loggedtype'] == 'voluntario') {
+                $corresponde = CorrespondeAcaoVoluntario($row, $_SESSION['loggedid']);
+
+                if ($corresponde != FALSE) {
+                    echo "<header class='w3-container w3-green'>
+                        <p>Esta ação corresponde ao seu perfil.</p>
+                    </header>";
+                }
+            }
                     
-                    <div class='w3-container'>
-                        <h5><b><span style='font-size:large'>".$row['titulo']."</span> <span style='font-size:x-small'>(".$row['nome_instituicao'].")</span></b></h5>
-                        <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
-                        <p><i class='fas fa-heart'></i> &nbsp ".$row['area_interesse']."</p>
-                        <p><i class='fas fa-users'></i> &nbsp ".$row['populacao_alvo']."</p>
-                </div>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>
-                    
-                </div>";
+            echo "<div class='w3-container'>
+                    <h5><b><span style='font-size:large'>".$row['titulo']."</span> <span style='font-size:x-small'>(".$row['nome_instituicao'].")</span></b></h5>
+                    <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
+                    <p><i class='fas fa-heart'></i> &nbsp ".$row['area_interesse']."</p>
+                    <p><i class='fas fa-users'></i> &nbsp ".$row['populacao_alvo']."</p>
+            </div>
+                <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                    <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                </form>
+                
+            </div>";
         }
     
     ?>

@@ -229,4 +229,57 @@
             return $acao['titulo'];
         }
     }
+
+    function areasVoluntario($id) {
+
+        $areasVoluntario = areas_voluntario($id);
+
+        if ($areasVoluntario->num_rows > 0) {     
+            $areas = array();
+            while ($rowA = $areasVoluntario->fetch_assoc()){
+                array_push($areas, $rowA['area']);
+            }
+        }
+        return $areas;
+
+    }
+
+    function populacaoVoluntario($id) {
+
+        $populacaoVoluntario = populacao_voluntario($id);
+
+        if ($populacaoVoluntario->num_rows > 0) {     
+            $populacao = array();
+            while ($rowP = $populacaoVoluntario->fetch_assoc()){
+                array_push($populacao, $rowP['populacao_alvo']);
+            }
+        }
+        return $populacao;
+
+    }
+
+    function CorrespondeAcaoVoluntario($acao, $id) {
+        
+        $qvoluntario = query_voluntario($id);
+
+        if ($voluntario = $qvoluntario->fetch_assoc()){
+
+            if ($acao['distrito'] == $voluntario['distrito']) {
+
+                $populacao = populacaoVoluntario($id);
+
+                if (in_array($acao['populacao_alvo'], $populacao)) {
+    
+                    $area = areasVoluntario($id);
+                    if (in_array($acao['populacao_alvo'], $populacao)) {
+    
+                        return TRUE;
+    
+                    }
+                }
+            }
+        }
+
+        return FALSE;
+    }
 ?>

@@ -383,5 +383,33 @@
             return $nomeV;
         }
     }
+
+    function CorrespondeVoluntarioAcoes($voluntario, $id) {
+        $acoesInstituicao = acoes_instituicao($id);
+
+        $acoesCorrespondentes = array();
+        while ($acao = $acoesInstituicao->fetch_assoc()){
+
+            if ($acao['distrito'] == $voluntario['distrito']) {
+
+                $populacao = populacaoVoluntario($voluntario['id']);
+                if (in_array($acao['populacao_alvo'], $populacao)) {
+
+                    $area = areasVoluntario($voluntario['id']);
+                    if (in_array($acao['populacao_alvo'], $populacao)) {
+
+                        array_push($acoesCorrespondentes, $acao['titulo']);
+
+                    }
+                }
+            }
+        }
+
+        if (count($acoesCorrespondentes) > 0) {
+            return $acoesCorrespondentes;
+        }
+
+        return FALSE;
+    }
     
 ?>

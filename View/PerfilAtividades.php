@@ -311,7 +311,6 @@
                 <a href='PerfilAtividades.php'><button class='w3-button w3-indigo' id='Atividades'>
                     Participantes
                 </button></a>
-            </div>
             </div>";
         } else {
             echo"<div id='BodyDiv'>
@@ -327,7 +326,6 @@
                 <a href='PerfilAtividades.php'><button class='w3-button w3-indigo' id='Atividades'>
                     Ações
                 </button></a>
-            </div>
             </div>";
         }
     ?>

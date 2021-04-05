@@ -291,9 +291,37 @@
 
                     <header class='w3-container'>
                         <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
-                    </header>
+                    </header>";
+
+            if ($_SESSION['loggedtype'] == 'instituicao') {
+                $acoes = CorrespondeVoluntarioAcoes($row, $_SESSION['loggedid']);
+
+                if ($acoes != FALSE) {
+                    if (count($acoes) > 1) {
+                        echo "<header class='w3-container w3-green'>
+                        <p>Este voluntário corresponde às suas ações ";
+                    } else {
+                        echo "<header class='w3-container w3-green'>
+                        <p>Este voluntário corresponde à sua ação ";
+                    }
+
+                    $ultimo = count($acoes);
+                    $acc = 0;
+                    foreach ($acoes as $ac) {
+                        $acc = $acc + 1;
+                        if ($acc == $ultimo) {
+                            echo "<b>$ac</b>.";
+                        } else {
+                            echo "<b>$ac</b>, ";
+                        }
+                        
+                    }
+                    echo "</p>
+                    </header>";
+                }
+            }
                     
-                    <div class='w3-container'>
+                echo "<div class='w3-container'>
                         <h5><b>".$row['nome_voluntario']."</b></h5>
                         <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
                         <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>

@@ -164,6 +164,12 @@ body {
     color: white;
 }
 
+#VolDiv .w3-card-4 header p{
+    width: 100%;
+    text-align: center;
+    padding-left: 0%;
+}
+
 #VolDiv .w3-card-4 h5{
     font-size: x-large;
     font-weight: bold;
