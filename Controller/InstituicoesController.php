@@ -271,7 +271,7 @@
                 if (in_array($acao['populacao_alvo'], $populacao)) {
     
                     $area = areasVoluntario($id);
-                    if (in_array($acao['populacao_alvo'], $populacao)) {
+                    if (in_array($acao['area_interesse'], $area)) {
     
                         return TRUE;
     

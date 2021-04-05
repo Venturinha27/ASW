@@ -687,4 +687,27 @@
 
     }
 
+    function all_acoes() {
+
+        include "openconn.php";
+
+        $queryAcao = "SELECT I.id, I.nome_instituicao, I.foto, A.id_acao, A.titulo, A.distrito,
+                    A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
+                    A.num_vagas, A.dia, A.hora, A.duracao
+                    FROM Instituicao I, Acao A
+                    WHERE I.id = A.id_instituicao";
+
+        $resultAcao = $conn->query($queryAcao);  
+        
+        if (!($resultAcao)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultAcao;
+
+    }
+
 ?>
