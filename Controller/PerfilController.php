@@ -51,4 +51,13 @@
         }
     }
 
+    function openAcao($id) {
+
+        $acao = query_acao($id);
+        if ($row = $acao->fetch_assoc()){
+            return $row;
+        }
+
+    }
+
 ?>

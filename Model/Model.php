@@ -396,6 +396,30 @@
         return $resultInstituicao;
     }
 
+    function query_acao($id) {
+
+        include "openconn.php";
+
+        $queryAcao = "SELECT I.id, I.nome_instituicao, I.foto, A.id_acao, A.titulo, A.distrito,
+                    A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
+                    A.num_vagas, A.dia, A.hora, A.duracao
+                    FROM Instituicao I, Acao A
+                    WHERE I.id = A.id_instituicao 
+                    AND A.id_acao = '".$id."'";
+
+        $resultAcao = $conn->query($queryAcao);  
+        
+        if (!($resultAcao)) {
+            mysqli_close($conn);
+            return "Ação não existe.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultAcao;
+
+    }
+
     function acoes_instituicao($id) {
 
         include "openconn.php";
@@ -628,6 +652,27 @@
         $query = "SELECT id, nome_voluntario
                 FROM Voluntario
                 WHERE id = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function nome_acao($id) {
+
+        include "openconn.php";
+
+        $query = "SELECT id_acao, titulo
+                FROM Acao
+                WHERE id_acao = '".$id."'";
 
         $result = $conn->query($query);
 

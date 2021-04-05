@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../CSS/InstituicoesC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/VoluntariosJS.js"></script>
+<script src="../JavaScript/DCF.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -263,6 +264,18 @@
             }
         }
 
+        if (!empty($_POST['verPerfil'])){
+
+            $id = $_POST['verPerfil'];
+
+            $nomeA = nomeAcao($id);
+
+            $_SESSION['opentype'] = "acao";
+            $_SESSION['open'] = $nomeA;
+            $_SESSION['openid'] = $id;
+            header("Location: Perfil.php");
+        }
+
         function echo_acoes($row) {
             echo "
                 <div class='w3-card-4 w3-round-xxlarge'>
@@ -289,72 +302,6 @@
 
     </div>
 
-<!-- 
-    <div class="w3-card-4" id="card1">
-
-        <header class="w3-container">
-            <h3>Portugal Voluntário</h3>
-        </header>
-        
-        <div class="w3-container">
-            <h5>Compras para idosos</h5>
-            <hr>
-            <img src="../Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-            <h6>Breve descrição da instituição</h6>
-            <hr>
-            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-        </div>
-        
-        <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-        
-    </div>
-
-    <div class="w3-card-4" id="card2">
-
-        <header class="w3-container">
-            <h3>Programa Agora Nós</h3>
-        </header>
-        
-        <div class="w3-container">
-            <h5>Distribuir comida</h5>
-            <hr>
-            <img src="../Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-            <h6>Breve descrição da instituição</h6>
-            <hr>
-            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-        </div>
-        
-        <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-        
-    </div>
-
-    <div class="w3-card-4" id="card3">
-
-        <header class="w3-container">
-            <h3>Portugal Voluntário</h3>
-        </header>
-        
-        <div class="w3-container">
-            <h5>Apoiar o lar xd</h5>
-            <hr>
-            <img src="../Images/slide7.jpg" alt="Avatar" class="w3-left w3-circle">
-            <h6>Breve descrição da instituição</h6>
-            <hr>
-            <p>Distrito: Lisboa <i class="fa fa-deviantart"></i> Concelho: Benfica <i class="fa fa-deviantart"></i> Freguesia: São Domingos de Benfica</p>
-            <p>Função: ------------- <i class="fa fa-deviantart"></i> Área de interesse: ---------------</p>
-            <p>População-alvo: ---------- <i class="fa fa-deviantart"></i> Nº de vagas: ----------</p>
-            <p>Período: 2 semanas <i class="fa fa-deviantart"></i> Nº de horas: 2 horas p/ dia</p>
-        </div>
-        
-        <button class="w3-button w3-block w3-hover-blue">Ver Mais</button>
-        
-    </div> -->
 
 </body>
 

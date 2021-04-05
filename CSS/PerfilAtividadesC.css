@@ -34,7 +34,7 @@ body {
     font-size: larger;
     font-weight: bold;
     padding-left: 33%;
-    padding-top: 4%;
+    padding-top: 7%;
 }
 
 #AzulDiv h6 {
@@ -58,7 +58,7 @@ body {
 #AzulDiv #EditarPerfil {
     position: absolute;
     top: 5%;
-    right: 22.5%;
+    right: 25%;
     background-color: #24305E;
     color: white;
     border-radius: 100px;
@@ -76,7 +76,7 @@ body {
 #AzulDiv #EnviarMensagem {
     position: absolute;
     top: 5%;
-    right: 19.5%;
+    right: 16%;
     background-color: #24305E;
     color: white;
     border-radius: 100px;

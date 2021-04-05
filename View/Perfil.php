@@ -131,7 +131,6 @@
             <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />
                 
                 <h5>".$nome_voluntario."</h5>
-                <br>
                 <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
                 <br>
                 <p>".$bio."</p>
@@ -141,20 +140,20 @@
                 if ($openid == $loggedid){
                     echo "
                     <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
-                        Editar perfil
+                        <i class='fas fa-user-edit'></i> Editar perfil
                     </button></a>
 
                     <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
-                        Terminar sessão
+                        <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
                 } else {
                     echo "
                     <a><button class='w3-button' id='EnviarMensagem'>
-                        Enviar Mensagem
+                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
                     </button></a>
 
                     <a href='Login.php'><button class='w3-button' id='Seguir'>
-                        Seguir
+                        <i class='fas fa-user-plus'></i> Seguir
                     </button></a>";
                 }
                 
@@ -275,7 +274,6 @@
                 <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />       
                 
                 <h5>".$nome_instituicao."</h5>
-                <br>
                 <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
                 <br>
                 <p>".$bio."</p>
@@ -285,20 +283,20 @@
                 if ($openid == $loggedid){
                     echo "
                     <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
-                        Editar perfil
+                        <i class='fas fa-user-edit'></i> Editar perfil
                     </button></a>
 
                     <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
-                        Terminar sessão
+                        <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
                 } else {
                     echo "
                     <a><button class='w3-button' id='EnviarMensagem'>
-                        Enviar Mensagem
+                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
                     </button></a>
 
                     <a href='Login.php'><button class='w3-button' id='Seguir'>
-                        Seguir
+                        <i class='fas fa-user-plus'></i> Seguir
                     </button></a>";
                 }
                 
@@ -327,6 +325,102 @@
                     <p><b>Representante:</b> $nome_representante | <b>E-mail representante:</b> $email_representante</p>
                 </div>
             </div>";
+    }
+
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # --------------------- ACAO ------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------
+
+    if ($opentype == 'acao'){
+
+        $resultAcao = openAcao($openid);
+
+        # -- TABLE ACAO ---------------------------------------------------  
+        
+        "SELECT I.id, I.nome_instituicao, I.foto, A.id_acao, A.titulo, A.distrito,
+                    A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
+                    A.num_vagas, A.dia, A.hora, A.duracao
+                    FROM Instituicao I, Acao A
+                    WHERE I.id = A.id_instituicao 
+                    AND A.id_acao = '".$id."'";
+
+        $id_instituicao = $resultAcao['id'];
+        $nome_instituicao = $resultAcao['nome_instituicao'];
+        $foto = $resultAcao['foto'];
+        $id_acao = $resultAcao['id_acao'];
+        $titulo = $resultAcao['titulo'];
+        $distrito = $resultAcao['distrito'];
+        $concelho = $resultAcao['concelho'];
+        $freguesia = $resultAcao['freguesia'];
+        $funcao = $resultAcao['funcao'];
+        $area_interesse = $resultAcao['area_interesse'];
+        $populacao_alvo = $resultAcao['populacao_alvo'];
+        $num_vagas = $resultAcao['num_vagas'];
+        $dia = $resultAcao['dia'];
+        $hora = $resultAcao['hora'];
+        $duracao = $resultAcao['duracao'];
+
+        # -- PREFERENCIAS ACAO ---------------------------------------------------
+        
+        echo "
+            <div id='AzulDiv' >
+        
+                <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />       
+                
+                <h5>".$titulo."</h5>
+                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
+                <br>
+                <p>Promovido pela instituição <b>".$nome_instituicao."</b>.</p>
+
+                ";
+                
+                /* if ($openid == $loggedid){
+                    echo "
+                    <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
+                        Editar perfil
+                    </button></a>
+
+                    <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
+                        Terminar sessão
+                    </button></a>";
+                } else { */
+                echo "
+                <a><button class='w3-button' id='EnviarMensagem'>
+                    <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                </button></a>
+
+                <a href='Login.php'><button class='w3-button' id='Seguir'>
+                    <i class='fas fa-user-plus'></i> Seguir
+                </button></a>";
+                //}
+                
+            echo "</div>";
+
+            
+         echo"<div id='BodyDiv'>
+                <div id='MenuBody'>
+                    <button class='w3-button w3-indigo' id='Perfil'>
+                        Perfil
+                    </button>
+
+                    <a href='PerfilFeed.php'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                        Publicações
+                    </button></a>
+
+                    <a href='PerfilAtividades.php'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
+                        Ações
+                    </button></a>
+                </div>
+            </div>";
+                /* <div class='w3-container'>
+                    <p><b>Tel.:</b> $telefone | <b>E-mail:</b> $email | <b>Website:</b> $website</p>
+                    <p><b>Distrito:</b> $distrito | <b>Concelho:</b> $concelho | <b>Freguesia:</b> $freguesia</p>
+                    <p><b>Morada:</b> $morada</p>
+                    <p><b>Representante:</b> $nome_representante | <b>E-mail representante:</b> $email_representante</p>
+                </div> */
+            
     }
 
 ?>
