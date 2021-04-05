@@ -270,69 +270,67 @@
 
                 ";
                 
-                /* if ($openid == $loggedid){
+                if ($id_instituicao == $loggedid){
                     echo "
                     <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
-                        Editar perfil
+                        <i class='fas fa-user-edit'></i> Editar perfil
                     </button></a>
 
                     <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
-                        Terminar sessão
+                        <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
-                } else { */
+                } else {
                 echo "
-                <a><button class='w3-button' id='EnviarMensagem'>
-                    <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                </button></a>
+                    <a><button class='w3-button' id='EnviarMensagem'>
+                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                    </button></a>
 
-                <a href='Login.php'><button class='w3-button' id='Seguir'>
-                    <i class='fas fa-user-plus'></i> Seguir
-                </button></a>";
-                //}
+                    <a href='Login.php'><button class='w3-button' id='Seguir'>
+                        <i class='fas fa-user-plus'></i> Seguir
+                    </button></a>";
+                }
                 
             echo "</div>";
-
-            
-         echo"<div id='BodyDiv'>
-                <div id='MenuBody'>
-                    <button class='w3-button w3-indigo' id='Perfil'>
-                        Perfil
-                    </button>
-
-                    <a href='PerfilFeed.php'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
-                        Publicações
-                    </button></a>
-
-                    <a href='PerfilAtividades.php'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
-                        Ações
-                    </button></a>
-                </div>
-            </div>";
-                /* <div class='w3-container'>
-                    <p><b>Tel.:</b> $telefone | <b>E-mail:</b> $email | <b>Website:</b> $website</p>
-                    <p><b>Distrito:</b> $distrito | <b>Concelho:</b> $concelho | <b>Freguesia:</b> $freguesia</p>
-                    <p><b>Morada:</b> $morada</p>
-                    <p><b>Representante:</b> $nome_representante | <b>E-mail representante:</b> $email_representante</p>
-                </div> */
             
     }
 
     ?>
 
-    <div id="BodyDiv">
-        <div id="MenuBody">
-            <a href="Perfil.php"><button class="w3-button w3-white w3-hover-indigo" id="Perfil">
-                Perfil
-            </button></a>
+    <?php
+        if ($opentype == 'acao'){
+            echo"<div id='BodyDiv'>
+            <div id='MenuBody'>
+                <a href='Perfil.php'><button class='w3-button w3-white w3-hover-indigo' id='Perfil'>
+                    Perfil
+                </button></a>
 
-            <a href="PerfilFeed.php"><button class="w3-button w3-white w3-hover-indigo" id="Feed">
-                Publicações
-            </button></a>
+                <a href='PerfilFeed.php'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                    Candidatos
+                </button></a>
 
-            <button class="w3-button w3-indigo" id="Atividades">
-                Ações
-            </button>
-        </div>
+                <a href='PerfilAtividades.php'><button class='w3-button w3-indigo' id='Atividades'>
+                    Participantes
+                </button></a>
+            </div>
+            </div>";
+        } else {
+            echo"<div id='BodyDiv'>
+            <div id='MenuBody'>
+                <a href='Perfil.php'><button class='w3-button w3-white w3-hover-indigo' id='Perfil'>
+                    Perfil
+                </button></a>
+
+                <a href='PerfilFeed.php'><button class='w3-button w3-white w3-hover-indigo' id='Feed'>
+                    Publicações
+                </button></a>
+
+                <a href='PerfilAtividades.php'><button class='w3-button w3-indigo' id='Atividades'>
+                    Ações
+                </button></a>
+            </div>
+            </div>";
+        }
+    ?>
 
         <div id="AtividadesDiv">
 
@@ -379,53 +377,63 @@
 
     </div>
 
-        <div id='SugDiv'>
-                <header class='w3-container w3-indigo w3-round'>
-                    <h3><i class="fas fa-lightbulb"></i> &nbsp<b>Sugestões</b></h3>
-                </header>
-                <div id='Sug'>
-                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeS w3-small'><b>Manuel</b></h6>
-                        <p class='sugestaoTxt w3-tiny'>Utilizador</p>
-                    </div>
-                    
-                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeS w3-small'><b>AjudaAi</b></h6>
-                        <p class='sugestaoTxt w3-tiny'>Instituicao</p>
-                    </div>
-                    
-                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeS w3-small'><b>Ajuda Lx</b></h6>
-                        <p class='sugestaoTxt w3-tiny'>Acao</p>
-                    </div>
-                    <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
-                </div>
-            </div>
-
-            <div id='MsgDiv'>
-                <header class='w3-container w3-indigo w3-round'>
-                    <h3><i class="fas fa-inbox"></i> &nbsp<b>Mensagens</b></h3>
-                </header>
-                <div id='Msg'>
-                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
-                    </div>
-                    
-                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
-                    </div>
-                    
-                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
-                    </div>
-                    <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
+        <div id='PedDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><i class="fas fa-bars"></i> &nbsp<b>Pedidos</b></h3>
+            </header>
+            <div id='Ped'>
+                <div class='pedido w3-container w3-border-top w3-border-bottom'>
+                    <h6 class='nomeP w3-small'><b>Manuel</b></h6>
+                    <p class='pedidoTxt w3-tiny'>Utilizador</p>
                 </div>
                 
+                <div class='pedido w3-container w3-border-top w3-border-bottom'>
+                    <h6 class='nomeP w3-small'><b>AjudaAi</b></h6>
+                    <p class='pedidoTxt w3-tiny'>Instituicao</p>
+                </div>
+                
+                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
             </div>
+        </div>
 
+        <div id='SugDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><i class="fas fa-lightbulb"></i> &nbsp<b>Sugestões</b></h3>
+            </header>
+            <div id='Sug'>
+                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                    <h6 class='nomeS w3-small'><b>Manuel</b></h6>
+                    <p class='sugestaoTxt w3-tiny'>Utilizador</p>
+                </div>
+                
+                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                    <h6 class='nomeS w3-small'><b>AjudaAi</b></h6>
+                    <p class='sugestaoTxt w3-tiny'>Instituicao</p>
+                </div>
+                
+                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
+            </div>
+        </div>
+
+        <div id='MsgDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><i class="fas fa-inbox"></i> &nbsp<b>Mensagens</b></h3>
+            </header>
+            <div id='Msg'>
+                <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
+                </div>
+                
+                <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
+                </div>
+                
+                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
+            </div>
+            
+        </div>
 
     </body>
 
