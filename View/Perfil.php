@@ -374,29 +374,29 @@
                 <br>
                 <p>Promovido pela instituição <b>".$nome_instituicao."</b>.</p>
 
-                ";
-                
-                if ($id_instituicao == $loggedid){
-                    echo "
-                    <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
-                        <i class='fas fa-user-edit'></i> Editar perfil
-                    </button></a>
-
-                    <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
-                        <i class='fas fa-sign-out-alt'></i> Terminar sessão
-                    </button></a>";
-                } else {
+            ";
+            
+            if ($id_instituicao == $loggedid){
                 echo "
-                    <a><button class='w3-button' id='EnviarMensagem'>
-                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                    </button></a>
+                <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
+                    <i class='fas fa-user-edit'></i> Editar perfil
+                </button></a>
 
-                    <a href='Login.php'><button class='w3-button' id='Seguir'>
-                        <i class='fas fa-user-plus'></i> Seguir
-                    </button></a>";
-                }
-                
-            echo "</div>";
+                <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
+                    <i class='fas fa-sign-out-alt'></i> Terminar sessão
+                </button></a>";
+            } else {
+            echo "
+                <a><button class='w3-button' id='EnviarMensagem'>
+                    <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                </button></a>
+
+                <a href='Login.php'><button class='w3-button' id='Seguir'>
+                    <i class='fas fa-user-plus'></i> Seguir
+                </button></a>";
+            }
+            
+        echo "</div>";
 
             
          echo"<div id='BodyDiv'>
@@ -417,13 +417,31 @@
                     <p><b>Função:</b> $funcao | <b>Área de interesse:</b> $area_interesse | <b>População-alvo:</b> $populacao_alvo</p>
                     <p><b>Distrito:</b> $distrito | <b>Concelho:</b> $concelho | <b>Freguesia:</b> $freguesia</p>
                     <p><b>Número de vagas:</b> $num_vagas | <b>Data:</b> $dia, ás $hora horas, duante $duracao horas.</p>
-                </div>
-                <br>
-                <button class='w3-button w3-block w3-center w3-round-xxlarge w3-indigo w3-hover-blue cand'>Candidatar-se a esta ação!</button>
-                <br>
-            </div>";
+                </div>";
+
+        if ($loggedtype == 'voluntario') {
+            $ECandidato = ECandidato($loggedid, $id_instituicao, $id_acao);
+            if ($ECandidato == TRUE) {
+                echo "<br>
+                <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Já se candidatou a esta ação.</button>
+                <br>";
+            } else {
+                echo "<br>
+                <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                    <button type='submit' value='".$id_acao."' name='candidatura' class='w3-button w3-block w3-center w3-round-xxlarge w3-indigo w3-hover-blue cand'>Candidatar-se a esta ação!</button>
+                </form>
+                <br>";
+            }
+        }
+                
+        echo "</div>";
                 
             
+    }
+
+    if ($_POST['candidatura']){
+        $cand = Candidatar($loggedid, $_POST['candidatura']);
+        echo "<meta http-equiv='refresh' content='0'>";
     }
 
 ?>

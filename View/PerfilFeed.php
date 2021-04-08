@@ -8,6 +8,7 @@
     }
 
     include "../Controller/PerfilController.php";
+    include "../Controller/PerfilFeedController.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -270,7 +271,7 @@
 
                 ";
                 
-                if ($openid == $loggedid){
+                if ($id_instituicao == $loggedid){
                     echo "
                     <a href='EditarPerfil.php'><button class='w3-button' id='EditarPerfil'>
                         <i class='fas fa-user-edit'></i> Editar perfil
@@ -311,7 +312,6 @@
                 <a href='PerfilAtividades.php'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
                     Participantes
                 </button></a>
-            </div>
             </div>";
         } else {
             echo"<div id='BodyDiv'>
@@ -327,14 +327,81 @@
                 <a href='PerfilAtividades.php'><button class='w3-button w3-white w3-hover-indigo' id='Atividades'>
                     Ações
                 </button></a>
-            </div>
             </div>";
         }
     ?>
-    
 
+    <?php
+        if ($opentype == 'acao'){
+
+            echo "<div id='VolDiv'>";
+            $candidatos = CandidatosAcao($openid);
+            foreach ($candidatos as $candidato) {
+
+                echo "
+                <div class='w3-card-4 w3-round-xxlarge'>
+
+                    <header class='w3-container'>
+                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                    </header>";
+
+                echo "<div class='w3-container'>
+                    <h5><b>".$candidato['nome_voluntario']."</b></h5>
+                    <img src='../".$candidato['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$candidato['concelho'].", ".$candidato['distrito']."</p>
+                    <p><i class='fas fa-heart'></i> &nbsp ";
+
+                $areas = areasCandidato($candidato['id']);         
+
+                $ultimo = count($areas);
+
+                $c = 0;
+                foreach ($areas as $are) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$are";
+                    } else {
+                        echo "$are, ";
+                    }
+                }
+
+
+                echo "</p>
+                        <p><i class='fas fa-users'></i> &nbsp ";
+
+                $populacao = populacaoCandidato($candidato['id']);
+
+                $ultimo = count($populacao);
+
+                $c = 0;
+                foreach ($populacao as $pop) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$pop";
+                    } else {
+                        echo "$pop, ";
+                    }
+                }
+       
+                echo "</p>";
+                
+                echo    "</div>
+                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                        <button type='submit' value='".$candidato['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                    </form>
+                    
+                </div>";
+
+            }
+
+            echo "<br></div>";
+            //echo "</div>";
+        }
+    ?>
+    
+<!--
         <div id="pubs">
-            <!--
+            
             <div class="pubpar" id="primeiraPub">
                 <img src="Images/slide2.jpg">
             
@@ -402,9 +469,10 @@
                     <p>Entrega de bróculos à velhinha Mari Zé.</p>
                 </div>
             </div>
-            -->
+            
             
         </div>
+        -->
     </div>
 
         <div id='PedDiv'>

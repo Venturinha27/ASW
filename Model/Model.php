@@ -408,14 +408,13 @@
                     AND A.id_acao = '".$id."'";
 
         $resultAcao = $conn->query($queryAcao);  
-        
+
         if (!($resultAcao)) {
             mysqli_close($conn);
             return "Ação não existe.";
         }
-
         mysqli_close($conn);
-
+        
         return $resultAcao;
 
     }
@@ -707,6 +706,69 @@
         mysqli_close($conn);
 
         return $resultAcao;
+
+    }
+
+    function insert_candidatura($id_vol, $id_inst, $id_acao) {
+
+        $date = date('Y-m-d');
+
+        include "openconn.php";
+
+        $inserirC = "insert into Candidatura_Acao
+            values ('".$id_vol."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , '".$date."')";
+
+        $resC = mysqli_query($conn, $inserirC);
+
+        if (!($resC)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar candidatura.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function query_candidaturas() {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+                            FROM Candidatura_Acao";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
+
+    }
+
+    function candidaturas_acao($id_acao) {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+                            FROM Candidatura_Acao
+                            WHERE id_acao = '".$id_acao."'";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
 
     }
 

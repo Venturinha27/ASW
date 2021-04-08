@@ -331,95 +331,116 @@
         }
     ?>
 
-            <?php
-                if ($opentype == 'instituicao'){
+    <?php
+        if ($opentype == 'instituicao'){
 
-                    echo "<div id='AtividadesDiv'>";
+            echo "<div id='AtividadesDiv'>";
 
-                    $acoes = AcoesInstituicao($openid); 
-                    
-                    $avaR = FotoInstituicao($openid);
-                    
-                    $ava = $avaR['foto'];       
+            $acoes = AcoesInstituicao($openid); 
+            
+            $avaR = FotoInstituicao($openid);
+            
+            $ava = $avaR['foto'];       
 
-                    if ($acoes->num_rows > 0) {
+            if ($acoes->num_rows > 0) {
 
-                        while ($row = $acoes->fetch_assoc()){
+                while ($row = $acoes->fetch_assoc()){
 
-                            echo "<div class='w3-card-4'>
+                    echo "<div class='w3-card-4'>
 
-                                    <header class='w3-container'>
-                                        <h3>$open</h3>
-                                    </header>
-                                    
-                                    <div class='w3-container'>
-                                        <h5>".$row['titulo']."</h5>
-                                        <hr>
-                                        <img src='../$ava' alt='Avatar' class='w3-left w3-circle'>
-                                        
-                                        <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
-                                        <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
-                                        <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
-                                        <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</p>
-                                    </div>
-                                    
-                                    <button class='w3-button w3-block w3-hover-blue'>Ver Mais</button>
-                                    
-                                </div>";
-                        }
-                    }
-
-                    echo "</div>";
-                }
-
-                if ($opentype == 'voluntario'){
-
-                    echo "<div id='VolDiv'>";
-
-                    if ($openid == $loggedid) {
-
-                        echo "<header class='w3-container'>
-                                <h5 ><b>Ações que correspondem ao seu perfil: </b></h5>
-                            </header>";
-
-                        $acoesCorrespondentes = AcoesCorrespondentesVoluntario($loggedid);
-
-                        if ($acoesCorrespondentes != FALSE) {
-
-                            foreach ($acoesCorrespondentes as $aCorrespondente) {
-                                echo "
-                                <div class='w3-card-4 w3-round-xxlarge'>
-
-                                    <header class='w3-container'>
-                                        <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
-                                    </header>";
-                                    
-                                echo "<div class='w3-container'>
-                                        <h5><b><span style='font-size:large'>".$aCorrespondente['titulo']."</span> <span style='font-size:x-small'>(".$aCorrespondente['nome_instituicao'].")</span></b></h5>
-                                        <img src='../".$aCorrespondente['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$aCorrespondente['concelho'].", ".$aCorrespondente['distrito']."</p>
-                                        <p><i class='fas fa-heart'></i> &nbsp ".$aCorrespondente['area_interesse']."</p>
-                                        <p><i class='fas fa-users'></i> &nbsp ".$aCorrespondente['populacao_alvo']."</p>
-                                </div>
-                                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                                        <button type='submit' value='".$aCorrespondente['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                                    </form>
-                                    
-                                </div>";
-                            }
+                            <header class='w3-container'>
+                                <h3>$open</h3>
+                            </header>
                             
-                        } else {
-                            echo "
-                                <p class='w3-container w3-center'>Ainda não existem ações correspondentes ao seu perfil :(</p>
-                            ";
-
-                        }
-
-                    }
-
-                    echo "</div><br>";
+                            <div class='w3-container'>
+                                <h5>".$row['titulo']."</h5>
+                                <hr>
+                                <img src='../$ava' alt='Avatar' class='w3-left w3-circle'>
+                                
+                                <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
+                                <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
+                                <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
+                                <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</p>
+                            </div>
+                            
+                            <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                                <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Ação</button>
+                            </form>
+                            
+                        </div>";
                 }
-            ?>
+            }
+
+            echo "</div>";
+        }
+
+        if ($opentype == 'voluntario'){
+
+            echo "<div id='VolDiv'>";
+
+            if ($openid == $loggedid) {
+
+                echo "<header class='w3-container'>
+                        <h5 ><b>Ações que correspondem ao seu perfil: </b></h5>
+                    </header>";
+
+                $acoesCorrespondentes = AcoesCorrespondentesVoluntario($loggedid);
+
+                if ($acoesCorrespondentes != FALSE) {
+
+                    foreach ($acoesCorrespondentes as $aCorrespondente) {
+                        echo "
+                        <div class='w3-card-4 w3-round-xxlarge'>
+
+                            <header class='w3-container'>
+                                <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
+                            </header>";
+                            
+                        echo "<div class='w3-container'>
+                                <h5><b><span style='font-size:large'>".$aCorrespondente['titulo']."</span> <span style='font-size:x-small'>(".$aCorrespondente['nome_instituicao'].")</span></b></h5>
+                                <img src='../".$aCorrespondente['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                                <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$aCorrespondente['concelho'].", ".$aCorrespondente['distrito']."</p>
+                                <p><i class='fas fa-heart'></i> &nbsp ".$aCorrespondente['area_interesse']."</p>
+                                <p><i class='fas fa-users'></i> &nbsp ".$aCorrespondente['populacao_alvo']."</p>
+                        </div>
+                            <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                                <button type='submit' value='".$aCorrespondente['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                            </form>
+                            
+                        </div>";
+                    }
+                    
+                } else {
+                    echo "
+                        <p class='w3-container w3-center'>Ainda não existem ações correspondentes ao seu perfil :(</p>
+                    ";
+
+                }
+
+            }
+
+            echo "<br>
+                <header class='w3-container'>
+                        <h5 ><b>Ações em que participou: </b></h5>
+                    </header>
+                    
+                    <p class='w3-container w3-center'>Ainda não participou em nenhuma ação :(</p>";
+
+            echo "</div><br>";
+        }
+
+        if (!empty($_POST['verPerfil'])){
+
+            $id = $_POST['verPerfil'];
+
+            $nomeA = nomeAcao($id);
+
+            $_SESSION['opentype'] = "acao";
+            $_SESSION['open'] = $nomeA;
+            $_SESSION['openid'] = $id;
+            header("Location: Perfil.php");
+        }
+    ?>
 
     </div>
 

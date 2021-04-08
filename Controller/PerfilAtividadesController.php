@@ -64,4 +64,12 @@
         
     }
 
+    function nomeAcao($id) {
+
+        $aquery = nome_acao($id);
+        if ($acao = $aquery->fetch_assoc()) {
+            return $acao['titulo'];
+        }
+    }
+
 ?>
