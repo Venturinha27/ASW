@@ -412,7 +412,7 @@
                     
                 } else {
                     echo "
-                        <p class='w3-container w3-center'>Ainda não existem ações correspondentes ao seu perfil :(</p>
+                        <p class='w3-container w3-center'>Ainda não existem ações correspondentes ao seu perfil.</p>
                     ";
 
                 }
@@ -424,9 +424,76 @@
                         <h5 ><b>Ações em que participou: </b></h5>
                     </header>
                     
-                    <p class='w3-container w3-center'>Ainda não participou em nenhuma ação :(</p>";
+                    <p class='w3-container w3-center'>Ainda não participou em nenhuma ação.</p>";
 
             echo "</div><br>";
+        }
+
+        if ($opentype == 'acao') {
+            echo "<div id='VolDiv'>";
+            
+            $participantes = ParticipantesAcao($openid);
+
+            if (count($participantes) == 0) {
+                echo "<br><p class='w3-container w3-center'> Ainda não existem participantes.</p>";
+            }
+            foreach ($participantes as $participante) {
+                echo "
+                <div class='w3-card-4 w3-round-xxlarge'>
+
+                    <header class='w3-container'>
+                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                    </header>";
+
+                echo "<div class='w3-container'>
+                    <h5><b>".$participante['nome_voluntario']."</b></h5>
+                    <img src='../".$participante['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$participante['concelho'].", ".$participante['distrito']."</p>
+                    <p><i class='fas fa-heart'></i> &nbsp ";
+
+                $areas = areasVoluntarioAT($participante['id']);         
+
+                $ultimo = count($areas);
+
+                $c = 0;
+                foreach ($areas as $are) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$are";
+                    } else {
+                        echo "$are, ";
+                    }
+                }
+
+
+                echo "</p>
+                        <p><i class='fas fa-users'></i> &nbsp ";
+
+                $populacao = populacaoVoluntarioAT($participante['id']);
+
+                $ultimo = count($populacao);
+
+                $c = 0;
+                foreach ($populacao as $pop) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$pop";
+                    } else {
+                        echo "$pop, ";
+                    }
+                }
+       
+                echo "</p>";
+                
+                echo    "</div>
+                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                        <button type='submit' value='".$participante['id']."' name='verPerfilV' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                    </form>";
+                
+                echo "</div>";
+            }
+
+            echo "<br></div>";
         }
 
         if (!empty($_POST['verPerfil'])){
@@ -437,6 +504,18 @@
 
             $_SESSION['opentype'] = "acao";
             $_SESSION['open'] = $nomeA;
+            $_SESSION['openid'] = $id;
+            header("Location: Perfil.php");
+        }
+
+        if (!empty($_POST['verPerfilV'])){
+
+            $id = $_POST['verPerfilV'];
+
+            $nomeV = nomeVoluntario($id);
+
+            $_SESSION['opentype'] = "voluntario";
+            $_SESSION['open'] = $nomeV;
             $_SESSION['openid'] = $id;
             header("Location: Perfil.php");
         }

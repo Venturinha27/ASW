@@ -336,6 +336,9 @@
 
             echo "<div id='VolDiv'>";
             $candidatos = CandidatosAcao($openid);
+            if (count($candidatos) == 0) {
+                echo "<br><p class='w3-container w3-center'> Não existem candidaturas pendentes.</p>";
+            }
             foreach ($candidatos as $candidato) {
 
                 echo "
@@ -388,14 +391,29 @@
                 echo    "</div>
                     <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                         <button type='submit' value='".$candidato['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>
+                    </form>";
                     
-                </div>";
+                $instituicaoAcao = InstituicaoAcao($openid);
+                if ($loggedid == $instituicaoAcao) {
+                    echo "<div class='rescand'>
+                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                        <button type='submit' value='".$candidato['id']."' name='AceitarCand' class='w3-button w3-block w3-green rescand'>Aceitar</button>
+                        <button type='submit' value='".$candidato['id']."' name='RejeitarCand' class='w3-button w3-block w3-red rescand'>Rejeitar</button>
+                    </form>
+                    </div>";
+                }
+                
+                echo "</div>";
 
             }
 
             echo "<br></div>";
-            //echo "</div>";
+        }
+
+        if ($_POST['AceitarCand']) {
+            $id_candidato = $_POST['AceitarCand'];
+            AceitarCandidatura($id_candidato, $openid);
+            echo "<meta http-equiv='refresh' content='0'>";
         }
     ?>
     

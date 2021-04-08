@@ -95,4 +95,21 @@
         return $populacao;
 
     }
+
+    function AceitarCandidatura($id_candidato, $id_acao) {
+        candidatura_aceite($id_candidato, $id_acao);
+        $acao = query_acao($id_acao);
+        if ($rowa = $acao->fetch_assoc()) {
+            $id_instituicao = $rowa['id'];
+        }
+        participa_em_acao($id_candidato, $id_instituicao, $id_acao);
+    }
+
+    function InstituicaoAcao($id_acao){
+        $acao = query_acao($id_acao);
+        if ($rowa = $acao->fetch_assoc()) {
+            $id_instituicao = $rowa['id'];
+            return $id_instituicao;
+        }
+    }
 ?>

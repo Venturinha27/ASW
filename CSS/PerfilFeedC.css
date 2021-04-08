@@ -140,6 +140,13 @@ body {
     padding-left: 35%;
 }
 
+#VolDiv .w3-card-4 .rescand{
+    width: 49.5%;
+    display: inline !important;
+    margin: 0 !important;
+}
+
+
 
 /* ---------------------------------------------- */
 

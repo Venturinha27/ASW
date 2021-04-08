@@ -72,4 +72,30 @@
         }
     }
 
+    function ParticipantesAcao($id_acao) {
+
+        $participacoes = participacoes_acao($id_acao);
+
+        $participantes = array();
+        while ($participacao = $participacoes->fetch_assoc()) {
+            
+                $voluntario_id = $participacao['id_voluntario'];
+                $voluntario = query_voluntario($voluntario_id);
+                if ($rowv = $voluntario->fetch_assoc()){
+                    array_push($participantes, $rowv);
+                }
+        }
+
+        return $participantes;
+        
+    }
+
+    function nomeVoluntario($id) {
+
+        $vquery = nome_voluntario($id);
+        if ($voluntario = $vquery->fetch_assoc()) {
+            return $voluntario['nome_voluntario'];
+        }
+    }
+
 ?>

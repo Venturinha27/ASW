@@ -772,4 +772,67 @@
 
     }
 
+    function candidatura_aceite($id_candidato, $id_acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Candidatura_Acao
+                    SET estado = 'Aceite'
+                    WHERE id_voluntario = '".$id_candidato."'
+                    AND id_acao = '".$id_acao."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function participa_em_acao($id_voluntario, $id_instituicao, $id_acao) {
+
+        include "openconn.php";
+
+        $inserirC = "insert into Participou_Acao
+            values ('".$id_voluntario."' , '".$id_instituicao."' , '".$id_acao."')";
+
+        $resC = mysqli_query($conn, $inserirC);
+
+        if (!($resC)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar candidatura.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function participacoes_acao($id_acao) {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao
+                            FROM Participou_Acao
+                            WHERE id_acao = '".$id_acao."'";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
+
+    }
+
 ?>
