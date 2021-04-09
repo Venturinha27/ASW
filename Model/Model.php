@@ -835,4 +835,25 @@
 
     }
 
+    function participacoes_voluntario($id_voluntario) {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao
+                            FROM Participou_Acao
+                            WHERE id_voluntario = '".$id_voluntario."'";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
+
+    }
+
 ?>

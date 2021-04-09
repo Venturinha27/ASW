@@ -98,4 +98,22 @@
         }
     }
 
+    function ParticipacoesVoluntario($id_voluntario) {
+
+        $participacoes = participacoes_voluntario($id_voluntario);
+
+        $acoes = array();
+        while ($participacao = $participacoes->fetch_assoc()) {
+            
+                $acao_id = $participacao['id_acao'];
+                $acao = query_acao($acao_id);
+                if ($rowa = $acao->fetch_assoc()){
+                    array_push($acoes, $rowa);
+                }
+        }
+
+        return $acoes;
+        
+    }
+
 ?>
