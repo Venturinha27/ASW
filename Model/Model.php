@@ -856,4 +856,25 @@
 
     }
 
+    function candidaturas_instituicao($id_instituicao) {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+                            FROM Candidatura_Acao
+                            WHERE id_instituicao = '".$id_instituicao."'";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
+
+    }
+
 ?>
