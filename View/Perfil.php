@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../CSS/PerfilC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/PerfilJS.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -454,7 +455,7 @@
         <?php
             include "../Controller/PedidosController.php";
 
-            if ($loggedtype == 'instituicao'){
+            if ($loggedtype == 'instituicao') {
 
                 echo"
                     <div id='Ped'>";
@@ -482,11 +483,12 @@
                     }
                     echo "</div>";
                 }
-                        
-                echo "  <button id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+                            
+                echo "<button type='button' onclick='verMaisPed(".json_encode($pedidos).")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
                         </div>
                     </div>";
-            } 
+
+            }
 
             if ($loggedtype == 'voluntario'){
                 echo"
