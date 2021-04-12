@@ -751,6 +751,26 @@
 
     }
 
+    function query_convites() {
+
+        include "openconn.php";
+
+        $queryConvite = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_convite
+                            FROM Convite_Acao";
+
+        $resultConvite = $conn->query($queryConvite);  
+        
+        if (!($resultConvite)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultConvite;
+
+    }
+
     function candidaturas_acao($id_acao) {
 
         include "openconn.php";
@@ -874,6 +894,33 @@
         mysqli_close($conn);
 
         return $resultCandidatura;
+
+    }
+
+    function insert_convite($id_acao, $id_voluntario) {
+
+        include "openconn.php";
+
+        $date = date('Y-m-d');
+
+        $infoacao = query_acao($id_acao);
+        if ($rowa = $infoacao->fetch_assoc()) {
+            $id_inst = $rowa['id'];
+        }
+
+        $inserirC = "insert into Convite_Acao
+            values ('".$id_voluntario."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , '".$date."')";
+
+        $resC = mysqli_query($conn, $inserirC);
+
+        if (!($resC)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar convite.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
 
     }
 

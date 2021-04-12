@@ -83,4 +83,31 @@
         return FALSE;
     }
 
+    function EConvidado($id_vol, $id_instituicao, $id_acao) {
+
+        $convites = query_convites();
+
+        while ($row = $convites->fetch_assoc()) {
+            if ($row['id_voluntario'] == $id_vol and $row['id_instituicao'] == $id_instituicao and $row['id_acao'] == $id_acao) {
+                return TRUE;
+            }
+        }
+
+        return FALSE;
+    }
+
+    $convida = $_REQUEST['convida_acao'];
+    $id_acao_convida = $_REQUEST['id_acao_convida'];
+    $id_vol_convida = $_REQUEST['id_vol_convida'];
+
+    if ($convida == 'yes') {
+        include "../Model/Model.php";
+        $resposta = insert_convite($id_acao_convida, $id_vol_convida);
+        if ($resposta == TRUE) {
+            echo 'yes';
+        } else {
+            echo 'no';
+        }
+    }
+
 ?>

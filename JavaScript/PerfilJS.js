@@ -6,6 +6,7 @@ window.addEventListener("load", principal);
 function principal(){ 
     
     mais()
+    toggleConvida()
 
 }
 
@@ -152,7 +153,14 @@ function verMaisPed(pedidos) {
                     htmlresposta += "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
                 }
 
-                for (let x = 0; x <= 1; x++) {
+                let max = 0;
+                if (pedidos.length > 2) {
+                    max = 2;
+                } else {
+                    max = pedidos.length;
+                }
+
+                for (let x = 0; x < max; x++) {
 
                     htmlresposta += "<div class='pedido w3-container w3-border-top w3-border-bottom'>";
                     htmlresposta += "<img src='../"+pedidos[x]['foto_voluntario']+"' alt='Avatar' class='w3-left w3-circle'>";
@@ -193,4 +201,35 @@ function verMaisPed(pedidos) {
 
     }
     
+}
+
+function toggleConvida() {
+    let botao_open = document.getElementById("openConvida")
+    let botao_close = document.getElementById("closeConvida")
+    let div_convida = document.getElementById("convidaVol")
+
+    botao_open.addEventListener("click", function(){
+        div_convida.setAttribute("class", "visible")
+    })
+
+    botao_close.addEventListener("click", function(){
+        div_convida.setAttribute("class", "hidden")
+    })
+}
+
+function convidaAcao(id_acao, id_vol) {
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let lenres = this.responseText.length
+            if (this.responseText.substring(lenres-3, lenres) == 'yes') {
+                document.getElementById("ca"+id_acao).setAttribute("class", "w3-right w3-indigo w3-round-xxlarge w3-gray")
+                document.getElementById("ca"+id_acao).disabled = true;
+                document.getElementById("ca"+id_acao).innerText = "Convidado";
+            }
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PerfilController.php?convida_acao=yes&id_acao_convida="+String(id_acao)+"&id_vol_convida="+String(id_vol), true);
+    xmlhttp.send();  
 }

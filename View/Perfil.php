@@ -161,7 +161,7 @@
             echo "</div>";
 
             
-         echo"<div id='BodyDiv'>
+        echo"<div id='BodyDiv'>
                 <div id='MenuBody'>
                     <a href='Perfil.php'><button class='w3-button w3-indigo' id='Perfil'>
                         Perfil
@@ -237,8 +237,35 @@
                         echo "</div>";
                     }
 
-                echo "</div>
-            </div>";
+                echo "</div>";
+
+        if ($loggedtype == 'instituicao') {
+                echo "<br>
+                    <button type='button' id='openConvida' class='w3-button w3-block w3-center w3-round-xxlarge w3-indigo w3-hover-blue cand'>Convidar este voluntário para uma ação</button>
+                <br>";
+
+                echo "<div id='convidaVol' class='hidden'>";
+                echo "<header class='w3-container w3-indigo'>";
+                echo "<h3 class='w3-center'><b>Convida voluntários</b></h3>";
+                echo "<button id='closeConvida' class='w3-display-topright w3-button w3-hover-white'><b>X</b></button>";
+                echo "</header>";
+                $acoesIns = AcoesInstituicao($loggedid);
+                echo "<ul class='w3-ul w3-hoverable'>";
+                while ($rowa = $acoesIns->fetch_assoc()) {
+                    echo "<li class='w3-padding-16 w3-white w3-card'><b>".$rowa['titulo']."</b>";
+                    $EConvidado = EConvidado($openid, $loggedid, $rowa['id_acao']);
+                    if ($EConvidado == TRUE){
+                        echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>Convidado<button>";
+                    } else {
+                        echo "<button id='ca".$rowa['id_acao']."' onclick='convidaAcao(".json_encode($rowa['id_acao']).", ".json_encode($openid).")' class='w3-right w3-indigo w3-round-xxlarge'>Convidar<button>";
+                    }
+                    echo "</li>";
+                }
+                echo "</ul>";
+                echo "</div>";
+        }
+
+        echo "</div>";
     }
 
     # ---------------------------------------------------------------------------------------
@@ -466,7 +493,13 @@
                     echo "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
                 }
 
-                for ($x = 0; $x <= 1; $x++) {
+                if (count($pedidos) > 2) {
+                    $max = 2;
+                } else {
+                    $max = count($pedidos);
+                }
+
+                for ($x = 0; $x < $max; $x++) {
 
                     echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
                             <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>

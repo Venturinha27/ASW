@@ -512,7 +512,13 @@
                     echo "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
                 }
 
-                for ($x = 0; $x <= 1; $x++) {
+                if (count($pedidos) > 2) {
+                    $max = 2;
+                } else {
+                    $max = count($pedidos);
+                }
+
+                for ($x = 0; $x < $max; $x++) {
 
                     echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
                             <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>

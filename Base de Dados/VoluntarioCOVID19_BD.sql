@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS Mensagem;
 DROP TABLE IF EXISTS Participa_em_Publicacao;
 DROP TABLE IF EXISTS Publicacao;
 DROP TABLE IF EXISTS Participou_Acao;
+DROP TABLE IF EXISTS Convite_Acao;
 DROP TABLE IF EXISTS Candidatura_Acao;
 DROP TABLE IF EXISTS Acao;
 DROP TABLE IF EXISTS Voluntario_Disponibilidade;
@@ -195,6 +196,26 @@ CREATE TABLE Candidatura_Acao (
         FOREIGN KEY (id_voluntario) REFERENCES Voluntario(id),
 
     CONSTRAINT fk_candidatura_acao_acao
+        FOREIGN KEY (id_instituicao, id_acao) REFERENCES Acao(id_instituicao, id_acao)
+);
+
+/* ----------------------- CONVIDOU PARA ACAO ----------------------- */
+
+CREATE TABLE Convite_Acao (
+    id_voluntario           VARCHAR(65),
+    id_instituicao          VARCHAR(65),
+    id_acao                 VARCHAR(65),
+    estado                  VARCHAR(65) NOT NULL,  /* ACEITE, REJEITADO, PENDENTE */
+    data_convite        DATE NOT NULL,
+
+
+    CONSTRAINT pk_convite_acao
+        PRIMARY KEY (id_voluntario, id_instituicao, id_acao),
+
+    CONSTRAINT fk_convite_acao_voluntario
+        FOREIGN KEY (id_voluntario) REFERENCES Voluntario(id),
+
+    CONSTRAINT fk_convite_acao_acao
         FOREIGN KEY (id_instituicao, id_acao) REFERENCES Acao(id_instituicao, id_acao)
 );
 
