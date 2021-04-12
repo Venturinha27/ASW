@@ -3,9 +3,9 @@
     session_start();
     ob_start();
 
-    if (!isset($_SESSION['logged'])) {
+    /* if (!isset($_SESSION['logged'])) {
         header("Location: Login.php");
-    }
+    } */
 
     include "../Controller/PerfilController.php";
     include "../Controller/PerfilAtividadesController.php";
@@ -33,7 +33,7 @@
             include "../Controller/SessionController.php";
             
             if (!isset($_SESSION['logged'])) {
-                echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
+                echo "<a href='Login.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
             } else {
                 $foto = "../" . loggedHeader();
 
@@ -546,12 +546,16 @@
 
     </div>
 
-        <div id='PedDiv'>
+    <?php
+        include "../Controller/PedidosController.php";
+
+        if (isset($_SESSION['logged'])){
+
+            echo "<div id='PedDiv'>
             <header class='w3-container w3-indigo w3-round'>
-                <h3><i class="fas fa-bars"></i> &nbsp<b>Pedidos</b></h3>
-            </header>
-        <?php
-            include "../Controller/PedidosController.php";
+                <h3><i class='fas fa-bars'></i> &nbsp<b>Pedidos</b></h3>
+            </header>";
+        
 
             if ($loggedtype == 'instituicao') {
 
@@ -611,46 +615,61 @@
                     </div>
                 </div>";
             } 
+        }
+
+        
         ?>
 
-        <div id='SugDiv'>
-            <header class='w3-container w3-indigo w3-round'>
-                <h3><i class="fas fa-lightbulb"></i> &nbsp<b>Sugestões</b></h3>
-            </header>
-            <div id='Sug'>
-                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                    <h6 class='nomeS w3-small'><b>Manuel</b></h6>
-                    <p class='sugestaoTxt w3-tiny'>Utilizador</p>
-                </div>
-                
-                <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                    <h6 class='nomeS w3-small'><b>AjudaAi</b></h6>
-                    <p class='sugestaoTxt w3-tiny'>Instituicao</p>
-                </div>
-                
-                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
-            </div>
-        </div>
+<?php
 
-        <div id='MsgDiv'>
-            <header class='w3-container w3-indigo w3-round'>
-                <h3><i class="fas fa-inbox"></i> &nbsp<b>Mensagens</b></h3>
-            </header>
-            <div id='Msg'>
-                <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
+        if (isset($_SESSION['logged'])){
+            echo "<div id='SugDiv'>
+                <header class='w3-container w3-indigo w3-round'>
+                    <h3><i class='fas fa-lightbulb'></i> &nbsp<b>Sugestões</b></h3>
+                </header>
+                <div id='Sug'>
+                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                        <h6 class='nomeS w3-small'><b>Manuel</b></h6>
+                        <p class='sugestaoTxt w3-tiny'>Utilizador</p>
+                    </div>
+                    
+                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
+                        <h6 class='nomeS w3-small'><b>AjudaAi</b></h6>
+                        <p class='sugestaoTxt w3-tiny'>Instituicao</p>
+                    </div>
+                    
+                    <button id='vermaissug' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+                </div>
+            </div>";
+        }
+?>
+
+<?php
+
+        if (isset($_SESSION['logged'])){
+
+            echo "<div id='MsgDiv'>
+                <header class='w3-container w3-indigo w3-round'>
+                    <h3><i class='fas fa-inbox'></i> &nbsp<b>Mensagens</b></h3>
+                </header>
+                <div id='Msg'>
+                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
+                    </div>
+                    
+                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
+                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
+                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
+                    </div>
+                    
+                    <button id='vermaismsg' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
                 </div>
                 
-                <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                    <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                    <p class='mensagemTxt w3-tiny'>Eai manecas</p>
-                </div>
-                
-                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
-            </div>
-            
-        </div>
+            </div>";
+
+        }
+?>
 
     </body>
 

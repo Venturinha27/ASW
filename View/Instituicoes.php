@@ -30,7 +30,7 @@
             include "../Controller/SessionController.php";
             
             if (!isset($_SESSION['logged'])) {
-                echo "<a href='Perfil.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
+                echo "<a href='Login.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
             } else {
                 $foto = "../" . loggedHeader();
 
