@@ -188,7 +188,7 @@ body {
 
 #MsgDiv {
     position: absolute;
-    top: 42%;
+    top: 41%;
     left: 68.5%;
     width: 23%;
     height: 29%;
@@ -200,7 +200,7 @@ body {
 
 #SugDiv {
     position: absolute;
-    top: 74%;
+    top: 72%;
     left: 68.5%;
     width: 23%;
     height: 29%;
@@ -220,6 +220,74 @@ body {
     background-color: white;
     color: #24305E;
     border-radius: 5px;
+}
+
+#Ped {
+    overflow-y: unset;
+}
+
+#Sug {
+    overflow-y: unset;
+}
+
+#Msg {
+    overflow-y: unset;
+}
+
+.vermais {
+    position: absolute;
+    bottom: 0%;
+}
+
+.pedido {
+    position: relative;
+    font-size: xx-small;
+    height: 60px;
+    width: 100%;
+}
+
+.pedido img {
+    margin-top: 16px;
+    margin-left: -8px;
+    height: 30px;
+    width: 30px;
+}
+
+.pedido p {
+    margin-top: 11px;
+    margin-left: 35px !important;
+    width: 180px;
+    height: 110%;
+}
+
+.pedido .aceitarped {
+    position: absolute;
+    height: 25px !important;
+    width: 25px !important;
+    top: 18px !important;
+    left: 255px !important;
+    text-align: center;
+    padding: 0;
+}
+
+.pedido .rejeitarped {
+    position: absolute;
+    height: 25px !important;
+    width: 25px !important;
+    top: 18px !important;
+    left: 285px !important;
+    text-align: center;
+    padding: 0;
+}
+
+.pedido .estadop {
+    position: absolute;
+    height: 20px !important;
+    width: 50px !important;
+    top: 12px !important;
+    left: 220px !important;
+    padding: 0;
+    text-align: center;
 }
 
 
