@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/PerfilAtividadesC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<!-- <script src="JavaScript/MessageJS.js"></script> -->
+<script src="../JavaScript/PerfilJS.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -549,20 +550,62 @@
             <header class='w3-container w3-indigo w3-round'>
                 <h3><i class="fas fa-bars"></i> &nbsp<b>Pedidos</b></h3>
             </header>
-            <div id='Ped'>
-                <div class='pedido w3-container w3-border-top w3-border-bottom'>
-                    <h6 class='nomeP w3-small'><b>Manuel</b></h6>
-                    <p class='pedidoTxt w3-tiny'>Utilizador</p>
-                </div>
-                
-                <div class='pedido w3-container w3-border-top w3-border-bottom'>
-                    <h6 class='nomeP w3-small'><b>AjudaAi</b></h6>
-                    <p class='pedidoTxt w3-tiny'>Instituicao</p>
-                </div>
-                
-                <button class="w3-button w3-block w3-indigo w3-small w3-round">Ver Mais</button>
-            </div>
-        </div>
+        <?php
+            include "../Controller/PedidosController.php";
+
+            if ($loggedtype == 'instituicao') {
+
+                echo"
+                    <div id='Ped'>";
+
+                $pedidos = pedidosInstituicao($loggedid);
+
+                if (count($pedidos) == 0) {
+                    echo "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
+                }
+
+                for ($x = 0; $x <= 1; $x++) {
+
+                    echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
+                            <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>
+                            <p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
+                    if ($pedidos[$x]['estado'] == 'Pendente'){
+                        echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                            <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Aceite') {
+                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                    }
+                    echo "</div>";
+                }
+                            
+                echo "<button type='button' onclick='verMaisPed(".json_encode($pedidos).")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+                        </div>
+                    </div>";
+
+            }
+
+            if ($loggedtype == 'voluntario'){
+                echo"
+                    <div id='Ped'>
+                        <div class='pedido w3-container w3-border-top w3-border-bottom'>
+                            <h6 class='nomeP w3-small'><b>Manuel</b></h6>
+                            <p class='pedidoTxt w3-tiny'>Utilizador</p>
+                        </div>
+                        
+                        <div class='pedido w3-container w3-border-top w3-border-bottom'>
+                            <h6 class='nomeP w3-small'><b>AjudaAi</b></h6>
+                            <p class='pedidoTxt w3-tiny'>Instituicao</p>
+                        </div>
+                        
+                        <button class='w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+                    </div>
+                </div>";
+            } 
+        ?>
 
         <div id='SugDiv'>
             <header class='w3-container w3-indigo w3-round'>
