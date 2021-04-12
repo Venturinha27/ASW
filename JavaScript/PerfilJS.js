@@ -107,17 +107,59 @@ function verMaisPed(pedidos) {
 
                     htmlresposta += "<div class='pedido w3-container w3-border-top w3-border-bottom'>";
                     htmlresposta += "<img src='../"+pedidos[x]['foto_voluntario']+"' alt='Avatar' class='w3-left w3-circle'>";
-                    htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
-                    if (pedidos[x]['estado'] == 'Pendente'){
-                        htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
-                        htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
-                    } 
-                    if (pedidos[x]['estado'] == 'Aceite') {
-                        htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
-                    } 
-                    if (pedidos[x]['estado'] == 'Rejeitado') {
-                        htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+
+                    if (pedidos[x]['tipologged'] == 'instituicao'){
+                        if (pedidos[x]['tipo'] == 'candidatura'){
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        } else {
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_acao']+"</b> convidou <b>"+pedidos[x]['nome_voluntario']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<p class='estadop w3-text-gray'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        }
+                    } else {
+                        if (pedidos[x]['tipo'] == 'candidatura'){
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<p class='estadop w3-text-gray'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        } else {
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_acao']+"</b> convidou <b>"+pedidos[x]['nome_voluntario']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        }
                     }
+
                     htmlresposta += "</div>";
                 }
                             
@@ -164,17 +206,59 @@ function verMaisPed(pedidos) {
 
                     htmlresposta += "<div class='pedido w3-container w3-border-top w3-border-bottom'>";
                     htmlresposta += "<img src='../"+pedidos[x]['foto_voluntario']+"' alt='Avatar' class='w3-left w3-circle'>";
-                    htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
-                    if (pedidos[x]['estado'] == 'Pendente'){
-                        htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
-                        htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
-                    } 
-                    if (pedidos[x]['estado'] == 'Aceite') {
-                        htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
-                    } 
-                    if (pedidos[x]['estado'] == 'Rejeitado') {
-                        htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                    
+                    if (pedidos[x]['tipologged'] == 'instituicao'){
+                        if (pedidos[x]['tipo'] == 'candidatura'){
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        } else {
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_acao']+"</b> convidou <b>"+pedidos[x]['nome_voluntario']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<p class='estadop w3-text-gray'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        }
+                    } else {
+                        if (pedidos[x]['tipo'] == 'candidatura'){
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<p class='estadop w3-text-gray'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        } else {
+                            htmlresposta += "<p><b>"+pedidos[x]['nome_acao']+"</b> convidou <b>"+pedidos[x]['nome_voluntario']+"</b>.</p>";
+                            if (pedidos[x]['estado'] == 'Pendente'){
+                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Aceite') {
+                                htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
+                            } 
+                            if (pedidos[x]['estado'] == 'Rejeitado') {
+                                htmlresposta += "<p class='estadop w3-text-red'><b>"+pedidos[x]['estado']+"</b></p>";
+                            }
+                        }
                     }
+
                     htmlresposta += "</div>";
                 }
                             
@@ -214,6 +298,7 @@ function toggleConvida() {
 
     botao_close.addEventListener("click", function(){
         div_convida.setAttribute("class", "hidden")
+        location.reload();
     })
 }
 

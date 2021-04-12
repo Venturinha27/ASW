@@ -897,6 +897,69 @@
 
     }
 
+    function convites_instituicao($id_instituicao) {
+
+        include "openconn.php";
+
+        $queryConvite = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_convite
+                            FROM Convite_Acao
+                            WHERE id_instituicao = '".$id_instituicao."'";
+
+        $resultConvite = $conn->query($queryConvite);  
+        
+        if (!($resultConvite)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultConvite;
+
+    }
+
+    function candidaturas_voluntario($id_voluntario) {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+                            FROM Candidatura_Acao
+                            WHERE id_voluntario = '".$id_voluntario."'";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
+
+    }
+
+    function convites_voluntario($id_voluntario) {
+
+        include "openconn.php";
+
+        $queryConvite = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_convite
+                            FROM Convite_Acao
+                            WHERE id_voluntario = '".$id_voluntario."'";
+
+        $resultConvite = $conn->query($queryConvite);  
+        
+        if (!($resultConvite)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultConvite;
+
+    }
+
     function insert_convite($id_acao, $id_voluntario) {
 
         include "openconn.php";
