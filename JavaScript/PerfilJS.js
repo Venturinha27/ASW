@@ -193,7 +193,4 @@ function verMaisPed(pedidos) {
 
     }
     
-    
-    
-    
 }
