@@ -36,11 +36,6 @@
                 <h5 id="acaoP">Ações</p>
             </div>
         </div>
-        <!--
-        <form action="admin.php" method="post" id="procura" class="w3-container">
-            <input class="w3-input w3-border w3-light-grey"type="text" name="search" placeholder="Digite algo: Concelho/Freguesia/Idade/Nome"/>
-            <input id="botao" type="submit" value= "PROCURAR"/>
-        </form>-->
     </div>
 
     <div class="w3-container w3-small">
@@ -73,76 +68,36 @@
 </div>
 
 <?php
-    include "openconn.php";
+    
 
     if (!empty($_POST)){
 
-        $primeiro = 0;
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $distrito = $_POST['distrito'];
+        $concelho = $_POST['concelho'];
+        $freguesia = $_POST['freguesia'];
 
-        $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, distrito, concelho, freguesia,
-                        email, bio, nome_representante, email_representante, foto, website
-                        FROM Instituicao ";
-
-        if (!empty($_POST['nome'])){
-            if ($primeiro == 0){
-                $queryInstituicao .= "WHERE nome_instituicao = '".$_POST['nome']."' ";
-                $primeiro = 1;
-            } else {
-                $queryInstituicao .= "AND nome_instituicao = '".$_POST['nome']."' ";
-            }
-        }
-
-        if (!empty($_POST['email'])) {
-            if ($primeiro == 0){
-                $queryInstituicao .= "WHERE email = '".$_POST['email']."' ";
-                $primeiro = 1;
-            } else {
-                $queryInstituicao .= "AND email = '".$_POST['email']."' ";
-            }
-        }
-
-        if (!empty($_POST['distrito'])) {
-            if ($primeiro == 0){
-                $queryInstituicao .= "WHERE distrito = '".$_POST['distrito']."' ";
-                $primeiro = 1;
-            } else {
-                $queryInstituicao .= "AND distrito = '".$_POST['distrito']."' ";
-            }
-        }
-
-        if (!empty($_POST['concelho'])) {
-            if ($primeiro == 0){
-                $queryInstituicao .= "WHERE concelho = '".$_POST['concelho']."' ";
-                $primeiro = 1;
-            } else {
-                $queryInstituicao .= "AND concelho = '".$_POST['concelho']."' ";
-            }
-        }
-
-        if (!empty($_POST['freguesia'])) {
-            if ($primeiro == 0){
-                $queryInstituicao .= "WHERE freguesia = '".$_POST['freguesia']."' ";
-                $primeiro = 1;
-            } else {
-                $queryInstituicao .= "AND freguesia = '".$_POST['freguesia']."' ";
-            }
-        }
-
-        $queryInstituicao .= "ORDER BY nome_instituicao ";
+        include "../Controller/AdminIController.php";
+        
+        
+        $resultInstituicao = adminInstPost($nome,$email,$distrito,$concelho,$freguesia); 
         
     } else {
-        $queryInstituicao = "SELECT id, nome_instituicao, telefone, morada, distrito, concelho, freguesia,
-                        email, bio, nome_representante, email_representante, foto, website
-                        FROM Instituicao
-                        ORDER BY nome_instituicao;";
+        $resultInstituicao = adminInst();
+        
     }
 
-    $resultInstituicao = $conn->query($queryInstituicao);
+    /*$resultInstituicao = $conn->query($queryInstituicao);
 
-    if (!($resultInstituicao)) {
-        echo "Erro: search failed" . mysqli_error($conn);
-    }       
+        
     
+    
+    
+    
+    
+    
+    /* ta certo daqui pa baixo*/ 
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue w3-small resultado'>";
     echo "<p>Encontrou ".($resultInstituicao->num_rows)." resultado(s) para a pesquisa.</p>";
     echo "</div>";
