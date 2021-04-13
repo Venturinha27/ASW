@@ -1217,4 +1217,67 @@
         mysqli_close($conn);
         return TRUE;
     }
+    function esqpass_query(){
+        
+        include "openconn.php";
+
+        $passquery = "SELECT I.email, I.telefone, I.id, U.tipo
+                                    FROM Instituicao I, Utilizador U 
+                                    UNION
+                                    SELECT V.email, V.telefone, V.id, U.tipo
+                                    FROM Voluntario V, Utilizador U";
+
+        $resultPass = $conn->query($passquery);
+
+        if (!($resultPass)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultPass;
+    }
+
+    function updateV(){
+       
+        include "openconn.php";
+
+        $query1 = "UPDATE Voluntario 
+                   SET password1 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
+                   WHERE id = '".$row[2]."'";
+
+        $query = $conn->query($query1);
+
+        if (!($query)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $query;
+    }
+
+    function updadeI(){
+
+        include "openconn.php";
+
+        $query2 = "UPDATE Instituicao 
+                   SET password2 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
+                   WHERE id = '".$row[2]."'";
+
+        $query = $conn->query($query2);
+
+        if (!($query)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $query;
+
+    }
+
 ?>

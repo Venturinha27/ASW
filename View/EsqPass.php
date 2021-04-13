@@ -28,7 +28,6 @@
 
             include "../Controller/HeaderController.php";
             include "../Controller/SessionController.php";
-            include "../Controller/EsqPassController.php";
             
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Login.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
@@ -107,14 +106,14 @@
 
             <input type="password" class="w3-input" id="novaPassword" placeholder="Nova Palavra-Passe" name="novaPassword" required>
             
-            <input type="password" class="w3-input" id="confCassword" placeholder="Confirme a Palavra-Passe" name="confPassword" required>
+            <input type="password" class="w3-input" id="confPassword" placeholder="Confirme a Palavra-Passe" name="confPassword" required>
 
             <input id="submit" type="submit" name="" value="Confirmar">
         
             <?php
                 include "openconn.php";
-
                 include "TestInput.php";
+                include "../Controller/EsqPassController.php";
 
                 if (!empty($_POST)){
 
@@ -123,39 +122,7 @@
                     $novaPassword = test_input($_POST['novaPassword']);
                     $confPassword = test_input($_POST['confPassword']);
 
-                    $passquery = "SELECT I.email, I.telefone, I.id, U.tipo
-                                    FROM Instituicao I, Utilizador U 
-                                    UNION
-                                    SELECT V.email, V.telefone, V.id, U.tipo
-                                    FROM Voluntario V, Utilizador U";
-
-                    $resultPass = $conn->query($passquery);
-
-                    while ($row = $resultPass->fetch_array()){
-                        if ($email == $row[0] and $telefone == $row[1]){
-                            if ($novaPassword == $confPassword) {
-                                if ($row[3] == 'voluntario'){
-                                    $query = "UPDATE Voluntario 
-                                    SET password1 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
-                                    WHERE id = '".$row[2]."'";
-                                } else {
-                                    $query = "UPDATE Instituicao 
-                                    SET password2 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
-                                    WHERE id = '".$row[2]."'";
-                                }
-                                
-                                $novaPass = $conn->query($query);
-
-                                if ($novaPass) {
-                                    header("Location: Login.php");
-                                }
-                            } else {
-                                echo "<p class='erro'> Passwords não coincidem <p>";
-                            }
-                        } else {
-                            echo "<p class='erro'> Email e telefone não correspondem <p>";
-                        }
-                    }
+                    esqpass($email, $telefone, $novaPassword, $confPassword);
 
                 }  
         
