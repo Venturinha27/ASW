@@ -1,27 +1,22 @@
 <?php
 
-    include "../Model/Model.php";
+    include_once "../Model/Model.php";
 
     function esqPass($email, $telefone, $novaPassword, $confPassword){
 
         $resposta = esqpass_query();
-        echo"updateI1";
 
         while ($row = $resposta->fetch_array()){
             if ($email == $row[0] and $telefone == $row[1]){
                 if ($novaPassword == $confPassword) {
                     if ($row[3] == 'voluntario'){
-                        $query = updateV();
+                        $query = update_v($row[2], $novaPassword);
                     } else {
-                        $query = updateI();
+                        $query = update_i($row[2], $novaPassword);
                     }
-                    
-                    $novaPass = $conn->query($query);
 
-                    echo"updateI2";
-
-                    if ($novaPass) {
-                        header("Location: Login.php");
+                    if ($query) {
+                     #   header("Location: Login.php");
                     }
                 } else {
                     echo "<p class='erro'> Passwords não coincidem <p>";

@@ -114,7 +114,7 @@
             <input id="submit" type="submit" name="" value="Confirmar">
         
             <?php
-                include "openconn.php";
+              
                 include "TestInput.php";
                 include "../Controller/EsqPassController.php";
 

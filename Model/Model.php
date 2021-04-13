@@ -1217,19 +1217,18 @@
         mysqli_close($conn);
         return TRUE;
     }
+
     function esqpass_query(){
         
         include "openconn.php";
 
-        $passquery = "SELECT I.email, I.telefone, I.id, U.tipo
+        $passquery = "SELECT I.email, I.telefone, I.id, U.tipo 
                                     FROM Instituicao I, Utilizador U 
-                                    UNION
-                                    SELECT V.email, V.telefone, V.id, U.tipo
+                                    UNION 
+                                    SELECT V.email, V.telefone, V.id, U.tipo 
                                     FROM Voluntario V, Utilizador U";
 
         $resultPass = $conn->query($passquery);
-
-        echo"updateo";
 
         if (!($resultPass)) {
             mysqli_close($conn);
@@ -1241,13 +1240,13 @@
         return $resultPass;
     }
 
-    function updateV(){
+    function update_v($id, $novaPassword){
        
         include "openconn.php";
 
         $query1 = "UPDATE Voluntario 
                    SET password1 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
-                   WHERE id = '".$row[2]."'";
+                   WHERE id = '".$id."'";
 
         $query = $conn->query($query1);
 
@@ -1258,18 +1257,18 @@
 
         mysqli_close($conn);
 
-        return $query;
+        return TRUE;
     }
 
-    function updadeI(){
+    function updade_i($id, $novaPassword){
 
         include "openconn.php";
 
         $query2 = "UPDATE Instituicao 
                    SET password2 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
-                   WHERE id = '".$row[2]."'";
+                   WHERE id = '".$id."'";
 
-        echo"updateI";
+        echo $query2;
 
         $query = $conn->query($query2);
 
@@ -1280,7 +1279,7 @@
 
         mysqli_close($conn);
 
-        return $query;
+        return TRUE;
 
     }
 
