@@ -1157,4 +1157,26 @@
 
     }
 
+    function inserir_instituicao($id ,$nomeInstituicao, $telefone , $morada , $distrito , $concelho ,$freguesia , $email ,$bio , $nomeRepresentante , $emailRepresentante , $password, $avatar , $website) {
+
+        include "openconn.php";
+
+        $inserirI = "insert into Instituicao
+        values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
+        .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
+        .$nomeRepresentante."' , '".$emailRepresentante."' , '".password_hash($password, PASSWORD_DEFAULT)."' , '".$avatar."' , '".$website."')";
+
+        $resI = mysqli_query($conn, $inserirI);
+
+        if (!($resI)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar voluntário.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
 ?>

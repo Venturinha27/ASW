@@ -79,7 +79,7 @@ function mais(){
     })
 }
 
-function verMaisPed(pedidos) {
+function verMaisPed(pedidos, loggedid, loggedtype) {
 
     let botao_pedidos = document.getElementById("vermaisped")
     let div_pedidos = document.getElementById("PedDiv")
@@ -162,9 +162,19 @@ function verMaisPed(pedidos) {
 
                     htmlresposta += "</div>";
                 }
-                            
-                htmlresposta += "<button type='button' onclick='verMaisPed("+JSON.stringify(pedidos)+")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Menos</button>";
-                htmlresposta += "</div> </div>";;
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        pedidos = JSON.parse(this.responseText)
+                    }
+                }
+                xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
+                xmlhttp.send();  
+                
+                //htmlresposta += "</div>";
+                htmlresposta += "<button type='button' onclick='verMaisPed("+JSON.stringify(pedidos)+", "+JSON.stringify(loggedid)+", "+JSON.stringify(loggedtype)+")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Menos</button>";
+                htmlresposta += "</div>";
 
                 document.getElementById("Ped").innerHTML = htmlresposta;
 
@@ -261,9 +271,19 @@ function verMaisPed(pedidos) {
 
                     htmlresposta += "</div>";
                 }
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        pedidos = JSON.parse(this.response)
+                    }
+                }
+                xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
+                xmlhttp.send();  
                             
-                htmlresposta += "<button type='button' onclick='verMaisPed("+JSON.stringify(pedidos)+")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>";
-                htmlresposta += "</div> </div>";;
+                //htmlresposta += "</div>";
+                htmlresposta += "<button type='button' onclick='verMaisPed("+JSON.stringify(pedidos)+", "+JSON.stringify(loggedid)+", "+JSON.stringify(loggedtype)+")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>";
+                htmlresposta += "</div>";
 
                 document.getElementById("Ped").innerHTML = htmlresposta;
 
@@ -279,7 +299,7 @@ function verMaisPed(pedidos) {
                 sug_over.style.overflowY = "unset";
                 msg_over.style.overflowY = "unset";
             }
-        };
+        }
         xmlhttp.open("GET", "Perfil.php", true);
         xmlhttp.send();
 
@@ -292,14 +312,17 @@ function toggleConvida() {
     let botao_close = document.getElementById("closeConvida")
     let div_convida = document.getElementById("convidaVol")
 
-    botao_open.addEventListener("click", function(){
-        div_convida.setAttribute("class", "visible")
-    })
-
-    botao_close.addEventListener("click", function(){
-        div_convida.setAttribute("class", "hidden")
-        location.reload();
-    })
+    if (botao_open != null) {
+        botao_open.addEventListener("click", function(){
+            div_convida.setAttribute("class", "visible")
+        })
+    
+        botao_close.addEventListener("click", function(){
+            div_convida.setAttribute("class", "hidden")
+            location.reload();
+        })
+    }
+    
 }
 
 function convidaAcao(id_acao, id_vol) {
@@ -334,7 +357,7 @@ function responderPed(resposta, tipo, id_vol, id_acao, numero) {
                     document.getElementById(strida).remove()
                     document.getElementById(stridr).remove()
                     let p = document.createElement('p')
-                    if (resposta == "Aceite") {
+                    if (resposta == "Aceitar") {
                         p.setAttribute("class", "estadop w3-text-green")
                         p.innerHTML = "<b>Aceite</b>"
                     } else {

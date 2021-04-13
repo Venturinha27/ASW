@@ -1,7 +1,11 @@
-<!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+
 <?php
     session_start();
     ob_start();
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
 ?>
 
 <!DOCTYPE html>
@@ -115,12 +119,7 @@
 
             <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
 
-            <!--<input type="text" class="w3-input" id="distrito" placeholder="Distrito" name="distrito" required>
-
-            <input type="text" class="w3-input" id="concelho" placeholder="Concelho" name="concelho" required>
-
-            <input type="text" class="w3-input" id="freguesia" placeholder="Freguesia" name="freguesia" required>
-            -->
+            
 
             <label>Distrito:</label>
             <select class="w3-input" name="distrito" id="distrito" size="1" required>
@@ -144,8 +143,9 @@
             <input id="submit" type="submit" value="Registo">
 
             <?php
-                include "openconn.php";
+                include "../Controller/RegistoIController.php";            
                 include "TestInput.php";
+                
 
                 if (!empty($_POST)){
 
@@ -162,143 +162,159 @@
                     $password = test_input($_POST['password']);
                     $bio = test_input($_POST['bio']);
                     $website = test_input($_POST['website']); # pode ser null
+
+                    include "../Controller/InputPhotoController.php";
+
+                    $avatar = test_photo();
+                    echo "<p class='erro'> ". $avatar ." </p>";
                     
-                    $erro = 0;
 
-                    try {
+                    if (substr($avatar,0,6) == "Images") {
 
-                        // Previne erros (podem ser ataques informaticos mas nao so).
-                        if (
-                            !isset($_FILES['avatar']['error']) ||
-                            is_array($_FILES['avatar']['error'])
-                        ) {
-                            throw new RuntimeException('Imagem inválida.');
-                        }
+                        $registoI = $registoI = registo_instituicao($id ,$nomeInstituicao, $telefone , $morada , $distrito , $concelho ,$freguesia , $email ,$bio , $nomeRepresentante , $emailRepresentante , $password, $avatar , $website);
 
-                        // Verifica o valor do erro
-                        switch ($_FILES['avatar']['error']) {
-                            case UPLOAD_ERR_OK:
-                                break;
-                            case UPLOAD_ERR_NO_FILE:
-                                throw new RuntimeException('Nenhuma imagem enviada.');
-                            case UPLOAD_ERR_INI_SIZE:
-                            case UPLOAD_ERR_FORM_SIZE:
-                                throw new RuntimeException('Imagem demasiado grande.');
-                            default:
-                                throw new RuntimeException('Imagem inválida.');
-                        }
+                        echo $registoI;
 
-                        // Verifica se o tamanho limite nao foi ultrapassado
-                        if ($_FILES['avatar']['size'] > 10000000) {
-                            throw new RuntimeException('Imagem demasiado grande.');
-                        }
-
-                        // Verifica o tipo do ficheiro
-                        $finfo = new finfo(FILEINFO_MIME_TYPE);
-                        if (false === $ext = array_search(
-                            $finfo->file($_FILES['avatar']['tmp_name']),
-                            array(
-                                'jpg' => 'image/jpeg',
-                                'png' => 'image/png',
-                                'gif' => 'image/gif',
-                            ),
-                            true
-                        )) {
-                            throw new RuntimeException('Formato da imagem inválido.');
-                        }
-
-                        $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
-
-                        // Obtem um nome unico para guardar a fotografia no servidor.
-                        if (!move_uploaded_file(
-                            $_FILES['avatar']['tmp_name'],
-                            sprintf('Images/%s.%s',
-                                sha1_file($_FILES['avatar']['tmp_name']),
-                                $ext
-                            )
-                        )) {
-                            throw new RuntimeException('Não foi possivel carregar a imagem.');
-                        }
-
-                    } catch (RuntimeException $e) {
-
-                        echo "<p class='erro'>".$e->getMessage()."</p>";
-                        $erro = 1;
-                        
+                    } else {
+                        // Erro no input da fotografia
+                        echo "<p class='erro'> ". $avatar ." </p>";
                     }
-
-                    if ($erro == 0){
-
-                        $sqlEmail = "SELECT email
-                                    FROM Instituicao";    
-
-                        $resultE = $conn->query($sqlEmail);
-
-                        unset($msgErro);
-
-                        if (filter_var($email, FILTER_VALIDATE_EMAIL) ){
-                            if (filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL) ){
-                                if (strlen((string)$telefone) == 9){
-                                    if (strlen((string)$password) > 6){
-                                        if ($resultE->num_rows > 0) {
-                                            while ($rowE = $resultE->fetch_assoc()){
-                                                if ($rowE[0] == $email){
-                                                    $msgErro = "<p class='erro'> E-mail já existe </p>";
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
-                                    }
-                                } else {
-                                    $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
-                                }
-                            } else {
-                                $msgErro = "<p class='erro'> Insira um e-mail do representante válido </p>";
-                            }
-                        } else {
-                            $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
-                        }
-                        
-                        echo $msgErro;
-
-                        if (!isset($msgErro)){
-
-                            $query1 = "insert into Utilizador
-                                    values ('".$id."' , 'instituicao')";
-                            
-                            $res1 = mysqli_query($conn, $query1);
-                            
-                            if ($res1) {
-                            } else {
-                                echo "<p class='erro'> Algo deu ruim :( </p>";
-                            }
-
-
-                            $query = "insert into Instituicao
-                                    values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
-                                    .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
-                                    .$nomeRepresentante."' , '".$emailRepresentante."' , '".password_hash($password, PASSWORD_DEFAULT)."' , '".$avatar."' , '".$website."')";
-                            
-                            $res = mysqli_query($conn, $query);
-                            
-                            if ($res) {
-                                $_SESSION['loggedtype'] = "instituicao";
-                                $_SESSION['logged'] = $nomeInstituicao;
-                                $_SESSION['loggedid'] = $id;
-                                $_SESSION['opentype'] = "instituicao";
-                                $_SESSION['open'] = $nomeInstituicao;
-                                $_SESSION['openid'] = $id;
-                                header("Location: PreferenciasI.php");
-                            } else {
-                                echo "<p class='erro'> Algo correu mal :( </p>";
-                            }
-                    }
-
-                    mysqli_close($conn);
-                }
                 
                 }
+                    //try {
+
+                        // Previne erros (podem ser ataques informaticos mas nao so).
+                    //    if (
+          //                !isset($_FILES['avatar']['error']) ||
+          //                is_array($_FILES['avatar']['error'])
+          //            ) {
+          //                throw new RuntimeException('Imagem inválida.');
+          //            }
+
+          //            // Verifica o valor do erro
+          //            switch ($_FILES['avatar']['error']) {
+          //                case UPLOAD_ERR_OK:
+          //                    break;
+          //                case UPLOAD_ERR_NO_FILE:
+          //                    throw new RuntimeException('Nenhuma imagem enviada.');
+          //                case UPLOAD_ERR_INI_SIZE:
+          //                case UPLOAD_ERR_FORM_SIZE:
+          //                    throw new RuntimeException('Imagem demasiado grande.');
+          //                default:
+          //                    throw new RuntimeException('Imagem inválida.');
+          //            }
+
+          //            // Verifica se o tamanho limite nao foi ultrapassado
+          //            if ($_FILES['avatar']['size'] > 10000000) {
+          //                throw new RuntimeException('Imagem demasiado grande.');
+          //            }
+
+          //            // Verifica o tipo do ficheiro
+          //            $finfo = new finfo(FILEINFO_MIME_TYPE);
+          //            if (false === $ext = array_search(
+          //                $finfo->file($_FILES['avatar']['tmp_name']),
+          //                array(
+          //                    'jpg' => 'image/jpeg',
+          //                    'png' => 'image/png',
+          //                    'gif' => 'image/gif',
+          //                ),
+          //                true
+          //            )) {
+          //                throw new RuntimeException('Formato da imagem inválido.');
+          //            }
+
+          //            $avatar = 'Images/'.sha1_file($_FILES['avatar']['tmp_name']).'.'.$ext;
+
+          //            // Obtem um nome unico para guardar a fotografia no servidor.
+          //            if (!move_uploaded_file(
+          //                $_FILES['avatar']['tmp_name'],
+          //                sprintf('Images/%s.%s',
+          //                    sha1_file($_FILES['avatar']['tmp_name']),
+          //                    $ext
+          //                )
+          //            )) {
+          //                throw new RuntimeException('Não foi possivel carregar a imagem.');
+          //            }
+
+          //        } catch (RuntimeException $e) {
+
+          //            echo "<p class='erro'>".$e->getMessage()."</p>";
+          //            $erro = 1;
+          //            
+          //        }
+
+          //        if ($erro == 0){
+
+          //            $sqlEmail = "SELECT email
+          //                        FROM Instituicao";    
+
+          //            $resultE = $conn->query($sqlEmail);
+
+          //            unset($msgErro);
+
+          //            if (filter_var($email, FILTER_VALIDATE_EMAIL) ){
+          //                if (filter_var($emailRepresentante, FILTER_VALIDATE_EMAIL) ){
+          //                    if (strlen((string)$telefone) == 9){
+          //                        if (strlen((string)$password) > 6){
+          //                            if ($resultE->num_rows > 0) {
+          //                                while ($rowE = $resultE->fetch_assoc()){
+          //                                    if ($rowE[0] == $email){
+          //                                        $msgErro = "<p class='erro'> E-mail já existe </p>";
+          //                                    }
+          //                                }
+          //                            }
+          //                        } else {
+          //                            $msgErro = "<p class='erro'> Password deve ter, pelo menos, 7 caracteres. </p>";
+          //                        }
+          //                    } else {
+          //                        $msgErro = "<p class='erro'> Insira um numero de tel. válido </p>";
+          //                    }
+          //                } else {
+          //                    $msgErro = "<p class='erro'> Insira um e-mail do representante válido </p>";
+          //                }
+          //            } else {
+          //                $msgErro = "<p class='erro'> Insira um e-mail válido </p>";
+          //            }
+          //            
+          //            echo $msgErro;
+
+          //            if (!isset($msgErro)){
+
+          //                $query1 = "insert into Utilizador
+          //                        values ('".$id."' , 'instituicao')";
+          //                
+          //                $res1 = mysqli_query($conn, $query1);
+          //                
+          //                if ($res1) {
+          //                } else {
+          //                    echo "<p class='erro'> Algo deu ruim :( </p>";
+          //                }
+
+
+          //                $query = "insert into Instituicao
+          //                        values ('".$id."' , '".$nomeInstituicao."' , ".$telefone." , '".$morada."' , '"
+          //                        .$distrito."' , '".$concelho."' , '".$freguesia."' , '".$email."' , '".$bio."' , '"
+          //                        .$nomeRepresentante."' , '".$emailRepresentante."' , '".password_hash($password, PASSWORD_DEFAULT)."' , '".$avatar."' , '".$website."')";
+          //                
+          //                $res = mysqli_query($conn, $query);
+          //                
+          //                if ($res) {
+          //                    $_SESSION['loggedtype'] = "instituicao";
+          //                    $_SESSION['logged'] = $nomeInstituicao;
+          //                    $_SESSION['loggedid'] = $id;
+          //                    $_SESSION['opentype'] = "instituicao";
+          //                    $_SESSION['open'] = $nomeInstituicao;
+          //                    $_SESSION['openid'] = $id;
+          //                    header("Location: PreferenciasI.php");
+          //                } else {
+          //                    echo "<p class='erro'> Algo correu mal :( </p>";
+          //                }
+          //        }
+
+          //        mysqli_close($conn);
+          //    }
+          //    
+          //    }
             ?>
 
             <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.php" id="login">Login</a></p>
