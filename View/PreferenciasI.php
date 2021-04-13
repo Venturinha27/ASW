@@ -96,7 +96,7 @@
 
         <br>
 
-    <div id="registertext">
+        <div id="registertext">
                 
             <hr>
 
@@ -108,28 +108,21 @@
 
                 <?php
 
-                    include "openconn.php";
+                    include "../Controller/PreferenciasIController.php";
 
-                    $instituicao = $_SESSION['logged'];
-                    
-                    $sqlNome = "SELECT id_instituicao, id_acao, titulo, distrito, concelho, freguesia, funcao, 
-                                area_interesse, populacao_alvo, num_vagas, dia, hora, duracao
-                                FROM Acao
-                                WHERE id_instituicao = '".$_SESSION['loggedid']."';";
+                    $instituicao = $_SESSION['loggedid'];
 
-                    $resultN = $conn->query($sqlNome);
-                    
-                    if (!($resultN)) {
-                        echo "Erro: search failed" . $query . "<br>" . mysqli_error($conn);
-                    }              
+                    $a = AcoesPreferenciasI($instituicao);
 
-                    if ($resultN->num_rows > 0) {
+                    $nomeInstituicao = PreferenciasINomeIns($instituicao);         
 
-                        while ($row = $resultN->fetch_assoc()){
+                    if ($a->num_rows > 0) {
+
+                        while ($row = $a->fetch_assoc()){
 
                             echo "<div class='w3-card-4'>
                                         <header class='w3-container'>
-                                            <h3>".$instituicao."</h3>
+                                            <h3>".$nomeInstituicao."</h3>
                                         </header>
 
                                         <div class='w3-container'>
@@ -151,12 +144,7 @@
                     } else {
                         echo "<p class='w3-display-middle'>Ainda não tem ações :(</p>";
                     }
-                        /*
-                        
 
-                        </div>*/
-
-                    mysqli_close($conn);
                 ?>
                 
             </div>
@@ -310,7 +298,6 @@
     </form>
 
     <?php
-        include "openconn.php";
         include "TestInput.php";
 
         $id_acao = uniqid();
@@ -327,38 +314,27 @@
         $duracao = test_input($_POST['disponibilidade-duracao']);
 
         if (isset($_POST['titulo'])) {
-
+            
             $instituicao = $_SESSION['logged'];
             $id_instituicao = $_SESSION['loggedid'];
 
-            $query = "insert into Acao
-                        values ('".$id_instituicao."' , '".$id_acao."' , '".$titulo."' , '".$distrito."' , '".$concelho."' , '"
-                        .$freguesia."' , '".$funcao."' , '".$area_interesse."' , '".$populacao_alvo."' , ".$vagas." , '"
-                        .$dia."' , ".$hora." , ".$duracao.")";
-
-            $res = mysqli_query($conn, $query);
-            
+            $res = inserirAcao($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
             if ($res) {
-                echo "<p> Parabens conseguiste :) </p>";
                 echo "<meta http-equiv='refresh' content='0'>";
-            } else {
-                echo "Erro: insert failed" . $query . "<br>" . mysqli_error($conn);
             }
-        }
+        } 
+            
 
-        if (!empty($_POST['removeAcao'])){
+        if (isset($_POST['removeAcao'])){
+            echo "<h1>ALGO</h1>";
             $rAcao = test_input($_POST['removeAcao']);
 
-            $removeAcao = "DELETE FROM Acao
-                        WHERE id_acao = '".$rAcao."';";
-
-            $resrAcao = mysqli_query($conn, $removeAcao);
-            
+            $resrAcao = removeAcao($rAcao);
             if ($resrAcao) {
                 echo "<meta http-equiv='refresh' content='0'>";
             }
-        }
-        mysqli_close($conn);
+        }  
+    
     ?>
     
     </div>

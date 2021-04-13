@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    ob_start();
 
     function searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao) {
 
@@ -188,7 +190,12 @@
 
         if (isset($_SESSION['loggedid'])) {
 
-            return orderVoluntarios($queryVoluntario, TRUE);
+            if ($primeiro == 0) {
+                return orderVoluntarios($queryVoluntario, FALSE);
+            } else {
+                return orderVoluntarios($queryVoluntario, TRUE);
+            }
+            
 
         }
 
