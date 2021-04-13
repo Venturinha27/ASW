@@ -1,6 +1,3 @@
-<!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
-
-
 <?php
 
     function searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao) {
@@ -399,7 +396,7 @@
                 if (in_array($acao['populacao_alvo'], $populacao)) {
 
                     $area = areasVoluntario($voluntario['id']);
-                    if (in_array($acao['populacao_alvo'], $populacao)) {
+                    if (in_array($acao['area_interesse'], $area)) {
 
                         array_push($acoesCorrespondentes, $acao['titulo']);
 
