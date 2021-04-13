@@ -20,12 +20,14 @@
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/PerfilJS.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../CSS/ProcuraC.css">
+<script src="../JavaScript/ProcuraJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
         <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
 
-        <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
+        <input type="text" class="w3-bar-item w3-input" onkeyup="showHint(this.value)" placeholder="Procura...">
         
         <?php
 
@@ -80,6 +82,10 @@
         <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
         <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
         <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
+    </div>
+
+    <div id="topSugestaoDiv" class="w3-block hidden">
+
     </div>
 
 </header>
