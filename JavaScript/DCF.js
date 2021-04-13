@@ -365,8 +365,8 @@ window.onload = function () {
         }
 
         distrito.onchange = function () {
-                concelho.length = 1; // remove all options bar first
-                freguesia.length = 1; // remove all options bar first
+                concelho.length = 1; // remove todas opcoes da barra
+                freguesia.length = 1; // remove todas opcoes da barra
                 if (this.selectedIndex < 1) return; 
                 for (var state in stateObject[this.value]) {
                         let con = new Option(state, state);
@@ -375,9 +375,9 @@ window.onload = function () {
                 }
         }
 
-        distrito.onchange(); // reset in case page is reloaded
+        distrito.onchange(); // reseta a página 
         concelho.onchange = function () {
-                freguesia.length = 1; // remove all options bar first
+                freguesia.length = 1; // remove todas opcoes da barra
                 if (this.selectedIndex < 1) return; 
                 var district = stateObject[distrito.value][this.value];
 
