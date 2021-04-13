@@ -153,7 +153,7 @@
 
         </div>
 
-    <form id="acaoform" class="w3-container hidden" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+    <form id="acaoform" class="w3-container w3-card hidden" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
             <header class="w3-container w3-indigo">
                 <h3>Nova ação</h3>
@@ -213,16 +213,16 @@
                 <label>Número de Vagas:</label>
                     <input type="number" id="nVagas" name="vagas" min="1" max="1000" required>
 
-            </div>
+                <hr>
 
-            <div id="dir">
-            
                 <label>Distrito:</label>
                 <select class="w3-select sel" name="distrito" id="distrito" required>
                     <option value="" disabled selected>Selecione o seu Distrito:</option>
                 </select> 
 
-                <hr>
+            </div>
+
+            <div id="dir">
                 
                 <label>Concelho:</label>
                 <select class="w3-select sel" name="concelho" id="concelho" required>
@@ -238,19 +238,13 @@
                 
                 <hr>
                 
-                <label>Disponibilidade:</label>
-                    <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
-                        <option value="" disabled selected>Dia</option>
-                        <option value="Segunda">Segunda</option>
-                        <option value="Terça">Terça</option>
-                        <option value="Quarta">Quarta</option>
-                        <option value="Quinta">Quinta</option>
-                        <option value="Sexta">Sexta</option>
-                        <option value="Sábado">Sábado</option>
-                        <option value="Domingo">Domingo</option>
+                <label>Data:</label>
+                    <input type="date" class="sel" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)" required/>
                         
-                    </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
+                <hr>
+
+                <label>Hora:</label>
+                    <select class="w3-select sel" name="disponibilidade-hora" required>
                         <option value="" disabled selected>Hora</option>
                         <option value="0">00:00</option>
                         <option value="1">01:00</option>
@@ -277,7 +271,11 @@
                         <option value="22">22:00</option>
                         <option value="23">23:00</option>
                     </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
+
+                <hr>
+
+                <label>Duração:</label>
+                    <select class="w3-select sel" name="disponibilidade-duracao" required>
                         <option value="" disabled selected>Duração</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>
@@ -288,8 +286,6 @@
                         <option value="7">07:00</option>
                         <option value="8">08:00</option>
                     </select>
-                
-                <hr>
 
             </div>
 
