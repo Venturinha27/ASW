@@ -1,4 +1,4 @@
-<!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+
 <?php
     session_start();
     ob_start();
@@ -20,12 +20,14 @@
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/PerfilJS.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../CSS/ProcuraC.css">
+<script src="../JavaScript/ProcuraJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
         <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
 
-        <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
+        <input type="text" class="w3-bar-item w3-input" onkeyup="showHint(this.value)" placeholder="Procura...">
         
         <?php
 
@@ -80,6 +82,10 @@
         <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
         <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
         <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
+    </div>
+
+    <div id="topSugestaoDiv" class="w3-block hidden">
+
     </div>
 
 </header>
@@ -347,25 +353,22 @@
 
                 while ($row = $acoes->fetch_assoc()){
 
-                    echo "<div class='w3-card-4'>
+                    echo "
+                        <div class='w3-card-4 w3-round-xxlarge'>
 
                             <header class='w3-container'>
-                                <h3>$open</h3>
-                            </header>
+                                <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
+                            </header>";
                             
-                            <div class='w3-container'>
-                                <h5>".$row['titulo']."</h5>
-                                <hr>
-                                <img src='../$ava' alt='Avatar' class='w3-left w3-circle'>
-                                
-                                <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
-                                <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
-                                <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
-                                <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas.</p>
-                            </div>
-                            
+                        echo "<div class='w3-container'>
+                                <h5><b><span style='font-size:large'>".$row['titulo']."</span> <span style='font-size:x-small'>(".$open.")</span></b></h5>
+                                <img src='../".$ava."' alt='Avatar' class='w3-left w3-circle'>
+                                <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
+                                <p><i class='fas fa-heart'></i> &nbsp ".$row['area_interesse']."</p>
+                                <p><i class='fas fa-users'></i> &nbsp ".$row['populacao_alvo']."</p>
+                        </div>
                             <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                                <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Ação</button>
+                                <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
                             </form>
                             
                         </div>";
@@ -382,7 +385,7 @@
             if ($openid == $loggedid) {
 
                 echo "<header class='w3-container'>
-                        <h5 ><b>Ações que correspondem ao seu perfil: </b></h5>
+                        <h5><b>Ações que correspondem ao seu perfil: </b></h5>
                     </header>";
 
                 $acoesCorrespondentes = AcoesCorrespondentesVoluntario($loggedid);
@@ -572,14 +575,14 @@
             }
 
             for ($x = 0; $x < $max; $x++) {
-                echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
+                echo "<div id='pedido".json_encode($x)."' class='pedido w3-container w3-border-top w3-border-bottom'>
                         <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
                 if ($pedidos[$x]['tipologged'] == "instituicao"){
                     if ($pedidos[$x]['tipo'] == 'candidatura'){
                             echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
                             if ($pedidos[$x]['estado'] == 'Pendente'){
-                                echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                    <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                echo "<button id='".json_encode('aca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                    <button id='".json_encode('rca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if ($pedidos[$x]['estado'] == 'Aceite') {
                                 echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
@@ -614,8 +617,8 @@
                     } else {
                         echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
                         if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            echo "<button id='".json_encode('aco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                <button id='".json_encode('rco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                         } 
                         if ($pedidos[$x]['estado'] == 'Aceite') {
                             echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";

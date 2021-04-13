@@ -1,4 +1,4 @@
-<!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+
 <?php
     session_start();
     ob_start();
@@ -20,12 +20,14 @@
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/PerfilJS.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../CSS/ProcuraC.css">
+<script src="../JavaScript/ProcuraJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
         <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
 
-        <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
+        <input type="text" class="w3-bar-item w3-input" onkeyup="showHint(this.value)" placeholder="Procura...">
         
         <?php
 
@@ -80,6 +82,10 @@
         <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
         <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
         <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
+    </div>
+
+    <div id="topSugestaoDiv" class="w3-block hidden">
+
     </div>
 
 </header>
@@ -337,8 +343,13 @@
 
             echo "<div id='VolDiv'>";
             $candidatos = CandidatosAcao($openid);
+
+            echo "<header class='w3-container'>
+                        <h5><b>Candidaturas: </b></h5>
+                    </header>";
+
             if (count($candidatos) == 0) {
-                echo "<br><p class='w3-container w3-center'> Não existem candidaturas pendentes.</p>";
+                echo "<p class='w3-container w3-center'> Não existem candidaturas pendentes.</p>";
             }
             foreach ($candidatos as $candidato) {
 
@@ -403,12 +414,79 @@
                     </form>
                     </div>";
                 }
+
+            }
+
+            echo "<br>";
+
+            echo "<header class='w3-container'>
+                        <h5><b>Voluntários que correspondem à ação: </b></h5>
+                    </header>";
+
+            $voluntariosMatch = VoluntariosMatchAcao($openid);
+
+            if (count($voluntariosMatch) == 0) {
+                echo "<p class='w3-container w3-center'> Não existem voluntários correspondentes.</p>";
+            }
+            foreach ($voluntariosMatch as $voluntario) {
+
+                echo "
+                <div class='w3-card-4 w3-round-xxlarge'>
+
+                    <header class='w3-container'>
+                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                    </header>";
+
+                echo "<div class='w3-container'>
+                    <h5><b>".$voluntario['nome_voluntario']."</b></h5>
+                    <img src='../".$voluntario['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$voluntario['concelho'].", ".$voluntario['distrito']."</p>
+                    <p><i class='fas fa-heart'></i> &nbsp ";
+
+                $areas = areasCandidato($voluntario['id']);         
+
+                $ultimo = count($areas);
+
+                $c = 0;
+                foreach ($areas as $are) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$are";
+                    } else {
+                        echo "$are, ";
+                    }
+                }
+
+
+                echo "</p>
+                        <p><i class='fas fa-users'></i> &nbsp ";
+
+                $populacao = populacaoCandidato($voluntario['id']);
+
+                $ultimo = count($populacao);
+
+                $c = 0;
+                foreach ($populacao as $pop) {
+                    $c = $c + 1;
+                    if ($c == $ultimo){
+                        echo "$pop";
+                    } else {
+                        echo "$pop, ";
+                    }
+                }
+       
+                echo "</p>";
                 
+                echo    "</div>
+                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                        <button type='submit' value='".$voluntario['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                    </form>";
+
                 echo "</div>";
 
             }
 
-            echo "<br></div>";
+            echo "<br></div></div>";
         }
 
         if ($_POST['AceitarCand']) {
@@ -520,14 +598,14 @@
             }
 
             for ($x = 0; $x < $max; $x++) {
-                echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
+                echo "<div id='pedido".json_encode($x)."' class='pedido w3-container w3-border-top w3-border-bottom'>
                         <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
                 if ($pedidos[$x]['tipologged'] == "instituicao"){
                     if ($pedidos[$x]['tipo'] == 'candidatura'){
                             echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
                             if ($pedidos[$x]['estado'] == 'Pendente'){
-                                echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                    <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                echo "<button id='".json_encode('aca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                    <button id='".json_encode('rca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if ($pedidos[$x]['estado'] == 'Aceite') {
                                 echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
@@ -562,8 +640,8 @@
                     } else {
                         echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
                         if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            echo "<button id='".json_encode('aco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                <button id='".json_encode('rco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                         } 
                         if ($pedidos[$x]['estado'] == 'Aceite') {
                             echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";

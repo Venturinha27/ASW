@@ -1,4 +1,4 @@
-<!--Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 -->
+
 <?php
     ob_start();
     session_start();
@@ -20,12 +20,14 @@
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/PerfilJS.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../CSS/ProcuraC.css">
+<script src="../JavaScript/ProcuraJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
         <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
 
-        <input type="text" class="w3-bar-item w3-input" placeholder="Procura...">
+        <input type="text" class="w3-bar-item w3-input" onkeyup="showHint(this.value)" placeholder="Procura...">
         
         <?php
 
@@ -80,6 +82,10 @@
         <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
         <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
         <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
+    </div>
+
+    <div id="topSugestaoDiv" class="w3-block hidden">
+
     </div>
 
 </header>
@@ -500,14 +506,14 @@
             }
 
             for ($x = 0; $x < $max; $x++) {
-                echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
+                echo "<div id='pedido".json_encode($x)."' class='pedido w3-container w3-border-top w3-border-bottom'>
                         <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
                 if ($pedidos[$x]['tipologged'] == "instituicao"){
                     if ($pedidos[$x]['tipo'] == 'candidatura'){
                             echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
                             if ($pedidos[$x]['estado'] == 'Pendente'){
-                                echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                    <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                echo "<button id=".json_encode('aca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                    <button id=".json_encode('rca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if ($pedidos[$x]['estado'] == 'Aceite') {
                                 echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
@@ -542,8 +548,8 @@
                     } else {
                         echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
                         if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            echo "<button id=".json_encode('aco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                <button id=".json_encode('rco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                         } 
                         if ($pedidos[$x]['estado'] == 'Aceite') {
                             echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
@@ -557,7 +563,7 @@
                 echo "</div>";
             }
                         
-            echo "<button type='button' onclick='verMaisPed(".json_encode($pedidos).")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+            echo "<button type='button' onclick='verMaisPed(".json_encode($pedidos).", ".json_encode($loggedid).", ".json_encode($loggedtype).")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
                     </div>
                 </div>";
 
