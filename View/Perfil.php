@@ -500,14 +500,14 @@
             }
 
             for ($x = 0; $x < $max; $x++) {
-                echo "<div class='pedido w3-container w3-border-top w3-border-bottom'>
+                echo "<div id='pedido".json_encode($x)."' class='pedido w3-container w3-border-top w3-border-bottom'>
                         <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
                 if ($pedidos[$x]['tipologged'] == "instituicao"){
                     if ($pedidos[$x]['tipo'] == 'candidatura'){
                             echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
                             if ($pedidos[$x]['estado'] == 'Pendente'){
-                                echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                    <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                echo "<button id='".json_encode('aca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                    <button id='".json_encode('rca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if ($pedidos[$x]['estado'] == 'Aceite') {
                                 echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
@@ -542,8 +542,8 @@
                     } else {
                         echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
                         if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                <button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            echo "<button id='".json_encode('aco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                <button id='".json_encode('rco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))."' onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                         } 
                         if ($pedidos[$x]['estado'] == 'Aceite') {
                             echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
