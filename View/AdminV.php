@@ -3,6 +3,10 @@
     ob_start();
     session_start();
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
     if ($_SESSION['loggedtype'] != "admin") {
         header("Location: LoginA.php");
     }
@@ -176,220 +180,32 @@
 </div>
 
 <?php
-    include "openconn.php"; 
 
     if (!empty($_POST)){
 
-        $primeiro = 0;
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $idade = $_POST['idade'];
+        $distrito = $_POST['distrito'];
+        $concelho = $_POST['concelho'];
+        $freguesia = $_POST['freguesia'];
+        $genero = $_POST['genero'];
+        $carta = $_POST['carta'];
+        $covid = $_POST['covid'];
+        $area_interesse = $_POST['area-interesse'];
+        $populacao_alvo = $_POST['populacao-alvo'];
+        $disponibilidade_dia = $_POST['disponibilidade-dia'];
+        $disponibilidade_hora = $_POST['disponibilidade-hora'];
+        $disponibilidade_duracao = $_POST['disponibilidade-duracao'];
 
-        $queryVoluntario = "SELECT id, nome_voluntario, bio, data_nascimento, genero, concelho
-                            , distrito, freguesia, telefone, cc, carta_c, covid, email
-                            FROM Voluntario ";
+        include "../Controller/AdminVController.php";
 
-        if (!empty($_POST['nome'])){
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE nome_voluntario = '".$_POST['nome']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND nome_voluntario = '".$_POST['nome']."' ";
-            }
-        }
+        $resultVoluntario = adminVolPost($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $area_interesse, $populacao_alvo, $disponibilidade_dia, $disponibilidade_hora, $disponibilidade_duracao);
 
-        if (!empty($_POST['email'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE email = '".$_POST['email']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND email = '".$_POST['email']."' ";
-            }
-        }
-
-        if (!empty($_POST['idade'])) {
-            
-            if ($_POST['idade'] == "10 aos 20") {
-                $time1 = strtotime("-10 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-20 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "21 aos 30") {
-                $time1 = strtotime("-20 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-30 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "31 aos 40") {
-                $time1 = strtotime("-30 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-40 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "41 aos 50") {
-                $time1 = strtotime("-40 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-50 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "51 aos 60") {
-                $time1 = strtotime("-50 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-60 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "61 aos 70") {
-                $time1 = strtotime("-60 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-70 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "71 aos 80") {
-                $time1 = strtotime("-70 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-80 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($_POST['idade'] == "81+") {
-                $time1 = strtotime("-80 years", time());
-                $date1 = date("Y-m-d", $time1);
-                $time2 = strtotime("-150 years", time());
-                $date2 = date("Y-m-d", $time2);
-            }
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE (data_nascimento BETWEEN '".$date2."' AND '".$date1."') ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND (data_nascimento BETWEEN '".$date2."' AND '".$date1."') ";
-            }
-        }
-
-        if (!empty($_POST['distrito'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE distrito = '".$_POST['distrito']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND distrito = '".$_POST['distrito']."' ";
-            }
-        }
-
-        if (!empty($_POST['concelho'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE concelho = '".$_POST['concelho']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND concelho = '".$_POST['concelho']."' ";
-            }
-        }
-
-        if (!empty($_POST['freguesia'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE freguesia = '".$_POST['freguesia']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND freguesia = '".$_POST['freguesia']."' ";
-            }
-        }
-
-        if (!empty($_POST['genero'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE genero = '".$_POST['genero']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND genero = '".$_POST['genero']."' ";
-            }
-        }
-
-        if (!empty($_POST['carta'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE carta_c = '".$_POST['carta']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND carta_c = '".$_POST['carta']."' ";
-            }
-        }
-
-        if (!empty($_POST['covid'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE covid = '".$_POST['covid']."' ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND covid = '".$_POST['covid']."' ";
-            }
-        }
-
-        if (!empty($_POST['area-interesse'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
-                                    FROM Voluntario_Area
-                                    WHERE area = '".$_POST['area-interesse']."') ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND id IN (SELECT id_voluntario
-                                    FROM Voluntario_Area
-                                    WHERE area = '".$_POST['area-interesse']."') ";
-            }
-        }
-
-        if (!empty($_POST['populacao-alvo'])) {
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
-                                    FROM Voluntario_Populacao_Alvo
-                                    WHERE populacao_alvo = '".$_POST['populacao-alvo']."') ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND id IN (SELECT id_voluntario
-                                    FROM Voluntario_Populacao_Alvo
-                                    WHERE populacao_alvo = '".$_POST['populacao-alvo']."') ";
-            }
-        }
-
-        if (!empty($_POST['disponibilidade-dia']) and 
-        !empty($_POST['disponibilidade-hora']) and
-        !empty($_POST['disponibilidade-duracao'])) {
-
-            $intervalo = intval($_POST['disponibilidade-hora']) + intval($_POST['disponibilidade-duracao']);
-
-            if ($primeiro == 0){
-                $queryVoluntario .= "WHERE id IN (SELECT id_voluntario
-                                    FROM Voluntario_Disponibilidade
-                                    WHERE dia = '".$_POST['disponibilidade-dia']."'
-                                        AND hora >= ".$_POST['disponibilidade-hora']."
-                                        AND hora <= ".$intervalo.") ";
-                $primeiro = 1;
-            } else {
-                $queryVoluntario .= "AND id IN (SELECT id_voluntario
-                                    FROM Voluntario_Disponibilidade
-                                    WHERE dia = '".$_POST['disponibilidade-dia']."'
-                                        AND hora >= ".$_POST['disponibilidade-hora']."
-                                        AND hora <= ".$intervalo.") ";
-            }
-        }
-
-        $queryVoluntario .= "ORDER BY nome_voluntario ";
-        
-        #echo "<h1 class='entrou'>".$queryVoluntario."</h1>";
-
-        #echo "<h1 class='entrou'>".$queryVoluntario."</h1>";
-        
-        #echo "<h1 class='entrou'>".$today."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['idade']."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['distrito']."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['concelho']."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['freguesia']."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['genero']."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['carta']."</h1>";
-        #echo "<h1 class='entrou'>".$_POST['covid']."</h1>";
     } else {
-        $queryVoluntario = "SELECT id, nome_voluntario, bio, data_nascimento, genero, concelho
-                    , distrito, freguesia, telefone, cc, carta_c, covid, email
-                    FROM Voluntario
-                    ORDER BY nome_voluntario;";
+        $resultVoluntario = adminVol();
+        
     }
-
-    $resultVoluntario = $conn->query($queryVoluntario);
-
-    if (!($resultVoluntario)) {
-        echo "Erro: search failed" . mysqli_error($conn);
-    }     
     
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red w3-small resultado'>";
     echo "<p>Encontrou ".($resultVoluntario->num_rows)." resultado(s) para a pesquisa.</p>";
@@ -432,11 +248,7 @@
                 <td><p>".$row['covid']."</p></td>
                 <td><p>".$row['email']."</p></td>";
 
-                $queryArea = "SELECT id_voluntario, area
-                    FROM Voluntario_Area
-                    WHERE id_voluntario = '".$row['id']."'";
-
-                $resultArea = $conn->query($queryArea);            
+                $resultArea = AreaVolAdmin($row['id']);         
 
                 echo "<td>";
                 if ($resultArea->num_rows > 0) {
@@ -446,11 +258,7 @@
                 }
                 echo "</td>";
 
-                $queryPopulacao = "SELECT id_voluntario, populacao_alvo
-                    FROM Voluntario_Populacao_Alvo
-                    WHERE id_voluntario = '".$row['id']."'";
-
-                $resultPopulacao = $conn->query($queryPopulacao);            
+                $resultPopulacao = PopulacaoVolAdmin($row['id']);          
 
                 echo "<td>";
                 if ($resultPopulacao->num_rows > 0) {
@@ -460,11 +268,7 @@
                 }
                 echo "</td>";
 
-                $queryDispo = "SELECT id_voluntario, dia, hora, duracao
-                    FROM Voluntario_Disponibilidade
-                    WHERE id_voluntario = '".$row['id']."'";
-
-                $resultDispo = $conn->query($queryDispo);            
+                $resultDispo = DispoVolAdmin($row['id']);    
 
                 echo "<td>";
                 if ($resultDispo->num_rows > 0) {

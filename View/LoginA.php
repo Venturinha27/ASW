@@ -1,4 +1,5 @@
 
+
 <?php
     session_start();
 ?>
@@ -36,7 +37,7 @@
 <?php
 
      // estabelecer ligação com a base de dados
-     include "openconn.php";
+     include "../Model/openconn.php";
                 
      include "TestInput.php";
 
