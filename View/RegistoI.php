@@ -110,16 +110,14 @@
             <input type="text" class="w3-input" id="website" placeholder="Website" name="website">
 
             <textarea type="text" class="w3-input" id="biografia" placeholder="Escreva uma pequena bio sobre a instituição..." name="bio" rows="3" maxlength="240" required></textarea>
+            
+            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
         </div>
         <div id="divDir">
                 
             <label>Fotografia de Perfil</label>
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-            <input type="file" id="avatar" name="avatar">
-
-            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
-
-            
+            <input type="file" id="avatar" name="avatar">            
 
             <label>Distrito:</label>
             <select class="w3-input" name="distrito" id="distrito" size="1" required>
