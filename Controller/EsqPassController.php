@@ -16,7 +16,7 @@
                     }
 
                     if ($query) {
-                     #   header("Location: Login.php");
+                        header("Location: Login.php");
                     }
                 } else {
                     echo "<p class='erro'> Passwords não coincidem <p>";
