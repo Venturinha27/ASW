@@ -2,6 +2,9 @@
 <?php
     ob_start();
     session_start();
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +101,7 @@
 
     </div>
 
-    <form id="registertext" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+    <form id="registertext" action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post">
         <div id="Esqueci">
             <input type="text" class="w3-input" id="Email" placeholder="E-mail" name="Email" required>
 

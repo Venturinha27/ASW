@@ -5,6 +5,7 @@
     function esqPass($email, $telefone, $novaPassword, $confPassword){
 
         $resposta = esqpass_query();
+        echo"updateI1";
 
         while ($row = $resposta->fetch_array()){
             if ($email == $row[0] and $telefone == $row[1]){
@@ -16,6 +17,8 @@
                     }
                     
                     $novaPass = $conn->query($query);
+
+                    echo"updateI2";
 
                     if ($novaPass) {
                         header("Location: Login.php");

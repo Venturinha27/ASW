@@ -1191,6 +1191,8 @@
 
         $resultPass = $conn->query($passquery);
 
+        echo"updateo";
+
         if (!($resultPass)) {
             mysqli_close($conn);
             return "Algo deu errado.";
@@ -1228,6 +1230,8 @@
         $query2 = "UPDATE Instituicao 
                    SET password2 = '".password_hash($novaPassword, PASSWORD_DEFAULT)."' 
                    WHERE id = '".$row[2]."'";
+
+        echo"updateI";
 
         $query = $conn->query($query2);
 
