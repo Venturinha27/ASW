@@ -105,15 +105,15 @@ function verMaisPed(pedidos) {
 
                 for (let x = 0; x < pedidos.length; x++) {
 
-                    htmlresposta += "<div class='pedido w3-container w3-border-top w3-border-bottom'>";
+                    htmlresposta += "<div id='pedido"+JSON.stringify(x)+"' class='pedido w3-container w3-border-top w3-border-bottom'>";
                     htmlresposta += "<img src='../"+pedidos[x]['foto_voluntario']+"' alt='Avatar' class='w3-left w3-circle'>";
 
                     if (pedidos[x]['tipologged'] == 'instituicao'){
                         if (pedidos[x]['tipo'] == 'candidatura'){
                             htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
                             if (pedidos[x]['estado'] == 'Pendente'){
-                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
-                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('aca'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Aceitar')+", "+JSON.stringify('Candidatura')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('rca'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Rejeitar')+", "+JSON.stringify('Candidatura')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if (pedidos[x]['estado'] == 'Aceite') {
                                 htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
@@ -148,8 +148,8 @@ function verMaisPed(pedidos) {
                         } else {
                             htmlresposta += "<p><b>"+pedidos[x]['nome_acao']+"</b> convidou <b>"+pedidos[x]['nome_voluntario']+"</b>.</p>";
                             if (pedidos[x]['estado'] == 'Pendente'){
-                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
-                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('aco'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Aceitar')+", "+JSON.stringify('Convite')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('rco'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Rejeitar')+", "+JSON.stringify('Convite')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if (pedidos[x]['estado'] == 'Aceite') {
                                 htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
@@ -204,15 +204,15 @@ function verMaisPed(pedidos) {
 
                 for (let x = 0; x < max; x++) {
 
-                    htmlresposta += "<div class='pedido w3-container w3-border-top w3-border-bottom'>";
+                    htmlresposta += "<div id='pedido"+JSON.stringify(x)+"' class='pedido w3-container w3-border-top w3-border-bottom'>";
                     htmlresposta += "<img src='../"+pedidos[x]['foto_voluntario']+"' alt='Avatar' class='w3-left w3-circle'>";
                     
                     if (pedidos[x]['tipologged'] == 'instituicao'){
                         if (pedidos[x]['tipo'] == 'candidatura'){
                             htmlresposta += "<p><b>"+pedidos[x]['nome_voluntario']+"</b> candidatou-se a <b>"+pedidos[x]['nome_acao']+"</b>.</p>";
                             if (pedidos[x]['estado'] == 'Pendente'){
-                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
-                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('aca'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Aceitar')+", "+JSON.stringify('Candidatura')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('rca'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Rejeitar')+", "+JSON.stringify('Candidatura')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if (pedidos[x]['estado'] == 'Aceite') {
                                 htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
@@ -247,8 +247,8 @@ function verMaisPed(pedidos) {
                         } else {
                             htmlresposta += "<p><b>"+pedidos[x]['nome_acao']+"</b> convidou <b>"+pedidos[x]['nome_voluntario']+"</b>.</p>";
                             if (pedidos[x]['estado'] == 'Pendente'){
-                                htmlresposta += "<button class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
-                                htmlresposta += "<button class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('aco'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Aceitar')+", "+JSON.stringify('Convite')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>";
+                                htmlresposta += "<button id="+JSON.stringify('rco'+pedidos[x]['id_voluntario']+pedidos[x]['id_acao'])+" onclick='responderPed("+JSON.stringify('Rejeitar')+", "+JSON.stringify('Convite')+", "+JSON.stringify(pedidos[x]['id_voluntario'])+", "+JSON.stringify(pedidos[x]['id_acao'])+", "+JSON.stringify(x)+")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
                             } 
                             if (pedidos[x]['estado'] == 'Aceite') {
                                 htmlresposta += "<p class='estadop w3-text-green'><b>"+pedidos[x]['estado']+"</b></p>";
@@ -316,5 +316,51 @@ function convidaAcao(id_acao, id_vol) {
         }
     }
     xmlhttp.open("GET", "../Controller/PerfilController.php?convida_acao=yes&id_acao_convida="+String(id_acao)+"&id_vol_convida="+String(id_vol), true);
+    xmlhttp.send();  
+}
+
+function responderPed(resposta, tipo, id_vol, id_acao, numero) {
+
+    let divid = document.getElementById("pedido"+numero)
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let lenres = this.responseText.length
+            if (this.responseText.substring(lenres-3, lenres) == 'yes') {
+                if (tipo == "Candidatura") {
+                    let strida = 'aca'+id_vol+id_acao
+                    let stridr = 'rca'+id_vol+id_acao
+                    document.getElementById(strida).remove()
+                    document.getElementById(stridr).remove()
+                    let p = document.createElement('p')
+                    if (resposta == "Aceite") {
+                        p.setAttribute("class", "estadop w3-text-green")
+                        p.innerHTML = "<b>Aceite</b>"
+                    } else {
+                        p.setAttribute("class", "estadop w3-text-red")
+                        p.innerHTML = "<b>Rejeitado</b>"
+                    }
+                    divid.appendChild(p)
+                } else {
+                    let strida = 'aco'+id_vol+id_acao
+                    let stridr = 'rco'+id_vol+id_acao
+                    document.getElementById(strida).remove()
+                    document.getElementById(stridr).remove()
+                    let p = document.createElement('p')
+                    if (resposta == "Aceitar") {
+                        p.setAttribute("class", "estadop w3-text-green")
+                        p.innerHTML = "<b>Aceite</b>"
+                    } else {
+                        p.setAttribute("class", "estadop w3-text-red")
+                        p.innerHTML = "<b>Rejeitado</b>"
+                    }
+                    
+                    divid.appendChild(p)
+                }
+            }
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PedidosController.php?r_resposta="+String(resposta)+"&r_tipo="+String(tipo)+"&r_id_vol="+String(id_vol)+"&r_id_acao="+String(id_acao), true);
     xmlhttp.send();  
 }

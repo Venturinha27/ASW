@@ -665,6 +665,27 @@
 
     }
 
+    function nome_instituicao($id){
+
+        include "openconn.php";
+
+        $query = "SELECT id, nome_instituicao
+                FROM Instituicao
+                WHERE id = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
     function nome_acao($id) {
 
         include "openconn.php";
@@ -789,28 +810,6 @@
         mysqli_close($conn);
 
         return $resultCandidatura;
-
-    }
-
-    function candidatura_aceite($id_candidato, $id_acao) {
-
-        include "openconn.php";
-
-        $query = "UPDATE Candidatura_Acao
-                    SET estado = 'Aceite'
-                    WHERE id_voluntario = '".$id_candidato."'
-                    AND id_acao = '".$id_acao."'";
-
-        $result = $conn->query($query);
-
-        if (!($result)) {
-            mysqli_close($conn);
-            return "Erro no acesso à BD.";
-        }
-
-        mysqli_close($conn);
-
-        return TRUE;
 
     }
 
@@ -984,6 +983,177 @@
         mysqli_close($conn);
 
         return TRUE;
+
+    }
+
+    function candidatura_aceite($id_candidato, $id_acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Candidatura_Acao
+                    SET estado = 'Aceite'
+                    WHERE id_voluntario = '".$id_candidato."'
+                    AND id_acao = '".$id_acao."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function candidatura_rejeitada($id_candidato, $id_acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Candidatura_Acao
+                    SET estado = 'Rejeitado'
+                    WHERE id_voluntario = '".$id_candidato."'
+                    AND id_acao = '".$id_acao."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function convite_aceite($id_candidato, $id_acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Convite_Acao
+                    SET estado = 'Aceite'
+                    WHERE id_voluntario = '".$id_candidato."'
+                    AND id_acao = '".$id_acao."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function convite_rejeitado($id_candidato, $id_acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Convite_Acao
+                    SET estado = 'Rejeitado'
+                    WHERE id_voluntario = '".$id_candidato."'
+                    AND id_acao = '".$id_acao."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function all_voluntarios() {
+
+        include "openconn.php";
+
+        $queryVoluntario = "SELECT id, nome_voluntario, foto, bio, data_nascimento,
+                            genero, concelho, distrito, freguesia, telefone, cc,
+                            carta_c, covid, email, password1
+                            FROM Voluntario";
+
+        $resultVoluntario = $conn->query($queryVoluntario);  
+        
+        if (!($resultVoluntario)) {
+            mysqli_close($conn);
+            return "Não existem voluntários.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultVoluntario;
+
+    }
+
+    function procura_instituicoes() {
+
+        include "openconn.php";
+
+        $queryInstituicao = "SELECT id, nome_instituicao, foto 
+                            FROM Instituicao";
+
+        $resultInstituicao = $conn->query($queryInstituicao); 
+        
+        if (!($resultInstituicao)) {
+            mysqli_close($conn);
+            return "Não existem instituições.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultInstituicao;
+
+    }
+
+    function procura_voluntarios() {
+
+        include "openconn.php";
+
+        $queryVoluntario = "SELECT id, nome_voluntario, foto 
+                            FROM Voluntario";
+
+        $resultVoluntario = $conn->query($queryVoluntario);  
+        
+        if (!($resultVoluntario)) {
+            mysqli_close($conn);
+            return "Não existem voluntários.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultVoluntario;
+
+    }
+
+    function procura_acoes() {
+
+        include "openconn.php";
+
+        $queryAcao = "SELECT A.id_acao, A.titulo, I.foto 
+                    FROM Instituicao I, Acao A
+                    WHERE I.id = A.id_instituicao";
+
+        $resultAcao = $conn->query($queryAcao);  
+        
+        if (!($resultAcao)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultAcao;
 
     }
 

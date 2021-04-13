@@ -112,4 +112,61 @@
             return $id_instituicao;
         }
     }
+
+    function areasVoluntarioF($id) {
+
+        $areasVoluntario = areas_voluntario($id);
+
+        if ($areasVoluntario->num_rows > 0) {     
+            $areas = array();
+            while ($rowA = $areasVoluntario->fetch_assoc()){
+                array_push($areas, $rowA['area']);
+            }
+        }
+        return $areas;
+
+    }
+
+    function populacaoVoluntarioF($id) {
+
+        $populacaoVoluntario = populacao_voluntario($id);
+
+        if ($populacaoVoluntario->num_rows > 0) {     
+            $populacao = array();
+            while ($rowP = $populacaoVoluntario->fetch_assoc()){
+                array_push($populacao, $rowP['populacao_alvo']);
+            }
+        }
+        return $populacao;
+
+    }
+
+    function VoluntariosMatchAcao($id_acao) {
+        $acao = query_acao($id_acao);
+        $voluntarios = all_voluntarios();
+
+        $arrayVoluntarios = array();
+
+        if ($racao = $acao->fetch_assoc()) {
+            while ($rvol = $voluntarios->fetch_assoc()) {
+                
+                if ($racao['distrito'] == $rvol['distrito']) {
+
+                    $populacao = populacaoVoluntarioF($rvol['id']);
+                    if (in_array($racao['populacao_alvo'], $populacao)) {
+    
+                        $area = areasVoluntarioF($rvol['id']);
+                        if (in_array($racao['area_interesse'], $area)) {
+    
+                            array_push($arrayVoluntarios, $rvol);
+    
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return $arrayVoluntarios;
+    }
 ?>

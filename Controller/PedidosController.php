@@ -81,4 +81,41 @@
         return strtotime($b["data"]) - strtotime($a["data"]);
     }
 
+    $r_resposta = $_REQUEST['r_resposta'];
+    $r_tipo = $_REQUEST['r_tipo'];
+    $r_id_vol = $_REQUEST['r_id_vol'];
+    $r_id_acao = $_REQUEST['r_id_acao'];
+
+    if (isset($r_resposta)) {
+        
+        responderAoPedido($r_resposta, $r_tipo, $r_id_vol, $r_id_acao);
+        
+    }
+
+    function responderAoPedido($resposta, $tipo, $id_vol, $id_acao) {
+
+        include "../Model/Model.php";
+
+        if ($resposta == "Aceitar") {
+            if ($tipo == "Candidatura") {
+                $respostaq = candidatura_aceite($id_vol, $id_acao);
+            } else {
+                $respostaq = convite_aceite($id_vol, $id_acao);
+            }
+        } else {
+            if ($tipo == "Candidatura") {
+                $respostaq = candidatura_rejeitada($id_vol, $id_acao);
+            } else {
+                $respostaq = convite_rejeitado($id_vol, $id_acao);
+            }
+        }
+
+        if ($respostaq == TRUE) {
+            echo 'yes';
+        } else {
+            echo 'no';
+        }
+
+    }
+
 ?>
