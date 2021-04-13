@@ -29,6 +29,7 @@
 
             include "../Controller/HeaderController.php";
             include "../Controller/SessionController.php";
+            include "../Controller/EsqPassController.php";
             
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Login.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
@@ -73,6 +74,7 @@
                 }
             }
         ?>
+
         <a href="Voluntarios.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
         <a href="Instituicoes.php" class="w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile">Instituições</a>
         <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a> 
