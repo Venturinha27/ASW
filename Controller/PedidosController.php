@@ -1,5 +1,6 @@
 <?php
 
+
     function pedidosLogged($id, $type) {
 
         $pedidos = array();
@@ -115,6 +116,17 @@
         } else {
             echo 'no';
         }
+
+    }
+
+    $logid = $_REQUEST['logid'];
+    $logtype = $_REQUEST['logtype'];
+
+    if (isset($logid)) {
+
+        include_once "../Model/Model.php";
+
+        echo json_encode(pedidosLogged($logid, $logtype));
 
     }
 
