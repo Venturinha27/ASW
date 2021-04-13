@@ -1,6 +1,6 @@
 <?php
 
-    include "../Model/Model.php";
+    include_once "../Model/Model.php";
 
     function esqPass($email, $telefone, $novaPassword, $confPassword){
 
@@ -10,14 +10,12 @@
             if ($email == $row[0] and $telefone == $row[1]){
                 if ($novaPassword == $confPassword) {
                     if ($row[3] == 'voluntario'){
-                        $query = updateV();
+                        $query = update_v($row[2], $novaPassword);
                     } else {
-                        $query = updateI();
+                        $query = update_i($row[2], $novaPassword);
                     }
-                    
-                    $novaPass = $conn->query($query);
 
-                    if ($novaPass) {
+                    if ($query) {
                         header("Location: Login.php");
                     }
                 } else {

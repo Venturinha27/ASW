@@ -65,7 +65,12 @@
 
             if ($_POST['terminarS']){
                 TerminarSessao();
-                echo "<meta http-equiv='refresh' content='0'>";
+                if ($_SESSION['loggedid'] == $_SESSION['openid']) {
+                    header("Location: HomePage.php");
+                } else {
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+                
             }
 
             if ($_POST['selfopen']){
