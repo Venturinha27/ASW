@@ -3,11 +3,7 @@
     session_start();
     ob_start();
 
-    if (!isset($_SESSION['logged'])) {
-        header('Location: Login.php');
-    }
-
-    include "../Controller/EditarPerfilController.php";
+    include_once "../Controller/EditarPerfilController.php";
     
 ?>
 <!DOCTYPE html>
@@ -19,12 +15,14 @@
 <link rel='stylesheet' href='../CSS/EditarPerfilC.css'>
 <script src='https://kit.fontawesome.com/91ccf300f9.js' crossorigin='anonymous'></script>
 <script src="../JavaScript/DCF.js"></script>
+<script src="../JavaScript/DCF2.js"></script>
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
+<script src="../JavaScript/EditarPerfilJS.js"></script>
 
 <header>
-    <div class='w3-bar w3-large' id='navigation'>
-        <a href='HomePage.php' class='w3-bar-item w3-button w3-hover-blue w3-mobile'>VoluntárioCOVID19</a>
+    <div class="w3-bar w3-large" id="navigation">
+        <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
 
         <input type="text" class="w3-bar-item w3-input" onkeyup="showHint(this.value)" placeholder="Procura...">
         
@@ -36,7 +34,6 @@
             if (!isset($_SESSION['logged'])) {
                 echo "<a href='Login.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
             } else {
-                
                 $foto = "../" . loggedHeader();
 
                 echo "<div class='w3-dropdown-hover w3-right w3-mobile'>
@@ -65,7 +62,12 @@
 
             if ($_POST['terminarS']){
                 TerminarSessao();
-                echo "<meta http-equiv='refresh' content='0'>";
+                if ($_SESSION['loggedid'] == $_SESSION['openid']) {
+                    header("Location: HomePage.php");
+                } else {
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+                
             }
 
             if ($_POST['selfopen']){
@@ -75,13 +77,13 @@
                 } else {
                     header("Location: EditarPerfil.php");
                 }
-            } 
+            }
         ?>
-        <a href='Voluntarios.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>Voluntários</a>
-        <a href='Instituicoes.php' class='w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile'>Instituições</a>
-        <a href='Publicacoes.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>Publicações</a> 
-        <a href='Covid19.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>COVID-19</a>  
-        <a href='Sobre.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'>Sobre</a>        
+        <a href="Voluntarios.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
+        <a href="Instituicoes.php" class="w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile">Instituições</a>
+        <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
+        <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
+        <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>        
     </div>
 
     <div id="topSugestaoDiv" class="w3-block hidden">
@@ -102,7 +104,7 @@
 
 <?php
 
-    include "TestInput.php";
+    include_once "TestInput.php";
 
     $loggedtype = $_SESSION['loggedtype'];
     $logged = $_SESSION['logged'];
@@ -519,7 +521,7 @@
             $carta = test_input($_POST['carta']); 
             $covid = test_input($_POST['covid']);
 
-            include "../Controller/InputPhotoController.php";
+            include_once "../Controller/InputPhotoController.php";
 
             $avatar = test_photo();
 
@@ -632,7 +634,7 @@
 
         </form>
     </div>"; 
-    }
+    
 
     if (!empty($_POST['editarPerfilI'])){
 
@@ -651,7 +653,7 @@
         $bio = test_input($_POST['bio']);
         $website = test_input($_POST['website']); # pode ser null
 
-        include "../Controller/InputPhotoController.php";
+        include_once "../Controller/InputPhotoController.php";
 
         $instituicao = openInstituicao($loggedid);
         $fotografia = $instituicao['foto'];
@@ -671,6 +673,1267 @@
             // Erro no input da fotografia
             echo "<p class='erro'> ". $avatar ." </p>";
         }
+    }
+
+    echo "<div id='PreferenciasIDiv' class='w3-container'>
+
+        <h2><b>Editar Preferências</b></h2>
+
+        <div id='prefitext'>
+
+        <div id='addacao'>
+            <button class='w3-button w3-block w3-indigo w3-hover-white' type='submit' value='add' name='adicionaAcao'>
+                Adiciona ação
+            </button>
+        </div>
+
+        <label>Ações promovidas pela instituição:</label>";
+
+        include_once "../Controller/PreferenciasIController.php";
+
+        $instituicao = $_SESSION['loggedid'];
+
+        $a = AcoesPreferenciasI($instituicao);
+
+        $nomeInstituicao = PreferenciasINomeIns($instituicao);         
+
+        if ($a->num_rows > 0) {
+
+            while ($row = $a->fetch_assoc()){
+
+                echo "<div class='w3-card-4'>
+                            <header class='w3-container'>
+                                <h3>".$nomeInstituicao."</h3>
+                            </header>
+
+                            <div class='w3-container w3-left'>
+                                <h5>".$row['titulo']."</h5>
+                                <hr>
+                                <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
+                                <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
+                                <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
+                                <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
+                            </div>
+
+                            <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                                <button type='submit' value='".$row['id_acao']."' name='editAcao' class='w3-button w3-block w3-indigo w3-hover-indigo' id='editarAcao'>
+                                    Editar ação
+                                </button>
+                            </form>
+
+                            <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                                <button class='w3-button w3-block w3-hover-red' type='submit' value='".$row['id_acao']."' name='removeAcao'>
+                                    Eliminar ação
+                                </button>
+                            </form>
+                    </div>";
+            }
+        } else {
+            echo "<p class='w3-display-middle'>Ainda não tem ações :(</p>";
+        }
+
+        echo "</div>
+        </div>";
+
+
+        if (isset($_POST['editAcao'])) {
+
+            include_once "../Controller/EditarPerfilController.php";
+
+            echo "<form id='acaoform' class='w3-container w3-card' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>";
+        
+            $acao = openAcao($_POST['editAcao']);
+
+            if ($acaor = $acao->fetch_assoc()) {
+
+                $distrito = $acaor['distrito'];
+                $concelho = $acaor['concelho'];
+                $freguesia = $acaor['freguesia'];
+
+                echo " <header class='w3-container w3-indigo'>
+                        <h3>Nova ação</h3>
+
+                        <button class='w3-button w3-display-topright w3-large w3-hover-indigo' id='closeActionForm'>X</button>
+                        </header>
+                        <br>
+
+                        <input type='text' value='".$acaor['titulo']."' class='w3-input' id='tituloAcao' placeholder='Titulo da ação' name='titulo' required>
+
+                        <hr>
+
+                        <div id='divEsqI'>
+
+                            <label>Áreas de interesse:</label>
+                                <select class='w3-select sel' name='area-interesse' required>
+                                    <option value='' disabled>Selecione as suas áreas de interesse</option>";
+
+                                    if ($acaor['area_interesse'] == 'Ação social') {
+                                        echo "<option value='Ação social' selected>Ação social</option>
+                                        <option value='Educação'>Educação</option>
+                                        <option value='Saúde'>Saúde</option>";
+                                    }
+                                    if ($acaor['area_interesse'] == 'Educação') {
+                                        echo "<option value='Ação social'>Ação social</option>
+                                        <option value='Educação' selected>Educação</option>
+                                        <option value='Saúde'>Saúde</option>";
+                                    }
+                                    if ($acaor['area_interesse'] == 'Saúde') {
+                                        echo "<option value='Ação social'>Ação social</option>
+                                        <option value='Educação'>Educação</option>
+                                        <option value='Saúde' selected>Saúde</option>";
+                                    }
+                                    
+                                echo "</select>
+                                
+                            <hr>
+                            
+                            <label>População-alvo:</label>
+                                <select class='w3-select sel' name='populacao-alvo' required>
+                                    <option value='' disabled>Selecione a sua população-alvo</option>";
+                                    if ($acaor['populacao_alvo'] == 'Indiferente') {
+                                        echo "<option value='Indiferente' selected>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Crianças') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças' selected>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Jovens') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens' selected>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Idosos') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos' selected>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Grávidas') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas' selected>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Pessoas em situação de dependência (ex. acamados)') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)' selected>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Pessoas sem-abrigo') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo' selected>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência'>Pessoas com deficiência</option>";
+                                    }
+                                    if ($acaor['populacao_alvo'] == 'Pessoas com deficiência') {
+                                        echo "<option value='Indiferente'>Indiferente</option>
+                                        <option value='Crianças'>Crianças</option>
+                                        <option value='Jovens'>Jovens</option>
+                                        <option value='Idosos'>Idosos</option>
+                                        <option value='Grávidas'>Grávidas</option>
+                                        <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                        <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                        <option value='Pessoas com deficiência' selected>Pessoas com deficiência</option>";
+                                    }
+                                echo "</select>
+
+                            <hr>
+                            
+                            <label>Função: </label>
+                                <select class='w3-select sel' name='funcao' required>
+                                    <option value='' disabled>Selecione a função</option>";
+                                    if ($acaor['funcao'] == 'Entrega ao Domicilio de bens não alimentares') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares' selected>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Entrega de Bens Alimentares') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares' selected>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Prestação de Cuidados Básicos') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos' selected>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Apoio a Lares') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares' selected>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Cozinhar') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar' selected>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Limpar') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar' selected>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Apoio à infância e à Juventude') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude' selected>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Apoio Social a familias Carenciadas') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas' selected>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    if ($acaor['funcao'] == 'Apoios à angariação de bens para Animais de Companhia') {
+                                        echo "<option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                        <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                        <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                        <option value='Apoio a Lares'>Apoio a Lares</option>
+                                        <option value='Cozinhar'>Cozinhar</option>
+                                        <option value='Limpar'>Limpar</option>
+                                        <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                        <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                        <option value='Apoios à angariação de bens para Animais de Companhia' selected>Apoios à angariação de bens para Animais de Companhia</option>";
+                                    }
+                                    
+
+                                echo "</select>
+
+                            <hr>
+
+                            <label>Número de Vagas:</label>
+                                <input type='number' id='nVagas' name='vagas' value='".$acaor['num_vagas']."' min='1' max='1000' required>
+
+                            <hr>
+
+                            <label>Distrito:</label>
+                            <select class='w3-input' name='distrito' id='distrito2' size='1' required>
+                                <option value='$distrito' name='$distrito' selected>$distrito</option>
+                            </select> 
+
+                        </div>
+
+                        <div id='divDirI'>
+                            
+                            <label>Concelho:</label>
+                            <select class='w3-input' name='concelho' id='concelho2' size='1' required>
+                                <option value='$concelho' name='$concelho' selected>$concelho</option>
+                            </select>
+                            
+                            <hr>
+                            
+                            <label>Freguesia:</label>
+                            <select class='w3-input' name='freguesia' id='freguesia2' size='1' required>
+                                <option value='$freguesia' name='$freguesia' selected>$freguesia</option>
+                            </select> 
+                            
+                            <hr>
+                            
+                            <label>Data:</label>
+                                <input type='date' class='sel' name='disponibilidade-dia' value='".$acaor['dia']."' placeholder='Data (AAAA-MM-DD)' required/>
+                                    
+                            <hr>
+
+                            <label>Hora:</label>
+                                <select class='w3-select sel' name='disponibilidade-hora' required>
+                                    <option value='' disabled>Hora</option>";
+                                    if ($acaor['hora'] == '0') {
+                                        echo "<option value='0' selected>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '1') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1' selected>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '2') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2' selected>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '3') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3' selected>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '4') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4' selected>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '5') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5' selected>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '6') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6' selected>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '7') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7' selected>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '8') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8' selected>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '9') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9' selected>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '10') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10' selected>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '11') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11' selected>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '12') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12' selected>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '13') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13' selected>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '14') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14' selected>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '15') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15' selected>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '16') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16' selected>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '17') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17' selected>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '18') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18' selected>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '19') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19' selected>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '20') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20' selected>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '21') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21' selected>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '22') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22' selected>22:00</option>
+                                        <option value='23'>23:00</option>";
+                                    }
+                                    if ($acaor['hora'] == '23') {
+                                        echo "<option value='0'>00:00</option>
+                                        <option value='1'>01:00</option>
+                                        <option value='2'>02:00</option>
+                                        <option value='3'>03:00</option>
+                                        <option value='4'>04:00</option>
+                                        <option value='5'>05:00</option>
+                                        <option value='6'>06:00</option>
+                                        <option value='7'>07:00</option>
+                                        <option value='8'>08:00</option>
+                                        <option value='9'>09:00</option>
+                                        <option value='10'>10:00</option>
+                                        <option value='11'>11:00</option>
+                                        <option value='12'>12:00</option>
+                                        <option value='13'>13:00</option>
+                                        <option value='14'>14:00</option>
+                                        <option value='15'>15:00</option>
+                                        <option value='16'>16:00</option>
+                                        <option value='17'>17:00</option>
+                                        <option value='18'>18:00</option>
+                                        <option value='19'>19:00</option>
+                                        <option value='20'>20:00</option>
+                                        <option value='21'>21:00</option>
+                                        <option value='22'>22:00</option>
+                                        <option value='23' selected>23:00</option>";
+                                    }
+
+                                echo "</select>
+
+                            <hr>
+
+                            <label>Duração:</label>
+                                <select class='w3-select sel' name='disponibilidade-duracao' required>";
+                                if ($acaor['duracao'] == '1') {
+                                    echo "<option value='1' selected>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '2') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2' selected>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '3') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3' selected>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '4') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4' selected>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '5') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5' selected>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '6') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6' selected>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '7') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7' selected>07:00</option>
+                                    <option value='8'>08:00</option>";
+                                }
+                                if ($acaor['duracao'] == '8') {
+                                    echo "<option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8' selected>08:00</option>";
+                                }
+                                    
+                                echo "</select>
+
+                        </div>
+
+                        <button class='w3-button w3-indigo' id='submitIP' type='submit' name='EditarAcao' value='".$_POST['editAcao']."'>Editar ação</button>
+
+                </form>";
+
+                unset($_POST['editAcao']);
+            }
+        } else {
+            include_once "../Controller/EditarPerfilController.php";
+
+            echo "<form id='acaoform' class='w3-container w3-card hidden' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>";
+            
+            echo " <header class='w3-container w3-indigo'>
+                        <h3>Nova ação</h3>
+
+                        <button class='w3-button w3-display-topright w3-large w3-hover-indigo' id='closeActionForm'>X</button>
+                        </header>
+                        <br>
+
+                        <input type='text' class='w3-input' id='tituloAcao' placeholder='Titulo da ação' name='titulo' required>
+
+                        <hr>
+
+                        <div id='divEsqI'>
+
+                            <label>Áreas de interesse:</label>
+                                <select class='w3-select sel' name='area-interesse' required>
+                                    <option value='' disabled selected>Selecione as suas áreas de interesse</option>
+                                    <option value='Ação social'>Ação social</option>
+                                    <option value='Educação'>Educação</option>
+                                    <option value='Saúde'>Saúde</option>
+                                </select>
+                                
+                            <hr>
+                            
+                            <label>População-alvo:</label>
+                                <select class='w3-select sel' name='populacao-alvo' required>
+                                    <option value='' disabled selected>Selecione a sua população-alvo</option>
+                                    <option value='Indiferente'>Indiferente</option>
+                                    <option value='Crianças'>Crianças</option>
+                                    <option value='Jovens'>Jovens</option>
+                                    <option value='Idosos'>Idosos</option>
+                                    <option value='Grávidas'>Grávidas</option>
+                                    <option value='Pessoas em situação de dependência (ex. acamados)'>Pessoas em situação de dependência (ex. acamados)</option>
+                                    <option value='Pessoas sem-abrigo'>Pessoas sem-abrigo</option>
+                                    <option value='Pessoas com deficiência'>Pessoas com deficiência</option>
+                                </select>
+
+                            <hr>
+                            
+                            <label>Função: </label>
+                                <select class='w3-select sel' name='funcao' required>
+                                    <option value='' disabled selected>Selecione a função</option>
+                                    <option value='Entrega ao Domicilio de bens não alimentares'>Entrega ao Domicilio</option>
+                                    <option value='Entrega de Bens Alimentares'>Entrega de Bens Alimentares</option>
+                                    <option value='Prestação de Cuidados Básicos'>Prestação de Cuidados Básicos</option>
+                                    <option value='Apoio a Lares'>Apoio a Lares</option>
+                                    <option value='Cozinhar'>Cozinhar</option>
+                                    <option value='Limpar'>Limpar</option>
+                                    <option value='Apoio à infância e à Juventude'>Apoio à infância e à Juventude</option>
+                                    <option value='Apoio Social a familias Carenciadas'>Apoio Social a familias Carenciadas</option>
+                                    <option value='Apoios à angariação de bens para Animais de Companhia'>Apoios à angariação de bens para Animais de Companhia</option>
+
+                                </select>
+
+                            <hr>
+
+                            <label>Número de Vagas:</label>
+                                <input type='number' id='nVagas' name='vagas' min='1' max='1000' required>
+
+                            <hr>
+
+                            <label>Distrito:</label>
+                            <select class='w3-select sel' name='distrito' id='distrito2' required>
+                                <option value='' disabled selected>Selecione o seu Distrito:</option>
+                            </select> 
+
+                        </div>
+
+                        <div id='divDirI'>
+                            
+                            <label>Concelho:</label>
+                            <select class='w3-select sel' name='concelho' id='concelho2' required>
+                                <option value='' disabled selected>Selecione o seu Concelho:</option>
+                            </select>
+                            
+                            <hr>
+                            
+                            <label>Freguesia:</label>
+                            <select class='w3-select sel' name='freguesia' id='freguesia2' required>
+                                <option value='' disabled selected>Selecione a sua Freguesia:</option>
+                            </select> 
+                            
+                            <hr>
+                            
+                            <label>Data:</label>
+                                <input type='date' class='sel' name='disponibilidade-dia' placeholder='Data (AAAA-MM-DD)' required/>
+                                    
+                            <hr>
+
+                            <label>Hora:</label>
+                                <select class='w3-select sel' name='disponibilidade-hora' required>
+                                    <option value='' disabled selected>Hora</option>
+                                    <option value='0'>00:00</option>
+                                    <option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>
+                                    <option value='9'>09:00</option>
+                                    <option value='10'>10:00</option>
+                                    <option value='11'>11:00</option>
+                                    <option value='12'>12:00</option>
+                                    <option value='13'>13:00</option>
+                                    <option value='14'>14:00</option>
+                                    <option value='15'>15:00</option>
+                                    <option value='16'>16:00</option>
+                                    <option value='17'>17:00</option>
+                                    <option value='18'>18:00</option>
+                                    <option value='19'>19:00</option>
+                                    <option value='20'>20:00</option>
+                                    <option value='21'>21:00</option>
+                                    <option value='22'>22:00</option>
+                                    <option value='23'>23:00</option>
+                                </select>
+
+                            <hr>
+
+                            <label>Duração:</label>
+                                <select class='w3-select sel' name='disponibilidade-duracao' required>
+                                    <option value='' disabled selected>Duração</option>
+                                    <option value='1'>01:00</option>
+                                    <option value='2'>02:00</option>
+                                    <option value='3'>03:00</option>
+                                    <option value='4'>04:00</option>
+                                    <option value='5'>05:00</option>
+                                    <option value='6'>06:00</option>
+                                    <option value='7'>07:00</option>
+                                    <option value='8'>08:00</option>
+                                </select>
+
+                        </div>
+
+                        <button class='w3-button w3-indigo' id='submitIP' type='submit' name='CriarAcao' value='CriarAcao'>Criar ação</button>
+
+                </form>";
+        
+        }
+
+        if (isset($_POST['EditarAcao'])) {
+            include_once "TestInput.php";
+
+            $id_instituicao = $_SESSION['loggedid'];
+            $id_acao = $_POST['EditarAcao'];
+            $titulo = test_input($_POST['titulo']); 
+            $area_interesse = test_input($_POST['area-interesse']);
+            $populacao_alvo = test_input($_POST['populacao-alvo']);
+            $funcao = test_input($_POST['funcao']); 
+            $distrito = test_input($_POST['distrito']);
+            $concelho = test_input($_POST['concelho']);
+            $freguesia = test_input($_POST['freguesia']);
+            $vagas = test_input($_POST['vagas']); 
+            $dia = test_input($_POST['disponibilidade-dia']);
+            $hora = test_input($_POST['disponibilidade-hora']);
+            $duracao = test_input($_POST['disponibilidade-duracao']);
+
+            updateAcaoE($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
+        }
+
+        if (isset($_POST['CriarAcao'])) {
+            include_once "TestInput.php";
+
+            $id_instituicao = $_SESSION['loggedid'];
+            $id_acao = uniqid();;
+            $titulo = test_input($_POST['titulo']); 
+            $area_interesse = test_input($_POST['area-interesse']);
+            $populacao_alvo = test_input($_POST['populacao-alvo']);
+            $funcao = test_input($_POST['funcao']); 
+            $distrito = test_input($_POST['distrito']);
+            $concelho = test_input($_POST['concelho']);
+            $freguesia = test_input($_POST['freguesia']);
+            $vagas = test_input($_POST['vagas']); 
+            $dia = test_input($_POST['disponibilidade-dia']);
+            $hora = test_input($_POST['disponibilidade-hora']);
+            $duracao = test_input($_POST['disponibilidade-duracao']);
+
+            inserirAcaoE($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
+        }
+
+        if (isset($_POST['removeAcao'])) {
+
+            include_once "../Controller/EditarPerfilController.php";
+            
+            $id_acao = $_POST['removeAcao'];
+
+            removeAcaoE($id_acao);
+        }
+
     }
 
 ?>

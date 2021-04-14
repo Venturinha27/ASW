@@ -383,6 +383,7 @@ function responderPed(resposta, tipo, id_vol, id_acao, numero) {
                         p.innerHTML = "<b>Rejeitado</b>"
                     }
                     divid.appendChild(p)
+                    location.reload()
                 } else {
                     let strida = 'aco'+id_vol+id_acao
                     let stridr = 'rco'+id_vol+id_acao
@@ -398,6 +399,7 @@ function responderPed(resposta, tipo, id_vol, id_acao, numero) {
                     }
                     
                     divid.appendChild(p)
+                    location.reload()
                 }
             }
         }

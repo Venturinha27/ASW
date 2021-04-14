@@ -90,15 +90,6 @@
         $resultInstituicao = adminInst();
         
     }
-
-    /*$resultInstituicao = $conn->query($queryInstituicao);
-
-        
-    
-    
-    
-    
-    
     
     /* ta certo daqui pa baixo*/ 
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue w3-small resultado'>";

@@ -200,4 +200,23 @@
             return "<h1 class='erro'> Algo deu errado. </h1>";
         }
     }
+
+    function openAcao($id_acao) {
+        return query_acao($id_acao);
+    }
+
+    function inserirAcaoE($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao){
+        inserir_acao($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
+
+    function updateAcaoE($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao){
+        update_acao($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
+
+    function removeAcaoE($id){
+        remove_acao($id);
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
 ?>

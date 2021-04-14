@@ -627,6 +627,29 @@
 
     }
 
+    function update_acao($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao){
+
+        include "openconn.php";
+
+        $query = "UPDATE Acao
+                    SET id_instituicao = '$id_instituicao', id_acao = '$id_acao', titulo = '$titulo', distrito = '$distrito', 
+                    concelho = '$concelho', freguesia = '$freguesia', funcao = '$funcao', area_interesse = '$area_interesse', 
+                    populacao_alvo = '$populacao_alvo', num_vagas = '$vagas', dia = '$dia', hora = '$hora', duracao = '$duracao' 
+                    WHERE id_acao = '$id_acao'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
     function free_query($query){
 
         include "openconn.php";

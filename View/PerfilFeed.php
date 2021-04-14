@@ -3,10 +3,6 @@
     session_start();
     ob_start();
 
-    /* if (!isset($_SESSION['logged'])) {
-        header("Location: Login.php");
-    } */
-
     include "../Controller/PerfilController.php";
     include "../Controller/PerfilFeedController.php";
 ?>

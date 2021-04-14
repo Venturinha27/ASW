@@ -2,10 +2,6 @@
 <?php
     ob_start();
     session_start();
-    
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL & ~E_NOTICE);
 
     if ($_SESSION['loggedtype'] != "admin") {
         header("Location: LoginA.php");
@@ -157,10 +153,6 @@
         $resultAcao = adminAF();
         
     }
-
-    
-
-    
     
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-green w3-pale-green w3-small resultado'>";
     echo "<p>Encontrou ".count($resultAcao)." resultado(s) para a pesquisa.</p>";

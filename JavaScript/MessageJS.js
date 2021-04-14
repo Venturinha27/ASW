@@ -31,7 +31,6 @@ function clickM() {
     let head = document.getElementById("AzulDiv")
     let bod = document.getElementById("BodyDiv")
     men.addEventListener("click", function() {
-        //if (mdiv.getAttribute("class") == "w3-sidebar hidden"){
         if (sessionStorage.getItem("MessageBar") != "Open"){
             mdiv.setAttribute("class", "w3-sidebar visible")
             men.setAttribute("class", "divOpen")
