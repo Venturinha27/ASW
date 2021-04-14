@@ -99,6 +99,15 @@ function verMaisPed(pedidos, loggedid, loggedtype) {
             if (this.readyState == 4 && this.status == 200) {
                 let htmlresposta = "";
 
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        pedidos = JSON.parse(this.responseText)
+                    }
+                }
+                xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
+                xmlhttp.send();  
+
                 if (pedidos.length == 0) {
                     htmlresposta += "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
                 }
@@ -200,6 +209,15 @@ function verMaisPed(pedidos, loggedid, loggedtype) {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 let htmlresposta = "";
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        pedidos = JSON.parse(this.responseText)
+                    }
+                }
+                xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
+                xmlhttp.send();  
 
                 if (pedidos.length == 0) {
                     htmlresposta += "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
