@@ -1,5 +1,7 @@
 <?php
 
+    include_once "../Model/Model.php";
+
     function areasV($id){
         return areas_voluntario($id);
     }

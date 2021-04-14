@@ -1,5 +1,7 @@
 <?php
 
+    include_once "../Model/Model.php";
+
     function registo_instituicao($id ,$nomeInstituicao, $telefone , $morada , $distrito , $concelho ,$freguesia , $email ,$bio , $nomeRepresentante , $emailRepresentante , $password, $avatar , $website) {
 
         $emails = emails_utilizadores();
