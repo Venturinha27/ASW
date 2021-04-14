@@ -660,6 +660,18 @@
             AceitarCandidatura($id_candidato, $openid);
             echo "<meta http-equiv='refresh' content='0'>";
         }
+
+        if (!empty($_POST['verPerfil'])){
+
+            $id = $_POST['verPerfil'];
+
+            $nomeV = nomeVoluntario($id);
+
+            $_SESSION['opentype'] = "voluntario";
+            $_SESSION['open'] = $nomeV;
+            $_SESSION['openid'] = $id;
+            header("Location: Perfil.php");
+        }
     ?>
     
 <!--

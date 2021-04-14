@@ -308,4 +308,12 @@
         return $candidatos;
 
     }
+
+    function nomeVoluntario($id) {
+
+        $vquery = nome_voluntario($id);
+        if ($voluntario = $vquery->fetch_assoc()) {
+            return $voluntario['nome_voluntario'];
+        }
+    }
 ?>
