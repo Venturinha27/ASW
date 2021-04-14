@@ -103,6 +103,12 @@
             } else {
                 $respostaq = convite_aceite($id_vol, $id_acao);
             }
+            $acao = query_acao($id_acao);
+            if ($rowa = $acao->fetch_assoc()) {
+                $id_instituicao = $rowa['id'];
+            }
+            participa_em_acao($id_candidato, $id_instituicao, $id_acao);
+            
         } else {
             if ($tipo == "Candidatura") {
                 $respostaq = candidatura_rejeitada($id_vol, $id_acao);

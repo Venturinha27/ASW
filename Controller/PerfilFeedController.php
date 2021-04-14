@@ -169,4 +169,143 @@
 
         return $arrayVoluntarios;
     }
+
+    function CandidatosAcaoFilter($id_acao, $nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao) {
+
+        $candidaturas = candidaturas_acao($id_acao);
+
+        $candidatos = array();
+        while ($candidatura = $candidaturas->fetch_assoc()) {
+            if ($candidatura['estado'] == "Pendente") {
+                $id_vol = $candidatura['id_voluntario'];
+
+                $queryVoluntario = "SELECT id, nome_voluntario, bio, data_nascimento, genero, concelho
+                                    , distrito, freguesia, telefone, cc, carta_c, covid, email, foto
+                                    FROM Voluntario 
+                                    WHERE id = '".$id_vol."' ";
+
+                if (!empty($nome)){
+                    $queryVoluntario .= "AND nome_voluntario = '".$nome."' ";
+                }
+
+                if (!empty($email)) {
+                    $queryVoluntario .= "AND email = '".$email."' ";
+                }
+
+                if (!empty($idade)) {
+                    
+                    if ($idade == "10 aos 20") {
+                        $time1 = strtotime("-10 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-20 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "21 aos 30") {
+                        $time1 = strtotime("-20 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-30 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "31 aos 40") {
+                        $time1 = strtotime("-30 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-40 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "41 aos 50") {
+                        $time1 = strtotime("-40 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-50 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "51 aos 60") {
+                        $time1 = strtotime("-50 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-60 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "61 aos 70") {
+                        $time1 = strtotime("-60 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-70 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "71 aos 80") {
+                        $time1 = strtotime("-70 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-80 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    if ($idade == "81+") {
+                        $time1 = strtotime("-80 years", time());
+                        $date1 = date("Y-m-d", $time1);
+                        $time2 = strtotime("-150 years", time());
+                        $date2 = date("Y-m-d", $time2);
+                    }
+                    $queryVoluntario .= "AND (data_nascimento BETWEEN '".$date2."' AND '".$date1."') ";
+                }
+
+                if (!empty($distrito)) {
+                    $queryVoluntario .= "AND distrito = '".$distrito."' ";
+                }
+
+                if (!empty($concelho)) {
+                    $queryVoluntario .= "AND concelho = '".$concelho."' ";
+                }
+
+                if (!empty($freguesia)) {
+                    $queryVoluntario .= "AND freguesia = '".$freguesia."' ";
+                }
+
+                if (!empty($genero)) {
+                    $queryVoluntario .= "AND genero = '".$genero."' ";
+                }
+
+                if (!empty($carta)) {
+                    $queryVoluntario .= "AND carta_c = '".$carta."' ";
+                }
+
+                if (!empty($covid)) {
+                    $queryVoluntario .= "AND covid = '".$covid."' ";
+                }
+
+                if (!empty($areaInteresse)) {
+                    $queryVoluntario .= "AND id IN (SELECT id_voluntario
+                                            FROM Voluntario_Area
+                                            WHERE area = '".$areaInteresse."') ";
+                }
+
+                if (!empty($populacaoAlvo)) {
+                    $queryVoluntario .= "AND id IN (SELECT id_voluntario
+                                            FROM Voluntario_Populacao_Alvo
+                                            WHERE populacao_alvo = '".$populacaoAlvo."') ";
+                }
+
+                if (!empty($disDia) and 
+                !empty($disHora) and
+                !empty($disDuracao)) {
+
+                    $intervalo = intval($disHora) + intval($disDuracao);
+
+                    $queryVoluntario .= "AND id IN (SELECT id_voluntario
+                                        FROM Voluntario_Disponibilidade
+                                        WHERE dia = '".$disDia."'
+                                            AND hora >= ".$disHora."
+                                            AND hora <= ".$intervalo.") ";
+                }
+
+                $queryVoluntario .= "ORDER BY nome_voluntario ";
+
+                $voluntario = free_query($queryVoluntario);
+                if ($rowv = $voluntario->fetch_assoc()){
+                    array_push($candidatos, $rowv);
+                }
+
+            }
+        }
+
+        
+        return $candidatos;
+
+    }
 ?>

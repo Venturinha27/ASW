@@ -102,7 +102,7 @@ function verMaisPed(pedidos, loggedid, loggedtype) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        pedidos = JSON.parse(this.responseText)
+                        let pedidos = JSON.parse(this.responseText)
                     }
                 }
                 xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
@@ -175,7 +175,7 @@ function verMaisPed(pedidos, loggedid, loggedtype) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        pedidos = JSON.parse(this.responseText)
+                        let pedidos = JSON.parse(this.responseText)
                     }
                 }
                 xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
@@ -213,7 +213,7 @@ function verMaisPed(pedidos, loggedid, loggedtype) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        pedidos = JSON.parse(this.responseText)
+                        let pedidos = JSON.parse(this.responseText)
                     }
                 }
                 xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
@@ -293,7 +293,7 @@ function verMaisPed(pedidos, loggedid, loggedtype) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        pedidos = JSON.parse(this.response)
+                        let pedidos = JSON.parse(this.response)
                     }
                 }
                 xmlhttp.open("GET", "../Controller/PedidosController.php?logid="+String(loggedid)+"&logtype="+String(loggedtype), true);
