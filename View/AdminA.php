@@ -2,6 +2,10 @@
 <?php
     ob_start();
     session_start();
+    
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
 
     if ($_SESSION['loggedtype'] != "admin") {
         header("Location: LoginA.php");
@@ -125,7 +129,6 @@
                     </select>
                     <select class="w3-input dis" name="disponibilidade-hora">
                         <option value="" disabled selected>Hora</option>
-                        <option value="00:00">00:00</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>
                         <option value="3">03:00</option>
@@ -167,109 +170,38 @@
 </div>
 
 <?php
-    include "openconn.php";
 
     if (!empty($_POST)){
 
-        $queryAcao = "SELECT I.id, I.nome_instituicao, A.id_acao, A.titulo, A.distrito,
-                        A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
-                        A.num_vagas, A.dia, A.hora, A.duracao
-                        FROM Instituicao I, Acao A
-                        WHERE I.id = A.id_instituicao ";
 
-        if (!empty($_POST['instituicao'])){
-            $queryAcao .= "AND I.nome_instituicao = '".$_POST['instituicao']."' ";
-        }
+        $instituicao = $_POST['instituicao'];
+        $titulo = $_POST['titulo'];
+        $distrito = $_POST['distrito'];
+        $concelho = $_POST['concelho'];
+        $freguesia = $_POST['freguesia'];
+        $area_interesse = $_POST['area_interesse'];
+        $populacao_alvo = $_POST['populacao_alvo'];
+        $funcao = $_POST['funcao'];
+        $numvagas = $_POST['numvagas'];
+        $disponibilidade_dia = $_POST['disponibilidade_dia'];
+        $disponibilidade_hora = $_POST['disponibilidade_hora'];
+        $disponibilidade_duracao = $_POST['disponibilidade_duracao'];
 
-        if (!empty($_POST['titulo'])) {
-            $queryAcao .= "AND A.titulo = '".$_POST['titulo']."' ";
-        }
+        include "../Controller/AdminAController.php";
 
-        if (!empty($_POST['distrito'])) {
-            $queryAcao .= "AND A.distrito = '".$_POST['distrito']."' ";
-        }
+        $resultAdmin = admin($instituicao, $titulo, $distrito, $concelho, $freguesia, $area_interesse, $populacao_alvo, $funcao, $numvagas, $disponibilidade_dia, $disponibilidade_hora, $disponibilidade_duracao );
 
-        if (!empty($_POST['concelho'])) {
-            $queryAcao .= "AND A.concelho = '".$_POST['concelho']."' ";
-        }
-
-        if (!empty($_POST['freguesia'])) {
-            $queryAcao .= "AND A.freguesia = '".$_POST['freguesia']."' ";
-        }
-
-        if (!empty($_POST['area-interesse'])) {
-            $queryAcao .= "AND A.area_interesse = '".$_POST['area-interesse']."' ";
-        }
-
-        if (!empty($_POST['populacao-alvo'])) {
-            $queryAcao .= "AND A.populacao_alvo = '".$_POST['populacao-alvo']."' ";
-        }
-
-        if (!empty($_POST['funcao'])) {
-            $queryAcao .= "AND A.funcao = '".$_POST['funcao']."' ";
-        }
-
-        if (!empty($_POST['numvagas'])) {
-            
-            if ($_POST['numvagas'] == "0 a 10"){
-                $queryAcao .= "AND A.num_vagas >= 0 AND A.num_vagas <= 10 ";
-            }
-            if ($_POST['numvagas'] == "11 a 20"){
-                $queryAcao .= "AND A.num_vagas >= 11 AND A.num_vagas <= 20 ";
-            }
-            if ($_POST['numvagas'] == "21 a 30"){
-                $queryAcao .= "AND A.num_vagas >= 21 AND A.num_vagas <= 30 ";
-            }
-            if ($_POST['numvagas'] == "31 a 40"){
-                $queryAcao .= "AND A.num_vagas >= 31 AND A.num_vagas <= 40 ";
-            }
-            if ($_POST['numvagas'] == "41 a 50"){
-                $queryAcao .= "AND A.num_vagas >= 41 AND A.num_vagas <= 50 ";
-            }
-            if ($_POST['numvagas'] == "51 a 60"){
-                $queryAcao .= "AND A.num_vagas >= 51 AND A.num_vagas <= 60 ";
-            }
-            if ($_POST['numvagas'] == "61 a 70"){
-                $queryAcao .= "AND A.num_vagas >= 61 AND A.num_vagas <= 70 ";
-            }
-            if ($_POST['numvagas'] == "71 a 80"){
-                $queryAcao .= "AND A.num_vagas >= 71 AND A.num_vagas <= 80 ";
-            }
-            if ($_POST['numvagas'] == "81+"){
-                $queryAcao .= "AND A.num_vagas >= 81 ";
-            }
-            
-        }
-
-        if (!empty($_POST['disponibilidade-dia']) and 
-        !empty($_POST['disponibilidade-hora']) and
-        !empty($_POST['disponibilidade-duracao'])) {
-
-            $intervalo = intval($_POST['disponibilidade-hora']) + intval($_POST['disponibilidade-duracao']);
-
-            $queryAcao .= "AND A.dia = '".$_POST['disponibilidade-dia']."'
-                            AND A.hora >= ".$_POST['disponibilidade-hora']."
-                            AND A.hora <= ".$intervalo." ";
-        }
-
-        $queryAcao .= "ORDER BY I.nome_instituicao ";
         
     } else {
-        $queryAcao = "SELECT I.id, I.nome_instituicao, A.id_acao, A.titulo, A.distrito,
-                        A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
-                        A.num_vagas, A.dia, A.hora, A.duracao
-                        FROM Instituicao I, Acao A
-                        WHERE I.id = A.id_instituicao
-                        ORDER BY I.nome_instituicao";
+        include "../Controller/AdminAController.php";
+        
+        $resultAdmin = adminF();
+        
     }
 
-    #echo "<h1 class='entrou'>".$queryAcao."</h1>";
+    
 
-    $resultAcao = $conn->query($queryAcao);
-
-    if (!($resultAcao)) {
-        echo "Erro: search failed" . mysqli_error($conn);
-    }       
+    
     
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-green w3-pale-green w3-small resultado'>";
     echo "<p>Encontrou ".($resultAcao->num_rows)." resultado(s) para a pesquisa.</p>";
