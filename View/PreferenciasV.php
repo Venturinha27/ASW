@@ -79,7 +79,7 @@
             
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <label><b>População-alvo:</b></label>
-                    <select class="w3-select selp" name="populacao-alvo">
+                    <select class="w3-select selp" name="populacao-alvo" required>
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
                         <option value="Crianças">Crianças</option>
@@ -127,7 +127,7 @@
             
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <label><b>Disponibilidade:</b></label>
-                    <select class="w3-select disponibilidade" name="disponibilidade-dia">
+                    <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
                         <option value="" disabled selected>Dia</option>
                         <option value="Segunda-feira">Segunda-feira</option>
                         <option value="Terça-feira">Terça-feira</option>
@@ -137,7 +137,7 @@
                         <option value="Sábado">Sábado</option>
                         <option value="Domingo">Domingo</option>
                     </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-hora">
+                    <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
                         <option value="" disabled selected>Hora</option>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -164,7 +164,7 @@
                         <option value="22:00">22:00</option>
                         <option value="23:00">23:00</option>
                     </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-duracao">
+                    <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
                         <option value="" disabled selected>Duração</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>

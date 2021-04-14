@@ -61,10 +61,10 @@
                                         <div class='w3-container'>
                                             <h5>".$row['titulo']."</h5>
                                             <hr>
-                                            <p>Distrito: ".$row['distrito']." <i class='fa fa-deviantart'></i> Concelho: ".$row['concelho']." <i class='fa fa-deviantart'></i> Freguesia: ".$row['freguesia']."</p>
-                                            <p>Função: ".$row['funcao']." <i class='fa fa-deviantart'></i> Área de interesse: ".$row['area_interesse']."</p>
-                                            <p>População-alvo: ".$row['populacao_alvo']." <i class='fa fa-deviantart'></i> Nº de vagas: ".$row['num_vagas']."</p>
-                                            <p>Data: ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
+                                            <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
+                                            <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
+                                            <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
+                                            <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
                                         </div>
 
                                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
