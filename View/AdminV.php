@@ -26,8 +26,8 @@
         <br>
         <h1 class="w3-center" id="informacoesP">Informações Sobre:</h1>
         <div id="Options">
-            <div id="voluntarioDiv">
-                <a href="AdminV.php"><i class="fa fa-male" id="voluntarioIcon"></i></a>
+            <div id="voluntarioDiv" class='w3-white w3-circle'>
+                <a href="Admin.php"><i class="fa fa-male" id="voluntarioIcon"></i></a>
                 <h5 id="voluntarioP">Voluntários</p>
             </div>
             <div id="instituicaoDiv">

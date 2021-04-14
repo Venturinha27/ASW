@@ -118,7 +118,7 @@ body {
 
 #procura {
     position: absolute !important;
-    top: 95% !important;
+    top: 102% !important;
     left: 42.5% !important;
     height: 15%;
     width: 15% !important;
@@ -129,7 +129,7 @@ body {
 
 .resultado {
     position: absolute;
-    top: 117.5%;
+    top: 120.5%;
     left: 5%;
     width: 90%;
     background-color: #24305E;
@@ -138,7 +138,7 @@ body {
 
 #todosVol{
     position: absolute;
-    top: 128.5%;
+    top: 131.5%;
     left: 5%;
     width: 90%;
     margin-bottom: 5%;
@@ -218,7 +218,7 @@ body {
 #acaoIcon{
     position: absolute;
     top: 18%;
-    left: 31%;
+    left: 22%;
     font-size: 800%;
     color: palegreen;
 }
@@ -226,7 +226,7 @@ body {
 #acaoP {
     position: absolute;
     top: 73%;
-    left: 48%;
+    left: 38%;
     font-size: x-large;
     color: palegreen;
 }

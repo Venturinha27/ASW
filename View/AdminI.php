@@ -27,8 +27,8 @@
                 <a href="AdminV.php"><i class="fa fa-male" id="voluntarioIcon"></i></a>
                 <h5 id="voluntarioP">Voluntários</p>
             </div>
-            <div id="instituicaoDiv">
-                <a href="AdminI.php"><i class="fa fa-building" id="instituicaoIcon"></i></a>
+            <div id="instituicaoDiv" class='w3-white w3-circle'>
+                <a href="Admin.php"><i class="fa fa-building" id="instituicaoIcon"></i></a>
                 <h5 id="instituicaoP">Instituições</p>
             </div>
             <div id="acaoDiv">
@@ -84,6 +84,9 @@
         $resultInstituicao = adminInstPost($nome,$email,$distrito,$concelho,$freguesia); 
         
     } else {
+
+        include "../Controller/AdminIController.php";
+
         $resultInstituicao = adminInst();
         
     }
