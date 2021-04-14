@@ -107,6 +107,14 @@
 
             <input type="text" class="w3-input" id="CC" placeholder="Cartão de Cidadão" name="CC"required/>
 
+            <label>Género</label>
+            <select class="w3-input" name="genero">
+                <option value="" disabled selected>Selecione o seu género</option>
+                <option value="Homem">Homem</option>
+                <option value="Mulher">Mulher</option>
+                <option value="Prefiro não dizer">Prefiro não dizer</option>
+            </select>
+
             <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre si..." name="bio" rows="3" maxlength="240" required></textarea>
 
         </div>
@@ -130,14 +138,6 @@
             <select class="w3-input" name="freguesia" id="freguesia" size="1" required>
                 <option value="" disabled selected>Selecione a sua Freguesia:</option>
             </select> 
-
-            <label>Género</label>
-            <select class="w3-input" name="genero">
-                <option value="" disabled selected>Selecione o seu género</option>
-                <option value="Homem">Homem</option>
-                <option value="Mulher">Mulher</option>
-                <option value="Prefiro não dizer">Prefiro não dizer</option>
-            </select>
 
             <label>Carta de Condução</label>
             <select class="w3-input" name="carta">

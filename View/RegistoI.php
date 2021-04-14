@@ -109,9 +109,10 @@
             
             <input type="text" class="w3-input" id="website" placeholder="Website" name="website">
 
+            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
+
             <textarea type="text" class="w3-input" id="biografia" placeholder="Escreva uma pequena bio sobre a instituição..." name="bio" rows="3" maxlength="240" required></textarea>
             
-            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
         </div>
         <div id="divDir">
                 
