@@ -577,9 +577,10 @@
                         <button type='submit' value='".$candidato['id']."' name='AceitarCand' class='w3-button w3-block w3-green rescand'>Aceitar</button>
                         <button type='submit' value='".$candidato['id']."' name='RejeitarCand' class='w3-button w3-block w3-red rescand'>Rejeitar</button>
                     </form>
-                    </div>
                     </div>";
                 }
+
+                echo "</div>";
 
             }
 
