@@ -21,73 +21,6 @@
 </head>
 
 
-
-<header>
-    <div class="w3-bar w3-large" id="navigation">
-        <a href="HomePage.php" class="w3-bar-item w3-button w3-hover-blue w3-mobile">VoluntárioCOVID19</a>
-
-        <input type="text" class="w3-bar-item w3-input" onkeyup="showHint(this.value)" placeholder="Procura...">
-        
-        <?php
-
-            include "../Controller/HeaderController.php";
-            include "../Controller/SessionController.php";
-            
-            if (!isset($_SESSION['logged'])) {
-                echo "<a href='Login.php' class='w3-bar-item w3-button w3-hover-blue w3-right w3-mobile'><i class='fa fa-user-circle'></i></a>";
-            } else {
-                $foto = "../" . loggedHeader();
-
-                echo "<div class='w3-dropdown-hover w3-right w3-mobile'>
-                    <button class='w3-button w3-hover-blue'>
-                        <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
-                    </button>
-                    <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
-                        
-                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <button type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-circle'></i> Ver perfil</button>
-                        </form>
-
-                        <button class='w3-bar-item w3-button'><i class='fas fa-bell'></i> Notificações</button>
-                        
-                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <button type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-edit'></i> Editar perfil</button>
-                        </form>
-                        
-                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            <button type='submit' value='terminarS' name='terminarS' class='w3-bar-item w3-button w3-white w3-text-red'><i class='fas fa-sign-out-alt'></i> Terminar sessão</button>
-                        </form>
-
-                    </div>
-                </div>";
-            }
-
-            if ($_POST['terminarS']){
-                TerminarSessao();
-                echo "<meta http-equiv='refresh' content='0'>";
-            }
-
-            if ($_POST['selfopen']){
-                SelfOpen();
-                if ($_POST['selfopen'] == "selfopenP"){
-                    header("Location: Perfil.php");
-                } else {
-                    header("Location: EditarPerfil.php");
-                }
-            }
-        ?>
-        <a href="Voluntarios.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Voluntários</a>
-        <a href="Instituicoes.php" class="w3-bar-item w3-button  w3-hover-blue w3-right w3-mobile">Instituições</a>
-        <a href="Publicacoes.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Publicações</a>   
-        <a href="Covid19.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">COVID-19</a>
-        <a href="Sobre.php" class="w3-bar-item w3-button w3-hover-blue w3-right w3-mobile">Sobre</a>    
-    </div>
-
-    <div id="topSugestaoDiv" class="w3-block hidden">
-
-    </div>
-</header>
-
 <body>
 
     <div id="BrancoDiv" class="w3-container">
@@ -128,10 +61,10 @@
                                         <div class='w3-container'>
                                             <h5>".$row['titulo']."</h5>
                                             <hr>
-                                            <p>Distrito: ".$row['distrito']." <i class='fa fa-deviantart'></i> Concelho: ".$row['concelho']." <i class='fa fa-deviantart'></i> Freguesia: ".$row['freguesia']."</p>
-                                            <p>Função: ".$row['funcao']." <i class='fa fa-deviantart'></i> Área de interesse: ".$row['area_interesse']."</p>
-                                            <p>População-alvo: ".$row['populacao_alvo']." <i class='fa fa-deviantart'></i> Nº de vagas: ".$row['num_vagas']."</p>
-                                            <p>Data: ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
+                                            <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
+                                            <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
+                                            <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
+                                            <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
                                         </div>
 
                                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
@@ -153,7 +86,7 @@
 
         </div>
 
-    <form id="acaoform" class="w3-container hidden" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+    <form id="acaoform" class="w3-container w3-card hidden" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
             <header class="w3-container w3-indigo">
                 <h3>Nova ação</h3>
@@ -213,16 +146,16 @@
                 <label>Número de Vagas:</label>
                     <input type="number" id="nVagas" name="vagas" min="1" max="1000" required>
 
-            </div>
+                <hr>
 
-            <div id="dir">
-            
                 <label>Distrito:</label>
                 <select class="w3-select sel" name="distrito" id="distrito" required>
                     <option value="" disabled selected>Selecione o seu Distrito:</option>
                 </select> 
 
-                <hr>
+            </div>
+
+            <div id="dir">
                 
                 <label>Concelho:</label>
                 <select class="w3-select sel" name="concelho" id="concelho" required>
@@ -238,19 +171,13 @@
                 
                 <hr>
                 
-                <label>Disponibilidade:</label>
-                    <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
-                        <option value="" disabled selected>Dia</option>
-                        <option value="Segunda">Segunda</option>
-                        <option value="Terça">Terça</option>
-                        <option value="Quarta">Quarta</option>
-                        <option value="Quinta">Quinta</option>
-                        <option value="Sexta">Sexta</option>
-                        <option value="Sábado">Sábado</option>
-                        <option value="Domingo">Domingo</option>
+                <label>Data:</label>
+                    <input type="date" class="sel" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)" required/>
                         
-                    </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
+                <hr>
+
+                <label>Hora:</label>
+                    <select class="w3-select sel" name="disponibilidade-hora" required>
                         <option value="" disabled selected>Hora</option>
                         <option value="0">00:00</option>
                         <option value="1">01:00</option>
@@ -277,7 +204,11 @@
                         <option value="22">22:00</option>
                         <option value="23">23:00</option>
                     </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
+
+                <hr>
+
+                <label>Duração:</label>
+                    <select class="w3-select sel" name="disponibilidade-duracao" required>
                         <option value="" disabled selected>Duração</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>
@@ -288,8 +219,6 @@
                         <option value="7">07:00</option>
                         <option value="8">08:00</option>
                     </select>
-                
-                <hr>
 
             </div>
 

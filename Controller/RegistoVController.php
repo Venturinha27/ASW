@@ -1,5 +1,7 @@
 <?php
 
+    include_once "../Model/Model.php";
+
     function registo_voluntario($id, $nomeProprio, $Email, $Password, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar) {
 
             $emails = emails_utilizadores();
