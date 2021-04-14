@@ -1283,4 +1283,46 @@
 
     }
 
+    function all_instituicoes() {
+
+        include "openconn.php";
+
+        $query = "SELECT id, nome_instituicao, telefone, morada, distrito, 
+                    concelho, freguesia, email, bio, nome_representante, 
+                    email_representante, foto, website, password2 
+                    FROM Instituicao";
+
+        $result = $conn->query($query);  
+        
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function query_participacoes() {
+
+        include "openconn.php";
+
+        $query = "SELECT id_voluntario, id_instituicao, id_acao
+                            FROM Participou_Acao";
+
+        $result = $conn->query($query);  
+        
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
 ?>

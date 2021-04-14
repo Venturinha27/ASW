@@ -128,18 +128,113 @@ body {
 
 .resultado {
     position: absolute;
-    top: 122.5%;
-    left: 5%;
-    width: 90%;
+    top: 63.5%;
+    left: 15%;
+    width: 70%;
     background-color: #24305E;
     color: white;
 }
 
-#todosVol{
+#todosU {
     position: absolute;
-    top: 133.5%;
-    left: 5%;
-    width: 90%;
+    width: 50%;
+    left: 25%;
+    top: 56%;
+    text-align: center;
+}
+
+#todosVol{
+    display: block;
+    position: absolute;
+    top: 74.5%;
+    left: 15%;
+    width: 70%;
+    max-height: 50%;
+    overflow-y: scroll;
+    margin-bottom: 5%;
+}
+
+#todosCo {
+    position: absolute;
+    width: 30%;
+    left: 2%;
+    top: 128%;
+    text-align: center;
+}
+
+.resultadoco {
+    position: absolute;
+    top: 135.5%;
+    left: 2%;
+    width: 30%;
+    background-color: #24305E;
+    color: white;
+}
+
+#convitesT{
+    display: block;
+    position: absolute;
+    top: 146.5%;
+    left: 2%;
+    width: 30%;
+    max-height: 50%;
+    overflow-y: scroll;
+    margin-bottom: 5%;
+}
+
+#todosCa {
+    position: absolute;
+    width: 30%;
+    left: 34%;
+    top: 128%;
+    text-align: center;
+}
+
+.resultadoca {
+    position: absolute;
+    top: 135.5%;
+    left: 34%;
+    width: 30%;
+    background-color: #24305E;
+    color: white;
+}
+
+#candidaturasT{
+    display: block;
+    position: absolute;
+    top: 146.5%;
+    left: 34%;
+    width: 30%;
+    max-height: 50%;
+    overflow-y: scroll;
+    margin-bottom: 5%;
+}
+
+#todosP {
+    position: absolute;
+    width: 30%;
+    left: 68%;
+    top: 128%;
+    text-align: center;
+}
+
+.resultp {
+    position: absolute;
+    top: 135.5%;
+    left: 68%;
+    width: 30%;
+    background-color: #24305E;
+    color: white;
+}
+
+#participacoesT{
+    display: block;
+    position: absolute;
+    top: 146.5%;
+    left: 68%;
+    width: 30%;
+    max-height: 50%;
+    overflow-y: scroll;
     margin-bottom: 5%;
 }
 
