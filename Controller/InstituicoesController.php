@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+    ob_start();
     
     function searchAcoesFilter($instituicao, $titulo, $distrito, $concelho, $freguesia, $areaInteresse, $populacaoAlvo, $funcao, $numvagas, $disDia, $disHora, $disDuracao) {
 
@@ -72,15 +75,16 @@
             
         }
 
-        if (!empty($_POST['disponibilidade-dia']) and 
-        !empty($_POST['disponibilidade-hora']) and
-        !empty($_POST['disponibilidade-duracao'])) {
+        if (!empty($_POST['disponibilidade-dia'])) {
+            $queryAcao .= "AND A.dia = '".$_POST['disponibilidade-dia']."' ";
+        }
 
-            $intervalo = intval($_POST['disponibilidade-hora']) + intval($_POST['disponibilidade-duracao']);
+        if (!empty($_POST['disponibilidade-hora'])) {
+            $queryAcao .= "AND A.hora = '".$_POST['disponibilidade-hora']."' ";
+        }
 
-            $queryAcao .= "AND A.dia = '".$_POST['disponibilidade-dia']."'
-                            AND A.hora >= ".$_POST['disponibilidade-hora']."
-                            AND A.hora <= ".$intervalo." ";
+        if (!empty($_POST['disponibilidade-duracao'])) {
+            $queryAcao .= "AND A.duracao >= '".$_POST['disponibilidade-duracao']."' ";
         }
 
         if (isset($_SESSION['loggedid'])) {

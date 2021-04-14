@@ -1260,7 +1260,7 @@
         return TRUE;
     }
 
-    function updade_i($id, $novaPassword){
+    function update_i($id, $novaPassword){
 
         include "openconn.php";
 

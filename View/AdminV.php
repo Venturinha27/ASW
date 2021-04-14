@@ -203,6 +203,8 @@
         $resultVoluntario = adminVolPost($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $area_interesse, $populacao_alvo, $disponibilidade_dia, $disponibilidade_hora, $disponibilidade_duracao);
 
     } else {
+        include "../Controller/AdminVController.php";
+        
         $resultVoluntario = adminVol();
         
     }

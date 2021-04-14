@@ -3,6 +3,10 @@
     session_start();
     ob_start();
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
     include "../Controller/InstituicoesController.php";
 ?>
 
@@ -117,17 +121,17 @@
                     <label><b>Freguesia:</b></label>
                     <select class="w3-input" name="freguesia" id="freguesia" size="1">
                         <option value="" disabled selected>Selecione a sua Freguesia:</option>
-                    </select>                    
-                </div>
-                <div id="dir">
+                    </select>   
+                    <br>
                     <label><b>Áreas de interesse:</b></label>
                     <select class="w3-input" name="area-interesse">
                         <option value="" disabled selected>Selecione as suas áreas de interesse</option>
                         <option value="Ação social">Ação social</option>
                         <option value="Educação">Educação</option>
                         <option value="Saúde">Saúde</option>
-                    </select>
-                    <br>
+                    </select>                 
+                </div>
+                <div id="dir">
                     <label><b>População-alvo:</b></label>
                     <select class="w3-input" name="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
@@ -170,55 +174,50 @@
                     </select>
                     <br>
                     <label><b>Data:</b></label>
+                        <input type="date" class="w3-input" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)"/>
                     <br>
-                    <select class="w3-input dis" name="disponibilidade-dia">
-                        <option value="" disabled selected>Dia</option>
-                        <option value="Segunda-feira">Segunda-feira</option>
-                        <option value="Terça-feira">Terça-feira</option>
-                        <option value="Quarta-feira">Quarta-feira</option>
-                        <option value="Quinta-feira">Quinta-feira</option>
-                        <option value="Sexta-feira">Sexta-feira</option>
-                        <option value="Sábado">Sábado</option>
-                        <option value="Domingo">Domingo</option>
-                    </select>
-                    <select class="w3-input dis" name="disponibilidade-hora">
-                        <option value="" disabled selected>Hora</option>
-                        <option value="00:00">00:00</option>
-                        <option value="1">01:00</option>
-                        <option value="2">02:00</option>
-                        <option value="3">03:00</option>
-                        <option value="4">04:00</option>
-                        <option value="5">05:00</option>
-                        <option value="6">06:00</option>
-                        <option value="7">07:00</option>
-                        <option value="8">08:00</option>
-                        <option value="9">09:00</option>
-                        <option value="10">10:00</option>
-                        <option value="11">11:00</option>
-                        <option value="12">12:00</option>
-                        <option value="13">13:00</option>
-                        <option value="14">14:00</option>
-                        <option value="15">15:00</option>
-                        <option value="16">16:00</option>
-                        <option value="17">17:00</option>
-                        <option value="18">18:00</option>
-                        <option value="19">19:00</option>
-                        <option value="20">20:00</option>
-                        <option value="21">21:00</option>
-                        <option value="22">22:00</option>
-                        <option value="23">23:00</option>
-                    </select>
-                    <select class="w3-input dis" name="disponibilidade-duracao">
-                        <option value="" disabled selected>Duração</option>
-                        <option value="1">01:00</option>
-                        <option value="2">02:00</option>
-                        <option value="3">03:00</option>
-                        <option value="4">04:00</option>
-                        <option value="5">05:00</option>
-                        <option value="6">06:00</option>
-                        <option value="7">07:00</option>
-                        <option value="8">08:00</option>
-                    </select>
+                    <label><b>Hora de inicio:</b></label>
+                        <select class="w3-input" name="disponibilidade-hora">
+                            <option value="" disabled selected>Hora</option>
+                            <option value="0">00:00</option>
+                            <option value="1">01:00</option>
+                            <option value="2">02:00</option>
+                            <option value="3">03:00</option>
+                            <option value="4">04:00</option>
+                            <option value="5">05:00</option>
+                            <option value="6">06:00</option>
+                            <option value="7">07:00</option>
+                            <option value="8">08:00</option>
+                            <option value="9">09:00</option>
+                            <option value="10">10:00</option>
+                            <option value="11">11:00</option>
+                            <option value="12">12:00</option>
+                            <option value="13">13:00</option>
+                            <option value="14">14:00</option>
+                            <option value="15">15:00</option>
+                            <option value="16">16:00</option>
+                            <option value="17">17:00</option>
+                            <option value="18">18:00</option>
+                            <option value="19">19:00</option>
+                            <option value="20">20:00</option>
+                            <option value="21">21:00</option>
+                            <option value="22">22:00</option>
+                            <option value="23">23:00</option>
+                        </select>
+                    <br>
+                    <label><b>Duração máxima:</b></label>
+                        <select class="w3-input" name="disponibilidade-duracao">
+                            <option value="" disabled selected>Duração</option>
+                            <option value="1">01:00</option>
+                            <option value="2">02:00</option>
+                            <option value="3">03:00</option>
+                            <option value="4">04:00</option>
+                            <option value="5">05:00</option>
+                            <option value="6">06:00</option>
+                            <option value="7">07:00</option>
+                            <option value="8">08:00</option>
+                        </select>
+
                 </div>
                 <input class="w3-button" id="procura" type="submit" value="Procura"/>
             </form>
@@ -249,7 +248,7 @@
                 $acoes = searchAcoesFilter($instituicao, $titulo, $distrito, $concelho, $freguesia, $areaInteresse, $populacaoAlvo, $funcao, $numvagas, $disDia, $disHora, $disDuracao);
 
             } else {
-
+                
                 $acoes = searchAcoes();
                 
             }
@@ -282,6 +281,7 @@
         }
 
         function echo_acoes($row) {
+            
             echo "
                 <div class='w3-card-4 w3-round-xxlarge'>
 
