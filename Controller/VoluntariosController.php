@@ -1,8 +1,133 @@
 <?php
+
     session_start();
     ob_start();
 
+    function echo_voluntarios($row) {
+        echo "
+            <div class='w3-card-4 w3-round-xxlarge'>
+
+                <header class='w3-container'>
+                    <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                </header>";
+
+        if ($_SESSION['loggedtype'] == 'instituicao') {
+            $acoes = CorrespondeVoluntarioAcoes($row, $_SESSION['loggedid']);
+
+            if ($acoes != FALSE) {
+                if (count($acoes) > 1) {
+                    echo "<header class='w3-container w3-green'>
+                    <p>Este voluntário corresponde às suas ações ";
+                } else {
+                    echo "<header class='w3-container w3-green'>
+                    <p>Este voluntário corresponde à sua ação ";
+                }
+
+                $ultimo = count($acoes);
+                $acc = 0;
+                foreach ($acoes as $ac) {
+                    $acc = $acc + 1;
+                    if ($acc == $ultimo) {
+                        echo "<b>$ac</b>.";
+                    } else {
+                        echo "<b>$ac</b>, ";
+                    }
+                    
+                }
+                echo "</p>
+                </header>";
+            }
+        }
+                
+            echo "<div class='w3-container'>
+                    <h5><b>".$row['nome_voluntario']."</b></h5>
+                    <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
+                    <p><i class='fas fa-heart'></i> &nbsp ";
+
+            $areas = areasVoluntario($row['id']);         
+
+            $ultimo = count($areas);
+
+            $c = 0;
+            foreach ($areas as $are) {
+                $c = $c + 1;
+                if ($c == $ultimo){
+                    echo "$are";
+                } else {
+                    echo "$are, ";
+                }
+            }
+
+
+            echo "</p>
+                    <p><i class='fas fa-users'></i> &nbsp ";
+
+            $populacao = populacaoVoluntario($row['id']);
+
+            $ultimo = count($populacao);
+
+            $c = 0;
+            foreach ($populacao as $pop) {
+                $c = $c + 1;
+                if ($c == $ultimo){
+                    echo "$pop";
+                } else {
+                    echo "$pop, ";
+                }
+            }
+   
+            echo "</p>";
+            
+            echo    "</div>
+                <form action='../View/Voluntarios.php' method='post'>
+                    <button type='submit' value='".$row['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                </form>
+                
+            </div>";
+    }
+
+    include_once "../View/TestInput.php";
+
+    $show_voluntarios_filter = $_REQUEST['show_voluntarios_filter'];
+
+    if ($show_voluntarios_filter) {
+
+        $nome = test_input($_REQUEST['nome']);
+        $email = test_input($_REQUEST['email']);
+        $idade = test_input($_REQUEST['idade']);
+        $distrito = test_input($_REQUEST['distrito']);
+        $concelho = test_input($_REQUEST['concelho']);
+        $freguesia = test_input($_REQUEST['freguesia']);
+        $genero = test_input($_REQUEST['genero']);
+        $carta = test_input($_REQUEST['carta']);
+        $covid = test_input($_REQUEST['covid']);
+        $areaInteresse = test_input($_REQUEST['area']);
+        $populacaoAlvo = test_input($_REQUEST['populacao']);
+        $disDia = test_input($_REQUEST['dia']);
+        $disHora = test_input($_REQUEST['hora']);
+        $disDuracao = test_input($_REQUEST['duracao']);
+
+        $voluntarios = searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao);
+
+        // SE ESTIVER LOGGADO
+        if ($voluntarios->num_rows > -1) {
+            while ($row = $voluntarios->fetch_assoc()){
+                echo_voluntarios($row);
+            }
+        } 
+
+        // SE NÃO ESTIVER LOGGADO
+        else {
+            foreach ($voluntarios as $row) {
+                echo_voluntarios($row);
+            }
+        }
+    }
+
     function searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao) {
+
+        include_once "../Model/Model.php";
 
         $primeiro = 0;
 
@@ -205,7 +330,30 @@
 
     }
 
+    $show_voluntarios = $_REQUEST['show_voluntarios'];
+
+    if ($show_voluntarios) {
+
+        $voluntarios = searchVoluntarios();
+        
+        // SE ESTIVER LOGGADO
+        if ($voluntarios->num_rows > -1) {
+            while ($row = $voluntarios->fetch_assoc()){
+                echo_voluntarios($row);
+            }
+        } 
+
+        // SE NÃO ESTIVER LOGGADO
+        else {
+            foreach ($voluntarios as $row) {
+                echo_voluntarios($row);
+            }
+        }
+    }
+
     function searchVoluntarios() {
+
+        include_once "../Model/Model.php";
 
         $queryVoluntario = "SELECT id, nome_voluntario, bio, data_nascimento, genero, concelho
                         , distrito, freguesia, telefone, cc, carta_c, covid, email, foto
@@ -224,6 +372,8 @@
     }
 
     function orderVoluntarios($queryVoluntario, $filter) {
+
+        include_once "../Model/Model.php";
         
         if ($_SESSION['loggedtype'] == "voluntario") {
 

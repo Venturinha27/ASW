@@ -1,9 +1,84 @@
 <?php
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
     session_start();
     ob_start();
+
+    function echo_acoes($row) {
+            
+        echo "
+            <div class='w3-card-4 w3-round-xxlarge'>
+
+                <header class='w3-container'>
+                    <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
+                </header>";
+
+        if ($_SESSION['loggedtype'] == 'voluntario') {
+            $corresponde = CorrespondeAcaoVoluntario($row, $_SESSION['loggedid']);
+
+            if ($corresponde != FALSE) {
+                echo "<header class='w3-container w3-green'>
+                    <p>Esta ação corresponde ao seu perfil.</p>
+                </header>";
+            }
+        }
+                
+        echo "<div class='w3-container'>
+                <h5><b><span style='font-size:large'>".$row['titulo']."</span> <span style='font-size:x-small'>(".$row['nome_instituicao'].")</span></b></h5>
+                <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
+                <p><i class='fas fa-heart'></i> &nbsp ".$row['area_interesse']."</p>
+                <p><i class='fas fa-users'></i> &nbsp ".$row['populacao_alvo']."</p>
+        </div>
+            <form action='../View/Instituicoes.php' method='post'>
+                <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+            </form>
+            
+        </div>";
+    }
+
+    include_once "../View/TestInput.php";
+
+    $show_acoes_filter = $_REQUEST['show_acoes_filter'];
+
+    if ($show_acoes_filter) {
+
+        $instituicao = test_input($_REQUEST['instituicao']);
+        $titulo = test_input($_REQUEST['titulo']);
+        $distrito = test_input($_REQUEST['distrito']);
+        $concelho = test_input($_REQUEST['concelho']);
+        $freguesia = test_input($_REQUEST['freguesia']);
+        $areaInteresse = test_input($_REQUEST['area']);
+        $populacaoAlvo = test_input($_REQUEST['populacao']);
+        $funcao = test_input($_REQUEST['funcao']);
+        $numvagas = test_input($_REQUEST['numvagas']);
+        $disDia = test_input($_REQUEST['dia']);
+        $disHora = test_input($_REQUEST['hora']);
+        $disDuracao = test_input($_REQUEST['duracao']);
+
+        $acoes = searchAcoesFilter($instituicao, $titulo, $distrito, $concelho, $freguesia, $areaInteresse, $populacaoAlvo, $funcao, $numvagas, $disDia, $disHora, $disDuracao);
+
+        // SE ESTIVER LOGGADO
+        if ($acoes->num_rows > -1) {
+            while ($row = $acoes->fetch_assoc()){
+                echo_acoes($row);
+            }
+        } 
+
+        // SE NÃO ESTIVER LOGGADO
+        else {
+            foreach ($acoes as $row) {
+                echo_acoes($row);
+            }
+        }
+    }
     
     function searchAcoesFilter($instituicao, $titulo, $distrito, $concelho, $freguesia, $areaInteresse, $populacaoAlvo, $funcao, $numvagas, $disDia, $disHora, $disDuracao) {
+
+        include_once "../Model/Model.php";
 
         $queryAcao = "SELECT I.id, I.nome_instituicao, I.foto, A.id_acao, A.titulo, A.distrito,
                         A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
@@ -11,80 +86,80 @@
                         FROM Instituicao I, Acao A
                         WHERE I.id = A.id_instituicao ";
 
-        if (!empty($_POST['instituicao'])){
-            $queryAcao .= "AND I.nome_instituicao = '".$_POST['instituicao']."' ";
+        if (!empty($instituicao)){
+            $queryAcao .= "AND I.nome_instituicao = '".$instituicao."' ";
         }
 
-        if (!empty($_POST['titulo'])) {
-            $queryAcao .= "AND A.titulo = '".$_POST['titulo']."' ";
+        if (!empty($titulo)) {
+            $queryAcao .= "AND A.titulo = '".$titulo."' ";
         }
 
-        if (!empty($_POST['distrito'])) {
-            $queryAcao .= "AND A.distrito = '".$_POST['distrito']."' ";
+        if (!empty($distrito)) {
+            $queryAcao .= "AND A.distrito = '".$distrito."' ";
         }
 
-        if (!empty($_POST['concelho'])) {
-            $queryAcao .= "AND A.concelho = '".$_POST['concelho']."' ";
+        if (!empty($concelho)) {
+            $queryAcao .= "AND A.concelho = '".$concelho."' ";
         }
 
-        if (!empty($_POST['freguesia'])) {
-            $queryAcao .= "AND A.freguesia = '".$_POST['freguesia']."' ";
+        if (!empty($freguesia)) {
+            $queryAcao .= "AND A.freguesia = '".$freguesia."' ";
         }
 
-        if (!empty($_POST['area-interesse'])) {
-            $queryAcao .= "AND A.area_interesse = '".$_POST['area-interesse']."' ";
+        if (!empty($areaInteresse)) {
+            $queryAcao .= "AND A.area_interesse = '".$areaInteresse."' ";
         }
 
-        if (!empty($_POST['populacao-alvo'])) {
-            $queryAcao .= "AND A.populacao_alvo = '".$_POST['populacao-alvo']."' ";
+        if (!empty($populacaoAlvo)) {
+            $queryAcao .= "AND A.populacao_alvo = '".$populacaoAlvo."' ";
         }
 
-        if (!empty($_POST['funcao'])) {
-            $queryAcao .= "AND A.funcao = '".$_POST['funcao']."' ";
+        if (!empty($funcao)) {
+            $queryAcao .= "AND A.funcao = '".$funcao."' ";
         }
 
-        if (!empty($_POST['numvagas'])) {
+        if (!empty($numvagas)) {
             
-            if ($_POST['numvagas'] == "0 a 10"){
+            if ($numvagas == "0 a 10"){
                 $queryAcao .= "AND A.num_vagas >= 0 AND A.num_vagas <= 10 ";
             }
-            if ($_POST['numvagas'] == "11 a 20"){
+            if ($numvagas == "11 a 20"){
                 $queryAcao .= "AND A.num_vagas >= 11 AND A.num_vagas <= 20 ";
             }
-            if ($_POST['numvagas'] == "21 a 30"){
+            if ($numvagas == "21 a 30"){
                 $queryAcao .= "AND A.num_vagas >= 21 AND A.num_vagas <= 30 ";
             }
-            if ($_POST['numvagas'] == "31 a 40"){
+            if ($numvagas == "31 a 40"){
                 $queryAcao .= "AND A.num_vagas >= 31 AND A.num_vagas <= 40 ";
             }
-            if ($_POST['numvagas'] == "41 a 50"){
+            if ($numvagas == "41 a 50"){
                 $queryAcao .= "AND A.num_vagas >= 41 AND A.num_vagas <= 50 ";
             }
-            if ($_POST['numvagas'] == "51 a 60"){
+            if ($numvagas == "51 a 60"){
                 $queryAcao .= "AND A.num_vagas >= 51 AND A.num_vagas <= 60 ";
             }
-            if ($_POST['numvagas'] == "61 a 70"){
+            if ($numvagas == "61 a 70"){
                 $queryAcao .= "AND A.num_vagas >= 61 AND A.num_vagas <= 70 ";
             }
-            if ($_POST['numvagas'] == "71 a 80"){
+            if ($numvagas == "71 a 80"){
                 $queryAcao .= "AND A.num_vagas >= 71 AND A.num_vagas <= 80 ";
             }
-            if ($_POST['numvagas'] == "81+"){
+            if ($numvagas == "81+"){
                 $queryAcao .= "AND A.num_vagas >= 81 ";
             }
             
         }
 
-        if (!empty($_POST['disponibilidade-dia'])) {
-            $queryAcao .= "AND A.dia = '".$_POST['disponibilidade-dia']."' ";
+        if (!empty($disDia)) {
+            $queryAcao .= "AND A.dia = '".$disDia."' ";
         }
 
-        if (!empty($_POST['disponibilidade-hora'])) {
-            $queryAcao .= "AND A.hora = '".$_POST['disponibilidade-hora']."' ";
+        if (!empty($disHora)) {
+            $queryAcao .= "AND A.hora = '".$disHora."' ";
         }
 
-        if (!empty($_POST['disponibilidade-duracao'])) {
-            $queryAcao .= "AND A.duracao >= '".$_POST['disponibilidade-duracao']."' ";
+        if (!empty($disDuracao)) {
+            $queryAcao .= "AND A.duracao >= '".$disDuracao."' ";
         }
 
         if (isset($_SESSION['loggedid'])) {
@@ -98,8 +173,31 @@
         return free_query($queryAcao);
 
     }
+
+    $show_acoes = $_REQUEST['show_acoes'];
+
+    if ($show_acoes) {
+
+        $acoes = searchAcoes();
+        
+        // SE ESTIVER LOGGADO
+        if ($acoes->num_rows > 0) {
+            while ($row = $acoes->fetch_assoc()){
+                echo_acoes($row);
+            }
+        } 
+
+        // SE NÃO ESTIVER LOGGADO
+        else {
+            foreach ($acoes as $row) {
+                echo_acoes($row);
+            }
+        }
+    }
     
     function searchAcoes() {
+
+        include_once "../Model/Model.php";
 
         $queryAcao = "SELECT I.id, I.nome_instituicao, I.foto , A.id_acao, A.titulo, A.distrito,
                         A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
@@ -120,6 +218,8 @@
     }
 
     function orderAcoes($queryAcao) {
+
+        include_once "../Model/Model.php";
         
         if ($_SESSION['loggedtype'] == "voluntario") {
 
