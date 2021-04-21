@@ -290,7 +290,41 @@ body {
     text-align: center;
 }
 
+/* ------------------------- FILTRAR ------------------------- */
 
+
+#filterb{
+    margin-left: 40%;
+    width: 20%;
+    height: 5%;
+}
+
+.dis {
+    width: 25% !important;
+    display: inline;
+}
+
+#esq{
+    margin-top: 2%;
+    margin-left: 2%;
+    height: 50%;
+    width: 46%;
+}
+
+#dir{
+    margin-top: -50%;
+    margin-left: 52%;
+    height: 50%;
+    width: 46%;
+}
+
+
+#procura {
+    margin-top: 2%;
+    margin-left: 40%;
+    width: 20%;
+    text-align: center;
+}
 
 
 

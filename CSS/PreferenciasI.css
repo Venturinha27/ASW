@@ -152,6 +152,39 @@ body {
     margin-top: 1%;
 }
 
+#divEsq{
+    position: absolute;
+    margin-top: 7%;
+    left: 2%;
+    height: 50%;
+    width: 46%;
+}
+
+#divEsq input, label, select {
+    margin-bottom: 3%;
+    color: #24305E;
+}
+
+#divDir{
+    position: absolute;
+    margin-top: 7%;
+    left: 52%;
+    height: 50%;
+    width: 46%;
+}
+
+#divDir input, label, select {
+    margin-bottom: 3%;
+    color: #24305E;
+}
+
+#submitI{
+    position: absolute;
+    top: 91%;
+    left: 45%;
+    width: 10%;
+}
+
 #esq{
     position: absolute;
     margin-top: 0%;

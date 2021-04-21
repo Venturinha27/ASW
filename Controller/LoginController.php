@@ -42,7 +42,7 @@
                         }
 
                     } else {
-                        $erro = "Password errada.";
+                        return "Password errada.";
                     }
 
                 } else {

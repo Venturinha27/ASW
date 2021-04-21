@@ -4,8 +4,8 @@
 window.addEventListener("load", principal);
 
 function principal() {
-    openfilter();
-    showVoluntarios();
+    openfilter()
+    showAcoes();
 }
 
 function openfilter(){
@@ -26,7 +26,7 @@ function openfilter(){
     })
 }
 
-function showVoluntarios() {
+function showAcoes() {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -34,23 +34,21 @@ function showVoluntarios() {
             document.getElementById("VolDiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/VoluntariosController.php?show_voluntarios='yes'", true);
+    xmlhttp.open("GET", "../Controller/InstituicoesController.php?show_acoes='yes'", true);
     xmlhttp.send();
 }
 
-function showVoluntariosFilter() {
+function showAcoesFilter() {
 
-    let nome = document.getElementById("nome").value
-    let idade = document.getElementById("idade").value
+    let instituicao = document.getElementById("instituicao").value
+    let titulo = document.getElementById("titulo").value
     let distrito = document.getElementById("distrito").value
     let concelho = document.getElementById("concelho").value
     let freguesia = document.getElementById("freguesia").value
-    let genero = document.getElementById("genero").value
-    let email = document.getElementById("email").value
-    let carta = document.getElementById("carta").value
-    let covid = document.getElementById("covid").value
     let area = document.getElementById("area-interesse").value
     let populacao = document.getElementById("populacao-alvo").value
+    let funcao = document.getElementById("funcao").value
+    let numvagas = document.getElementById("numvagas").value
     let dia = document.getElementById("disponibilidade-dia").value
     let hora = document.getElementById("disponibilidade-hora").value
     let duracao = document.getElementById("disponibilidade-duracao").value
@@ -61,30 +59,27 @@ function showVoluntariosFilter() {
             document.getElementById("VolDiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/VoluntariosController.php?show_voluntarios_filter='yes'&nome="+nome+
-    "&idade="+idade+"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&genero="+genero+
-    "&email="+email+"&carta="+carta+"&covid="+covid+"&area="+area+"&populacao="+populacao+"&dia="+dia+
-    "&hora="+hora+"&duracao="+duracao, true);
+    xmlhttp.open("GET", "../Controller/InstituicoesController.php?show_acoes_filter='yes'&instituicao="+instituicao+
+    "&titulo="+titulo+"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&area="+area+
+    "&populacao="+populacao+"&funcao="+funcao+"&numvagas="+numvagas+"&dia="+dia+"&hora="+hora+"&duracao="+duracao, true);
     xmlhttp.send();
 }
 
 function LimparProcura() {
 
-    document.getElementById("nome").value = ""
-    document.getElementById("idade").value = ""
+    document.getElementById("instituicao").value = ""
+    document.getElementById("titulo").value = ""
     document.getElementById("distrito").value = ""
     document.getElementById("concelho").value = ""
     document.getElementById("freguesia").value = ""
-    document.getElementById("genero").value = ""
-    document.getElementById("email").value = ""
-    document.getElementById("carta").value = ""
-    document.getElementById("covid").value = ""
     document.getElementById("area-interesse").value = ""
     document.getElementById("populacao-alvo").value = ""
+    document.getElementById("funcao").value = ""
+    document.getElementById("numvagas").value = ""
     document.getElementById("disponibilidade-dia").value = ""
     document.getElementById("disponibilidade-hora").value = ""
     document.getElementById("disponibilidade-duracao").value = ""
 
-    showVoluntarios();
+    showAcoes();
 
 }

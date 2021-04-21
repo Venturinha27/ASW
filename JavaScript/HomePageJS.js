@@ -10,7 +10,6 @@ function principal(){
     
     carousel();
 
-    //showDivs(slideIndex);
 }
 
 

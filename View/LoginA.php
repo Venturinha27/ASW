@@ -65,7 +65,7 @@
                  // guardamos as suas informações numa sessão
                  $_SESSION['loggedtype'] = "admin";
                  $_SESSION['logged'] = $row['username'];
-                 header("Location: AdminV.php");
+                 header("Location: Admin.php");
              } else {
                  echo "<p>Utilizador ou password invalidos.</p>";
              }

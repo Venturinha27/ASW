@@ -2,10 +2,6 @@
 <?php
     ob_start();
     session_start();
-    
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL & ~E_NOTICE);
 
     if ($_SESSION['loggedtype'] != "admin") {
         header("Location: LoginA.php");
@@ -34,8 +30,8 @@
                 <a href="AdminI.php"><i class="fa fa-building" id="instituicaoIcon"></i></a>
                 <h5 id="instituicaoP">Instituições</p>
             </div>
-            <div id="acaoDiv">
-                <a href="AdminA.php"><i class="fa fa-hands-helping" id="acaoIcon"></i></a>
+            <div id="acaoDiv" class='w3-white w3-circle'>
+                <a href="Admin.php"><i class="fa fa-hands-helping" id="acaoIcon"></i></a>
                 <h5 id="acaoP">Ações</p>
             </div>
         </div>
@@ -63,9 +59,8 @@
                     <label><b>Freguesia:</b></label>
                     <select class="w3-input" name="freguesia" id="freguesia" size="1">
                         <option value="" disabled selected>Selecione a sua Freguesia:</option>
-                    </select>                    
-                </div>
-                <div id="dir">
+                    </select>  
+                    <br>
                     <label><b>Áreas de interesse:</b></label>
                     <select class="w3-input" name="area-interesse">
                         <option value="" disabled selected>Selecione as suas áreas de interesse</option>
@@ -73,7 +68,8 @@
                         <option value="Educação">Educação</option>
                         <option value="Saúde">Saúde</option>
                     </select>
-                    <br>
+                </div>
+                <div id="dir">
                     <label><b>População-alvo:</b></label>
                     <select class="w3-input" name="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
@@ -116,54 +112,14 @@
                     </select>
                     <br>
                     <label><b>Data:</b></label>
+                        <input type="date" class="w3-input" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)"/>
                     <br>
-                    <select class="w3-input dis" name="disponibilidade-dia">
-                        <option value="" disabled selected>Dia</option>
-                        <option value="Segunda-feira">Segunda-feira</option>
-                        <option value="Terça-feira">Terça-feira</option>
-                        <option value="Quarta-feira">Quarta-feira</option>
-                        <option value="Quinta-feira">Quinta-feira</option>
-                        <option value="Sexta-feira">Sexta-feira</option>
-                        <option value="Sábado">Sábado</option>
-                        <option value="Domingo">Domingo</option>
-                    </select>
-                    <select class="w3-input dis" name="disponibilidade-hora">
-                        <option value="" disabled selected>Hora</option>
-                        <option value="1">01:00</option>
-                        <option value="2">02:00</option>
-                        <option value="3">03:00</option>
-                        <option value="4">04:00</option>
-                        <option value="5">05:00</option>
-                        <option value="6">06:00</option>
-                        <option value="7">07:00</option>
-                        <option value="8">08:00</option>
-                        <option value="9">09:00</option>
-                        <option value="10">10:00</option>
-                        <option value="11">11:00</option>
-                        <option value="12">12:00</option>
-                        <option value="13">13:00</option>
-                        <option value="14">14:00</option>
-                        <option value="15">15:00</option>
-                        <option value="16">16:00</option>
-                        <option value="17">17:00</option>
-                        <option value="18">18:00</option>
-                        <option value="19">19:00</option>
-                        <option value="20">20:00</option>
-                        <option value="21">21:00</option>
-                        <option value="22">22:00</option>
-                        <option value="23">23:00</option>
-                    </select>
-                    <select class="w3-input dis" name="disponibilidade-duracao">
-                        <option value="" disabled selected>Duração</option>
-                        <option value="1">01:00</option>
-                        <option value="2">02:00</option>
-                        <option value="3">03:00</option>
-                        <option value="4">04:00</option>
-                        <option value="5">05:00</option>
-                        <option value="6">06:00</option>
-                        <option value="7">07:00</option>
-                        <option value="8">08:00</option>
-                    </select>
+                    <label><b>Ativa/Inativa:</b></label>
+                        <select class="w3-input" name="ativa">
+                            <option value="" disabled selected>Ativa/Inativa</option>
+                            <option value="Ativa">Ativa</option>
+                            <option value="Inativa">Inativa</option>
+                        </select>
                 </div>
                 <input class="w3-button" id="procura" type="submit" value="Procura"/>
             </form>
@@ -179,36 +135,31 @@
         $distrito = $_POST['distrito'];
         $concelho = $_POST['concelho'];
         $freguesia = $_POST['freguesia'];
-        $area_interesse = $_POST['area_interesse'];
-        $populacao_alvo = $_POST['populacao_alvo'];
+        $area_interesse = $_POST['area-interesse'];
+        $populacao_alvo = $_POST['populacao-alvo'];
         $funcao = $_POST['funcao'];
         $numvagas = $_POST['numvagas'];
-        $disponibilidade_dia = $_POST['disponibilidade_dia'];
-        $disponibilidade_hora = $_POST['disponibilidade_hora'];
-        $disponibilidade_duracao = $_POST['disponibilidade_duracao'];
+        $disponibilidade_dia = $_POST['disponibilidade-dia'];
+        $ativa = $_POST['ativa'];
 
         include "../Controller/AdminAController.php";
 
-        $resultAdmin = admin($instituicao, $titulo, $distrito, $concelho, $freguesia, $area_interesse, $populacao_alvo, $funcao, $numvagas, $disponibilidade_dia, $disponibilidade_hora, $disponibilidade_duracao );
+        $resultAcao = adminA($instituicao, $titulo, $distrito, $concelho, $freguesia, $area_interesse, $populacao_alvo, $funcao, $numvagas, $disponibilidade_dia, $ativa);
 
         
     } else {
         include "../Controller/AdminAController.php";
         
-        $resultAdmin = adminF();
+        $resultAcao = adminAF();
         
     }
-
-    
-
-    
     
     echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-green w3-pale-green w3-small resultado'>";
-    echo "<p>Encontrou ".($resultAcao->num_rows)." resultado(s) para a pesquisa.</p>";
+    echo "<p>Encontrou ".count($resultAcao)." resultado(s) para a pesquisa.</p>";
     echo "</div>";
 
     
-    if ($resultAcao->num_rows > 0) {
+    if (count($resultAcao) > 0) {
 
         echo "<table class='w3-table w3-striped w3-small w3-hoverable' id='todosVol'>
             <tr class='w3-green'>
@@ -224,9 +175,10 @@
                 <th>Dia</th>
                 <th>Hora</th>
                 <th>Duração</th>
+                <th>Ativa/Inativa</th>
             </tr>";
         
-        while ($row = $resultAcao->fetch_assoc()){
+        foreach ($resultAcao as $row){
             echo "
             <tr>
                 <td>".$row['nome_instituicao']."</td>
@@ -241,6 +193,7 @@
                 <td>".$row['dia']."</td>
                 <td>".$row['hora']."</td>
                 <td>".$row['duracao']."</td>
+                <td>".$row['ativa']."</td>
             </tr>
             ";
         }

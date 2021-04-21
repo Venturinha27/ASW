@@ -55,6 +55,22 @@
                 $inserirV = inserir_voluntario($id, $nomeProprio, $Email, $Password, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
 
                 if ($inserirV == TRUE) {
+                    unset($_SESSION['erroVnome']);
+                    unset($_SESSION['erroVemail']);
+                    unset($_SESSION['erroVpassword']);
+                    unset($_SESSION['erroVtelefone']);
+                    unset($_SESSION['erroVnascimento']);
+                    unset($_SESSION['erroVcc']);
+                    unset($_SESSION['erroVgenero']);
+                    unset($_SESSION['erroVbio']);
+                    unset($_SESSION['erroVavatar']);
+                    unset($_SESSION['erroVdistrito']);
+                    unset($_SESSION['erroVconcelho']);
+                    unset($_SESSION['erroVfreguesia']);
+                    unset($_SESSION['erroVcarta']);
+                    unset($_SESSION['erroVcovid']);
+                    unset($_SESSION['msgerroV']);
+
                     $_SESSION['loggedtype'] = "voluntario";
                     $_SESSION['logged'] = $nomeProprio;
                     $_SESSION['loggedid'] = $id;
@@ -63,11 +79,11 @@
                     $_SESSION['openid'] = $id;
                     header("Location: ../View/PreferenciasV.php");
                 } else {
-                    echo "<p class='erro'> ".$inserirV." </p>";
+                    return "<p class='erro'> ".$inserirV." </p>";
                 }
                 
             } else {
-                echo "<p class='erro'> ".$inserirU." </p>";
+                return "<p class='erro'> ".$inserirU." </p>";
             }
 
     }

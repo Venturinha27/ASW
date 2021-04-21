@@ -37,13 +37,28 @@ if (isset($q)){
         foreach($resultados as $resultado) {
             if (stristr($q, substr($resultado[1], 0, $len))) {
                 if ($resultado[3] == "<i class='fa fa-building'></i> Instituição"){
-                    $hint .= "<button type='submit' value='".$resultado[0]."' name='verInstituicao' id='".$resultado[0]."' class='w3-button w3-white'> <img class='ProcuraImg w3-left w3-circle' src='../".$resultado[2]."'> <p><b>".$resultado[1]."</b> <br> <span class='w3-small'>".$resultado[3]."</span></button>";
+                    if (strlen($resultado[1]) > 22) {
+                        $nomer = substr($resultado[1], 0, 22)."...";
+                    } else {
+                        $nomer = $resultado[1];
+                    }
+                    $hint .= "<button type='submit' value='".$resultado[0]."' name='verInstituicao' id='".$resultado[0]."' class='w3-button w3-white'> <img class='ProcuraImg w3-left w3-circle' src='../".$resultado[2]."'> <p><b>".$nomer."</b></span> <br> <span class='w3-small'>".$resultado[3]."</button>";
                 }
                 if ($resultado[3] == "<i class='fa fa-male'></i> Voluntário"){
-                    $hint .= "<button type='submit' value='".$resultado[0]."' name='verVoluntario' id='".$resultado[0]."' class='w3-button w3-white'> <img class='ProcuraImg w3-left w3-circle' src='../".$resultado[2]."'> <p><b>".$resultado[1]."</b> <br> <span class='w3-small'>".$resultado[3]."</span></button>";
+                    if (strlen($resultado[1]) > 22) {
+                        $nomer = substr($resultado[1], 0, 22)."...";
+                    } else {
+                        $nomer = $resultado[1];
+                    }
+                    $hint .= "<button type='submit' value='".$resultado[0]."' name='verVoluntario' id='".$resultado[0]."' class='w3-button w3-white'> <img class='ProcuraImg w3-left w3-circle' src='../".$resultado[2]."'> <p><b>".$nomer."</b></span> <br> <span class='w3-small'>".$resultado[3]."</button>";
                 }
                 if ($resultado[3] == "<i class='fa fa-hands-helping'></i> Ação"){
-                    $hint .= "<button type='submit' value='".$resultado[0]."' name='verAcao' id='".$resultado[0]."' class='w3-button w3-white'> <img class='ProcuraImg w3-left w3-circle' src='../".$resultado[2]."'> <p><b>".$resultado[1]."</b> <br> <span class='w3-small'>".$resultado[3]."</span></button>";
+                    if (strlen($resultado[1]) > 22) {
+                        $nomer = substr($resultado[1], 0, 22)."...";
+                    } else {
+                        $nomer = $resultado[1];
+                    }
+                    $hint .= "<button type='submit' value='".$resultado[0]."' name='verAcao' id='".$resultado[0]."' class='w3-button w3-white'> <img class='ProcuraImg w3-left w3-circle' src='../".$resultado[2]."'> <p><b>".$nomer."</b></span> <br> <span class='w3-small'>".$resultado[3]."</button>";
                 }
                 
             }

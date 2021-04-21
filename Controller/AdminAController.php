@@ -2,7 +2,7 @@
     
     include "../Model/Model.php";
 
-    function admin($instituicao, $titulo, $distrito, $concelho, $freguesia, $area_interesse, $populacao_alvo, $funcao, $numvagas, $disponibilidade_dia, $disponibilidade_hora, $disponibilidade_duracao ){
+    function adminA($instituicao, $titulo, $distrito, $concelho, $freguesia, $area_interesse, $populacao_alvo, $funcao, $numvagas, $disponibilidade_dia, $ativa){
         
         $queryAcao = "SELECT I.id, I.nome_instituicao, A.id_acao, A.titulo, A.distrito,
                         A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
@@ -74,24 +74,45 @@
             
         }
 
-        if (!empty($disponibilidade_dia) and 
-        !empty($disponibilidade_hora) and
-        !empty($disponibilidade_duracao)) {
+        if (!empty($disponibilidade_dia)) {
 
-            $intervalo = intval($disponibilidade_hora) + intval($disponibilidade_duracao);
+            $queryAcao .= "AND A.dia = '".$disponibilidade_dia."' ";
+        }
 
-            $queryAcao .= "AND A.dia = '".$disponibilidade_dia."'
-                            AND A.hora >= ".$disponibilidade_hora."
-                            AND A.hora <= ".$intervalo." ";
+        if (!empty($ativa)) {
+
+            $hoje = date("Y-m-d");
+
+            if ($ativa == 'Ativa') {
+                $queryAcao .= "AND A.dia > '".$hoje."' ";
+            } else {
+                $queryAcao .= "AND A.dia < '".$hoje."' ";
+            }
+
         }
 
         $queryAcao .= "ORDER BY I.nome_instituicao ";
 
-        return free_query($queryAcao);
+        $acaof = free_query($queryAcao);
+
+        $result = array();
+        
+        while ($acao = $acaof->fetch_assoc()){
+            $hoje = date("Y-m-d");
+            if ($acao['dia'] > $hoje) {
+                $acao['ativa'] = "Ativa";
+            } else {
+                $acao['ativa'] = "Inativa";
+            }
+
+            array_push($result, $acao);
+        }
+
+        return $result;
 
     }
 
-    function adminF() {
+    function adminAF() {
         
         $queryAcao = "SELECT I.id, I.nome_instituicao, A.id_acao, A.titulo, A.distrito,
                         A.concelho, A.freguesia, A.funcao, A.area_interesse, A.populacao_alvo,
@@ -100,7 +121,22 @@
                         WHERE I.id = A.id_instituicao
                         ORDER BY I.nome_instituicao";
         
-        return free_query($queryAcao);
+        $acaof = free_query($queryAcao);
+
+        $result = array();
+        
+        while ($acao = $acaof->fetch_assoc()){
+            $hoje = date("Y-m-d");
+            if ($acao['dia'] > $hoje) {
+                $acao['ativa'] = "Ativa";
+            } else {
+                $acao['ativa'] = "Inativa";
+            }
+
+            array_push($result, $acao);
+        }
+
+        return $result;
     }
 
 ?>

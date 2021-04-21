@@ -17,8 +17,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/InstituicoesC.css">
+<script src="../JavaScript/InstituicoesJS.js"></script>
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
-<script src="../JavaScript/VoluntariosJS.js"></script>
 <script src="../JavaScript/DCF.js"></script>
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
@@ -100,13 +100,13 @@
     <button id='filterb' class='w3-button w3-center w3-indigo'><i class="fas fa-filter"></i> &nbsp Filtrar &nbsp <i class="fas fa-angle-down"></i></button>
 
     <div class="w3-container w3-small hidden" id='divFiltrar'>
-        <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
+        <div id="filtrar">
                 <div id="esq">
                     <label><b>Instituição</b></label>
-                    <input type="text" class="w3-input" name="instituicao" placeholder="Instituição"/>
+                    <input type="text" class="w3-input" name="instituicao" id="instituicao" placeholder="Instituição"/>
                     <br>
                     <label><b>Titulo</b></label>
-                    <input type="text" class="w3-input" name="titulo" placeholder="Titulo" name="titulo"/>
+                    <input type="text" class="w3-input" name="titulo" id="titulo" placeholder="Titulo" name="titulo"/>
                     <br>
                     <label><b>Distrito:</b></label>
                     <select class="w3-input" name="distrito" id="distrito" size="1">
@@ -124,7 +124,7 @@
                     </select>   
                     <br>
                     <label><b>Áreas de interesse:</b></label>
-                    <select class="w3-input" name="area-interesse">
+                    <select class="w3-input" name="area-interesse" id="area-interesse">
                         <option value="" disabled selected>Selecione as suas áreas de interesse</option>
                         <option value="Ação social">Ação social</option>
                         <option value="Educação">Educação</option>
@@ -133,7 +133,7 @@
                 </div>
                 <div id="dir">
                     <label><b>População-alvo:</b></label>
-                    <select class="w3-input" name="populacao-alvo">
+                    <select class="w3-input" name="populacao-alvo" id="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
                         <option value="Crianças">Crianças</option>
@@ -146,7 +146,7 @@
                     </select>
                     <br>
                     <label><b>Função:</b></label>
-                    <select class="w3-input" name="funcao">
+                    <select class="w3-input" name="funcao" id="funcao">
                         <option value="" disabled selected>Selecione a função</option>
                         <option value="Entrega ao Domicilio de bens não alimentares">Entrega ao Domicilio</option>
                         <option value="Entrega de Bens Alimentares">Entrega de Bens Alimentares</option>
@@ -160,7 +160,7 @@
                     </select>
                     <br>
                     <label><b>Num. vagas</b></label>
-                    <select class="w3-input" name="numvagas">
+                    <select class="w3-input" name="numvagas" id="numvagas">
                         <option value="" disabled selected>Num. vagas</option>
                         <option value="0 a 10">0 a 10</option>
                         <option value="11 a 20">11 a 20</option>
@@ -174,10 +174,10 @@
                     </select>
                     <br>
                     <label><b>Data:</b></label>
-                        <input type="date" class="w3-input" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)"/>
+                        <input type="date" class="w3-input" id="disponibilidade-dia" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)"/>
                     <br>
                     <label><b>Hora de inicio:</b></label>
-                        <select class="w3-input" name="disponibilidade-hora">
+                        <select class="w3-input" name="disponibilidade-hora" id="disponibilidade-hora">
                             <option value="" disabled selected>Hora</option>
                             <option value="0">00:00</option>
                             <option value="1">01:00</option>
@@ -206,7 +206,7 @@
                         </select>
                     <br>
                     <label><b>Duração máxima:</b></label>
-                        <select class="w3-input" name="disponibilidade-duracao">
+                        <select class="w3-input" name="disponibilidade-duracao" id="disponibilidade-duracao">
                             <option value="" disabled selected>Duração</option>
                             <option value="1">01:00</option>
                             <option value="2">02:00</option>
@@ -219,15 +219,16 @@
                         </select>
 
                 </div>
-                <input class="w3-button" id="procura" type="submit" value="Procura"/>
-            </form>
+                <input class="w3-button" id="limpaprocura" onclick="LimparProcura()" type="submit" value="Limpar"/>
+                <input class="w3-button" id="procura" onclick="showAcoesFilter()" type="submit" value="Procura"/>
+            </div>
     </div>
 
     <div id="VolDiv">
 
     <?php
 
-        if (empty($_POST['verPerfil'])){
+        /* if (empty($_POST['verPerfil'])){
             if (!empty($_POST)){
 
                 include "TestInput.php";
@@ -266,7 +267,7 @@
                     echo_acoes($row);
                 }
             }
-        }
+        } */
 
         if (!empty($_POST['verPerfil'])){
 
@@ -280,7 +281,7 @@
             header("Location: Perfil.php");
         }
 
-        function echo_acoes($row) {
+        /* function echo_acoes($row) {
             
             echo "
                 <div class='w3-card-4 w3-round-xxlarge'>
@@ -311,7 +312,7 @@
                 </form>
                 
             </div>";
-        }
+        } */
     
     ?>
 
