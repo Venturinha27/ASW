@@ -27,67 +27,116 @@
 
         <br>
 
-    <form id="registertext" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-        <div id="divEsq">
-            <input type="text" class="w3-input" id="nomeProprio" placeholder="Nome Completo" name="nomeProprio" required />
+    <?php
 
-            <input type="text" class="w3-input" id="E-mail" placeholder="E-mail" name="E-mail"required/>
+        $nomeErro = $_SESSION['erroVnome'];
+        $emailErro = $_SESSION['erroVemail'];
+        $passwordErro = $_SESSION['erroVpassword'];
+        $telefoneErro = $_SESSION['erroVtelefone'];
+        $nascimentoErro = $_SESSION['erroVnascimento'];
+        $ccErro = $_SESSION['erroVcc'];
+        $generoErro = $_SESSION['erroVgenero'];
+        $bioErro = $_SESSION['erroVbio'];
+        $avatarErro = $_SESSION['erroVavatar'];
+        $distritoErro = $_SESSION['erroVdistrito'];
+        $concelhoErro = $_SESSION['erroVconcelho'];
+        $freguesiaErro = $_SESSION['erroVfreguesia'];
+        $cartaErro = $_SESSION['erroVcarta'];
+        $covidErro = $_SESSION['erroVcovid'];
 
-            <input type="password" class="w3-input" id="Password" placeholder="Palavra-Passe" name="Password"required/>
+        echo "<form id='registertext' enctype='multipart/form-data' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+            <div id='divEsq'>
+                <input type='text' value='$nomeErro' class='w3-input' id='nomeProprio' placeholder='Nome Completo' name='nomeProprio' required />
 
-            <input type="text" class="w3-input" id="telefone" placeholder="Telemóvel/Telefone" name="telefone"required/>
+                <input type='text' value='$emailErro' class='w3-input' id='E-mail' placeholder='E-mail' name='E-mail'required/>
 
-            <input type="date" class="w3-input" id="dataNascimento" placeholder="Data de Nascimento (AAAA-MM-DD)" name="dataNascimento" required/>
+                <input type='password' value='$passwordErro' class='w3-input' id='Password' placeholder='Palavra-Passe' name='Password'required/>
 
-            <input type="text" class="w3-input" id="CC" placeholder="Cartão de Cidadão" name="CC"required/>
+                <input type='text' value='$telefoneErro' class='w3-input' id='telefone' placeholder='Telemóvel/Telefone' name='telefone'required/>
 
-            <label>Género</label>
-            <select class="w3-input" name="genero">
-                <option value="" disabled selected>Selecione o seu género</option>
-                <option value="Homem">Homem</option>
-                <option value="Mulher">Mulher</option>
-                <option value="Prefiro não dizer">Prefiro não dizer</option>
-            </select>
+                <input type='date' value='$nascimentoErro' class='w3-input' id='dataNascimento' placeholder='Data de Nascimento (AAAA-MM-DD)' name='dataNascimento' required/>
 
-            <textarea type="text" class="w3-input" id="nomeInstituicao" placeholder="Escreva algo sobre si..." name="bio" rows="3" maxlength="240" required></textarea>
+                <input type='text' value='$ccErro' class='w3-input' id='CC' placeholder='Cartão de Cidadão' name='CC'required/>
 
-        </div>
-        <div id="divDir">
+                <label>Género</label>
+                <select class='w3-input' name='genero'>";
+                    if (isset($generoErro)) {
+                        echo "<option value='$generoErro' selected>$generoErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione o seu género</option>";
+                    }
+                echo "
+                    <option value='Homem'>Homem</option>
+                    <option value='Mulher'>Mulher</option>
+                    <option value='Prefiro não dizer'>Prefiro não dizer</option>
+                </select>
 
-            <label>Fotografia de Perfil </label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-            <input type="file" id="avatar" name="avatar" />
+                <textarea type='text' value='$bioErro' class='w3-input' id='nomeInstituicao' placeholder='Escreva algo sobre si...' name='bio' rows='3' maxlength='240' required>$bioErro</textarea>
 
-            <label>Distrito:</label>
-            <select class="w3-input" name="distrito" id="distrito" size="1" required>
-                <option value="" disabled selected>Selecione o seu Distrito:</option>
-            </select> 
-            
-            <label>Concelho:</label>
-            <select class="w3-input" name="concelho" id="concelho" size="1" required>
-                <option value="" disabled selected>Selecione o seu Concelho:</option>
-            </select> 
-            
-            <label>Freguesia:</label>
-            <select class="w3-input" name="freguesia" id="freguesia" size="1" required>
-                <option value="" disabled selected>Selecione a sua Freguesia:</option>
-            </select> 
+            </div>
+            <div id='divDir'>
 
-            <label>Carta de Condução</label>
-            <select class="w3-input" name="carta">
-                <option value="" disabled selected>Selecione se tem carta de condução</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não</option>
-            </select>
+                <label>Fotografia de Perfil </label> &nbsp";
+                if (isset($avatarErro)) {
+                    echo "<img alt='Avatar' class='w3-circle' id='foto' src='../$avatarErro' />";
+                }
+                echo "<input type='hidden' name='MAX_FILE_SIZE' value='10000000' />
+                <input type='file' id='avatar' name='avatar'/>
 
-            <label>Já esteve infetado com o Covid-19?</label>
-            <select class="w3-input" name="covid">
-                <option value="" disabled selected>Selecione se já esteve infetado</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não</option>
-            </select>
+                <label>Distrito:</label>
+                <select class='w3-input' name='distrito' id='distrito' size='1' required>";
+                    if (isset($distritoErro)) {
+                        echo "<option value='$distritoErro' selected>$distritoErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione o seu Distrito:</option>";
+                    }
+                echo "</select> 
+                
+                <label>Concelho:</label>
+                <select class='w3-input' name='concelho' id='concelho' size='1' required>";
+                    if (isset($concelhoErro)) {
+                        echo "<option value='$concelhoErro' selected>$concelhoErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione o seu Concelho:</option>";
+                    }   
+                echo "</select> 
+                
+                <label>Freguesia:</label>
+                <select class='w3-input' name='freguesia' id='freguesia' size='1' required>";
+                    if (isset($freguesiaErro)) {
+                        echo "<option value='$freguesiaErro' selected>$freguesiaErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione a sua Freguesia:</option>";
+                    }  
+                echo "</select> 
 
-        <input id="submit" type="submit" name="" value="Registar">
+                <label>Carta de Condução</label>
+                <select class='w3-input' name='carta'>";
+                    if (isset($cartaErro)) {
+                        echo "<option value='$cartaErro' selected>$cartaErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione se tem carta de condução</option>";
+                    }
+                    echo "<option value='Sim'>Sim</option>
+                    <option value='Não'>Não</option>
+                </select>
+
+                <label>Já esteve infetado com o Covid-19?</label>
+                <select class='w3-input' name='covid'>";
+                    if (isset($covidErro)) {
+                        echo "<option value='$covidErro' selected>$covidErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione se já esteve infetado</option>";
+                    }
+                    echo "<option value='Sim'>Sim</option>
+                    <option value='Não'>Não</option>
+                </select>
+
+            <input id='submit' type='submit' name='' value='Registar'>";
+
+            echo $_SESSION['msgerroV'];
+
+    ?>
         
         <?php
 
@@ -111,19 +160,42 @@
                 $carta = test_input($_POST['carta']); 
                 $covid = test_input($_POST['covid']);
 
+                $_SESSION['erroVnome'] = $nomeProprio;
+                $_SESSION['erroVemail'] = $Email;
+                $_SESSION['erroVpassword'] = $Password;
+                $_SESSION['erroVtelefone'] = $telefone;
+                $_SESSION['erroVnascimento'] = $dataNascimento;
+                $_SESSION['erroVcc'] = $CC;
+                $_SESSION['erroVgenero'] = $genero;
+                $_SESSION['erroVbio'] = $bio;
+                $_SESSION['erroVdistrito'] = $distrito;
+                $_SESSION['erroVconcelho'] = $concelho;
+                $_SESSION['erroVfreguesia'] = $freguesia;
+                $_SESSION['erroVcarta'] = $carta;
+                $_SESSION['erroVcovid'] = $covid;
+
                 include "../Controller/InputPhotoController.php";
 
                 $avatar = test_photo();
+
+                if ($avatar == 'Nenhuma imagem enviada.') {
+                    $avatar = $_SESSION['erroVavatar'];
+                } else {
+                    $_SESSION['erroVavatar'] = $avatar;
+                }
 
                 if (substr($avatar,0,6) == "Images") {
 
                     $registoV = registo_voluntario($id, $nomeProprio, $Email, $Password, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar);
 
-                    echo $registoV;
+                    echo "<meta http-equiv='refresh' content='0'>";
+                    $_SESSION['msgerroV'] = $registoV;
 
                 } else {
+
+                    echo "<meta http-equiv='refresh' content='0'>";
                     // Erro no input da fotografia
-                    echo "<p class='erro'> ". $avatar ." </p>";
+                    $_SESSION['msgerroV'] = "<p class='erro'> ". $avatar ." </p>";
                 }
 
             }

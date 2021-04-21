@@ -1,5 +1,9 @@
 
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
     session_start();
     ob_start();
     
@@ -31,261 +35,116 @@
 
     <div id="registertext">
 
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                <label><b>Áreas de interesse:</b></label>
-                    <select class="w3-select sela" name="area-interesse" required>
-                        <option value="" disabled selected>Selecione uma área de interesse</option>
-                        <option value="Ação social">Ação social</option>
-                        <option value="Educação">Educação</option>
-                        <option value="Saúde">Saúde</option>
-                    </select>
+            <label><b>Áreas de interesse:</b></label>
+            <select class="w3-select sela" id="sel-area-interesse" name="area-interesse" required>
+                <option value="" disabled selected>Selecione uma área de interesse</option>
+                <option value="Ação social">Ação social</option>
+                <option value="Educação">Educação</option>
+                <option value="Saúde">Saúde</option>
+            </select>
 
-                <input class="w3-green w3-round-xxlarge" type="submit" value="+" name="submitA">
-            </form>
+            <input class="w3-green w3-round-xxlarge" onclick="addArea()" type="submit" value="+" name="submitA">
 
-            <?php
+            <?php     
 
-                $voluntario = $_SESSION['loggedid'];
-
-                $areasV = areasV($voluntario);           
-
-                if ($areasV->num_rows > 0) {
-                    $checkArea = 1;
-                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
-                    echo "<ul class='w3-ul w3-center'>";            
-                    while ($row = $areasV->fetch_assoc()){
-                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['area'] . "
-                            <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['area']."' name='removeA'>
-                                <i class='fa fa-trash-alt'></i>
-                            </button>
-                            </form> 
-                        </li>";
-                    }
-                    echo "</ul>";
-                    echo "</div>";
-                } else {
-                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
-                            <p class='w3-center'>Ainda não tem áreas de interesse.</p>
-                        </div>";
-                }
+                echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
+                <ul class='w3-ul w3-center' id='ularea'></ul>
+                </div>";
             
             ?>
 
             <hr>
             
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                <label><b>População-alvo:</b></label>
-                    <select class="w3-select selp" name="populacao-alvo" required>
-                        <option value="" disabled selected>Selecione a sua população-alvo</option>
-                        <option value="Indiferente">Indiferente</option>
-                        <option value="Crianças">Crianças</option>
-                        <option value="Jovens">Jovens</option>
-                        <option value="Idosos">Idosos</option>
-                        <option value="Grávidas">Grávidas</option>
-                        <option value="Pessoas em situação de dependência (ex. acamados)">Pessoas em situação de dependência (ex. acamados)</option>
-                        <option value="Pessoas sem-abrigo">Pessoas sem-abrigo</option>
-                        <option value="Pessoas com deficiência">Pessoas com deficiência</option>
-                    </select>
+            <label><b>População-alvo:</b></label>
+                <select class="w3-select selp" id="sel-populacao" name="populacao-alvo" required>
+                    <option value="" disabled selected>Selecione a sua população-alvo</option>
+                    <option value="Indiferente">Indiferente</option>
+                    <option value="Crianças">Crianças</option>
+                    <option value="Jovens">Jovens</option>
+                    <option value="Idosos">Idosos</option>
+                    <option value="Grávidas">Grávidas</option>
+                    <option value="Pessoas em situação de dependência (ex. acamados)">Pessoas em situação de dependência (ex. acamados)</option>
+                    <option value="Pessoas sem-abrigo">Pessoas sem-abrigo</option>
+                    <option value="Pessoas com deficiência">Pessoas com deficiência</option>
+                </select>
 
-                <input class="w3-green w3-round-xxlarge" type="submit" value="+" name="submitP">
+                <input class="w3-green w3-round-xxlarge" onclick="addPopulacao()" type="submit" value="+" name="submitP">
             </form>
 
             <?php
 
-                $voluntario = $_SESSION['loggedid'];
-
-                $populacaoV = populacaoV($voluntario);             
-
-                if ($populacaoV->num_rows > 0) {
-                    $checkPopulacao = 1;
-                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
-                    echo "<ul class='w3-ul w3-center'>";            
-                    while ($row = $populacaoV->fetch_assoc()){
-                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>" . $row['populacao_alvo'] . "
-                            <button class='w3-right w3-red w3-round-xxlarge' type='submit' value='".$row['populacao_alvo']."' name='removeP'>
-                                <i class='fa fa-trash-alt'></i>
-                            </button>
-                            </form> 
-                        </li>";
-                    }
-                    echo "</ul>";
-                    echo "</div>";
-
-                } else {
-                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
-                            <p class='w3-center'>Ainda não tem nenhuma população-alvo.</p>
-                        </div>";
-                }
+                echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
+                <ul class='w3-ul w3-center' id='ulpopulacao'></ul>
+                </div>";
             
             ?>
 
             <hr>
             
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                <label><b>Disponibilidade:</b></label>
-                    <select class="w3-select disponibilidade" name="disponibilidade-dia" required>
-                        <option value="" disabled selected>Dia</option>
-                        <option value="Segunda-feira">Segunda-feira</option>
-                        <option value="Terça-feira">Terça-feira</option>
-                        <option value="Quarta-feira">Quarta-feira</option>
-                        <option value="Quinta-feira">Quinta-feira</option>
-                        <option value="Sexta-feira">Sexta-feira</option>
-                        <option value="Sábado">Sábado</option>
-                        <option value="Domingo">Domingo</option>
-                    </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-hora" required>
-                        <option value="" disabled selected>Hora</option>
-                        <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
-                    </select>
-                    <select class="w3-select disponibilidade" name="disponibilidade-duracao" required>
-                        <option value="" disabled selected>Duração</option>
-                        <option value="1">01:00</option>
-                        <option value="2">02:00</option>
-                        <option value="3">03:00</option>
-                        <option value="4">04:00</option>
-                        <option value="5">05:00</option>
-                        <option value="6">06:00</option>
-                        <option value="7">07:00</option>
-                        <option value="8">08:00</option>
-                    </select>
+            <label><b>Disponibilidade:</b></label>
+                <select class="w3-select disponibilidade" id="sel-dia" name="disponibilidade-dia" required>
+                    <option value="" disabled selected>Dia</option>
+                    <option value="Segunda-feira">Segunda-feira</option>
+                    <option value="Terça-feira">Terça-feira</option>
+                    <option value="Quarta-feira">Quarta-feira</option>
+                    <option value="Quinta-feira">Quinta-feira</option>
+                    <option value="Sexta-feira">Sexta-feira</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
+                </select>
+                <select class="w3-select disponibilidade" id="sel-hora" name="disponibilidade-hora" required>
+                    <option value="" disabled selected>Hora</option>
+                    <option value="00:00">00:00</option>
+                    <option value="01:00">01:00</option>
+                    <option value="02:00">02:00</option>
+                    <option value="03:00">03:00</option>
+                    <option value="04:00">04:00</option>
+                    <option value="05:00">05:00</option>
+                    <option value="06:00">06:00</option>
+                    <option value="07:00">07:00</option>
+                    <option value="08:00">08:00</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="23:00">23:00</option>
+                </select>
+                <select class="w3-select disponibilidade" id="sel-duracao" name="disponibilidade-duracao" required>
+                    <option value="" disabled selected>Duração</option>
+                    <option value="1">01:00</option>
+                    <option value="2">02:00</option>
+                    <option value="3">03:00</option>
+                    <option value="4">04:00</option>
+                    <option value="5">05:00</option>
+                    <option value="6">06:00</option>
+                    <option value="7">07:00</option>
+                    <option value="8">08:00</option>
+                </select>
                 
-                <input class="w3-green w3-round-xxlarge" type="submit" value="+" name="submitD">
+                <input class="w3-green w3-round-xxlarge" onclick="addDisponibilidade()" type="submit" value="+" name="submitD">
             </form>
 
             <?php
 
-                $voluntario = $_SESSION['loggedid'];
-
-                $disponibilidadeV = disponibilidadeV($voluntario);             
-
-                if ($disponibilidadeV->num_rows > 0) {
-                    $checkDisponibilidade = 1;
-                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>";   
-                    echo "<ul class='w3-ul w3-center'>";            
-                    while ($row = $disponibilidadeV->fetch_assoc()){
-                        echo "<li> <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                            Dia: " . $row['dia'] . ", hora: ". $row['hora'] .":00, duração: ".$row['duracao']." horas.
-                            <button class='w3-right w3-red w3-round-xxlarge' type='submit'
-                                 value='".$row['dia']."/".$row['hora']."/".$row['duracao']."' 
-                                 name='removeD'>
-                                <i class='fa fa-trash-alt'></i>
-                            </button>
-                            </form> 
-                        </li>";
-                    }
-                    echo "</ul>";
-                    echo "</div>";
-
-                } else {
-                    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
-                            <p class='w3-center'>Ainda não tem disponibilidade.</p>
-                        </div>";
-                }
+                echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-blue w3-pale-blue'>
+                <ul class='w3-ul w3-center' id='uldisponibilidade'></ul>
+                </div>";
             
             ?>
 
             <hr>
 
-            <?php
-                include "TestInput.php";
-
-                $voluntario = $_SESSION['loggedid'];
-
-                if ($_POST['submitA']) {
-                    $area_interesse = test_input($_POST['area-interesse']);
-
-                    $insertA = insertA($voluntario, $area_interesse);
-
-                    if ($insertA == TRUE){
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-                    
-                }
-
-                if ($_POST['submitP']) {
-                    $populacao_alvo = test_input($_POST['populacao-alvo']);
-
-                    $insertP = insertP($voluntario, $populacao_alvo);
-                    
-                    if ($insertP) {
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-                }
-
-                if ($_POST['submitD']) {
-                    $dia = test_input($_POST['disponibilidade-dia']);
-                    $hora = test_input($_POST['disponibilidade-hora']);
-                    $duracao = test_input($_POST['disponibilidade-duracao']);
-
-                    $insertD = insertD($voluntario, $dia, $hora, $duracao);
-                    
-                    if ($insertD) {
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-                }
-
-                if (!empty($_POST['removeA'])){
-                    $rArea = test_input($_POST['removeA']);
-
-                    $removeArea = removeArea($voluntario, $rArea);
-                    
-                    if ($removeArea) {
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-                }
-
-                if (!empty($_POST['removeP'])){
-                    $rPopulacao = test_input($_POST['removeP']);
-
-                    $removePopulacao = removePopulacao($voluntario, $rPopulacao);
-                    
-                    if ($removePopulacao) {
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-                }
-
-                if (!empty($_POST['removeD'])){
-                    $rDispo = test_input($_POST['removeD']);
-
-                    $removeDisponibilidade = removeDisponibilidade($voluntario, $rDispo);
-                    
-                    if ($removeDisponibilidade) {
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-                }
-
-            ?>
-
-            <?php
-                if ($checkArea == 1 and $checkPopulacao == 1 and $checkDisponibilidade == 1){
-                    echo "<a href='Perfil.php'><button class='w3-button w3-border w3-center' id='avancar'>Avançar</button></a>";
-                } else {
-                    echo "<p>Escolha, pelo menos, uma área de interesse, uma população-alvo e uma disponibilidade.</p>";
-                }
-            ?>
+            <div id="avancardiv"></div>
     </div>
 
 

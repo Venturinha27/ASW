@@ -96,13 +96,13 @@
     <button id='filterb' class='w3-button w3-center w3-indigo'><i class="fas fa-filter"></i> &nbsp Filtrar &nbsp <i class="fas fa-angle-down"></i></button>
 
     <div class="w3-container w3-small hidden" id='divFiltrar'>
-        <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
+        <div id="filtrar">
                 <div id="esq">
                     <label><b>Nome</b></label>
-                    <input type="text" class="w3-input" name="nome" placeholder="Nome" name="nome"/>
+                    <input type="text" class="w3-input" name="nome" id="nome" placeholder="Nome" name="nome"/>
                     <br>
                     <label><b>Idade</b></label>
-                    <select class="w3-input" name="idade">
+                    <select class="w3-input" name="idade" id="idade">
                         <option value="" disabled selected>Idade</option>
                         <option value="10 aos 20">10 aos 20</option>
                         <option value="21 aos 30">21 aos 30</option>
@@ -130,7 +130,7 @@
                     </select> 
                     <br>
                     <label><b>Género</b></label>
-                    <select class="w3-input" name="genero">
+                    <select class="w3-input" name="genero" id="genero">
                         <option value="" disabled selected>Género</option>
                         <option value="Homem">Homem</option>
                         <option value="Mulher">Mulher</option>
@@ -139,24 +139,24 @@
                 </div>
                 <div id="dir">
                     <label><b>Email</b></label>
-                    <input type="text" class="w3-input" name="email" placeholder="Email" name="email"/>
+                    <input type="text" class="w3-input" name="email" id="email" placeholder="Email" name="email"/>
                     <br>
                     <label><b>Carta de Condução</b></label>
-                    <select class="w3-input" name="carta">
+                    <select class="w3-input" name="carta" id="carta">
                         <option value="" disabled selected>Carta de condução</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
                     <br>
                     <label><b>Já esteve infetado com o Covid-19?</b></label>
-                    <select class="w3-input" name="covid">
+                    <select class="w3-input" name="covid" id="covid">
                         <option value="" disabled selected>Esteve infetado</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
                     <br>
                     <label><b>Áreas de interesse:</b></label>
-                    <select class="w3-input" name="area-interesse">
+                    <select class="w3-input" name="area-interesse" id="area-interesse">
                         <option value="" disabled selected>Área de interesse</option>
                         <option value="Ação social">Ação social</option>
                         <option value="Educação">Educação</option>
@@ -164,7 +164,7 @@
                     </select>
                     <br>
                     <label><b>População-alvo:</b></label>
-                    <select class="w3-input" name="populacao-alvo">
+                    <select class="w3-input" name="populacao-alvo" id="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
                         <option value="Crianças">Crianças</option>
@@ -178,7 +178,7 @@
                     <br>
                     <label><b>Disponibilidade:</b></label>
                     <br>
-                    <select class="w3-input dis" name="disponibilidade-dia">
+                    <select class="w3-input dis" name="disponibilidade-dia" id="disponibilidade-dia">
                         <option value="" disabled selected>Dia</option>
                         <option value="Segunda-feira">Segunda-feira</option>
                         <option value="Terça-feira">Terça-feira</option>
@@ -188,7 +188,7 @@
                         <option value="Sábado">Sábado</option>
                         <option value="Domingo">Domingo</option>
                     </select>
-                    <select class="w3-input dis" name="disponibilidade-hora">
+                    <select class="w3-input dis" name="disponibilidade-hora" id="disponibilidade-hora">
                         <option value="" disabled selected>Hora</option>
                         <option value="00:00">00:00</option>
                         <option value="1">01:00</option>
@@ -215,7 +215,7 @@
                         <option value="22">22:00</option>
                         <option value="23">23:00</option>
                     </select>
-                    <select class="w3-input dis" name="disponibilidade-duracao">
+                    <select class="w3-input dis" name="disponibilidade-duracao" id="disponibilidade-duracao">
                         <option value="" disabled selected>Duração</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>
@@ -228,56 +228,14 @@
                     </select>
                     
                 </div>
-                <input class="w3-button" id="procura" type="submit" value="Procura"/>
-            </form>
+                <input class="w3-button" id="limpaprocura" onclick="LimparProcura()" type="submit" value="Limpar"/>
+                <input class="w3-button" id="procura" onclick="showVoluntariosFilter()" type="submit" value="Procura"/>
+            </div>
     </div>
 
     <div id="VolDiv">
 
     <?php
-
-        if (empty($_POST['verPerfil'])){
-            if (!empty($_POST)){
-
-                include "TestInput.php";
-
-                $nome = test_input($_POST['nome']);
-                $email = test_input($_POST['email']);
-                $idade = test_input($_POST['idade']);
-                $distrito = test_input($_POST['distrito']);
-                $concelho = test_input($_POST['concelho']);
-                $freguesia = test_input($_POST['freguesia']);
-                $genero = test_input($_POST['genero']);
-                $carta = test_input($_POST['carta']);
-                $covid = test_input($_POST['covid']);
-                $areaInteresse = test_input($_POST['area-interesse']);
-                $populacaoAlvo = test_input($_POST['populacao-alvo']);
-                $disDia = test_input($_POST['disponibilidade-dia']);
-                $disHora = test_input($_POST['disponibilidade-hora']);
-                $disDuracao = test_input($_POST['disponibilidade-duracao']);
-
-                $voluntarios = searchVoluntariosFilter($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao);
-
-            } else {
-
-                $voluntarios = searchVoluntarios();
-                
-            }
-
-            // SE ESTIVER LOGGADO
-            if ($voluntarios->num_rows > 0) {
-                while ($row = $voluntarios->fetch_assoc()){
-                    echo_voluntarios($row);
-                }
-            } 
-
-            // SE NÃO ESTIVER LOGGADO
-            else {
-                foreach ($voluntarios as $row) {
-                    echo_voluntarios($row);
-                }
-            }
-        }
 
         if (!empty($_POST['verPerfil'])){
 
@@ -289,90 +247,6 @@
             $_SESSION['open'] = $nomeV;
             $_SESSION['openid'] = $id;
             header("Location: Perfil.php");
-        }
-
-        function echo_voluntarios($row) {
-            echo "
-                <div class='w3-card-4 w3-round-xxlarge'>
-
-                    <header class='w3-container'>
-                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
-                    </header>";
-
-            if ($_SESSION['loggedtype'] == 'instituicao') {
-                $acoes = CorrespondeVoluntarioAcoes($row, $_SESSION['loggedid']);
-
-                if ($acoes != FALSE) {
-                    if (count($acoes) > 1) {
-                        echo "<header class='w3-container w3-green'>
-                        <p>Este voluntário corresponde às suas ações ";
-                    } else {
-                        echo "<header class='w3-container w3-green'>
-                        <p>Este voluntário corresponde à sua ação ";
-                    }
-
-                    $ultimo = count($acoes);
-                    $acc = 0;
-                    foreach ($acoes as $ac) {
-                        $acc = $acc + 1;
-                        if ($acc == $ultimo) {
-                            echo "<b>$ac</b>.";
-                        } else {
-                            echo "<b>$ac</b>, ";
-                        }
-                        
-                    }
-                    echo "</p>
-                    </header>";
-                }
-            }
-                    
-                echo "<div class='w3-container'>
-                        <h5><b>".$row['nome_voluntario']."</b></h5>
-                        <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                        <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
-                        <p><i class='fas fa-heart'></i> &nbsp ";
-
-                $areas = areasVoluntario($row['id']);         
-
-                $ultimo = count($areas);
-
-                $c = 0;
-                foreach ($areas as $are) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$are";
-                    } else {
-                        echo "$are, ";
-                    }
-                }
-
-
-                echo "</p>
-                        <p><i class='fas fa-users'></i> &nbsp ";
-
-                $populacao = populacaoVoluntario($row['id']);
-
-                $ultimo = count($populacao);
-
-                $c = 0;
-                foreach ($populacao as $pop) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$pop";
-                    } else {
-                        echo "$pop, ";
-                    }
-                }
-       
-                echo "</p>";
-                
-                echo    "</div>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$row['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>
-                    
-                </div>";
         }
 
     ?>
