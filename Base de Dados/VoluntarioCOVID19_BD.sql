@@ -297,7 +297,19 @@ CREATE TABLE Admins (
         
 );
 
+/* ----------------------- Publicações -------------------------*/
 
+CREATE TABLE Publicacao (
+    id_publicacao                   NUMERIC (2),
+    id_dono                         NUMERIC (2),
+    identificados                   VARCHAR (100),
+    descricao                       VARCHAR (250),
+    
+
+    CONSTRAINT pk_idpublicacao
+        PRIMARY KEY (id_publicacao)
+        
+);
 
 
 INSERT INTO Admins VALUES ("asw013","asw2021");
