@@ -21,7 +21,7 @@
 
         while ($rowc = $candidaturas->fetch_assoc()) {
 
-            $id = $rowc['id'];
+            $id_cand = $rowc['id'];
             
             $id_vol = $rowc['id_voluntario'];
             if ($rowv = query_voluntario($id_vol)->fetch_assoc()){
@@ -35,7 +35,7 @@
             };
 
             $candidatura = array();
-            $candidatura["id"] = $id;
+            $candidatura["id"] = $id_cand;
             $candidatura["tipo"] = "candidatura";
             $candidatura["tipologged"] = $type;
             $candidatura["id_voluntario"] = $id_vol;
@@ -58,7 +58,7 @@
 
         while ($rowc = $convites->fetch_assoc()) {
 
-            $id = $rowc['id'];
+            $id_con = $rowc['id'];
 
             $id_vol = $rowc['id_voluntario'];
             if ($rowv = query_voluntario($id_vol)->fetch_assoc()){
@@ -72,7 +72,7 @@
             };
 
             $convite = array();
-            $convite["id"] = $id;
+            $convite["id"] = $id_con;
             $convite["tipo"] = "convite";
             $convite["tipologged"] = $type;
             $convite["id_voluntario"] = $id_vol;

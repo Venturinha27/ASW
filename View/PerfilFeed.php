@@ -153,14 +153,16 @@
                 <i class='fas fa-sign-out-alt'></i> Terminar sessão
             </button></a>";
         } else {
-            echo "
-            <a><button class='w3-button' id='EnviarMensagem'>
-                <i class='fas fa-paper-plane'></i> Enviar Mensagem
-            </button></a>
+            if ($opentype == 'instituicao' or $opentype == 'voluntario') {
+                echo "
+                <a><button class='w3-button' id='EnviarMensagem'>
+                    <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                </button></a>
 
-            <a href='Login.php'><button class='w3-button' id='Seguir'>
-                <i class='fas fa-user-plus'></i> Seguir
-            </button></a>";
+                <a href='Login.php'><button class='w3-button' id='Seguir'>
+                    <i class='fas fa-user-plus'></i> Seguir
+                </button></a>";
+            }
         }
                 
         echo "</div>";
@@ -217,14 +219,16 @@
                 <i class='fas fa-sign-out-alt'></i> Terminar sessão
             </button></a>";
         } else {
-            echo "
-            <a><button class='w3-button' id='EnviarMensagem'>
-                <i class='fas fa-paper-plane'></i> Enviar Mensagem
-            </button></a>
+            if ($opentype == 'instituicao' or $opentype == 'voluntario') {
+                echo "
+                <a><button class='w3-button' id='EnviarMensagem'>
+                    <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                </button></a>
 
-            <a href='Login.php'><button class='w3-button' id='Seguir'>
-                <i class='fas fa-user-plus'></i> Seguir
-            </button></a>";
+                <a href='Login.php'><button class='w3-button' id='Seguir'>
+                    <i class='fas fa-user-plus'></i> Seguir
+                </button></a>";
+            }
         }
                 
         echo "</div>";
@@ -290,14 +294,16 @@
                         <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
                 } else { 
-                    echo "
-                    <a><button class='w3-button' id='EnviarMensagem'>
-                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                    </button></a>
-
-                    <a href='Login.php'><button class='w3-button' id='Seguir'>
-                        <i class='fas fa-user-plus'></i> Seguir
-                    </button></a>";
+                    if ($opentype == 'instituicao' or $opentype == 'voluntario') {
+                        echo "
+                        <a><button class='w3-button' id='EnviarMensagem'>
+                            <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                        </button></a>
+        
+                        <a href='Login.php'><button class='w3-button' id='Seguir'>
+                            <i class='fas fa-user-plus'></i> Seguir
+                        </button></a>";
+                    }
                 }
                 
             echo "</div>";
@@ -752,6 +758,7 @@
     </div>
 
     <?php
+
         include "../Controller/PedidosController.php";
 
         if (isset($_SESSION['logged'])){
@@ -759,87 +766,12 @@
             echo "<div id='PedDiv'>
             <header class='w3-container w3-indigo w3-round'>
                 <h3><i class='fas fa-bars'></i> &nbsp<b>Pedidos</b></h3>
-            </header>";
-
-            echo"
-                <div id='Ped'>";
-
-            $pedidos = pedidosLogged($loggedid, $loggedtype);
-
-            if (count($pedidos) == 0) {
-                echo "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
-            }
-
-            if (count($pedidos) > 2) {
-                $max = 2;
-            } else {
-                $max = count($pedidos);
-            }
-
-            for ($x = 0; $x < $max; $x++) {
-                echo "<div id='pedido".json_encode($x)."' class='pedido w3-container w3-border-top w3-border-bottom'>
-                        <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
-                if ($pedidos[$x]['tipologged'] == "instituicao"){
-                    if ($pedidos[$x]['tipo'] == 'candidatura'){
-                            echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
-                            if ($pedidos[$x]['estado'] == 'Pendente'){
-                                echo "<button id=".json_encode('aca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                    <button id=".json_encode('rca'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
-                            } 
-                            if ($pedidos[$x]['estado'] == 'Aceite') {
-                                echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                            } 
-                            if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                                echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
-                            }
-                    } else {
-                        echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
-                        if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
-                        } 
-                        if ($pedidos[$x]['estado'] == 'Aceite') {
-                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                        } 
-                        if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                            echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
-                        }
-                    }
-                } else {
-                    if ($pedidos[$x]['tipo'] == 'candidatura'){
-                        echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
-                        if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
-                        } 
-                        if ($pedidos[$x]['estado'] == 'Aceite') {
-                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                        } 
-                        if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                            echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
-                        }
-                    } else {
-                        echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
-                        if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<button id=".json_encode('aco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                <button id=".json_encode('rco'.strval($pedidos[$x]['id_voluntario']).strval($pedidos[$x]['id_acao']))." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode($pedidos[$x]['id_voluntario']).", ".json_encode($pedidos[$x]['id_acao']).", ".json_encode($x).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
-                        } 
-                        if ($pedidos[$x]['estado'] == 'Aceite') {
-                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                        } 
-                        if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                            echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
-                        }
-                    }
-
-                }
-                echo "</div>";
-            }
-                        
-            echo "<button type='button' onclick='verMaisPed(".json_encode($pedidos).", ".json_encode($loggedid).", ".json_encode($loggedtype).")' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
-                    </div>
-                </div>";
-
+            </header>
+            <div id='Ped'>
+            </div>
+            <button type='button' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+            </div>";
         }
-
         
         ?>
 

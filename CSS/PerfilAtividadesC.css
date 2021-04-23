@@ -91,6 +91,18 @@ body {
     border-radius: 100px;
 }
 
+#AzulDiv #Seguindo {
+    position: absolute;
+    top: 5%;
+    right: 1.5%;
+    background-color: white;
+    color: #24305E;
+    border-radius: 100px;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #24305E;
+}
+
 
 /* ---------------------------------------------- */
 

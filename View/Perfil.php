@@ -155,14 +155,15 @@
                         <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
                 } else {
-                    echo "
-                    <a><button class='w3-button' id='EnviarMensagem'>
-                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                    </button></a>
-
-                    <a href='Login.php'><button class='w3-button' id='Seguir'>
-                        <i class='fas fa-user-plus'></i> Seguir
-                    </button></a>";
+                    if ($opentype == 'instituicao' or $opentype == 'voluntario') {
+                        echo "
+                        <a><button class='w3-button' id='EnviarMensagem'>
+                            <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                        </button></a>
+                        
+                        <div id='seguirDiv'>
+                        </div>";
+                    }
                 }
                 
             echo "</div>";
@@ -252,23 +253,6 @@
                 <br>";
 
                 echo "<div id='convidaVol' class='hidden'>";
-                /* echo "<header class='w3-container w3-indigo'>";
-                echo "<h3 class='w3-center'><b>Convida voluntários</b></h3>";
-                echo "<button id='closeConvida' class='w3-display-topright w3-button w3-hover-white'><b>X</b></button>";
-                echo "</header>";
-                $acoesIns = AcoesInstituicao($loggedid);
-                echo "<ul class='w3-ul w3-hoverable'>";
-                while ($rowa = $acoesIns->fetch_assoc()) {
-                    echo "<li class='w3-padding-16 w3-white w3-card'><b>".$rowa['titulo']."</b>";
-                    $EConvidado = EConvidado($openid, $loggedid, $rowa['id_acao']);
-                    if ($EConvidado == TRUE){
-                        echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>Convidado<button>";
-                    } else {
-                        echo "<button id='ca".$rowa['id_acao']."' onclick='convidaAcao(".json_encode($rowa['id_acao']).", ".json_encode($openid).")' class='w3-right w3-indigo w3-round-xxlarge'>Convidar<button>";
-                    }
-                    echo "</li>";
-                }
-                echo "</ul>"; */
                 echo "</div>";
         }
 
@@ -325,14 +309,16 @@
                         <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
                 } else {
-                    echo "
-                    <a><button class='w3-button' id='EnviarMensagem'>
-                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                    </button></a>
-
-                    <a href='Login.php'><button class='w3-button' id='Seguir'>
-                        <i class='fas fa-user-plus'></i> Seguir
-                    </button></a>";
+                    if ($opentype == 'instituicao' or $opentype == 'voluntario') {
+                        echo "
+                        <a><button class='w3-button' id='EnviarMensagem'>
+                            <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                        </button></a>
+        
+                        <a href='Login.php'><button class='w3-button' id='Seguir'>
+                            <i class='fas fa-user-plus'></i> Seguir
+                        </button></a>";
+                    }
                 }
                 
             echo "</div>";
@@ -421,14 +407,16 @@
                     <i class='fas fa-sign-out-alt'></i> Terminar sessão
                 </button></a>";
             } else {
-            echo "
-                <a><button class='w3-button' id='EnviarMensagem'>
-                    <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                </button></a>
-
-                <a href='Login.php'><button class='w3-button' id='Seguir'>
-                    <i class='fas fa-user-plus'></i> Seguir
-                </button></a>";
+                if ($opentype == 'instituicao' or $opentype == 'voluntario') {
+                    echo "
+                    <a><button class='w3-button' id='EnviarMensagem'>
+                        <i class='fas fa-paper-plane'></i> Enviar Mensagem
+                    </button></a>
+    
+                    <a href='Login.php'><button class='w3-button' id='Seguir'>
+                        <i class='fas fa-user-plus'></i> Seguir
+                    </button></a>";
+                }
             }
             
         echo "</div>";
@@ -456,32 +444,10 @@
                     <div id='candidatarDiv'></div>
                 </div>";
 
-        /* if ($loggedtype == 'voluntario') {
-            $ECandidato = ECandidato($loggedid, $id_instituicao, $id_acao);
-            if ($ECandidato == TRUE) {
-                echo "<br>
-                <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Já se candidatou a esta ação.</button>
-                <br>";
-            } else {
-                echo "<br>
-                <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                    <button type='submit' value='".$id_acao."' name='candidatura' class='w3-button w3-block w3-center w3-round-xxlarge w3-indigo w3-hover-blue cand'>Candidatar-se a esta ação!</button>
-                </form>
-                <br>";
-            }
-        } */
-
         echo "</div>";
                 
-        echo "</div>";
-                
-            
+        echo "</div>";       
     }
-
-    /* if ($_POST['candidatura']){
-        $cand = Candidatar($loggedid, $_POST['candidatura']);
-        echo "<meta http-equiv='refresh' content='0'>";
-    } */
 
 ?>
 
@@ -499,9 +465,8 @@
             <button type='button' id='vermaisped' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
             </div>";
         }
-
         
-        ?>
+?>
 
 <?php
 

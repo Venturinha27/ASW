@@ -199,4 +199,59 @@
         }
     }
 
+    $show_div_seguir = $_REQUEST['show_div_seguir'];
+
+    if ($show_div_seguir == 'yes') {
+
+        include_once "../Model/Model.php";
+
+        $loggedid = $_SESSION['loggedid'];
+        $openid = $_SESSION['openid'];
+        $loggedtype = $_SESSION['loggedtype'];
+        $opentype = $_SESSION['opentype'];
+
+        if ($opentype == 'voluntario' or $opentype == 'instituicao') {
+            if ($loggedid != $openid) {
+
+                $segue = segue($loggedid, $openid);
+
+                if ($segue->num_rows > 0) {
+                    echo "<button class='w3-button' id='Seguindo' onclick='deixarSeguir()'>
+                        <i class='fas fa-user-plus'></i> Seguindo
+                    </button>";                        
+                } else {
+                    echo "<button class='w3-button' id='Seguir' onclick='Seguir()'>
+                            <i class='fas fa-user-plus'></i> Seguir
+                        </button>";
+                }
+                
+            }
+        }
+    }
+
+    $seguir_user = $_REQUEST['seguir_user'];
+
+    if ($seguir_user == 'yes') {
+
+        include_once "../Model/Model.php";
+
+        $loggedid = $_SESSION['loggedid'];
+        $openid = $_SESSION['openid'];
+
+        echo seguir($loggedid, $openid);
+
+    }
+
+    $deixar_seguir_user = $_REQUEST['deixar_seguir_user'];
+
+    if ($deixar_seguir_user == 'yes') {
+        
+        include_once "../Model/Model.php";
+
+        $loggedid = $_SESSION['loggedid'];
+        $openid = $_SESSION['openid'];
+
+        echo deixar_seguir($loggedid, $openid);
+
+    }
 ?>

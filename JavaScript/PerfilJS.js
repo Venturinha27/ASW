@@ -9,6 +9,7 @@ function principal(){
     toggleConvida()
     showPedidos()
     showCandidatar()
+    showSeguir()
 
 }
 
@@ -196,7 +197,6 @@ function convidaAcao(id_acao, id_vol) {
     xmlhttp.send();  
 }
 
-
 function showCandidatar() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -221,4 +221,39 @@ function candidataAcao(id_vol, id_acao) {
     }
     xmlhttp.open("GET", "../Controller/PerfilController.php?candidata_acao=yes&id_acao_candidata="+String(id_acao)+"&id_vol_candidata="+String(id_vol), true);
     xmlhttp.send();
+}
+
+function showSeguir() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (document.getElementById("seguirDiv") != null) {
+                document.getElementById("seguirDiv").innerHTML = this.responseText
+            }
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_seguir=yes", true);
+    xmlhttp.send(); 
+}
+
+function Seguir() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showSeguir();
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PerfilController.php?seguir_user=yes", true);
+    xmlhttp.send(); 
+}
+
+function deixarSeguir() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showSeguir();
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PerfilController.php?deixar_seguir_user=yes", true);
+    xmlhttp.send(); 
 }

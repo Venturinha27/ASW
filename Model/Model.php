@@ -902,8 +902,8 @@
 
         include "openconn.php";
 
-        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura
-                            FROM Candidatura_Acao
+        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura 
+                            FROM Candidatura_Acao 
                             WHERE id_instituicao = '".$id_instituicao."'";
 
         $resultCandidatura = $conn->query($queryCandidatura);  
@@ -923,8 +923,8 @@
 
         include "openconn.php";
 
-        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite
-                            FROM Convite_Acao
+        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite 
+                            FROM Convite_Acao 
                             WHERE id_instituicao = '".$id_instituicao."'";
 
         $resultConvite = $conn->query($queryConvite);  
@@ -944,8 +944,8 @@
 
         include "openconn.php";
 
-        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura
-                            FROM Candidatura_Acao
+        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura 
+                            FROM Candidatura_Acao 
                             WHERE id_voluntario = '".$id_voluntario."'";
 
         $resultCandidatura = $conn->query($queryCandidatura);  
@@ -965,8 +965,8 @@
 
         include "openconn.php";
 
-        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite
-                            FROM Convite_Acao
+        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite 
+                            FROM Convite_Acao 
                             WHERE id_voluntario = '".$id_voluntario."'";
 
         $resultConvite = $conn->query($queryConvite);  
@@ -1383,6 +1383,68 @@
         mysqli_close($conn);
 
         return $resultConvite;
+
+    }
+
+    function segue($logged, $open){
+       
+        include "openconn.php";
+
+        $querysegue = "SELECT seguidor, seguido
+                    FROM Segue
+                    WHERE seguidor = '".$logged."' 
+                    AND seguido = '".$open."'";
+
+        $results = $conn->query($querysegue);
+
+        if (!($results)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $results;
+    }
+
+    function seguir($loggedid, $openid) {
+
+        include "openconn.php";
+
+        $querysegue = "INSERT INTO Segue 
+                        VALUES ('".$loggedid."', '".$openid."')";
+
+        $results = $conn->query($querysegue);
+
+        if (!($results)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function deixar_seguir($loggedid, $openid) {
+
+        include "openconn.php";
+
+        $querysegue = "DELETE FROM Segue 
+                        WHERE seguidor = '".$loggedid."' 
+                        AND seguido = '".$openid."' ";
+
+        $results = $conn->query($querysegue);
+
+        if (!($results)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
 
     }
 

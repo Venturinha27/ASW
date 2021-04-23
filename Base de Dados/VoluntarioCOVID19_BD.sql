@@ -7,6 +7,7 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS Segue;
 DROP TABLE IF EXISTS Admins;
 DROP TABLE IF EXISTS Mensagem;
 DROP TABLE IF EXISTS Participa_em_Publicacao;
@@ -244,7 +245,7 @@ CREATE TABLE Participou_Acao (
 CREATE TABLE Publicacao (
     id                  VARCHAR (65),
     dono                VARCHAR(65) NOT NULL,
-    imagem              VARBINARY (65535),
+    imagem              VARCHAR(500) NOT NULL,
     descricao           VARCHAR (240),
 
     CONSTRAINT pk_publicacao
@@ -271,12 +272,11 @@ CREATE TABLE Participa_em_Publicacao (
 /* ----------------------- MENSAGENS ----------------------- */
 
 CREATE TABLE Mensagem (
-    id                  VARCHAR (65),
+    id                  int AUTO_INCREMENT,
     de                  VARCHAR (65) NOT NULL,
     para                VARCHAR (65) NOT NULL,
     texto               VARCHAR (1000) NOT NULL,
-    hora                NUMERIC (2) NOT NULL,
-    minuto              NUMERIC (2) NOT NULL,
+    data_msg            DATETIME,
 
     CONSTRAINT pk_mensagem
         PRIMARY KEY (id),
@@ -286,6 +286,22 @@ CREATE TABLE Mensagem (
 
     CONSTRAINT fk_mensagem_para
         FOREIGN KEY (para) REFERENCES Utilizador(id)
+);
+
+/* ----------------------- SEGUE ----------------------- */
+
+CREATE TABLE Segue (
+    seguidor        VARCHAR(65) NOT NULL,
+    seguido         VARCHAR(65) NOT NULL,
+    
+    CONSTRAINT pk_segue
+        PRIMARY KEY (seguidor, seguido),
+        
+    CONSTRAINT fk_mensagem_seguidor
+        FOREIGN KEY (seguidor) REFERENCES Utilizador(id),
+
+    CONSTRAINT fk_mensagem_seguido
+        FOREIGN KEY (seguido) REFERENCES Utilizador(id)
 );
 
 
