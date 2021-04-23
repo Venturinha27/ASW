@@ -1447,5 +1447,24 @@
         return TRUE;
 
     }
+    function publicacoes() {
+        
+        include "openconn.php";
+
+        $sql = "SELECT id, dono, descricao FROM Publicacao";
+    
+        $result = $conn->query($sql);
+        
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+    
+    
+    }
 
 ?>
