@@ -254,4 +254,32 @@
         echo deixar_seguir($loggedid, $openid);
 
     }
+
+    $show_div_pubseg = $_REQUEST['show_div_pubseg'];
+
+    if ($show_div_pubseg == 'yes') {
+
+        include_once "../Model/Model.php";
+
+        $openid = $_SESSION['openid'];
+
+        $npub = numero_publicacoes_user($openid);
+        $nseg = numero_seguidores_user($openid);
+        $nsegi = numero_seguindo_user($openid);
+
+        if ($rowp = $npub->fetch_array()){
+            $npublicacoes = $rowp[0];
+        }
+
+        if ($rows = $nseg->fetch_array()){
+            $nseguidores = $rows[0];
+        }
+
+        if ($rowsi = $nsegi->fetch_array()){
+            $nseguindo = $rowsi[0];
+        }
+
+        echo "<h6>$npublicacoes <b>Publicações</b> &nbsp &nbsp &nbsp $nseguidores <b>Seguidores</b> &nbsp &nbsp &nbsp $nseguindo <b>Seguindo</b></h6>";
+        
+    }
 ?>

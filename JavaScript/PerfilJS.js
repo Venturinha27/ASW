@@ -10,6 +10,7 @@ function principal(){
     showPedidos()
     showCandidatar()
     showSeguir()
+    showPubSeg()
 
 }
 
@@ -229,6 +230,7 @@ function showSeguir() {
         if (this.readyState == 4 && this.status == 200) {
             if (document.getElementById("seguirDiv") != null) {
                 document.getElementById("seguirDiv").innerHTML = this.responseText
+                showPubSeg()
             }
         }
     }
@@ -255,5 +257,18 @@ function deixarSeguir() {
         }
     }
     xmlhttp.open("GET", "../Controller/PerfilController.php?deixar_seguir_user=yes", true);
+    xmlhttp.send(); 
+}
+
+function showPubSeg() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (document.getElementById("divNPubSeg") != null) {
+                document.getElementById("divNPubSeg").innerHTML = this.responseText
+            }
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_pubseg=yes", true);
     xmlhttp.send(); 
 }
