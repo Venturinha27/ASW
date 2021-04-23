@@ -138,7 +138,7 @@
             <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />
                 
                 <h5>".$nome_voluntario."</h5>
-                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
+                <div id='divNPubSeg'></div>
                 <br>
                 <p>".$bio."</p>
         ";
@@ -153,16 +153,13 @@
                 <i class='fas fa-sign-out-alt'></i> Terminar sessão
             </button></a>";
         } else {
-            if ($opentype == 'instituicao' or $opentype == 'voluntario') {
-                echo "
+            echo "
                 <a><button class='w3-button' id='EnviarMensagem'>
                     <i class='fas fa-paper-plane'></i> Enviar Mensagem
                 </button></a>
 
-                <a href='Login.php'><button class='w3-button' id='Seguir'>
-                    <i class='fas fa-user-plus'></i> Seguir
-                </button></a>";
-            }
+                <div id='seguirDiv'>
+                        </div>";
         }
                 
         echo "</div>";
@@ -204,7 +201,7 @@
                 <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />       
                 
                 <h5>".$nome_instituicao."</h5>
-                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
+                <div id='divNPubSeg'></div>
                 <br>
                 <p>".$bio."</p>
         ";
@@ -219,16 +216,13 @@
                 <i class='fas fa-sign-out-alt'></i> Terminar sessão
             </button></a>";
         } else {
-            if ($opentype == 'instituicao' or $opentype == 'voluntario') {
-                echo "
+            echo "
                 <a><button class='w3-button' id='EnviarMensagem'>
                     <i class='fas fa-paper-plane'></i> Enviar Mensagem
                 </button></a>
 
-                <a href='Login.php'><button class='w3-button' id='Seguir'>
-                    <i class='fas fa-user-plus'></i> Seguir
-                </button></a>";
-            }
+                <div id='seguirDiv'>
+                </div>";
         }
                 
         echo "</div>";
@@ -278,7 +272,7 @@
                 <img alt='Avatar' class='w3-left w3-circle' src='../$foto' />       
                 
                 <h5>".$titulo."</h5>
-                <h6>0 <b>Publicações</b> &nbsp &nbsp &nbsp 0 <b>Seguidores</b> &nbsp &nbsp &nbsp 0 <b>Seguindo</b></h6>
+                <br>
                 <br>
                 <p>Promovido pela instituição <b>".$nome_instituicao."</b>.</p>
 
@@ -293,18 +287,7 @@
                     <a href='Login.php'><button class='w3-button' id='TerminarSessao'>
                         <i class='fas fa-sign-out-alt'></i> Terminar sessão
                     </button></a>";
-                } else { 
-                    if ($opentype == 'instituicao' or $opentype == 'voluntario') {
-                        echo "
-                        <a><button class='w3-button' id='EnviarMensagem'>
-                            <i class='fas fa-paper-plane'></i> Enviar Mensagem
-                        </button></a>
-        
-                        <a href='Login.php'><button class='w3-button' id='Seguir'>
-                            <i class='fas fa-user-plus'></i> Seguir
-                        </button></a>";
-                    }
-                }
+                } 
                 
             echo "</div>";
             

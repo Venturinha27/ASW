@@ -1448,4 +1448,64 @@
 
     }
 
+    function numero_publicacoes_user($id){
+       
+        include "openconn.php";
+
+        $query = "SELECT COUNT(*) 
+                    FROM Publicacao
+                    WHERE dono = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+    }
+
+    function numero_seguidores_user($id){
+       
+        include "openconn.php";
+
+        $query = "SELECT COUNT(*) 
+                    FROM Segue
+                    WHERE seguido = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+    }
+
+    function numero_seguindo_user($id){
+       
+        include "openconn.php";
+
+        $query = "SELECT COUNT(*) 
+                    FROM Segue
+                    WHERE seguidor = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+    }
+
 ?>
