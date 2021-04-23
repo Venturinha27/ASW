@@ -1,5 +1,12 @@
 <?php
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
+    ob_start();
+    session_start();
+
     function openVoluntario($id) {
 
         $voluntario = query_voluntario($id);
@@ -40,6 +47,7 @@
     }
 
     function AcoesInstituicao($id) {
+        include_once "../Model/Model.php";
         $acoes = acoes_instituicao($id);
         return $acoes;
     }
@@ -62,6 +70,8 @@
 
     function Candidatar($id_vol, $id_acao) {
         
+        include_once "../Model/Model.php";
+
         $acao = query_acao($id_acao);
         if ($row = $acao->fetch_assoc()){
             $id_inst = $row['id'];
@@ -71,6 +81,8 @@
     }
 
     function ECandidato($id_vol, $id_instituicao, $id_acao) {
+
+        include_once "../Model/Model.php";
 
         $candidaturas = query_candidaturas();
 
@@ -84,6 +96,8 @@
     }
 
     function EConvidado($id_vol, $id_instituicao, $id_acao) {
+
+        include_once "../Model/Model.php";
 
         $convites = query_convites();
 
@@ -107,6 +121,81 @@
             echo 'yes';
         } else {
             echo 'no';
+        }
+    }
+
+    $candidata = $_REQUEST['candidata_acao'];
+
+    if ($candidata == 'yes') {
+        $id_acao_candidata = $_REQUEST['id_acao_candidata'];
+        $id_vol_candidata = $_REQUEST['id_vol_candidata'];
+        $resposta = Candidatar($id_vol_candidata, $id_acao_candidata);
+        if ($resposta == TRUE) {
+            echo 'yes';
+        } else {
+            echo 'no';
+        }
+    }
+
+    $show_div_convida = $_REQUEST['show_div_convida'];
+
+    if ($show_div_convida == 'yes') {
+
+        $loggedid = $_SESSION['loggedid'];
+        $openid = $_SESSION['openid'];
+
+        echo "<header class='w3-container w3-indigo'>";
+        echo "<h3 class='w3-center'><b>Convida voluntários</b></h3>";
+        echo "<button id='closeConvida' onclick='closeConvida()' class='w3-display-topright w3-button w3-hover-white'><b>X</b></button>";
+        echo "</header>";
+        $acoesIns = AcoesInstituicao($loggedid);
+        echo "<ul class='w3-ul w3-hoverable'>";
+        while ($rowa = $acoesIns->fetch_assoc()) {
+            echo "<li class='w3-padding-16 w3-white w3-card'><b>".$rowa['titulo']."</b>";
+            $EConvidado = EConvidado($openid, $loggedid, $rowa['id_acao']);
+            $ECandidato = ECandidato($openid, $loggedid, $rowa['id_acao']);
+            if ($EConvidado == TRUE){
+                echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>Convidado</button>";
+            } else if ($ECandidato == TRUE) {
+                echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>Candidato</button>";
+            } else {
+                echo "<button id='ca".$rowa['id_acao']."' onclick='convidaAcao(".json_encode($rowa['id_acao']).", ".json_encode($openid).")' class='w3-right w3-indigo w3-round-xxlarge'>Convidar</button>";
+            }
+            echo "</li>";
+        }
+        echo "</ul>";
+    }
+
+    $show_div_candidata = $_REQUEST['show_div_candidata'];
+
+    if ($show_div_candidata == 'yes') {
+
+        include_once "../Model/Model.php";
+
+        $loggedid = $_SESSION['loggedid'];
+        $openid = $_SESSION['openid'];
+        $loggedtype = $_SESSION['loggedtype'];
+
+        if ($loggedtype == 'voluntario') {
+            $acao = query_acao($openid);
+            if ($row = $acao->fetch_assoc()) {
+                $id_instituicao = $row['id'];
+            }
+            $ECandidato = ECandidato($loggedid, $id_instituicao, $openid);
+            $EConvidado = EConvidado($loggedid, $id_instituicao, $openid);
+            if ($ECandidato == TRUE) {
+                echo "<br>
+                <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Já se candidatou a esta ação.</button>
+                <br>";
+            } else if ($EConvidado == TRUE) {
+                echo "<br>
+                <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Já foi convidado para esta ação.</button>
+                <br>";
+            } else {
+                echo "<br>
+                    <button onclick='candidataAcao(".json_encode($loggedid).", ".json_encode($openid).")' class='w3-button w3-block w3-center w3-round-xxlarge w3-indigo w3-hover-blue cand'>Candidatar-se a esta ação!</button>
+                <br>";
+            }
         }
     }
 

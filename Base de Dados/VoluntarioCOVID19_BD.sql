@@ -182,15 +182,16 @@ CREATE TABLE Acao (
 /* ----------------------- CANDIDATOU A ACAO ----------------------- */
 
 CREATE TABLE Candidatura_Acao (
-    id_voluntario           VARCHAR(65),
-    id_instituicao          VARCHAR(65),
-    id_acao                 VARCHAR(65),
+    id                      int AUTO_INCREMENT,
+    id_voluntario           VARCHAR(65) NOT NULL,
+    id_instituicao          VARCHAR(65) NOT NULL,
+    id_acao                 VARCHAR(65) NOT NULL,
     estado                  VARCHAR(65) NOT NULL,  /* ACEITE, REJEITADO, PENDENTE */
     data_candidatura        DATE NOT NULL,
 
 
     CONSTRAINT pk_candidatura_acao
-        PRIMARY KEY (id_voluntario, id_instituicao, id_acao),
+        PRIMARY KEY (id),
 
     CONSTRAINT fk_candidatura_acao_voluntario
         FOREIGN KEY (id_voluntario) REFERENCES Voluntario(id),
@@ -202,15 +203,16 @@ CREATE TABLE Candidatura_Acao (
 /* ----------------------- CONVIDOU PARA ACAO ----------------------- */
 
 CREATE TABLE Convite_Acao (
-    id_voluntario           VARCHAR(65),
-    id_instituicao          VARCHAR(65),
-    id_acao                 VARCHAR(65),
+    id                      int AUTO_INCREMENT,
+    id_voluntario           VARCHAR(65) NOT NULL,
+    id_instituicao          VARCHAR(65) NOT NULL,
+    id_acao                 VARCHAR(65) NOT NULL,
     estado                  VARCHAR(65) NOT NULL,  /* ACEITE, REJEITADO, PENDENTE */
     data_convite        DATE NOT NULL,
 
 
     CONSTRAINT pk_convite_acao
-        PRIMARY KEY (id_voluntario, id_instituicao, id_acao),
+        PRIMARY KEY (id),
 
     CONSTRAINT fk_convite_acao_voluntario
         FOREIGN KEY (id_voluntario) REFERENCES Voluntario(id),

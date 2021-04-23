@@ -759,7 +759,7 @@
 
         include "openconn.php";
 
-        $inserirC = "insert into Candidatura_Acao
+        $inserirC = "insert into Candidatura_Acao (id_voluntario, id_instituicao, id_acao, estado, data_candidatura)
             values ('".$id_vol."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , '".$date."')";
 
         $resC = mysqli_query($conn, $inserirC);
@@ -902,7 +902,7 @@
 
         include "openconn.php";
 
-        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura
                             FROM Candidatura_Acao
                             WHERE id_instituicao = '".$id_instituicao."'";
 
@@ -923,7 +923,7 @@
 
         include "openconn.php";
 
-        $queryConvite = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_convite
+        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite
                             FROM Convite_Acao
                             WHERE id_instituicao = '".$id_instituicao."'";
 
@@ -944,7 +944,7 @@
 
         include "openconn.php";
 
-        $queryCandidatura = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura
                             FROM Candidatura_Acao
                             WHERE id_voluntario = '".$id_voluntario."'";
 
@@ -965,7 +965,7 @@
 
         include "openconn.php";
 
-        $queryConvite = "SELECT id_voluntario, id_instituicao, id_acao, estado, data_convite
+        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite
                             FROM Convite_Acao
                             WHERE id_voluntario = '".$id_voluntario."'";
 
@@ -993,7 +993,7 @@
             $id_inst = $rowa['id'];
         }
 
-        $inserirC = "insert into Convite_Acao
+        $inserirC = "insert into Convite_Acao (id_voluntario, id_instituicao, id_acao, estado, data_convite)
             values ('".$id_voluntario."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , '".$date."')";
 
         $resC = mysqli_query($conn, $inserirC);
@@ -1009,14 +1009,13 @@
 
     }
 
-    function candidatura_aceite($id_candidato, $id_acao) {
+    function candidatura_aceite($id) {
 
         include "openconn.php";
 
         $query = "UPDATE Candidatura_Acao
                     SET estado = 'Aceite'
-                    WHERE id_voluntario = '".$id_candidato."'
-                    AND id_acao = '".$id_acao."'";
+                    WHERE id = '".$id."' ";
 
         $result = $conn->query($query);
 
@@ -1031,14 +1030,13 @@
 
     }
 
-    function candidatura_rejeitada($id_candidato, $id_acao) {
+    function candidatura_rejeitada($id) {
 
         include "openconn.php";
 
         $query = "UPDATE Candidatura_Acao
                     SET estado = 'Rejeitado'
-                    WHERE id_voluntario = '".$id_candidato."'
-                    AND id_acao = '".$id_acao."'";
+                    WHERE id = '".$id."' ";
 
         $result = $conn->query($query);
 
@@ -1053,14 +1051,13 @@
 
     }
 
-    function convite_aceite($id_candidato, $id_acao) {
+    function convite_aceite($id) {
 
         include "openconn.php";
 
         $query = "UPDATE Convite_Acao
                     SET estado = 'Aceite'
-                    WHERE id_voluntario = '".$id_candidato."'
-                    AND id_acao = '".$id_acao."'";
+                    WHERE id = '".$id."' ";
 
         $result = $conn->query($query);
 
@@ -1075,14 +1072,13 @@
 
     }
 
-    function convite_rejeitado($id_candidato, $id_acao) {
+    function convite_rejeitado($id) {
 
         include "openconn.php";
 
         $query = "UPDATE Convite_Acao
                     SET estado = 'Rejeitado'
-                    WHERE id_voluntario = '".$id_candidato."'
-                    AND id_acao = '".$id_acao."'";
+                    WHERE id = '".$id."' ";
 
         $result = $conn->query($query);
 
@@ -1345,6 +1341,48 @@
         mysqli_close($conn);
 
         return $result;
+
+    }
+
+    function query_candidatura($id) {
+
+        include "openconn.php";
+
+        $queryCandidatura = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_candidatura
+                            FROM Candidatura_Acao 
+                            WHERE id = '".$id."' ";
+
+        $resultCandidatura = $conn->query($queryCandidatura);  
+        
+        if (!($resultCandidatura)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultCandidatura;
+
+    }
+
+    function query_convite($id) {
+
+        include "openconn.php";
+
+        $queryConvite = "SELECT id, id_voluntario, id_instituicao, id_acao, estado, data_convite
+                            FROM Convite_Acao 
+                            WHERE id = '".$id."' ";
+
+        $resultConvite = $conn->query($queryConvite);  
+        
+        if (!($resultConvite)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return $resultConvite;
 
     }
 

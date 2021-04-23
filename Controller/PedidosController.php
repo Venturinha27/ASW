@@ -1,7 +1,15 @@
 <?php
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
+    ob_start();
+    session_start();
 
     function pedidosLogged($id, $type) {
+
+        include_once "../Model/Model.php";
 
         $pedidos = array();
 
@@ -12,6 +20,8 @@
         }
 
         while ($rowc = $candidaturas->fetch_assoc()) {
+
+            $id = $rowc['id'];
             
             $id_vol = $rowc['id_voluntario'];
             if ($rowv = query_voluntario($id_vol)->fetch_assoc()){
@@ -25,6 +35,7 @@
             };
 
             $candidatura = array();
+            $candidatura["id"] = $id;
             $candidatura["tipo"] = "candidatura";
             $candidatura["tipologged"] = $type;
             $candidatura["id_voluntario"] = $id_vol;
@@ -47,6 +58,8 @@
 
         while ($rowc = $convites->fetch_assoc()) {
 
+            $id = $rowc['id'];
+
             $id_vol = $rowc['id_voluntario'];
             if ($rowv = query_voluntario($id_vol)->fetch_assoc()){
                 $nome_vol = $rowv['nome_voluntario'];
@@ -59,6 +72,7 @@
             };
 
             $convite = array();
+            $convite["id"] = $id;
             $convite["tipo"] = "convite";
             $convite["tipologged"] = $type;
             $convite["id_voluntario"] = $id_vol;
@@ -82,6 +96,152 @@
         return strtotime($b["data"]) - strtotime($a["data"]);
     }
 
+    $verpedidos = $_REQUEST['verpedidos'];
+
+    $loggedid = $_SESSION['loggedid'];
+    $loggedtype = $_SESSION['loggedtype'];
+
+    if ($verpedidos) {
+        $pedidos = pedidosLogged($loggedid, $loggedtype);
+
+        if (count($pedidos) == 0) {
+            echo "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
+        }
+
+        if ($verpedidos == 'open') {
+            $max = count($pedidos);
+        }
+        if ($verpedidos == 'closed') {
+            if (count($pedidos) > 2) {
+                $max = 2;
+            } else {
+                $max = count($pedidos);
+            }
+        }
+        
+        for ($x = 0; $x < $max; $x++) {
+            if ($pedidos[$x]['tipo'] == 'candidatura') {
+                echo "<div id='ca".$pedidos[$x]['id']."' class='pedido w3-container w3-border-top w3-border-bottom'>
+                    <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
+            } else {
+                echo "<div id='co".$pedidos[$x]['id']."' class='pedido w3-container w3-border-top w3-border-bottom'>
+                    <img src='../".$pedidos[$x]['foto_voluntario']."' alt='Avatar' class='w3-left w3-circle'>";
+            }
+            
+            if ($pedidos[$x]['tipologged'] == "instituicao"){
+                if ($pedidos[$x]['tipo'] == 'candidatura'){
+                        echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
+                        if ($pedidos[$x]['estado'] == 'Pendente'){
+                            echo "<button id=aca".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode(strval($pedidos[$x]['id'])).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                <button id=rca".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode(strval($pedidos[$x]['id'])).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                        } 
+                        if ($pedidos[$x]['estado'] == 'Aceite') {
+                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } 
+                        if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                            echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                        }
+                } else {
+                    echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
+                    if ($pedidos[$x]['estado'] == 'Pendente'){
+                        echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Aceite') {
+                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                    }
+                }
+            } else {
+                if ($pedidos[$x]['tipo'] == 'candidatura'){
+                    echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
+                    if ($pedidos[$x]['estado'] == 'Pendente'){
+                        echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Aceite') {
+                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                    }
+                } else {
+                    echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
+                    if ($pedidos[$x]['estado'] == 'Pendente'){
+                        echo "<button id=aco".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode(strval($pedidos[$x]['id'])).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                        <button id=rco".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode(strval($pedidos[$x]['id'])).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Aceite') {
+                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                    } 
+                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                    }
+                }
+
+            }
+            echo "</div>";
+        } 
+    }
+
+    $responderped = $_REQUEST['responderped'];
+
+    if ($responderped == 'yes') {
+        $resposta = $_REQUEST['resposta'];
+        $tipo = $_REQUEST['tipo'];
+        $id = $_REQUEST['id'];
+
+        responderAoPedido($resposta, $tipo, $id);
+    }
+
+    function responderAoPedido($resposta, $tipo, $id) {
+
+        include "../Model/Model.php";
+
+        if ($resposta == "Aceitar") {
+            if ($tipo == "Candidatura") {
+                $respostaq = candidatura_aceite($id);
+            
+                $candidatura = query_candidatura($id);
+                if ($rowc = $candidatura->fetch_assoc()) {
+                    $id_voluntario = $rowc['id_voluntario'];
+                    $id_instituicao = $rowa['id_instituicao'];
+                    $id_acao = $rowa['id_acao'];
+                }
+                participa_em_acao($id_voluntario, $id_instituicao, $id_acao); 
+
+            } else {
+                $respostaq = convite_aceite($id);
+
+                $convite = query_convite($id);
+                if ($rowc = $convite->fetch_assoc()) {
+                    $id_voluntario = $rowc['id_voluntario'];
+                    $id_instituicao = $rowa['id_instituicao'];
+                    $id_acao = $rowa['id_acao'];
+                }
+                participa_em_acao($id_voluntario, $id_instituicao, $id_acao); 
+            }
+            
+            
+        } else {
+            if ($tipo == "Candidatura") {
+                $respostaq = candidatura_rejeitada($id);
+            } else {
+                $respostaq = convite_rejeitado($id);
+            }
+        }
+
+        if ($respostaq == TRUE) {
+            echo 'yes';
+        } else {
+            echo 'no';
+        }
+
+    }
+
+
+
+/*
     $r_resposta = $_REQUEST['r_resposta'];
     $r_tipo = $_REQUEST['r_tipo'];
     $r_id_vol = $_REQUEST['r_id_vol'];
@@ -134,6 +294,6 @@
 
         echo json_encode(pedidosLogged($logid, $logtype));
 
-    }
+    } */
 
 ?>
