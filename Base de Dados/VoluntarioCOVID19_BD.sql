@@ -301,7 +301,6 @@ CREATE TABLE Admins (
 
 
 
-
 INSERT INTO Admins VALUES ("asw013","asw2021");
 
 INSERT INTO Area_de_Interesse VALUES ("Ação social");
