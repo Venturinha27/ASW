@@ -558,26 +558,16 @@
 
 <?php
 
-        if (isset($_SESSION['logged'])){
-            echo "<div id='SugDiv'>
-                <header class='w3-container w3-indigo w3-round'>
-                    <h3><i class='fas fa-lightbulb'></i> &nbsp<b>Sugestões</b></h3>
-                </header>
-                <div id='Sug'>
-                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeS w3-small'><b>Manuel</b></h6>
-                        <p class='sugestaoTxt w3-tiny'>Utilizador</p>
-                    </div>
-                    
-                    <div class='sugestao w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeS w3-small'><b>AjudaAi</b></h6>
-                        <p class='sugestaoTxt w3-tiny'>Instituicao</p>
-                    </div>
-                    
-                    <button id='vermaissug' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
-                </div>
-            </div>";
-        }
+    if (isset($_SESSION['logged'])){
+        echo "<div id='SugDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><i class='fas fa-lightbulb'></i> &nbsp<b>Sugestões</b></h3>
+            </header>
+            <div id='Sug'>
+            </div>
+            <button id='vermaissug' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+        </div>";
+    }
 ?>
 
 <?php

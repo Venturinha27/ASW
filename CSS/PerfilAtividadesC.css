@@ -73,10 +73,11 @@ body {
     border-radius: 100px;
 }
 
+
 #AzulDiv #EnviarMensagem {
     position: absolute;
     top: 5%;
-    right: 16%;
+    right: 17%;
     background-color: #24305E;
     color: white;
     border-radius: 100px;
@@ -86,21 +87,28 @@ body {
     position: absolute;
     top: 5%;
     right: 1.5%;
+    width: 14%;
     background-color: #24305E;
     color: white;
     border-radius: 100px;
+    text-align: center;
 }
 
 #AzulDiv #Seguindo {
     position: absolute;
     top: 5%;
     right: 1.5%;
+    width: 14%;
     background-color: white;
     color: #24305E;
     border-radius: 100px;
     box-sizing: border-box;
     border-style: solid;
     border-color: #24305E;
+    border-width: 2px;
+    text-align: center;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 
@@ -246,7 +254,37 @@ body {
     text-align: center;
 }
 
+.sugestao {
+    display: block;
+    height: 65px;
+}
 
+.sugestao img {
+    margin-top: 16px;
+    margin-left: 5px;
+    height: 30px;
+    width: 30px;
+}
+
+.sugestao h6 {
+    margin-top: 11px;
+    margin-left: 50px !important;
+    width: 180px;
+}
+
+.sugestao p {
+    margin-top: 0px;
+    margin-left: 50px !important;
+    width: 180px;
+}
+
+.sugestao button {
+    height: 35px;
+    margin-top: -90px !important;
+    margin-left: 180px !important;
+    color: white;
+    border-radius: 100px;
+}
 
 
 /* -------------------------------------------------- */

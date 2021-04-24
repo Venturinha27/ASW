@@ -1508,4 +1508,66 @@
         return $result;
     }
 
+    function all_utilizadores() {
+
+        include "openconn.php";
+
+        $query = "SELECT id, tipo 
+                    FROM Utilizador ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function seguidores_user($id) {
+        
+        include "openconn.php";
+
+        $query = "SELECT seguidor 
+                    FROM Segue
+                    WHERE seguido = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function seguindo_user($id) {
+        
+        include "openconn.php";
+
+        $query = "SELECT seguido 
+                    FROM Segue
+                    WHERE seguidor = '".$id."'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
 ?>

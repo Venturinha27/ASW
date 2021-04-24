@@ -5,12 +5,13 @@ window.addEventListener("load", principal);
 
 function principal(){ 
     
-    mais()
     toggleConvida()
     showPedidos()
     showCandidatar()
     showSeguir()
     showPubSeg()
+    showSug()
+    mais()
 
 }
 
@@ -230,8 +231,9 @@ function showSeguir() {
         if (this.readyState == 4 && this.status == 200) {
             if (document.getElementById("seguirDiv") != null) {
                 document.getElementById("seguirDiv").innerHTML = this.responseText
-                showPubSeg()
             }
+            showPubSeg()
+            showSug()
         }
     }
     xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_seguir=yes", true);
@@ -246,6 +248,17 @@ function Seguir() {
         }
     }
     xmlhttp.open("GET", "../Controller/PerfilController.php?seguir_user=yes", true);
+    xmlhttp.send(); 
+}
+
+function seguirSug(id) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showSeguir();
+        }
+    }
+    xmlhttp.open("GET", "../Controller/PerfilController.php?seguir_sug="+String(id), true);
     xmlhttp.send(); 
 }
 
@@ -271,4 +284,28 @@ function showPubSeg() {
     }
     xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_pubseg=yes", true);
     xmlhttp.send(); 
+}
+
+function showSug() {
+    let botao_sugestoes = document.getElementById("vermaissug")
+
+    if (botao_sugestoes.innerText == "Ver Mais") {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Sug").innerHTML = this.responseText
+            }
+        }
+        xmlhttp.open("GET", "../Controller/SugestoesController.php?versugestoes=closed", true);
+        xmlhttp.send();  
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Sug").innerHTML = this.responseText
+            }
+        }
+        xmlhttp.open("GET", "../Controller/SugestoesController.php?versugestoes=open", true);
+        xmlhttp.send();  
+    }
 }

@@ -282,4 +282,16 @@
         echo "<h6>$npublicacoes <b>Publicações</b> &nbsp &nbsp &nbsp $nseguidores <b>Seguidores</b> &nbsp &nbsp &nbsp $nseguindo <b>Seguindo</b></h6>";
         
     }
+
+    $seguir_sug = $_REQUEST['seguir_sug'];
+
+    if ($seguir_sug) {
+
+        include_once "../Model/Model.php";
+
+        $loggedid = $_SESSION['loggedid'];
+
+        echo seguir($loggedid, $seguir_sug);
+
+    }
 ?>
