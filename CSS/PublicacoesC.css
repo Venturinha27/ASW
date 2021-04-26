@@ -1,6 +1,7 @@
 /*Gonçalo Cruz - 54959; Tiago Teodoro - 54984  ; Renato Ramires - 54974  ; Margarida Rodrigues - 55141 -  ASW  Grupo 3 */
 body {
     background-color: #A8D0E6;
+    z-index: 1;
 }
 
 #navigation {
