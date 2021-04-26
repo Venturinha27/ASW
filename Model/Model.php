@@ -1447,6 +1447,7 @@
         return TRUE;
 
     }
+
     function publicacoes() {
         
         include "openconn.php";
@@ -1586,6 +1587,72 @@
         mysqli_close($conn);
 
         return $result;
+
+    }
+
+    function mensagens_user($id) {
+        
+        include "openconn.php";
+
+        $query = "SELECT id, de, para, texto, data_msg
+                    FROM Mensagem
+                    WHERE de = '".$id."' 
+                    OR para = '".$id."' ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function query_conversa($own, $other) {
+
+        include "openconn.php";
+
+        $query = "SELECT id, de, para, texto, data_msg
+                    FROM Mensagem
+                    WHERE (de = '".$own."' AND para = '".$other."') 
+                    OR  (para = '".$own."' AND de = '".$other."') ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function insert_message($own, $other, $text) {
+
+        $date = date('Y-m-d H:m:s');
+
+        include "openconn.php";
+
+        $query = "insert into Mensagem (de, para, texto, data_msg)
+                    values ('".$own."' , '".$other."', '".$text."', NOW())";
+        
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar mensagem.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
 
     }
 

@@ -12,6 +12,8 @@ function principal(){
     showPubSeg()
     showSug()
     mais()
+    showMsg()
+    ConversaPrivada = []
 
 }
 
@@ -23,6 +25,9 @@ function mais(){
     let botao_mensagens = document.getElementById("vermaismsg")
     let div_mensagens = document.getElementById("MsgDiv")
 
+    let search_mensagens = document.getElementById("searchMensagemDiv")
+    let conversa_open = document.getElementById("conversaopen")
+
     let ped_over = document.getElementById("Ped")
     let sug_over = document.getElementById("Sug") 
     let msg_over = document.getElementById("Msg")
@@ -32,6 +37,12 @@ function mais(){
             div_pedidos.style.height = "58%";
             div_mensagens.style.top = "71%";
             div_mensagens.style.height = "29%";
+            if (search_mensagens != null) {
+                search_mensagens.style.top = "38%";
+            }
+            if (conversa_open != null) {
+                conversa_open.style.height = "60%";
+            }
             div_sugestoes.style.top = "104%";
             div_sugestoes.style.height = "29%";
             botao_pedidos.innerText = "Ver Menos";
@@ -44,6 +55,12 @@ function mais(){
             div_pedidos.style.height = "29%";
             div_mensagens.style.top = "41%";
             div_mensagens.style.height = "29%";
+            if (search_mensagens != null) {
+                search_mensagens.style.top = "38%";
+            }
+            if (conversa_open != null) {
+                conversa_open.style.height = "60%";
+            }
             div_sugestoes.style.top = "72%";
             div_sugestoes.style.height = "29%";
             botao_pedidos.innerText = "Ver Mais";
@@ -54,6 +71,13 @@ function mais(){
             msg_over.style.overflowY = "unset";
         }
         showPedidos();
+        showSug();
+        if (ConversaPrivada.length == 0) {
+            showMsg()
+        } else {
+            showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+        }
+        
     })
 
     botao_sugestoes.addEventListener("click", function(){
@@ -61,6 +85,12 @@ function mais(){
             div_pedidos.style.height = "29%";
             div_mensagens.style.top = "41%";
             div_mensagens.style.height = "29%";
+            if (search_mensagens != null) {
+                search_mensagens.style.top = "38%";
+            }
+            if (conversa_open != null) {
+                conversa_open.style.height = "60%";
+            }
             div_sugestoes.style.top = "72%";
             div_sugestoes.style.height = "58%";
             botao_sugestoes.innerText = "Ver Menos";
@@ -73,6 +103,12 @@ function mais(){
             div_pedidos.style.height = "29%";
             div_mensagens.style.top = "41%";
             div_mensagens.style.height = "29%";
+            if (search_mensagens != null) {
+                search_mensagens.style.top = "38%";
+            }
+            if (conversa_open != null) {
+                conversa_open.style.height = "60%";
+            }
             div_sugestoes.style.top = "72%";
             div_sugestoes.style.height = "29%";
             botao_sugestoes.innerText = "Ver Mais";
@@ -83,6 +119,12 @@ function mais(){
             msg_over.style.overflowY = "unset";
         }
         showPedidos();
+        showSug();
+        if (ConversaPrivada.length == 0) {
+            showMsg()
+        } else {
+            showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+        }
     })
 
     botao_mensagens.addEventListener("click", function(){
@@ -90,6 +132,12 @@ function mais(){
             div_pedidos.style.height = "29%";
             div_mensagens.style.top = "41%";
             div_mensagens.style.height = "58%";
+            if (search_mensagens != null) {
+                search_mensagens.style.top = "19%";
+            }
+            if (conversa_open != null) {
+                conversa_open.style.height = "80%";
+            }
             div_sugestoes.style.top = "102%";
             div_sugestoes.style.height = "29%";
             botao_mensagens.innerText = "Ver Menos";
@@ -98,10 +146,23 @@ function mais(){
             ped_over.style.overflowY = "unset";
             sug_over.style.overflowY = "unset";
             msg_over.style.overflowY = "scroll";
+            showPedidos();
+            showSug();
+            if (ConversaPrivada.length == 0) {
+                showMsg()
+            } else {
+                showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+            }
         } else {
             div_pedidos.style.height = "29%";
             div_mensagens.style.top = "41%";
             div_mensagens.style.height = "29%";
+            if (search_mensagens != null) {
+                search_mensagens.style.top = "38%";
+            }
+            if (conversa_open != null) {
+                conversa_open.style.height = "60%";
+            }
             div_sugestoes.style.top = "72%";
             div_sugestoes.style.height = "29%";
             botao_mensagens.innerText = "Ver Mais";
@@ -110,8 +171,15 @@ function mais(){
             ped_over.style.overflowY = "unset";
             sug_over.style.overflowY = "unset";
             msg_over.style.overflowY = "unset";
+            showPedidos();
+            showSug();
+            if (ConversaPrivada.length == 0) {
+                showMsg()
+            } else {
+                showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+            }
         }
-        showPedidos();
+        
     })
 }
 
@@ -309,3 +377,167 @@ function showSug() {
         xmlhttp.send();  
     }
 }
+
+function searchMessage(str) {
+    var xhttp;
+    if (str.length == 0) { 
+      document.getElementById("searchMensagemDiv").innerHTML = "";
+      return;
+    }
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("searchMensagemDiv").innerHTML = this.responseText;
+        if (this.responseText == "") {
+            document.getElementById("searchMensagemDiv").setAttribute("class", "w3-bar-item hidden")
+        } else {
+            document.getElementById("searchMensagemDiv").setAttribute("class", "w3-bar-item visible")
+        }
+      }
+    };
+    xhttp.open("GET", "../Controller/MensagemController.php?q="+str, true);
+    xhttp.send(); 
+}
+
+function showMsg() {
+    let botao_mensagens = document.getElementById("vermaismsg")
+    ConversaPrivada = []
+    if (botao_mensagens.innerText == "Ver Mais") {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Msg").innerHTML = this.responseText
+                
+            }
+        }
+        xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=closed", true);
+        xmlhttp.send();  
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Msg").innerHTML = this.responseText
+            }
+        }
+        xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=open", true);
+        xmlhttp.send();  
+    }
+
+    mais();
+}
+
+function showConversa(id_own, id_other) {
+    
+        if (document.getElementById("conversaopen") == null) {
+            document.getElementById("Msg").innerHTML = ""
+            let divopen = document.createElement("div")
+            divopen.setAttribute("class", "w3-container w3-border-top w3-border-bottom w3-hover")
+            divopen.setAttribute("id", "conversaopen")
+            document.getElementById("Msg").appendChild(divopen)
+        }
+        
+        if (document.getElementById("headerconversa") == null) {
+            let header = document.createElement("header")
+            header.setAttribute("class", "w3-white w3-text-indigo")
+            header.setAttribute("id", "headerconversa")
+            document.getElementById("conversaopen").appendChild(header)
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    header.innerHTML = this.responseText
+                }
+            }
+            xmlhttp.open("GET", "../Controller/MensagemController.php?verheader=yes&header_other="+id_other, true);
+            xmlhttp.send();
+        }
+
+        if (document.getElementById("textes") == null) {
+            let textes = document.createElement("div")
+            textes.setAttribute("class", "textes")
+            textes.setAttribute("id", "textes")
+            document.getElementById("conversaopen").appendChild(textes)
+        }
+
+        showMensagens(id_own, id_other);
+           
+        if (document.getElementById("footerconversa") == null) {
+            console.log("aqui")
+            let footer = document.createElement("footer")
+            document.getElementById("conversaopen").appendChild(footer)
+            footer.setAttribute("id", "footerconversa")
+            footer.innerHTML = "<input type='text' id='send_msg_input' placeholder='Escreva uma mensagem...'></input> <button class='w3-button w3-hover-none' id='sendMessageButton'> <i class='fas fa-paper-plane'></i> </button>"
+        }
+
+        if (document.getElementById("sendMessageButton") != null) {
+            document.getElementById("sendMessageButton").addEventListener("click", function() {
+                sendMessage(id_own, id_other)
+            })
+        } 
+
+        mais();
+}
+
+function showMensagens(id_own, id_other) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var elementB = document.getElementsByClassName("textes")[0];
+            let current = 0
+            if (elementB != null) {
+                current = elementB.scrollTop
+            }
+            document.getElementById("textes").innerHTML = this.responseText
+            var element = document.getElementsByClassName("textes")[0];
+            if (ConversaPrivada.length == 0) {
+                if (element != null) {
+                    element.scrollTop = element.scrollHeight;
+                }
+            } else {
+                if (element != null) {
+                    element.scrollTop = current;
+                }
+            }
+            ConversaPrivada = [id_own, id_other]
+        }
+    }
+    xmlhttp.open("GET", "../Controller/MensagemController.php?verconversa=yes&own="+id_own+"&other="+id_other, true);
+    xmlhttp.send();
+
+    mais()
+}
+
+
+
+function sendMessage(id_own, id_other) {
+
+    msgtext = document.getElementById('send_msg_input').value
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            ConversaPrivada = [id_own, id_other]
+            showMensagens(id_own, id_other);
+        }
+    }
+    xmlhttp.open("GET", "../Controller/MensagemController.php?sendmessage=yes&send_own="+id_own+"&send_other="+id_other+"&send_text="+msgtext, true);
+    xmlhttp.send();
+
+    document.getElementById('send_msg_input').value = ""
+}
+
+function backConversa() {
+    ConversaPrivada = []
+    showMsg();
+}
+ 
+setInterval(function(){  
+    showPedidos();
+    showSug();
+    if (ConversaPrivada.length == 0) {
+        showMsg()
+    } else {
+        showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+    }
+    
+}, 2000)
