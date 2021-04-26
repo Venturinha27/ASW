@@ -1447,6 +1447,7 @@
         return TRUE;
 
     }
+
     function publicacoes() {
         
         include "openconn.php";
@@ -1589,4 +1590,112 @@
 
     }
 
+    function mensagens_user($id) {
+        
+        include "openconn.php";
+
+        $query = "SELECT id, de, para, texto, data_msg
+                    FROM Mensagem
+                    WHERE de = '".$id."' 
+                    OR para = '".$id."' ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function query_conversa($own, $other) {
+
+        include "openconn.php";
+
+        $query = "SELECT id, de, para, texto, data_msg
+                    FROM Mensagem
+                    WHERE (de = '".$own."' AND para = '".$other."') 
+                    OR  (para = '".$own."' AND de = '".$other."') ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function insert_message($own, $other, $text) {
+
+        $date = date('Y-m-d H:m:s');
+
+        include "openconn.php";
+
+        $query = "insert into Mensagem (de, para, texto, data_msg)
+                    values ('".$own."' , '".$other."', '".$text."', NOW())";
+        
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel registar mensagem.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    
+
+    function inserir_publicacao($id, $dono, $imagem, $descricao){
+        include "openconn.php";
+
+        $query = "insert into Publicacao  (dono, imagem, descricao ) 
+                    values ( '".$dono."' , '".$imagem."', '".$descricao."')";
+        
+                       
+
+
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel inserir a publicacao";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+    }
+
+
+    function participa_publicacao($id_publicacao, $participante){
+
+        include "openconn.php";
+
+        $query = "insert into Participa_em_Publicacao
+                    values ('".$id_publicacao."' , '".$participante."' )";
+
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel identificar ninguém";
+        }
+        
+        mysqli_close($conn);
+        
+        return $result;
+    }
 ?>

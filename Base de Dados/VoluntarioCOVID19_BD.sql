@@ -243,10 +243,11 @@ CREATE TABLE Participou_Acao (
 /* ----------------------- PUBLICACOES ----------------------- */
 
 CREATE TABLE Publicacao (
-    id                  VARCHAR (65),
+    id                  int AUTO_INCREMENT,
     dono                VARCHAR(65) NOT NULL,
     imagem              VARCHAR(500) NOT NULL,
-    descricao           VARCHAR (240),
+    descricao           VARCHAR (240) NOT NULL,
+    
 
     CONSTRAINT pk_publicacao
         PRIMARY KEY (id),

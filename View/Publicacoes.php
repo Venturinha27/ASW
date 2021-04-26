@@ -2,6 +2,12 @@
 <?php
     session_start();
     ob_start();
+
+    
+    
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +89,7 @@
 </header>
 
 <body>
-<div id="BodyDiv">
+<!--<div id="BodyDiv">
     <div id="pubs">
         <div class="pubpar">
             <img src="../Images/slide2.jpg">
@@ -180,7 +186,93 @@
         
     </form>
     
-</div>
+</div>-->
+
+
+
+<?php
+
+include "../Controller/PublicacoesController.php";
+
+
+//print_r(get_included_files()); exit();
+$result = Show_Data();
+echo $result;
+
+$opentype = $_SESSION['opentype'];
+$openid = $_SESSION['openid'];
+$nome="";
+
+if ($opentype == 'voluntario' or $opentype == 'instituicao'){
+    include "../Controller/PerfilController.php";
+    
+    if ($opentype == 'voluntario'){
+        $vol= openVoluntario($openid);
+        $nome.= $vol['nome_voluntario'];
+
+    }else{
+        $inst= openInstituicao($openid);
+        $nome.= $inst['nome_instituicao'];
+    }
+    
+    
+        echo "<br>";
+    
+                echo "<button class='w3-button w3-circle w3-indigo w3-hover-blue' id='addButton'>+</button>";
+
+                echo "
+                <div class='w3-card-4 hidden' id='addCard'>
+                
+                    <div class='w3-container' id='headerAdd'>
+                      <h2>Nova publicação de " .$nome. "</h2>
+                      <button class='w3-button w3-hover-white' id='closeButton'>X</button>
+                    </div>
+                    
+                    <form class='w3-container' id='containIn' action='Publicacoes.php' method='POST'>
+                        
+                        <label>Com:</label>
+                        <input class='w3-input' type='text' id='com'>
+                        <br>
+                        <label>Descrição:</label>
+                        <input class='w3-input' type='text' id='descricao'>
+                        <br>
+                        <label for='img'>Imagem:</label>
+                        <br>
+                        <input type='file' id='img' name='img' accept='image/*'>
+                        <br><br>
+                        <input id='submit' type='submit' value='Publicar'>
+                        
+                    </form>
+                    
+                </div>
+                </form>";
+                
+                if (!empty($_POST)){
+
+                    include "TestInput.php";
+                
+                    $id = "10";
+                    $dono = $_SESSION['loggedid'];
+
+                    $com = test_input($_POST['com']); 
+                    $descricao = test_input($_POST['descricao']);
+                    //$imagem = test_input($_POST['img']);
+                    $imagem = '../Images/slide7.jpg';
+
+                    $publication = insert_Publicacao ($id, $dono, $imagem, $descricao);
+                    $identificados = inserir_identificados ($id_publicacao, $participante);
+                
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+                
+
+            }
+
+
+?> 
+
+
+
 
 </body>
 
