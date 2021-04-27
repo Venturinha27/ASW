@@ -1656,4 +1656,46 @@
 
     }
 
+    
+
+    function inserir_publicacao($id, $dono, $imagem, $descricao){
+        include "openconn.php";
+
+        $query = "insert into Publicacao  (dono, imagem, descricao ) 
+                    values ( '".$dono."' , '".$imagem."', '".$descricao."')";
+        
+                       
+
+
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel inserir a publicacao";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+    }
+
+
+    function participa_publicacao($id_publicacao, $participante){
+
+        include "openconn.php";
+
+        $query = "insert into Participa_em_Publicacao
+                    values ('".$id_publicacao."' , '".$participante."' )";
+
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel identificar ninguém";
+        }
+        
+        mysqli_close($conn);
+        
+        return $result;
+    }
 ?>
