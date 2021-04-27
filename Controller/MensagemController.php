@@ -11,6 +11,8 @@
 
     include "../Model/Model.php";
 
+    
+
     if (isset($q)){
 
         $loggedid = $_SESSION['loggedid'];
@@ -392,7 +394,7 @@
         $send_text = $_REQUEST['send_text'];
 
         echo insert_message($send_own, $send_other, $send_text);
-
+        
     }
 
     $verheader = $_REQUEST['verheader'];
@@ -419,4 +421,7 @@
                 <button class='w3-button' onclick='backConversa()'><i class='fas fa-arrow-left'></i></button> <p><b>$nome</b></p>
             </header>";
     }
+
+    
+    
 ?>
