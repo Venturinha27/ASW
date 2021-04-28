@@ -1030,6 +1030,28 @@
 
     }
 
+    function aceitar_candidatura_candidato_acao($candidato, $acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Candidatura_Acao
+                    SET estado = 'Aceite'
+                    WHERE id_voluntario = '".$candidato."' 
+                    AND id_acao = '".$acao."' ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
     function candidatura_rejeitada($id) {
 
         include "openconn.php";
@@ -1037,6 +1059,28 @@
         $query = "UPDATE Candidatura_Acao
                     SET estado = 'Rejeitado'
                     WHERE id = '".$id."' ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Erro no acesso à BD.";
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function rejeitar_candidatura_candidato_acao($candidato, $acao) {
+
+        include "openconn.php";
+
+        $query = "UPDATE Candidatura_Acao
+                    SET estado = 'Rejeitado'
+                    WHERE id_voluntario = '".$candidato."' 
+                    AND id_acao = '".$acao."' ";
 
         $result = $conn->query($query);
 

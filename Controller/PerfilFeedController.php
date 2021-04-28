@@ -1,6 +1,19 @@
 <?php
 
+    session_start();
+    ob_start();
+
+    $loggedtype = $_SESSION['loggedtype'];
+    $logged = $_SESSION['logged'];
+    $loggedid = $_SESSION['loggedid'];
+    $opentype = $_SESSION['opentype'];
+    $open = $_SESSION['open'];
+    $openid = $_SESSION['openid'];
+
+    include_once "../Model/Model.php";
+
     function CandidatosAcao($id_acao) {
+
         $candidaturas = candidaturas_acao($id_acao);
 
         $candidatos = array();
@@ -97,12 +110,16 @@
     }
 
     function AceitarCandidatura($id_candidato, $id_acao) {
-        candidatura_aceite($id_candidato, $id_acao);
+        aceitar_candidatura_candidato_acao($id_candidato, $id_acao);
         $acao = query_acao($id_acao);
         if ($rowa = $acao->fetch_assoc()) {
             $id_instituicao = $rowa['id'];
         }
         participa_em_acao($id_candidato, $id_instituicao, $id_acao);
+    }
+
+    function RejeitarCandidatura($id_candidato, $id_acao) {
+        rejeitar_candidatura_candidato_acao($id_candidato, $id_acao);
     }
 
     function InstituicaoAcao($id_acao){
@@ -315,5 +332,210 @@
         if ($voluntario = $vquery->fetch_assoc()) {
             return $voluntario['nome_voluntario'];
         }
+    }
+
+    $procuraCandidaturas = $_REQUEST['procuracandidaturas'];
+
+    if ($procuraCandidaturas == 'yes') {
+        include_once "../View/TestInput.php";
+
+        $nome = test_input($_REQUEST['nome']);
+        $idade = test_input($_REQUEST['idade']);
+        $distrito = test_input($_REQUEST['distrito']);
+        $concelho = test_input($_REQUEST['concelho']);
+        $freguesia = test_input($_REQUEST['freguesia']);
+        $genero = test_input($_REQUEST['genero']);
+        $email = test_input($_REQUEST['email']);
+        $carta = test_input($_REQUEST['carta']);
+        $covid = test_input($_REQUEST['covid']);
+        $area_interesse = test_input($_REQUEST['area_interesse']);
+        $populacao_alvo = test_input($_REQUEST['populacao_alvo']);
+        $dia = test_input($_REQUEST['dia']);
+        $hora = test_input($_REQUEST['hora']);
+        $duracao = test_input($_REQUEST['duracao']);
+
+        $openid = $_SESSION['openid'];
+        
+        $candidatos = CandidatosAcaoFilter($openid, $nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao);
+
+        echo_candidatos_feed($candidatos);
+        
+    } 
+    if ($procuraCandidaturas == 'no') {
+
+        $openid = $_SESSION['openid'];
+
+        $candidatos = CandidatosAcao($openid);
+
+        echo_candidatos_feed($candidatos);
+    }
+
+    function echo_candidatos_feed($candidatos) {
+
+        if (count($candidatos) == 0) {
+            echo "<p class='w3-container w3-center'> Não existem candidaturas pendentes.</p>";
+        }
+        foreach ($candidatos as $candidato) {
+
+            echo "
+            <div class='w3-card-4 w3-round-xxlarge'>
+
+                <header class='w3-container'>
+                    <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                </header>";
+
+            echo "<div class='w3-container'>
+                <h5><b>".$candidato['nome_voluntario']."</b></h5>
+                <img src='../".$candidato['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$candidato['concelho'].", ".$candidato['distrito']."</p>
+                <p><i class='fas fa-heart'></i> &nbsp ";
+
+            $areas = areasCandidato($candidato['id']);         
+
+            $ultimo = count($areas);
+
+            $c = 0;
+            foreach ($areas as $are) {
+                $c = $c + 1;
+                if ($c == $ultimo){
+                    echo "$are";
+                } else {
+                    echo "$are, ";
+                }
+            }
+
+
+            echo "</p>
+                    <p><i class='fas fa-users'></i> &nbsp ";
+
+            $populacao = populacaoCandidato($candidato['id']);
+
+            $ultimo = count($populacao);
+
+            $c = 0;
+            foreach ($populacao as $pop) {
+                $c = $c + 1;
+                if ($c == $ultimo){
+                    echo "$pop";
+                } else {
+                    echo "$pop, ";
+                }
+            }
+   
+            echo "</p>";
+            
+            echo    "</div>
+                <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                    <button type='submit' value='".$candidato['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                </form>";
+                
+            $openid = $_SESSION['openid'];
+            $loggedid = $_SESSION['loggedid'];
+            $instituicaoAcao = InstituicaoAcao($openid);
+            if ($loggedid == $instituicaoAcao) {
+                echo "<div class='rescand'>";
+                echo "
+                    <button type='submit' onclick='aceitarCand(".json_encode($candidato['id']).")' name='AceitarCand' class='w3-button w3-block w3-green rescand'>Aceitar</button>
+                    <button type='submit' onclick='rejeitarCand(".json_encode($candidato['id']).")' name='RejeitarCand' class='w3-button w3-block w3-red rescand'>Rejeitar</button>
+               
+                </div>";
+            }
+        }
+    }
+
+    $procuraCorrespondentes = $_REQUEST['procuracorrespondentes'];
+
+    if ($procuraCorrespondentes) {
+        $openid = $_SESSION['openid'];
+        $voluntariosMatch = VoluntariosMatchAcao($openid);
+
+        if (count($voluntariosMatch) == 0) {
+            echo "<p class='w3-container w3-center'> Não existem voluntários correspondentes.</p>";
+        }
+        foreach ($voluntariosMatch as $voluntario) {
+
+            echo "
+            <div class='w3-card-4 w3-round-xxlarge'>
+
+                <header class='w3-container'>
+                    <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
+                </header>";
+
+            echo "<div class='w3-container'>
+                <h5><b>".$voluntario['nome_voluntario']."</b></h5>
+                <img src='../".$voluntario['foto']."' alt='Avatar' class='w3-left w3-circle'>
+                <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$voluntario['concelho'].", ".$voluntario['distrito']."</p>
+                <p><i class='fas fa-heart'></i> &nbsp ";
+
+            $areas = areasCandidato($voluntario['id']);         
+
+            $ultimo = count($areas);
+
+            $c = 0;
+            foreach ($areas as $are) {
+                $c = $c + 1;
+                if ($c == $ultimo){
+                    echo "$are";
+                } else {
+                    echo "$are, ";
+                }
+            }
+
+
+            echo "</p>
+                    <p><i class='fas fa-users'></i> &nbsp ";
+
+            $populacao = populacaoCandidato($voluntario['id']);
+
+            $ultimo = count($populacao);
+
+            $c = 0;
+            foreach ($populacao as $pop) {
+                $c = $c + 1;
+                if ($c == $ultimo){
+                    echo "$pop";
+                } else {
+                    echo "$pop, ";
+                }
+            }
+    
+            echo "</p>";
+            
+            echo    "</div>
+                <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
+                    <button type='submit' value='".$voluntario['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
+                </form>";
+
+            echo "</div>";
+
+        }
+    }
+    
+    if (!empty($_POST['verPerfil'])){
+
+        $id = $_POST['verPerfil'];
+
+        $nomeV = nomeVoluntario($id);
+
+        $_SESSION['opentype'] = "voluntario";
+        $_SESSION['open'] = $nomeV;
+        $_SESSION['openid'] = $id;
+        header("Location: ../View/Perfil.php");
+    }
+
+    $aceitarCand = $_REQUEST['aceitarCand'];
+
+    if ($aceitarCand) {
+        $openid = $_SESSION['openid'];
+        $id_candidato = $aceitarCand;
+        echo AceitarCandidatura($id_candidato, $openid);
+    }
+
+    $rejeitarCand = $_REQUEST['rejeitarCand'];
+
+    if ($rejeitarCand) {
+        $openid = $_SESSION['openid'];
+        $id_candidato = $rejeitarCand;
+        echo RejeitarCandidatura($id_candidato, $openid);
     }
 ?>

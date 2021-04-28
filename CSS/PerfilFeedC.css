@@ -605,6 +605,17 @@ body {
 
 /* ------------------------- FILTRAR ------------------------- */
 
+#divFiltrar {
+    margin-top: 2%;
+    height: 500px;
+    width: 100%;
+}
+
+#filtrar {
+    height: 100%;
+    width: 100%;
+}
+
 
 #filterb{
     margin-left: 40%;
@@ -618,23 +629,26 @@ body {
 }
 
 #esq{
+    position: absolute;
     margin-top: 2%;
     margin-left: 2%;
-    height: 50%;
+    height: 32%;
     width: 46%;
 }
 
 #dir{
-    margin-top: -50%;
-    margin-left: 52%;
-    height: 50%;
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 50%;
+    height: 32%;
     width: 46%;
 }
 
 
 #procura {
-    margin-top: 2%;
-    margin-left: 40%;
+    position: relative;
+    margin-top: 53%;
+    left: 40%;
     width: 20%;
     text-align: center;
 }

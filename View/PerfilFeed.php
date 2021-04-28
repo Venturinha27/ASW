@@ -4,7 +4,6 @@
     ob_start();
 
     include "../Controller/PerfilController.php";
-    include "../Controller/PerfilFeedController.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -334,31 +333,6 @@
 
             echo "<div id='VolDiv'>";
 
-            include "TestInput.php";
-
-            $nome = test_input($_POST['nome']);
-            $email = test_input($_POST['email']);
-            $idade = test_input($_POST['idade']);
-            $distrito = test_input($_POST['distrito']);
-            $concelho = test_input($_POST['concelho']);
-            $freguesia = test_input($_POST['freguesia']);
-            $genero = test_input($_POST['genero']);
-            $carta = test_input($_POST['carta']);
-            $covid = test_input($_POST['covid']);
-            $areaInteresse = test_input($_POST['area-interesse']);
-            $populacaoAlvo = test_input($_POST['populacao-alvo']);
-            $disDia = test_input($_POST['disponibilidade-dia']);
-            $disHora = test_input($_POST['disponibilidade-hora']);
-            $disDuracao = test_input($_POST['disponibilidade-duracao']);
-
-            if (isset($_POST['Procura'])) {
-                $candidatos = CandidatosAcaoFilter($openid, $nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $areaInteresse, $populacaoAlvo, $disDia, $disHora, $disDuracao);
-            } else {
-                $candidatos = CandidatosAcao($openid);
-            }
-
-            
-
             echo "<header class='w3-container'>
                         <h5><b>Candidaturas: </b></h5>
                     </header>";
@@ -366,13 +340,13 @@
             echo "<button id='filterb' class='w3-button w3-center w3-indigo'><i class='fas fa-filter'></i> &nbsp Filtrar &nbsp <i class='fas fa-angle-down'></i></button>";
 
             echo "<div class='w3-container w3-small hidden' id='divFiltrar'>
-                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post' id='filtrar'>
+                        <div id='filtrar'>
                                 <div id='esq'>
                                     <label><b>Nome</b></label>
-                                    <input type='text' class='w3-input' name='nome' placeholder='Nome' name='nome'/>
+                                    <input type='text' class='w3-input' name='nome' placeholder='Nome' name='nome' id='nome'/>
                                     <br>
                                     <label><b>Idade</b></label>
-                                    <select class='w3-input' name='idade'>
+                                    <select class='w3-input' name='idade' id='idade'>
                                         <option value='' disabled selected>Idade</option>
                                         <option value='10 aos 20'>10 aos 20</option>
                                         <option value='21 aos 30'>21 aos 30</option>
@@ -400,7 +374,7 @@
                                     </select> 
                                     <br>
                                     <label><b>Género</b></label>
-                                    <select class='w3-input' name='genero'>
+                                    <select class='w3-input' name='genero' id='genero'>
                                         <option value='' disabled selected>Género</option>
                                         <option value='Homem'>Homem</option>
                                         <option value='Mulher'>Mulher</option>
@@ -409,24 +383,24 @@
                                 </div>
                                 <div id='dir'>
                                     <label><b>Email</b></label>
-                                    <input type='text' class='w3-input' name='email' placeholder='Email' name='email'/>
+                                    <input type='text' class='w3-input' name='email' placeholder='Email' name='email' id='email'/>
                                     <br>
                                     <label><b>Carta de Condução</b></label>
-                                    <select class='w3-input' name='carta'>
+                                    <select class='w3-input' name='carta' id='carta'>
                                         <option value='' disabled selected>Carta de condução</option>
                                         <option value='Sim'>Sim</option>
                                         <option value='Não'>Não</option>
                                     </select>
                                     <br>
                                     <label><b>Já esteve infetado com o Covid-19?</b></label>
-                                    <select class='w3-input' name='covid'>
+                                    <select class='w3-input' name='covid' id='covid'>
                                         <option value='' disabled selected>Esteve infetado</option>
                                         <option value='Sim'>Sim</option>
                                         <option value='Não'>Não</option>
                                     </select>
                                     <br>
                                     <label><b>Áreas de interesse:</b></label>
-                                    <select class='w3-input' name='area-interesse'>
+                                    <select class='w3-input' name='area-interesse' id='area-interesse'>
                                         <option value='' disabled selected>Área de interesse</option>
                                         <option value='Ação social'>Ação social</option>
                                         <option value='Educação'>Educação</option>
@@ -434,7 +408,7 @@
                                     </select>
                                     <br>
                                     <label><b>População-alvo:</b></label>
-                                    <select class='w3-input' name='populacao-alvo'>
+                                    <select class='w3-input' name='populacao-alvo' id='populacao-alvo'>
                                         <option value='' disabled selected>Selecione a sua população-alvo</option>
                                         <option value='Indiferente'>Indiferente</option>
                                         <option value='Crianças'>Crianças</option>
@@ -448,7 +422,7 @@
                                     <br>
                                     <label><b>Disponibilidade:</b></label>
                                     <br>
-                                    <select class='w3-input dis' name='disponibilidade-dia'>
+                                    <select class='w3-input dis' name='disponibilidade-dia' id='dia'>
                                         <option value='' disabled selected>Dia</option>
                                         <option value='Segunda-feira'>Segunda-feira</option>
                                         <option value='Terça-feira'>Terça-feira</option>
@@ -458,7 +432,7 @@
                                         <option value='Sábado'>Sábado</option>
                                         <option value='Domingo'>Domingo</option>
                                     </select>
-                                    <select class='w3-input dis' name='disponibilidade-hora'>
+                                    <select class='w3-input dis' name='disponibilidade-hora' id='hora'>
                                         <option value='' disabled selected>Hora</option>
                                         <option value='00:00'>00:00</option>
                                         <option value='1'>01:00</option>
@@ -485,7 +459,7 @@
                                         <option value='22'>22:00</option>
                                         <option value='23'>23:00</option>
                                     </select>
-                                    <select class='w3-input dis' name='disponibilidade-duracao'>
+                                    <select class='w3-input dis' name='disponibilidade-duracao' id='duracao'>
                                         <option value='' disabled selected>Duração</option>
                                         <option value='1'>01:00</option>
                                         <option value='2'>02:00</option>
@@ -498,80 +472,11 @@
                                     </select>
                                     
                                 </div>
-                                <input class='w3-button' id='procura' type='submit' name='Procura' value='Procura'/>
-                            </form>
+                                <input class='w3-button w3-indigo' onclick='procuraCandidaturas()' id='procura' type='submit' name='Procura' value='Procura'/>
+                            </div>
                     </div>";
 
-            if (count($candidatos) == 0) {
-                echo "<p class='w3-container w3-center'> Não existem candidaturas pendentes.</p>";
-            }
-            foreach ($candidatos as $candidato) {
-
-                echo "
-                <div class='w3-card-4 w3-round-xxlarge'>
-
-                    <header class='w3-container'>
-                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
-                    </header>";
-
-                echo "<div class='w3-container'>
-                    <h5><b>".$candidato['nome_voluntario']."</b></h5>
-                    <img src='../".$candidato['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$candidato['concelho'].", ".$candidato['distrito']."</p>
-                    <p><i class='fas fa-heart'></i> &nbsp ";
-
-                $areas = areasCandidato($candidato['id']);         
-
-                $ultimo = count($areas);
-
-                $c = 0;
-                foreach ($areas as $are) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$are";
-                    } else {
-                        echo "$are, ";
-                    }
-                }
-
-
-                echo "</p>
-                        <p><i class='fas fa-users'></i> &nbsp ";
-
-                $populacao = populacaoCandidato($candidato['id']);
-
-                $ultimo = count($populacao);
-
-                $c = 0;
-                foreach ($populacao as $pop) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$pop";
-                    } else {
-                        echo "$pop, ";
-                    }
-                }
-       
-                echo "</p>";
-                
-                echo    "</div>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$candidato['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>";
-                    
-                $instituicaoAcao = InstituicaoAcao($openid);
-                if ($loggedid == $instituicaoAcao) {
-                    echo "<div class='rescand'>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$candidato['id']."' name='AceitarCand' class='w3-button w3-block w3-green rescand'>Aceitar</button>
-                        <button type='submit' value='".$candidato['id']."' name='RejeitarCand' class='w3-button w3-block w3-red rescand'>Rejeitar</button>
-                    </form>
-                    </div>";
-                }
-
-                echo "</div>";
-
-            }
+            echo "<div id='resultCandidaturas'></div>";
 
             echo "<br>";
 
@@ -579,165 +484,16 @@
                         <h5><b>Voluntários que correspondem à ação: </b></h5>
                     </header>";
 
-            $voluntariosMatch = VoluntariosMatchAcao($openid);
+            echo "<div id='resultCorrespondentes'></div>";
 
-            if (count($voluntariosMatch) == 0) {
-                echo "<p class='w3-container w3-center'> Não existem voluntários correspondentes.</p>";
-            }
-            foreach ($voluntariosMatch as $voluntario) {
-
-                echo "
-                <div class='w3-card-4 w3-round-xxlarge'>
-
-                    <header class='w3-container'>
-                        <h3><i class='fa fa-male'></i> &nbsp<b>Voluntário</b></h3>
-                    </header>";
-
-                echo "<div class='w3-container'>
-                    <h5><b>".$voluntario['nome_voluntario']."</b></h5>
-                    <img src='../".$voluntario['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$voluntario['concelho'].", ".$voluntario['distrito']."</p>
-                    <p><i class='fas fa-heart'></i> &nbsp ";
-
-                $areas = areasCandidato($voluntario['id']);         
-
-                $ultimo = count($areas);
-
-                $c = 0;
-                foreach ($areas as $are) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$are";
-                    } else {
-                        echo "$are, ";
-                    }
-                }
-
-
-                echo "</p>
-                        <p><i class='fas fa-users'></i> &nbsp ";
-
-                $populacao = populacaoCandidato($voluntario['id']);
-
-                $ultimo = count($populacao);
-
-                $c = 0;
-                foreach ($populacao as $pop) {
-                    $c = $c + 1;
-                    if ($c == $ultimo){
-                        echo "$pop";
-                    } else {
-                        echo "$pop, ";
-                    }
-                }
-       
-                echo "</p>";
-                
-                echo    "</div>
-                    <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                        <button type='submit' value='".$voluntario['id']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                    </form>";
-
-                echo "</div>";
-
-            }
+            echo "</div>";
 
             echo "<br></div></div>";
         }
 
-        if ($_POST['AceitarCand']) {
-            $id_candidato = $_POST['AceitarCand'];
-            AceitarCandidatura($id_candidato, $openid);
-            echo "<meta http-equiv='refresh' content='0'>";
-        }
-
-        if (!empty($_POST['verPerfil'])){
-
-            $id = $_POST['verPerfil'];
-
-            $nomeV = nomeVoluntario($id);
-
-            $_SESSION['opentype'] = "voluntario";
-            $_SESSION['open'] = $nomeV;
-            $_SESSION['openid'] = $id;
-            header("Location: Perfil.php");
-        }
     ?>
     
-<!--
-        <div id="pubs">
-            
-            <div class="pubpar" id="primeiraPub">
-                <img src="Images/slide2.jpg">
-            
-                <div class="divnome_par"><img src="Images/voluntario.jpg" class="w3-circle" id="avatar">
-                    <h6>Manel João</h6></div>
-            
-                <div class="divcom_par">
-                    <p>Com: Programa Agora Nós e Padeira de Aljubarrota</p>
-                </div>
-            
-                <hr>
-            
-                <div class="divtext_par">
-                    <p>Trabalho de equipa ajuda a vencer batalha de aljubarrota.</p>
-                </div>
-            </div>
-            
-            <div class="pubimpar">
-                <img src="Images/slide5.jpg">
-            
-                <div class="divnome_impar"><img src="Images/voluntario.jpg" class="w3-circle" id="avatar">
-                    <h6>Manel João</h6></div>
-            
-                <div class="divcom_impar">
-                    <p>Com: Programa Agora Nós</p>
-                </div>
-            
-                <hr>
-            
-                <div class="divtext_impar">
-                    <p>Entrega de bróculos à velhinha Mari Zé.</p>
-                </div>
-            </div>
-            
-            <div class="pubpar">
-                <img src="Images/slide4.jpg">
-            
-                <div class="divnome_par"><img src="Images/voluntario.jpg" class="w3-circle" id="avatar">
-                    <h6>Manel João</h6></div>
-            
-                <div class="divcom_par">
-                    <p>Com: Filipe Eduardo, D. Sebastião e Manel Jorge</p>
-                </div>
-            
-                <hr>
-            
-                <div class="divtext_par">
-                    <p>Dona Dolores recebe drogas caseiras. Boa Dona Dolores.</p>
-                </div>
-            </div>
 
-            <div class="pubimpar">
-                <img src="Images/slide5.jpg">
-            
-                <div class="divnome_impar"><img src="Images/voluntario.jpg" class="w3-circle" id="avatar">
-                    <h6>Manel João</h6></div>
-            
-                <div class="divcom_impar">
-                    <p>Com: Programa Agora Nós</p>
-                </div>
-            
-                <hr>
-            
-                <div class="divtext_impar">
-                    <p>Entrega de bróculos à velhinha Mari Zé.</p>
-                </div>
-            </div>
-            
-            
-        </div>
-        -->
     </div>
 
     <?php
