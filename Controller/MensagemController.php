@@ -161,11 +161,6 @@
 
         $conversas = conversasLogged($loggedid);
 
-        echo "<div class='w3-indigo w3-border-top w3-border-white'>
-                        &nbsp&nbsp<i class='fas fa-search'></i>&nbsp&nbsp<input type='text' class='searchMessage' onkeyup='searchMessage(this.value)' placeholder='Procura...'>
-                        <div id='searchMensagemDiv' class='w3-block hidden'></div>
-                    </div>";
-
         if (count($conversas) == 0) {
             echo "<h6 class='w3-center w3-small'><b>Ainda não participou em nenhuma conversa.</b></h6>";
         }
@@ -234,12 +229,10 @@
         $mensagens = mensagens_user($id);
 
         $conversas = array();
-        $conversantes = array();
 
         while ($mensagem = $mensagens->fetch_assoc()) {
 
-            if ($id = $mensagem['de']) {
-                if (!in_array($mensagem['para'], $conversantes)) {
+            if ($id == $mensagem['de']) {
                     $conversa = array();
     
                     $conversa['de'] = $mensagem['de'];
@@ -247,11 +240,8 @@
                     $conversa['texto'] = $mensagem['texto'];
                     $conversa['data_msg'] = $mensagem['data_msg'];
     
-                    array_push($conversantes, $mensagem['para']);
-                    array_push($conversas, $conversa);
-                }
+                    $conversas[$mensagem['para']] = $conversa;
             } else {
-                if (!in_array($mensagem['de'], $conversantes)) {
                     $conversa = array();
     
                     $conversa['de'] = $mensagem['de'];
@@ -259,9 +249,7 @@
                     $conversa['texto'] = $mensagem['texto'];
                     $conversa['data_msg'] = $mensagem['data_msg'];
     
-                    array_push($conversantes, $mensagem['de']);
-                    array_push($conversas, $conversa);
-                }
+                    $conversas[$mensagem['de']] = $conversa;
             }
             
         }

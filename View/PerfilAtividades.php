@@ -572,29 +572,19 @@
 
 <?php
 
-        if (isset($_SESSION['logged'])){
+    if (isset($_SESSION['logged'])){
 
-            echo "<div id='MsgDiv'>
-                <header class='w3-container w3-indigo w3-round'>
-                    <h3><i class='fas fa-inbox'></i> &nbsp<b>Mensagens</b></h3>
-                </header>
-                <div id='Msg'>
-                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
-                    </div>
-                    
-                    <div class='conversa w3-container w3-border-top w3-border-bottom'>
-                        <h6 class='nomeM w3-small'><b>Manuel</b></h6>
-                        <p class='mensagemTxt w3-tiny'>Eai manecas</p>
-                    </div>
-                    
-                    <button id='vermaismsg' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
-                </div>
-                
-            </div>";
+        echo "<div id='MsgDiv'>
+            <header class='w3-container w3-indigo w3-round'>
+                <h3><i class='fas fa-inbox'></i> &nbsp<b>Mensagens</b> </h3>
+            </header>
+            <div id='Msg'>";
+            echo "</div>
+            <button id='vermaismsg' class='vermais w3-button w3-block w3-indigo w3-small w3-round'>Ver Mais</button>
+            
+        </div>";
 
-        }
+    }
 ?>
 
     </body>

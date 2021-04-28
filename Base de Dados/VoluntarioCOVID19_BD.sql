@@ -8,6 +8,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS Segue;
+DROP TABLE IF EXISTS Notificacoes;
 DROP TABLE IF EXISTS Admins;
 DROP TABLE IF EXISTS Mensagem;
 DROP TABLE IF EXISTS Participa_em_Publicacao;
@@ -256,8 +257,10 @@ CREATE TABLE Publicacao (
         FOREIGN KEY (dono) REFERENCES Utilizador(id)
 );
 
+/* ----------------------- PARTICIPA PUBLICACAO ----------------------- */
+
 CREATE TABLE Participa_em_Publicacao (
-    id_publicacao      VARCHAR (65),
+    id_publicacao      int,
     participante       VARCHAR (65),
     
     CONSTRAINT pk_participa_em_publicacao
@@ -277,7 +280,8 @@ CREATE TABLE Mensagem (
     de                  VARCHAR (65) NOT NULL,
     para                VARCHAR (65) NOT NULL,
     texto               VARCHAR (1000) NOT NULL,
-    data_msg            DATETIME,
+    data_msg            DATETIME NOT NULL,
+    is_typing           VARCHAR (10) NOT NULL,
 
     CONSTRAINT pk_mensagem
         PRIMARY KEY (id),
@@ -303,6 +307,20 @@ CREATE TABLE Segue (
 
     CONSTRAINT fk_mensagem_seguido
         FOREIGN KEY (seguido) REFERENCES Utilizador(id)
+);
+
+/* -------------------- NOTIFICACOES ----------------------- */
+
+CREATE TABLE Notificacoes (
+    utilizador      VARCHAR(65),
+    texto           VARCHAR(240),
+    vista           VARCHAR(25) NOT NULL,
+    
+    CONSTRAINT pk_notificacoes
+        PRIMARY KEY (utilizador, texto),
+        
+    CONSTRAINT fk_notificacoes_utilizador
+        FOREIGN KEY (utilizador) REFERENCES Utilizador(id)
 );
 
 

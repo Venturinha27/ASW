@@ -286,6 +286,268 @@ body {
     border-radius: 100px;
 }
 
+.conversa {
+    display: block;
+    height: 50px;
+}
+
+.conversa:hover {
+    background-color: gainsboro;
+    cursor: pointer;
+}
+
+.conversa img {
+    margin-top: 10px;
+    margin-left: -5px;
+    height: 30px;
+    width: 30px;
+}
+
+.conversa h6 {
+    margin-top: 7px;
+    margin-left: 42px !important;
+    width: 180px;
+}
+
+.conversa p {
+    margin-top: -8px;
+    margin-left: 42px !important;
+    width: 280px;
+    
+}
+
+.conversa .msgHora {
+    margin-top: -42px;
+    margin-left: 240px !important;
+    width: 80px;
+    text-align: right;
+}
+
+#conversaopen {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    display: block;
+    padding: 0;
+}
+
+#conversaopen header {
+    position: absolute;
+    margin-top: 0%;
+    margin-left: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    border-style: solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: #24305E;
+}
+
+#conversaopen header button{
+    position: absolute;
+    left: 1%;
+    top: 10%;
+    height: 80%;
+    width: 7%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#conversaopen header p{
+    position: absolute;
+    left: 25%;
+    top: 10%;
+    height: 80%;
+    width: 50%;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+}
+
+#conversaopen footer {
+    position: absolute;
+    bottom: 0%;
+    margin-left: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    height: 30px;
+    width: 100%;
+    background-color: #A8D0E6;
+}
+
+#conversaopen footer input {
+    position: absolute;
+    left: 2%;
+    top: 10%;
+    height: 80%;
+    width: 88%;
+    border-radius: 100px;
+    padding-left: 2%;
+    border-color: #24305E;
+}
+
+#conversaopen footer button {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    height: 80%;
+    width: 7%;
+    border-radius: 100%;
+    padding: 0;
+}
+
+#conversaopen .textes {
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    bottom: 30px;
+    background-color: #A8D0E6;
+    display: block;
+    overflow-y: scroll;
+}
+
+#conversaopen .msgt {
+    margin-top: 1%;
+    width: 100%;
+    height: fit-content;
+}
+
+#conversaopen .msgown {
+    height: fit-content;
+    width: 65%;
+    margin-left: 2.5%;
+}
+
+#conversaopen .msgown img {
+    margin-top: 2px;
+    height: 26px;
+    width: 26px;
+}
+
+#conversaopen .msgown .msgtext {
+    height: fit-content;
+    width: 80%;
+    height: 100%;
+    margin-left: 16%;
+    background-color: #24305E;
+    border-radius: 5px;
+    padding: auto;
+}
+
+#conversaopen .msgown .msgtextp {
+    max-width: 80%;
+    height: fit-content;
+    font-size: x-small;
+    color: white;
+    margin-left: 3%;
+}
+
+#conversaopen .msgown .msgtexth {
+    max-width: 80%;
+    height: fit-content;
+    font-size: xx-small;
+    margin-top: -5%;
+    margin-left: 80%;
+    color: white;
+}
+
+#conversaopen .msgother {
+    height: fit-content;
+    width: 65%;
+    margin-left: 32.5%;
+}
+
+#conversaopen .msgother img {
+    position: absolute;
+    margin-top: 2px;
+    height: 26px;
+    width: 26px;
+    right: 2.5%;
+}
+
+#conversaopen .msgother .msgtext {
+    height: fit-content;
+    width: 80%;
+    height: 100%;
+    margin-left: 2%;
+    border-radius: 5px;
+    background-color: #24305E;
+    padding: auto;
+}
+
+#conversaopen .msgother .msgtextp {
+    max-width: 80%;
+    height: fit-content;
+    font-size: x-small;
+    color: white;
+    margin-left: 3%;
+}
+
+#conversaopen .msgother .msgtexth {
+    max-width: 80%;
+    height: fit-content;
+    font-size: xx-small;
+    margin-top: -5%;
+    margin-left: 80%;
+    color: white;
+}
+
+.searchMessage {
+    width: 85%;
+    box-sizing: unset;
+    border-style: none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 100px;
+    padding-left: 2%;
+}
+
+.searchMessage ::placeholder{
+    color: #24305E;
+    opacity: 1;
+}
+
+#searchMensagemDiv {
+    position: absolute;
+    width: 80% !important;
+    max-height: 120px;
+    left: 13%;
+    top: 38%;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #24305E;
+    border-top: none;
+}
+
+#searchMensagemDiv button{
+    width: 100% !important;
+    height: 50px;
+}
+
+#searchMensagemDiv img{
+    margin-top: 0.8%;
+    width: 30px;
+    height: 30px;
+}
+
+#searchMensagemDiv p{
+    width: 85%;
+    margin-left: 17%;
+    margin-top: -1.4%;
+    text-align: left !important;
+    padding-left: 0 !important;
+    padding-bottom: 0;
+}
+
+.procuraMtipo {
+    margin-top: -9% !important;
+}
+
 
 /* -------------------------------------------------- */
 
