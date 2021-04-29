@@ -16,13 +16,14 @@
 <link rel="stylesheet" href="../CSS/AdminV.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/DCF.js"></script>
+<script src="../JavaScript/AdminV.js"></script>
 
 <body>
     <div id="Div">
         <br>
         <h1 class="w3-center" id="informacoesP">Informações Sobre:</h1>
         <div id="Options">
-            <div id="voluntarioDiv" class='w3-white w3-circle'>
+            <div id="voluntarioDiv">
                 <a href="Admin.php"><i class="fa fa-male" id="voluntarioIcon"></i></a>
                 <h5 id="voluntarioP">Voluntários</p>
             </div>
@@ -39,13 +40,13 @@
     </div>
 
     <div class="w3-container w3-small">
-        <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
+        <div id="filtrar">
                 <div id="esq">
                     <label><b>Nome</b></label>
-                    <input type="text" class="w3-input" name="nome" placeholder="Nome" name="nome"/>
+                    <input type="text" class="w3-input" name="nome" placeholder="Nome" name="nome" id="nome"/>
                     <br>
                     <label><b>Idade</b></label>
-                    <select class="w3-input" name="idade">
+                    <select class="w3-input" name="idade" id="idade">
                         <option value="" disabled selected>Idade</option>
                         <option value="10 aos 20">10 aos 20</option>
                         <option value="21 aos 30">21 aos 30</option>
@@ -73,7 +74,7 @@
                     </select> 
                     <br>
                     <label><b>Género</b></label>
-                    <select class="w3-input" name="genero">
+                    <select class="w3-input" name="genero" id="genero">
                         <option value="" disabled selected>Género</option>
                         <option value="Homem">Homem</option>
                         <option value="Mulher">Mulher</option>
@@ -82,24 +83,24 @@
                 </div>
                 <div id="dir">
                     <label><b>Email</b></label>
-                    <input type="text" class="w3-input" name="email" placeholder="Email" name="email"/>
+                    <input type="text" class="w3-input" name="email" placeholder="Email" name="email" id="email"/>
                     <br>
                     <label><b>Carta de Condução</b></label>
-                    <select class="w3-input" name="carta">
+                    <select class="w3-input" name="carta" id="carta">
                         <option value="" disabled selected>Carta de condução</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
                     <br>
                     <label><b>Já esteve infetado com o Covid-19?</b></label>
-                    <select class="w3-input" name="covid">
+                    <select class="w3-input" name="covid" id="covid">
                         <option value="" disabled selected>Esteve infetado</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
                     <br>
                     <label><b>Áreas de interesse:</b></label>
-                    <select class="w3-input" name="area-interesse">
+                    <select class="w3-input" name="area-interesse" id="area-interesse">
                         <option value="" disabled selected>Área de interesse</option>
                         <option value="Ação social">Ação social</option>
                         <option value="Educação">Educação</option>
@@ -107,7 +108,7 @@
                     </select>
                     <br>
                     <label><b>População-alvo:</b></label>
-                    <select class="w3-input" name="populacao-alvo">
+                    <select class="w3-input" name="populacao-alvo" id="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
                         <option value="Crianças">Crianças</option>
@@ -121,7 +122,7 @@
                     <br>
                     <label><b>Disponibilidade:</b></label>
                     <br>
-                    <select class="w3-input dis" name="disponibilidade-dia">
+                    <select class="w3-input dis" name="disponibilidade-dia" id="dia">
                         <option value="" disabled selected>Dia</option>
                         <option value="Segunda-feira">Segunda-feira</option>
                         <option value="Terça-feira">Terça-feira</option>
@@ -131,7 +132,7 @@
                         <option value="Sábado">Sábado</option>
                         <option value="Domingo">Domingo</option>
                     </select>
-                    <select class="w3-input dis" name="disponibilidade-hora">
+                    <select class="w3-input dis" name="disponibilidade-hora" id="hora">
                         <option value="" disabled selected>Hora</option>
                         <option value="00:00">00:00</option>
                         <option value="1">01:00</option>
@@ -158,7 +159,7 @@
                         <option value="22">22:00</option>
                         <option value="23">23:00</option>
                     </select>
-                    <select class="w3-input dis" name="disponibilidade-duracao">
+                    <select class="w3-input dis" name="disponibilidade-duracao" id="duracao">
                         <option value="" disabled selected>Duração</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>
@@ -171,116 +172,11 @@
                     </select>
                     
                 </div>
-                <input class="w3-button" id="procura" type="submit" value="Procura"/>
-            </form>
+                <input class="w3-button" id="limpaprocura" onclick="LimparProcura()" type="submit" value="Limpar"/>
+                <input class="w3-button" id="procura" onclick="showVoluntarios()" type="submit" value="Procura"/>
+            </div>
+
+            <div id="resultadoVoluntarios"></div>
 </div>
-
-<?php
-
-    if (!empty($_POST)){
-
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $idade = $_POST['idade'];
-        $distrito = $_POST['distrito'];
-        $concelho = $_POST['concelho'];
-        $freguesia = $_POST['freguesia'];
-        $genero = $_POST['genero'];
-        $carta = $_POST['carta'];
-        $covid = $_POST['covid'];
-        $area_interesse = $_POST['area-interesse'];
-        $populacao_alvo = $_POST['populacao-alvo'];
-        $disponibilidade_dia = $_POST['disponibilidade-dia'];
-        $disponibilidade_hora = $_POST['disponibilidade-hora'];
-        $disponibilidade_duracao = $_POST['disponibilidade-duracao'];
-
-        include "../Controller/AdminVController.php";
-
-        $resultVoluntario = adminVolPost($nome, $email, $idade, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $area_interesse, $populacao_alvo, $disponibilidade_dia, $disponibilidade_hora, $disponibilidade_duracao);
-
-    } else {
-        include "../Controller/AdminVController.php";
-        
-        $resultVoluntario = adminVol();
-        
-    }
-    
-    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red w3-small resultado'>";
-    echo "<p>Encontrou ".($resultVoluntario->num_rows)." resultado(s) para a pesquisa.</p>";
-    echo "</div>";
-
-    if ($resultVoluntario->num_rows > 0) {
-
-        echo "<table class='w3-table w3-striped w3-tiny w3-hoverable w3-middle' id='todosVol'>
-            <tr class='w3-red'>
-                <th>Nome</th>
-                <th>Bio</th>
-                <th>Data Nascimento</th>
-                <th>Género</th>
-                <th>Distrito</th>
-                <th>Concelho</th>
-                <th>Freguesia</th>
-                <th>Tel.</th>
-                <th>CC</th>
-                <th>Carta C.</th>
-                <th>Covid</th>
-                <th>Email</th>
-                <th>Áreas Interesse</th>
-                <th>População Alvo</th>
-                <th>Disponibilidade</th>
-            </tr>";
-        
-        while ($row = $resultVoluntario->fetch_assoc()){
-            echo "
-            <tr>
-                <td><p>".$row['nome_voluntario']."</p></td>
-                <td><p>".$row['bio']."</p></td>
-                <td><p>".$row['data_nascimento']."</p></td>
-                <td><p>".$row['genero']."</p></td>
-                <td><p>".$row['distrito']."</p></td>
-                <td><p>".$row['concelho']."</p></td>
-                <td><p>".$row['freguesia']."</p></td>
-                <td><p>".$row['telefone']."</p></td>
-                <td><p>".$row['cc']."</p></td>
-                <td><p>".$row['carta_c']."</p></td>
-                <td><p>".$row['covid']."</p></td>
-                <td><p>".$row['email']."</p></td>";
-
-                $resultArea = AreaVolAdmin($row['id']);         
-
-                echo "<td>";
-                if ($resultArea->num_rows > 0) {
-                    while ($rowA = $resultArea->fetch_assoc()){
-                        echo "<p>" . $rowA['area'] . "</p>";
-                    }
-                }
-                echo "</td>";
-
-                $resultPopulacao = PopulacaoVolAdmin($row['id']);          
-
-                echo "<td>";
-                if ($resultPopulacao->num_rows > 0) {
-                    while ($rowP = $resultPopulacao->fetch_assoc()){
-                        echo "<p>" . $rowP['populacao_alvo'] . "</p>";
-                    }
-                }
-                echo "</td>";
-
-                $resultDispo = DispoVolAdmin($row['id']);    
-
-                echo "<td>";
-                if ($resultDispo->num_rows > 0) {
-                    while ($rowD = $resultDispo->fetch_assoc()){
-                        echo "<p>" . $rowD['dia'] . ", às ". $rowD['hora'] .", durante ". $rowD['duracao'] ." horas.</p>";
-                    }
-                }
-                echo "</td>";
-
-            echo "</tr>
-            ";
-        }
-        echo "</table>";
-    }
-?>
 
 </body>

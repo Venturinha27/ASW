@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../CSS/AdminA.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/DCF.js"></script>
+<script src="../JavaScript/AdminA.js"></script>
 
 <body>
     <div id="Div">
@@ -30,7 +31,7 @@
                 <a href="AdminI.php"><i class="fa fa-building" id="instituicaoIcon"></i></a>
                 <h5 id="instituicaoP">Instituições</p>
             </div>
-            <div id="acaoDiv" class='w3-white w3-circle'>
+            <div id="acaoDiv">
                 <a href="Admin.php"><i class="fa fa-hands-helping" id="acaoIcon"></i></a>
                 <h5 id="acaoP">Ações</p>
             </div>
@@ -38,13 +39,13 @@
     </div>
 
     <div class="w3-container w3-small">
-        <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>' method="post" id="filtrar">
+        <div id="filtrar">
                 <div id="esq">
                     <label><b>Instituição</b></label>
-                    <input type="text" class="w3-input" name="instituicao" placeholder="Instituição"/>
+                    <input type="text" class="w3-input" name="instituicao" placeholder="Instituição" id="instituicao"/>
                     <br>
                     <label><b>Titulo</b></label>
-                    <input type="text" class="w3-input" name="titulo" placeholder="Titulo" name="titulo"/>
+                    <input type="text" class="w3-input" name="titulo" placeholder="Titulo" name="titulo" id="titulo"/>
                     <br>
                     <label><b>Distrito:</b></label>
                     <select class="w3-input" name="distrito" id="distrito" size="1">
@@ -62,7 +63,7 @@
                     </select>  
                     <br>
                     <label><b>Áreas de interesse:</b></label>
-                    <select class="w3-input" name="area-interesse">
+                    <select class="w3-input" name="area-interesse" id="area-interesse">
                         <option value="" disabled selected>Selecione as suas áreas de interesse</option>
                         <option value="Ação social">Ação social</option>
                         <option value="Educação">Educação</option>
@@ -71,7 +72,7 @@
                 </div>
                 <div id="dir">
                     <label><b>População-alvo:</b></label>
-                    <select class="w3-input" name="populacao-alvo">
+                    <select class="w3-input" name="populacao-alvo" id="populacao-alvo">
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
                         <option value="Crianças">Crianças</option>
@@ -84,7 +85,7 @@
                     </select>
                     <br>
                     <label><b>Função:</b></label>
-                    <select class="w3-input" name="funcao">
+                    <select class="w3-input" name="funcao" id="funcao">
                         <option value="" disabled selected>Selecione a função</option>
                         <option value="Entrega ao Domicilio de bens não alimentares">Entrega ao Domicilio</option>
                         <option value="Entrega de Bens Alimentares">Entrega de Bens Alimentares</option>
@@ -98,7 +99,7 @@
                     </select>
                     <br>
                     <label><b>Num. vagas</b></label>
-                    <select class="w3-input" name="numvagas">
+                    <select class="w3-input" name="numvagas" id="numvagas">
                         <option value="" disabled selected>Num. vagas</option>
                         <option value="0 a 10">0 a 10</option>
                         <option value="11 a 20">11 a 20</option>
@@ -112,94 +113,20 @@
                     </select>
                     <br>
                     <label><b>Data:</b></label>
-                        <input type="date" class="w3-input" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)"/>
+                        <input type="date" class="w3-input" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)" id="data"/>
                     <br>
                     <label><b>Ativa/Inativa:</b></label>
-                        <select class="w3-input" name="ativa">
+                        <select class="w3-input" name="ativa" id="ativa">
                             <option value="" disabled selected>Ativa/Inativa</option>
                             <option value="Ativa">Ativa</option>
                             <option value="Inativa">Inativa</option>
                         </select>
                 </div>
-                <input class="w3-button" id="procura" type="submit" value="Procura"/>
-            </form>
+                <input class="w3-button" id="limpaprocura" onclick="LimparProcura()" type="submit" value="Limpar"/>
+                <input class="w3-button" id="procura" onclick="showAcoes()" type="submit" value="Procura"/>
+            </div>
 </div>
 
-<?php
-
-    if (!empty($_POST)){
-
-
-        $instituicao = $_POST['instituicao'];
-        $titulo = $_POST['titulo'];
-        $distrito = $_POST['distrito'];
-        $concelho = $_POST['concelho'];
-        $freguesia = $_POST['freguesia'];
-        $area_interesse = $_POST['area-interesse'];
-        $populacao_alvo = $_POST['populacao-alvo'];
-        $funcao = $_POST['funcao'];
-        $numvagas = $_POST['numvagas'];
-        $disponibilidade_dia = $_POST['disponibilidade-dia'];
-        $ativa = $_POST['ativa'];
-
-        include "../Controller/AdminAController.php";
-
-        $resultAcao = adminA($instituicao, $titulo, $distrito, $concelho, $freguesia, $area_interesse, $populacao_alvo, $funcao, $numvagas, $disponibilidade_dia, $ativa);
-
-        
-    } else {
-        include "../Controller/AdminAController.php";
-        
-        $resultAcao = adminAF();
-        
-    }
-    
-    echo "<div class='w3-panel w3-topbar w3-bottombar w3-border-green w3-pale-green w3-small resultado'>";
-    echo "<p>Encontrou ".count($resultAcao)." resultado(s) para a pesquisa.</p>";
-    echo "</div>";
-
-    
-    if (count($resultAcao) > 0) {
-
-        echo "<table class='w3-table w3-striped w3-small w3-hoverable' id='todosVol'>
-            <tr class='w3-green'>
-                <th>Instituição</th>
-                <th>Titulo Ação</th>
-                <th>Distrito</th>
-                <th>Concelho</th>
-                <th>Freguesia</th>
-                <th>Função</th>
-                <th>Área interesse</th>
-                <th>População alvo</th>
-                <th>Num. vagas</th>
-                <th>Dia</th>
-                <th>Hora</th>
-                <th>Duração</th>
-                <th>Ativa/Inativa</th>
-            </tr>";
-        
-        foreach ($resultAcao as $row){
-            echo "
-            <tr>
-                <td>".$row['nome_instituicao']."</td>
-                <td>".$row['titulo']."</td>
-                <td>".$row['distrito']."</td>
-                <td>".$row['concelho']."</td>
-                <td>".$row['freguesia']."</td>
-                <td>".$row['funcao']."</td>
-                <td>".$row['area_interesse']."</td>
-                <td>".$row['populacao_alvo']."</td>
-                <td>".$row['num_vagas']."</td>
-                <td>".$row['dia']."</td>
-                <td>".$row['hora']."</td>
-                <td>".$row['duracao']."</td>
-                <td>".$row['ativa']."</td>
-            </tr>
-            ";
-        }
-        echo "</table><br><br><br>";
-    }
-    
-?>
+<div id="resultadosAcoes"></div>
 
 </body>

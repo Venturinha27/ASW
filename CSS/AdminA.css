@@ -116,9 +116,20 @@ body {
     width: 46%;
 }
 
+#limpaprocura {
+    position: absolute !important;
+    top: 95.5% !important;
+    left: 45% !important;
+    height: 8%;
+    width: 10% !important;
+    background-color: #ff5050;
+    color: white;
+    z-index: 50 !important;
+}
+
 #procura {
     position: absolute !important;
-    top: 102% !important;
+    top: 105.5% !important;
     left: 42.5% !important;
     height: 15%;
     width: 15% !important;
@@ -129,7 +140,7 @@ body {
 
 .resultado {
     position: absolute;
-    top: 120.5%;
+    top: 123.5%;
     left: 5%;
     width: 90%;
     background-color: #24305E;
@@ -138,7 +149,7 @@ body {
 
 #todosVol{
     position: absolute;
-    top: 131.5%;
+    top: 134.5%;
     left: 5%;
     width: 90%;
     margin-bottom: 5%;
@@ -220,7 +231,7 @@ body {
     top: 18%;
     left: 22%;
     font-size: 800%;
-    color: palegreen;
+    color: white;
 }
 
 #acaoP {
@@ -228,7 +239,7 @@ body {
     top: 73%;
     left: 38%;
     font-size: x-large;
-    color: palegreen;
+    color: white;
 }
 
 

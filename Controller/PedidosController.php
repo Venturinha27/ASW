@@ -205,8 +205,8 @@
                 $candidatura = query_candidatura($id);
                 if ($rowc = $candidatura->fetch_assoc()) {
                     $id_voluntario = $rowc['id_voluntario'];
-                    $id_instituicao = $rowa['id_instituicao'];
-                    $id_acao = $rowa['id_acao'];
+                    $id_instituicao = $rowc['id_instituicao'];
+                    $id_acao = $rowc['id_acao'];
                 }
                 participa_em_acao($id_voluntario, $id_instituicao, $id_acao); 
 
@@ -216,8 +216,8 @@
                 $convite = query_convite($id);
                 if ($rowc = $convite->fetch_assoc()) {
                     $id_voluntario = $rowc['id_voluntario'];
-                    $id_instituicao = $rowa['id_instituicao'];
-                    $id_acao = $rowa['id_acao'];
+                    $id_instituicao = $rowc['id_instituicao'];
+                    $id_acao = $rowc['id_acao'];
                 }
                 participa_em_acao($id_voluntario, $id_instituicao, $id_acao); 
             }
