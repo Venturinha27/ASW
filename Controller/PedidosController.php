@@ -210,6 +210,13 @@
                 }
                 participa_em_acao($id_voluntario, $id_instituicao, $id_acao); 
 
+                $acao = query_acao($id_acao);
+                if ($a = $acao->fetch_assoc()) {
+                    $nome_acao = $a['titulo'];
+                }
+                $not = "A sua candidatura à ação $nome_acao foi aceite.";
+                new_notificacao($id_voluntario, $not);
+
             } else {
                 $respostaq = convite_aceite($id);
 
@@ -220,14 +227,57 @@
                     $id_acao = $rowc['id_acao'];
                 }
                 participa_em_acao($id_voluntario, $id_instituicao, $id_acao); 
+
+                $voluntario = query_voluntario($id_voluntario);
+                if ($v = $voluntario->fetch_assoc()) {
+                    $nome_voluntario = $v['nome_voluntario'];
+                }
+                $acao = query_acao($id_acao);
+                if ($a = $acao->fetch_assoc()) {
+                    $nome_acao = $a['titulo'];
+                }
+                $not = "O voluntário $nome_voluntario aceitou o seu convite para a ação $nome_acao.";
+                new_notificacao($id_instituicao, $not);
             }
             
             
         } else {
             if ($tipo == "Candidatura") {
                 $respostaq = candidatura_rejeitada($id);
+
+                $candidatura = query_candidatura($id);
+                if ($rowc = $candidatura->fetch_assoc()) {
+                    $id_voluntario = $rowc['id_voluntario'];
+                    $id_instituicao = $rowc['id_instituicao'];
+                    $id_acao = $rowc['id_acao'];
+                }
+
+                $acao = query_acao($id_acao);
+                if ($a = $acao->fetch_assoc()) {
+                    $nome_acao = $a['titulo'];
+                }
+                $not = "A sua candidatura à ação $nome_acao foi rejeitada.";
+                new_notificacao($id_voluntario, $not);
             } else {
                 $respostaq = convite_rejeitado($id);
+
+                $convite = query_convite($id);
+                if ($rowc = $convite->fetch_assoc()) {
+                    $id_voluntario = $rowc['id_voluntario'];
+                    $id_instituicao = $rowc['id_instituicao'];
+                    $id_acao = $rowc['id_acao'];
+                }
+
+                $voluntario = query_voluntario($id_voluntario);
+                if ($v = $voluntario->fetch_assoc()) {
+                    $nome_voluntario = $v['nome_voluntario'];
+                }
+                $acao = query_acao($id_acao);
+                if ($a = $acao->fetch_assoc()) {
+                    $nome_acao = $a['titulo'];
+                }
+                $not = "O voluntário $nome_voluntario rejeitou o seu convite para a ação $nome_acao.";
+                new_notificacao($id_instituicao, $not);
             }
         }
 

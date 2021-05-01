@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
 <script src="../JavaScript/EditarPerfilJS.js"></script>
+<link rel="stylesheet" href="../CSS/NotificacoesC.css">
+<script src="../JavaScript/NotificacoesJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -40,13 +42,15 @@
                     <button class='w3-button w3-hover-blue'>
                         <img alt='Avatar' class='w3-circle' id='foto' src='$foto' style='width:26px; height: 26px;'/>
                     </button>
-                    <div class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
+                    <div id='toprightdiv' class='w3-dropdown-content w3-bar-block w3-card-4 w3-left w3-small' style='right:0%; z-index: 100; width:10%;'>
                         
+                        <div id='notificacoesdiv' class='hidden'></div>
+
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                             <button type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-circle'></i> Ver perfil</button>
                         </form>
 
-                        <button class='w3-bar-item w3-button'><i class='fas fa-bell'></i> Notificações</button>
+                        <button onclick='showNotificacoes()' class='w3-bar-item w3-button'><i class='fas fa-bell'></i> Notificações</button>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                             <button type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-edit'></i> Editar perfil</button>

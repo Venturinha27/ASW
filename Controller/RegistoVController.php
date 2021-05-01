@@ -1,5 +1,9 @@
 <?php
 
+    /* ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE); */
+
     include_once "../Model/Model.php";
 
     function registo_voluntario($id, $nomeProprio, $Email, $Password, $telefone, $dataNascimento, $CC, $bio, $distrito, $concelho, $freguesia, $genero, $carta, $covid, $avatar) {
@@ -70,6 +74,31 @@
                     unset($_SESSION['erroVcarta']);
                     unset($_SESSION['erroVcovid']);
                     unset($_SESSION['msgerroV']);
+
+                    /* ini_set('smtp_port', 465);
+
+                    require_once '../vendor/autoload.php';
+
+                    // Create the Transport
+                    $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+                    ->setUsername('asw013.2021@gmail.com')
+                    ->setPassword('ventu013')
+                    ;
+
+                    // Create the Mailer using your created Transport
+                    $mailer = new Swift_Mailer($transport);
+
+                    // Create a message
+                    $message = (new Swift_Message('Confirme a sua conta.'))
+                    ->setFrom(['asw013.2021@gmail.com' => 'VoluntárioCOVID19'])
+                    ->setTo([$Email => $nomeProprio])
+                    ->setBody('Bem-vindo à plataforma VoluntárioCOVID19 '.$nomeProprio.'! Para confirmar a sua conta aceda a este link: http://appserver-01.alunos.di.fc.ul.pt/~asw013/ASW/Controller/ConfirmarRegisto.php?id='.$id.'&nome='.$nomeProprio.'&tipo=voluntario')
+                    ;
+
+                    // Send the message
+                    $result = $mailer->send($message); */
+
+                    header("Location: ../Controller/ConfirmarRegisto.php");
 
                     $_SESSION['loggedtype'] = "voluntario";
                     $_SESSION['logged'] = $nomeProprio;

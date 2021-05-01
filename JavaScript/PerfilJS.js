@@ -5,6 +5,7 @@ window.addEventListener("load", principal);
 
 function principal(){ 
     
+    UpdateMessageDiv = 0
     toggleConvida()
     showPedidos()
     showCandidatar()
@@ -361,77 +362,83 @@ function searchMessage(str) {
 }
 
 function showMsg() {
-    let botao_mensagens = document.getElementById("vermaismsg")
+    if (UpdateMessageDiv == 0) {
+        UpdateMessageDiv = 1
+
+        let botao_mensagens = document.getElementById("vermaismsg")
     
-    if (botao_mensagens.innerText == "Ver Mais") {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        if (botao_mensagens.innerText == "Ver Mais") {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
 
-                if (document.getElementById("searchDiv") == null) {
-                    document.getElementById("Msg").innerHTML = ""
-                    let divs = document.createElement("div")
-                    divs.setAttribute("class", "w3-indigo w3-border-top w3-border-white")
-                    divs.setAttribute("id", "searchDiv")
-                    document.getElementById("Msg").appendChild(divs)
-                    divs.innerHTML = "&nbsp&nbsp<i class='fas fa-search'></i>&nbsp&nbsp<input type='text' class='searchMessage' onkeyup='searchMessage(this.value)' placeholder='Procura...'><div id='searchMensagemDiv' class='w3-block hidden'></div>"
-                }
+                    if (document.getElementById("searchDiv") == null) {
+                        document.getElementById("Msg").innerHTML = ""
+                        let divs = document.createElement("div")
+                        divs.setAttribute("class", "w3-indigo w3-border-top w3-border-white")
+                        divs.setAttribute("id", "searchDiv")
+                        document.getElementById("Msg").appendChild(divs)
+                        divs.innerHTML = "&nbsp&nbsp<i class='fas fa-search'></i>&nbsp&nbsp<input type='text' class='searchMessage' onkeyup='searchMessage(this.value)' placeholder='Procura...'><div id='searchMensagemDiv' class='w3-block hidden'></div>"
+                    }
 
-                if (document.getElementById("showConversasDiv") != null) {
-                    document.getElementById("showConversasDiv").remove()
-                }
-                let divc = document.createElement("div")
-                divc.setAttribute("id", "showConversasDiv")
-                document.getElementById("Msg").appendChild(divc)
-                divc.innerHTML = this.responseText
-                ConversaPrivada = []
+                    if (document.getElementById("showConversasDiv") != null) {
+                        document.getElementById("showConversasDiv").remove()
+                    }
+                    let divc = document.createElement("div")
+                    divc.setAttribute("id", "showConversasDiv")
+                    document.getElementById("Msg").appendChild(divc)
+                    divc.innerHTML = this.responseText
+                    ConversaPrivada = []
 
-                let search_mensagens = document.getElementById("searchMensagemDiv")
-                if (search_mensagens.style.top != "38%") {
-                    search_mensagens.style.top = "38%";
-                } 
-            }
-        }
-        xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=closed", true);
-        xmlhttp.send();  
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                let divsearch = document.getElementById("searchDiv")
-
-                if (divsearch == null) {
-                    document.getElementById("Msg").innerHTML = ""
-                    let divs = document.createElement("div")
-                    divs.setAttribute("class", "w3-indigo w3-border-top w3-border-white")
-                    divs.setAttribute("id", "searchDiv")
-                    document.getElementById("Msg").appendChild(divs)
-                    divs.innerHTML = "&nbsp&nbsp<i class='fas fa-search'></i>&nbsp&nbsp<input type='text' class='searchMessage' onkeyup='searchMessage(this.value)' placeholder='Procura...'><div id='searchMensagemDiv' class='w3-block hidden'></div>"
-                }
-
-                if (document.getElementById("showConversasDiv") != null) {
-                    document.getElementById("showConversasDiv").remove()
-                }
-                let divc = document.createElement("div")
-                divc.setAttribute("id", "showConversasDiv")
-                document.getElementById("Msg").appendChild(divc)
-                divc.innerHTML = this.responseText
-                ConversaPrivada = []
-
-                let search_mensagens = document.getElementById("searchMensagemDiv")
-                if (search_mensagens.style.top != "19%") {
-                    search_mensagens.style.top = "19%";
+                    let search_mensagens = document.getElementById("searchMensagemDiv")
+                    if (search_mensagens.style.top != "38%") {
+                        search_mensagens.style.top = "38%";
+                    } 
                 }
             }
+            xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=closed", true);
+            xmlhttp.send();  
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let divsearch = document.getElementById("searchDiv")
+
+                    if (divsearch == null) {
+                        document.getElementById("Msg").innerHTML = ""
+                        let divs = document.createElement("div")
+                        divs.setAttribute("class", "w3-indigo w3-border-top w3-border-white")
+                        divs.setAttribute("id", "searchDiv")
+                        document.getElementById("Msg").appendChild(divs)
+                        divs.innerHTML = "&nbsp&nbsp<i class='fas fa-search'></i>&nbsp&nbsp<input type='text' class='searchMessage' onkeyup='searchMessage(this.value)' placeholder='Procura...'><div id='searchMensagemDiv' class='w3-block hidden'></div>"
+                    }
+
+                    if (document.getElementById("showConversasDiv") != null) {
+                        document.getElementById("showConversasDiv").remove()
+                    }
+                    let divc = document.createElement("div")
+                    divc.setAttribute("id", "showConversasDiv")
+                    document.getElementById("Msg").appendChild(divc)
+                    divc.innerHTML = this.responseText
+                    ConversaPrivada = []
+
+                    let search_mensagens = document.getElementById("searchMensagemDiv")
+                    if (search_mensagens.style.top != "19%") {
+                        search_mensagens.style.top = "19%";
+                    }
+                }
+            }
+            xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=open", true);
+            xmlhttp.send();  
         }
-        xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=open", true);
-        xmlhttp.send();  
+        UpdateMessageDiv = 0
     }
-
-    
 }
 
 function showConversa(id_own, id_other) {
+
+    if (UpdateMessageDiv == 0) {
+        UpdateMessageDiv = 2
 
         if (document.getElementById("showConversasDiv") != null) {
             document.getElementById("showConversasDiv").remove()
@@ -487,60 +494,63 @@ function showConversa(id_own, id_other) {
                 sendMessage(id_own, id_other)
             })
         } 
-
+        UpdateMessageDiv = 0
+    }
 
 }
 
 function showMensagens(id_own, id_other) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+    if (UpdateMessageDiv == 0 || UpdateMessageDiv == 2) {
+        UpdateMessageDiv = 1
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
 
-            var elementB = document.getElementsByClassName("textes")[0];
-            let current = 0
-            if (elementB != null) {
-                current = elementB.scrollTop
-            }
-        
-            document.getElementById("textes").innerHTML = this.responseText
-        
-        
-            var element = document.getElementsByClassName("textes")[0];
-            if (ConversaPrivada.length == 0) {
-                if (element != null) {
-                    element.scrollTop = element.scrollHeight;
+                var elementB = document.getElementsByClassName("textes")[0];
+                let current = 0
+                if (elementB != null) {
+                    current = elementB.scrollTop
                 }
-            } else {
-                if (element != null && current != null) {
-                    element.scrollTop = current;
-                } else {
+            
+                document.getElementById("textes").innerHTML = this.responseText
+            
+            
+                var element = document.getElementsByClassName("textes")[0];
+                if (ConversaPrivada.length == 0) {
                     if (element != null) {
                         element.scrollTop = element.scrollHeight;
                     }
+                } else {
+                    if (element != null && current != null) {
+                        element.scrollTop = current;
+                    } else {
+                        if (element != null) {
+                            element.scrollTop = element.scrollHeight;
+                        }
+                    }
                 }
+                ConversaPrivada = [id_own, id_other]
+
+                let conversa_open = document.getElementById("conversaopen")
+                let botao_mensagens = document.getElementById("vermaismsg")
+
+                if (botao_mensagens.innerText == "Ver Mais") {  
+                    if (conversa_open.style.height != "60%") {
+                        conversa_open.style.height = "60%";
+                    }
+                } else {
+                    if (conversa_open.style.height != "80%") {
+                        conversa_open.style.height = "80%";
+                    }
+                }  
+
             }
-            ConversaPrivada = [id_own, id_other]
-
-            let conversa_open = document.getElementById("conversaopen")
-            let botao_mensagens = document.getElementById("vermaismsg")
-
-            if (botao_mensagens.innerText == "Ver Mais") {  
-                if (conversa_open.style.height != "60%") {
-                    conversa_open.style.height = "60%";
-                }
-            } else {
-                if (conversa_open.style.height != "80%") {
-                    conversa_open.style.height = "80%";
-                }
-            }  
-
         }
+        xmlhttp.open("GET", "../Controller/MensagemController.php?verconversa=yes&own="+id_own+"&other="+id_other, true);
+        xmlhttp.send();
+        UpdateMessageDiv = 0
     }
-    xmlhttp.open("GET", "../Controller/MensagemController.php?verconversa=yes&own="+id_own+"&other="+id_other, true);
-    xmlhttp.send();
 }
-
-
 
 function sendMessage(id_own, id_other) {
 
@@ -569,9 +579,13 @@ setInterval(function(){
     showSug();
 
     if (ConversaPrivada.length == 0) {
-        showMsg()
+        if (UpdateMessageDiv == 0) {
+            showMsg()
+        }
     } else {
-        showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+        if (UpdateMessageDiv == 0) {
+            showMensagens(ConversaPrivada[0], ConversaPrivada[1])
+        }
     }
     
 }, 2000)

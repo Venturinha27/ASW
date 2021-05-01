@@ -23,7 +23,7 @@ function vol_cand_acao($idVol, $utilizador, $password, $idAcao)
     $queryVoluntario = "SELECT password1
                         FROM Voluntario 
                         WHERE id = '".$idVol."' 
-                        AND nome_voluntario = '".$utilizador."' ";
+                        AND email = '".$utilizador."' ";
     
     $resultV = $conn->query($queryVoluntario);
     

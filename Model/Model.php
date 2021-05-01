@@ -1742,4 +1742,44 @@
         
         return $result;
     }
+
+    function notificacoes_user($id) {
+        
+        include "openconn.php";
+
+        $query = "SELECT utilizador, texto, vista 
+                    FROM Notificacoes 
+                    WHERE utilizador = '".$id."' ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
+    }
+
+    function new_notificacao($utilizador, $texto){
+
+        include "openconn.php";
+
+        $query = "insert into Notificacoes
+                    values ('".$utilizador."' , '".$texto."' , 'Não' )";
+
+        $result = mysqli_query($conn, $query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Não foi possivel notificar ninguém";
+        }
+        
+        mysqli_close($conn);
+        
+        return $result;
+    }
 ?>

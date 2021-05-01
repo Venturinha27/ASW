@@ -117,11 +117,21 @@
     if ($convida == 'yes') {
         include "../Model/Model.php";
         $resposta = insert_convite($id_acao_convida, $id_vol_convida);
+
+        $acao = query_acao($id_acao_convida);
+        if ($a = $acao->fetch_assoc()) {
+            $nome_acao = $a['titulo'];
+        }
+        $not = "Foi convidado para participar na ação $nome_acao.";
+        new_notificacao($id_vol_convida, $not);
+        
         if ($resposta == TRUE) {
             echo 'yes';
         } else {
             echo 'no';
         }
+
+
     }
 
     $candidata = $_REQUEST['candidata_acao'];
@@ -130,6 +140,19 @@
         $id_acao_candidata = $_REQUEST['id_acao_candidata'];
         $id_vol_candidata = $_REQUEST['id_vol_candidata'];
         $resposta = Candidatar($id_vol_candidata, $id_acao_candidata);
+
+        $acao = query_acao($id_acao_convida);
+        if ($a = $acao->fetch_assoc()) {
+            $nome_acao = $a['titulo'];
+            $id_instituicao = $a['id_instituicao'];
+        }
+        $voluntario = query_voluntario($id_voluntario);
+        if ($v = $voluntario->fetch_assoc()) {
+            $nome_voluntario = $v['nome_voluntario'];
+        }
+        $not = "O voluntário $nome_voluntario candidatou-se à sua ação $nome_acao.";
+        new_notificacao($id_instituicao, $not);
+
         if ($resposta == TRUE) {
             echo 'yes';
         } else {
@@ -236,9 +259,15 @@
         include_once "../Model/Model.php";
 
         $loggedid = $_SESSION['loggedid'];
+        $logged = $_SESSION['logged'];
         $openid = $_SESSION['openid'];
 
-        echo seguir($loggedid, $openid);
+        $seguir = seguir($loggedid, $openid);
+
+        $not = "$logged seguiu-o.";
+        new_notificacao($openid, $not);
+
+        echo $seguir;
 
     }
 
@@ -250,8 +279,14 @@
 
         $loggedid = $_SESSION['loggedid'];
         $openid = $_SESSION['openid'];
+        $logged = $_SESSION['logged'];
 
-        echo deixar_seguir($loggedid, $openid);
+        $deixar_seguir = deixar_seguir($loggedid, $openid);
+
+        $not = "$logged deixou de o seguir.";
+        new_notificacao($openid, $not);
+
+        echo $deixar_seguir;
 
     }
 
@@ -290,8 +325,14 @@
         include_once "../Model/Model.php";
 
         $loggedid = $_SESSION['loggedid'];
+        $logged = $_SESSION['logged'];
 
-        echo seguir($loggedid, $seguir_sug);
+        $seguir = seguir($loggedid, $seguir_sug);
+
+        $not = "$logged seguiu-o.";
+        new_notificacao($seguir_sug, $not);
+
+        echo $seguir;
 
     }
 ?>
