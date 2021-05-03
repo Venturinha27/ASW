@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/PublicacoesC.css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../JavaScript/PublicacoesJS.js"></script>
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
@@ -164,46 +165,59 @@
         </div>
     </div>
 </div>
+-->
 
 <button class="w3-button w3-circle w3-indigo w3-hover-blue" id="addButton">+</button>
 
-<div class="w3-card-4 hidden" id="addCard">
+<div id="addCardDiv">
+    <div class="w3-card-4 hidden" id="addCard">
 
-    <div class="w3-container" id="headerAdd">
-      <h2>Nova publicação</h2>
-      <button class="w3-button w3-hover-white" id="closeButton">X</button>
-    </div>
-    
-    <form class="w3-container" id="containIn">
-        
-        <label>Com:</label>
-        <input class="w3-input" type="text">
-        <br>
-        <label>Descrição:</label>
-        <input class="w3-input" type="text">
-        <br>
-        <label for="img">Imagem:</label>
-        <br>
-        <input type="file" id="img" name="img" accept="image/*">
-        <br><br>
-        <input id="submit" type="submit" value="Publicar">
-        
-    </form>
-    
-</div>-->
+            <div class="w3-container" id="headerAdd">
+            <h2>Nova publicação</h2>
+            <button class="w3-button w3-hover-white" id="closeButton">X</button>
+            </div>
+            
+            <form class="w3-container" id="containIn">
+                
+                <!-- <label>Com:</label>
+                <input class="w3-input" type="text" name="com" id="com">
+                <br> -->
+                <br>
+                <label>Descrição:</label>
+                <input class="w3-input" type="text" name="descricao" id="descricao">
+                <br>
+                <br>
+                <label for="img">Imagem:</label>
+                <br>
+                <input type='hidden' name='MAX_FILE_SIZE' value='10000000' />
+                <input type='file' id='avatar' name='avatar'/>
+                <br><br>
+                <input id="submit" type="submit" value="Publicar">
+                
+            </form>
 
+            <div id="erroCreatePub" class="w3-text-red w3-center"></div>
+            
+        </div>
+</div>
+
+<div id="BodyDiv">
+
+    
+
+</div>
 
 
 <?php
 
-include "../Controller/PublicacoesController.php";
+#include "../Controller/PublicacoesController.php";
 
 
-//print_r(get_included_files()); exit();
-$result = Show_Data();
-echo $result;
+/* //print_r(get_included_files()); exit();
+$result = Show_Publicacoes();
+echo $result; */
 
-$opentype = $_SESSION['opentype'];
+/* $opentype = $_SESSION['opentype'];
 $openid = $_SESSION['openid'];
 $nome="";
 
@@ -270,7 +284,7 @@ if ($opentype == 'voluntario' or $opentype == 'instituicao'){
                 }
                 
 
-            }
+            } */
 
 
 ?> 
@@ -280,7 +294,7 @@ if ($opentype == 'voluntario' or $opentype == 'instituicao'){
 
 </body>
 
-<footer>
+<!-- <footer>
     <div id="EndDiv">
     
         <ul id="endContactosL">
@@ -307,4 +321,4 @@ if ($opentype == 'voluntario' or $opentype == 'instituicao'){
 
         <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
     </div>
-</footer>
+</footer> -->

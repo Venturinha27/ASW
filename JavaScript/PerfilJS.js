@@ -15,6 +15,7 @@ function principal(){
     mais()
     showMsg()
     ConversaPrivada = []
+    showPublicacoes()
 
 }
 
@@ -572,6 +573,19 @@ function sendMessage(id_own, id_other) {
 function backConversa() {
     ConversaPrivada = []
     showMsg();
+}
+
+function showPublicacoes() {
+    if (document.getElementById("PubDiv") != null) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("PubDiv").innerHTML = this.responseText
+            }
+        }
+        xmlhttp.open("POST", "../Controller/PublicacoesController.php?show_publicacoes_perfil=yes", true);
+        xmlhttp.send(); 
+    }
 }
  
 setInterval(function(){  

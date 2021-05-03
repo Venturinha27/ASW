@@ -424,15 +424,14 @@
 
             if (count($participacoes) == 0) {
                 echo "<br><p class='w3-container w3-center'> Ainda não participou em nenhuma ação.</p>";
-            } else {
+            }
+            foreach ($participacoes as $row) {
                 echo "
                 <div class='w3-card-4 w3-round-xxlarge'>
 
                     <header class='w3-container'>
                         <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
                     </header>";
-            }
-            foreach ($participacoes as $row) {
                 echo "<div class='w3-container'>
                         <h5><b><span style='font-size:large'>".$row['titulo']."</span> <span style='font-size:x-small'>(".$row['nome_instituicao'].")</span></b></h5>
                         <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
@@ -443,8 +442,10 @@
                     <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                         <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
                     </form>";
+                echo "</div><br>";
             }
-            echo "</div></div><br>";
+            echo "</div>";
+            
         }
 
         if ($opentype == 'acao') {

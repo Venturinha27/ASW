@@ -1496,7 +1496,9 @@
         
         include "openconn.php";
 
-        $sql = "SELECT id, dono, descricao FROM Publicacao";
+        $sql = "SELECT id, dono, imagem, descricao, data_pub 
+                FROM Publicacao 
+                ORDER BY data_pub DESC";
     
         $result = $conn->query($sql);
         
@@ -1702,14 +1704,11 @@
 
     
 
-    function inserir_publicacao($id, $dono, $imagem, $descricao){
+    function inserir_publicacao($dono, $imagem, $descricao){
         include "openconn.php";
 
-        $query = "insert into Publicacao  (dono, imagem, descricao ) 
-                    values ( '".$dono."' , '".$imagem."', '".$descricao."')";
-        
-                       
-
+        $query = "insert into Publicacao  (dono, imagem, descricao, data_pub) 
+                    values ( '".$dono."' , '".$imagem."', '".$descricao."', NOW())";
 
         $result = mysqli_query($conn, $query);
 

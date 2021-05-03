@@ -248,6 +248,7 @@ CREATE TABLE Publicacao (
     dono                VARCHAR(65) NOT NULL,
     imagem              VARCHAR(500) NOT NULL,
     descricao           VARCHAR (240) NOT NULL,
+    data_pub            DATETIME NOT NULL,
     
 
     CONSTRAINT pk_publicacao

@@ -493,6 +493,8 @@
             echo "</div>";
 
             echo "<br></div></div>";
+        } else {
+            echo "<div id='PubDiv'></div>";
         }
 
     ?>
