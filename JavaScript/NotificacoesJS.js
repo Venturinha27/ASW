@@ -3,12 +3,17 @@
 window.addEventListener("load", principal);
 
 function principal(){ 
-    
-    
-
+    numeroNotificacoes();
 }
 
 function showNotificacoes() {
+    showNot();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "../Controller/NotificacoesController.php?notificacoes_vistas=yes", true);
+    xmlhttp.send();
+}
+
+function showNot() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -21,6 +26,21 @@ function showNotificacoes() {
 }
 
 function hideNotificacoes() {
-    document.getElementById("notificacoesdiv").setAttribute("class", "hidden")
-            
+    document.getElementById("notificacoesdiv").setAttribute("class", "hidden")     
 }
+
+function numeroNotificacoes() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("notificacoesnumber").innerHTML = this.responseText
+        }
+    }
+    xmlhttp.open("POST", "../Controller/NotificacoesController.php?notificacoes_number=yes", true);
+    xmlhttp.send();
+    
+}
+
+setInterval(function(){  
+    numeroNotificacoes()
+}, 1000)

@@ -316,6 +316,7 @@ CREATE TABLE Notificacoes (
     utilizador      VARCHAR(65),
     texto           VARCHAR(240),
     vista           VARCHAR(25) NOT NULL,
+    data_not        DATETIME NOT NULL,
     
     CONSTRAINT pk_notificacoes
         PRIMARY KEY (utilizador, texto),

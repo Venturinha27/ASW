@@ -1746,9 +1746,10 @@
         
         include "openconn.php";
 
-        $query = "SELECT utilizador, texto, vista 
+        $query = "SELECT utilizador, texto, vista, data_not 
                     FROM Notificacoes 
-                    WHERE utilizador = '".$id."' ";
+                    WHERE utilizador = '".$id."' 
+                    ORDER BY data_not DESC ";
 
         $result = $conn->query($query);
 
@@ -1768,7 +1769,7 @@
         include "openconn.php";
 
         $query = "insert into Notificacoes
-                    values ('".$utilizador."' , '".$texto."' , 'Não' )";
+                    values ('".$utilizador."' , '".$texto."' , 'Não', NOW() )";
 
         $result = mysqli_query($conn, $query);
 
@@ -1780,5 +1781,48 @@
         mysqli_close($conn);
         
         return $result;
+    }
+
+    function notificacoes_vistas($id) {
+        
+        include "openconn.php";
+
+        $query = "UPDATE Notificacoes
+        SET vista = 'Sim'
+        WHERE utilizador = '$id'";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return FALSE;
+        }
+
+        mysqli_close($conn);
+
+        return TRUE;
+
+    }
+
+    function notificacoes_number($id) {
+        
+        include "openconn.php";
+
+        $query = "SELECT count(*)
+                    FROM Notificacoes 
+                    WHERE utilizador = '".$id."' 
+                    AND vista = 'Não' ";
+
+        $result = $conn->query($query);
+
+        if (!($result)) {
+            mysqli_close($conn);
+            return "Algo deu errado.";
+        }
+
+        mysqli_close($conn);
+
+        return $result;
+
     }
 ?>

@@ -50,7 +50,7 @@
                             <button type='submit' value='selfopenP' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-circle'></i> Ver perfil</button>
                         </form>
 
-                        <button onclick='showNotificacoes()' class='w3-bar-item w3-button'><i class='fas fa-bell'></i> Notificações</button>
+                        <button onclick='showNotificacoes()' id='notificacoesnumber' class='w3-bar-item w3-button'><i class='fas fa-bell'></i> Notificações</button>
                         
                         <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                             <button type='submit' value='selfopenE' name='selfopen' class='w3-bar-item w3-button'><i class='fas fa-user-edit'></i> Editar perfil</button>
