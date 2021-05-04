@@ -539,6 +539,7 @@ body {
     border-style: solid;
     border-color: #24305E;
     border-top: none;
+    background-color: white;
 }
 
 #searchMensagemDiv button{

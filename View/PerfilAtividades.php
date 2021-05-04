@@ -442,7 +442,7 @@
                     <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
                         <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
                     </form>";
-                echo "</div><br>";
+                echo "</div>";
             }
             echo "</div>";
             

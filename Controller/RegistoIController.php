@@ -41,6 +41,22 @@
             $inserirI = inserir_instituicao($id ,$nomeInstituicao, $telefone , $morada , $distrito , $concelho ,$freguesia , $email ,$bio , $nomeRepresentante , $emailRepresentante , $password, $avatar , $website);
 
             if ($inserirI == TRUE) {
+
+                unset($_SESSION['erroVnome']);
+                unset($_SESSION['erroVemail']);
+                unset($_SESSION['erroVpassword']);
+                unset($_SESSION['erroVtelefone']);
+                unset($_SESSION['erroVwebsite']);
+                unset($_SESSION['erroVmorada']);
+                unset($_SESSION['erroVbiografia']);
+                unset($_SESSION['erroVavatar']);
+                unset($_SESSION['erroVdistrito']);
+                unset($_SESSION['erroVconcelho']);
+                unset($_SESSION['erroVfreguesia']);
+                unset($_SESSION['erroVnomeRep']);
+                unset($_SESSION['erroVemailRep']);
+                unset($_SESSION['msgerroI']);
+
                 $_SESSION['loggedtype'] = "instituicao";
                 $_SESSION['logged'] = $nomeInstituicao;
                 $_SESSION['loggedid'] = $id;

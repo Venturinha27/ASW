@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/RegistoI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+<script src="../JavaScript/RegistoIJS.js"></script>
 <script src="../JavaScript/DCF.js"></script>
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
@@ -29,95 +30,149 @@
 
         <br>
 
-    <form id="registertext" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-        <div id="divEsq">
-            <input type="text" class="w3-input" id="nomeInstituicao" placeholder="Nome da Instituição" name="nomeInstituicao" required>
+    <?php
 
-            <input type="text" class="w3-input" id="telefone" placeholder="Telemóvel/Telefone" name="telefone" required>
+        $nomeErro = $_SESSION['erroInome'];
+        $emailErro = $_SESSION['erroIemail'];
+        $passwordErro = $_SESSION['erroIpassword'];
+        $telefoneErro = $_SESSION['erroItelefone'];
+        $websiteErro = $_SESSION['erroIwebsite'];
+        $moradaErro = $_SESSION['erroImorada'];
+        $biografiaErro = $_SESSION['erroIbiografia'];
+        $avatarErro = $_SESSION['erroIavatar'];
+        $distritoErro = $_SESSION['erroIdistrito'];
+        $concelhoErro = $_SESSION['erroIconcelho'];
+        $freguesiaErro = $_SESSION['erroIfreguesia'];
+        $nomeRepErro = $_SESSION['erroInomeRep'];
+        $emailRepErro = $_SESSION['erroIemailRep'];
 
-            <input type="text" class="w3-input" id="E-mail" placeholder="E-mail da Instituição" name="email" required>
+        echo "<form id='registertext' enctype='multipart/form-data' action=".htmlspecialchars($_SERVER["PHP_SELF"])." method='post'>
+            <div id='divEsq'>
+                <input type='text' value='$nomeErro' class='w3-input' id='nomeInstituicao' placeholder='Nome da Instituição' name='nomeInstituicao' required>
 
-            <input type="password" class="w3-input" id="password" placeholder="Palavra-Passe" name="password" required>
-            
-            <input type="text" class="w3-input" id="website" placeholder="Website" name="website">
+                <input type='text' value='$telefoneErro' class='w3-input' id='telefone' placeholder='Telemóvel/Telefone' name='telefone' required>
 
-            <input type="text" class="w3-input" id="morada" placeholder="Morada" name="morada" required>
+                <input type='text' value='$emailErro' class='w3-input' id='E-mail' placeholder='E-mail da Instituição' name='email' required>
 
-            <textarea type="text" class="w3-input" id="biografia" placeholder="Escreva uma pequena bio sobre a instituição..." name="bio" rows="3" maxlength="240" required></textarea>
-            
-        </div>
-        <div id="divDir">
+                <input type='password' value='$passwordErro' class='w3-input' id='password' placeholder='Palavra-Passe' name='password' required>
                 
-            <label>Fotografia de Perfil</label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-            <input type="file" id="avatar" name="avatar">            
+                <input type='text' value='$websiteErro' class='w3-input' id='website' placeholder='Website' name='website'>
 
-            <label>Distrito:</label>
-            <select class="w3-input" name="distrito" id="distrito" size="1" required>
-                <option value="" disabled selected>Selecione o seu Distrito:</option>
-            </select> 
-            
-            <label>Concelho:</label>
-            <select class="w3-input" name="concelho" id="concelho" size="1" required>
-                <option value="" disabled selected>Selecione o seu Concelho:</option>
-            </select> 
-            
-            <label>Freguesia:</label>
-            <select class="w3-input" name="freguesia" id="freguesia" size="1" required>
-                <option value="" disabled selected>Selecione a sua Freguesia:</option>
-            </select> 
+                <input type='text' value='$moradaErro' class='w3-input' id='morada' placeholder='Morada' name='morada' required>
 
-            <input type="text" class="w3-input" id="nomeRepresentante" placeholder="Nome do Representante da Instituição" name="nomeRepresentante" required>
-            
-            <input type="text" class="w3-input" id="emailRepresentante" placeholder="E-mail do Representante da Instituição" name="emailRepresentante" required>
-            
-            <input id="submit" type="submit" value="Registo">
-
-            <?php
-                include "../Controller/RegistoIController.php";            
-                include "TestInput.php";
+                <textarea type='text' value='$biografiaErro' class='w3-input' id='biografia' placeholder='Escreva uma pequena bio sobre a instituição...' name='bio' rows='3' maxlength='240' required></textarea>
                 
-
-                if (!empty($_POST)){
-
-                    $id = uniqid();
-                    $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
-                    $telefone = test_input($_POST['telefone']);
-                    $morada = test_input($_POST['morada']);
-                    $distrito = test_input($_POST['distrito']);
-                    $concelho = test_input($_POST['concelho']);
-                    $freguesia = test_input($_POST['freguesia']);
-                    $email = test_input($_POST['email']); #unique
-                    $nomeRepresentante = test_input($_POST['nomeRepresentante']);
-                    $emailRepresentante = test_input($_POST['emailRepresentante']);
-                    $password = test_input($_POST['password']);
-                    $bio = test_input($_POST['bio']);
-                    $website = test_input($_POST['website']); # pode ser null
-
-                    include "../Controller/InputPhotoController.php";
-
-                    $avatar = test_photo();
-                    echo "<p class='erro'> ". $avatar ." </p>";
+            </div>
+            <div id='divDir'>
                     
-
-                    if (substr($avatar,0,6) == "Images") {
-
-                        $registoI = $registoI = registo_instituicao($id ,$nomeInstituicao, $telefone , $morada , $distrito , $concelho ,$freguesia , $email ,$bio , $nomeRepresentante , $emailRepresentante , $password, $avatar , $website);
-
-                        echo $registoI;
-
-                    } else {
-                        // Erro no input da fotografia
-                        echo "<p class='erro'> ". $avatar ." </p>";
-                    }
-                
+                <label>Fotografia de Perfil</label> &nbsp";
+                if (isset($avatarErro)) {
+                    echo "<img alt='Avatar' class='w3-circle' id='foto' src='../$avatarErro' />";
                 }
-            ?>
+                echo "<input type='hidden' name='MAX_FILE_SIZE' value='10000000' />
+                <input type='file' id='avatar' name='avatar'>            
 
-            <p id="home">Já tem conta? Efetue aqui o seu <a href="Login.php" id="login">Login</a></p>
-        </div>
+                <label>Distrito:</label>
+                <select class='w3-input' name='distrito' id='distrito' size='1' required>";
+                    if (isset($distritoErro)) {
+                        echo "<option value='$distritoErro' selected>$distritoErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione o seu Distrito:</option>";
+                    }
+                echo "</select> 
+                
+                <label>Concelho:</label>
+                <select class='w3-input' name='concelho' id='concelho' size='1' required>";
+                    if (isset($concelhoErro)) {
+                        echo "<option value='$concelhoErro' selected>$concelhoErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione o seu Concelho:</option>";
+                    }
+                echo "</select> 
+                
+                <label>Freguesia:</label>
+                <select class='w3-input' name='freguesia' id='freguesia' size='1' required>";
+                    if (isset($freguesiaErro)) {
+                        echo "<option value='$freguesiaErro' selected>$freguesiaErro</option>";
+                    } else {
+                        echo "<option value='' disabled selected>Selecione a sua Freguesia:</option>";
+                    }
+                echo "</select> 
 
-    </form>
+                <input type='text' value='$nomeRepErro' class='w3-input' id='nomeRepresentante' placeholder='Nome do Representante da Instituição' name='nomeRepresentante' required>
+                
+                <input type='text' value='$emailRepErro' class='w3-input' id='emailRepresentante' placeholder='E-mail do Representante da Instituição' name='emailRepresentante' required>
+                
+                <input id='submit' type='submit' value='Registo'>";
+
+                echo $_SESSION['msgerroI'];
+
+                    echo "<p id='home'>Já tem conta? Efetue aqui o seu <a href='Login.php' id='login'>Login</a></p>
+                </div>
+
+        </form>";
+    ?>
+
+    <?php
+        include "../Controller/RegistoIController.php";            
+        include "TestInput.php";
+        
+
+        if (!empty($_POST)){
+
+            $id = uniqid();
+            $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
+            $telefone = test_input($_POST['telefone']);
+            $morada = test_input($_POST['morada']);
+            $distrito = test_input($_POST['distrito']);
+            $concelho = test_input($_POST['concelho']);
+            $freguesia = test_input($_POST['freguesia']);
+            $email = test_input($_POST['email']); #unique
+            $nomeRepresentante = test_input($_POST['nomeRepresentante']);
+            $emailRepresentante = test_input($_POST['emailRepresentante']);
+            $password = test_input($_POST['password']);
+            $bio = test_input($_POST['bio']);
+            $website = test_input($_POST['website']); # pode ser null
+
+            $_SESSION['erroInome'] = $nomeInstituicao;
+            $_SESSION['erroIemail'] = $email;
+            $_SESSION['erroIpassword'] = $password;
+            $_SESSION['erroItelefone'] = $telefone;
+            $_SESSION['erroIwebsite'] = $website;
+            $_SESSION['erroImorada'] = $morada;
+            $_SESSION['erroIbiografia'] = $bio;
+            $_SESSION['erroIdistrito'] = $distrito;
+            $_SESSION['erroIconcelho'] = $concelho;
+            $_SESSION['erroIfreguesia'] = $freguesia;
+            $_SESSION['erroInomeRep'] = $nomeRepresentante;
+            $_SESSION['erroIemailRep'] = $emailRepresentante;
+
+            include "../Controller/InputPhotoController.php";
+
+            $avatar = test_photo();
+            echo "<p class='erro'> ". $avatar ." </p>";
+
+            if ($avatar == 'Nenhuma imagem enviada.') {
+                $avatar = $_SESSION['erroIavatar'];
+            } else {
+                $_SESSION['erroIavatar'] = $avatar;
+            }
+
+            if (substr($avatar,0,6) == "Images") {
+
+                $registoI = registo_instituicao($id ,$nomeInstituicao, $telefone , $morada , $distrito , $concelho ,$freguesia , $email ,$bio , $nomeRepresentante , $emailRepresentante , $password, $avatar , $website);
+
+                echo "<meta http-equiv='refresh' content='0'>";
+                $_SESSION['msgerroI'] = $registoI;
+
+            } else {
+                echo "<meta http-equiv='refresh' content='0'>";
+                // Erro no input da fotografia
+                $_SESSION['msgerroI'] = "<p class='erro'> ". $avatar ." </p>";
+            }
+        
+        }
+        ?>
 
     </div>
 

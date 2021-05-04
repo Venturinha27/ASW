@@ -110,14 +110,12 @@
                     }
                   }
                   
-                  
-                  
                   $resultado.= "<div id='pubs'><div class='pubpar'><img src='../".$row["imagem"]."'>
                   <div class='divnome_par'><img src='../$foto' class='w3-circle' id='avatar'>
                                   <h6>" . $nome_utilizador. "</h6></div>";
                   /* <div class='divcom_par'><p>Com: </p>
                   </div> */
-                  $resultado.= "<br><hr><div class='divtext_par'><p>"  . $row["descricao"]. "</p></div></div></div>";
+                  $resultado.= "<hr><div class='divtext_par'><p>"  . $row["descricao"]. "</p></div></div></div>";
 
               }   
             }
