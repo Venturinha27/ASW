@@ -1,8 +1,6 @@
-window.addEventListener("load", principal);
+"use strict";
 
-let nareas;
-let npopulacao;
-let ndisponibilidade;
+window.addEventListener("load", principal);
 
 function principal(){ 
     
@@ -11,6 +9,10 @@ function principal(){
     showdisponibilidade()
 
 }
+
+let nareas;
+let npopulacao;
+let ndisponibilidade;
 
 function showareas() {
     var xmlhttp = new XMLHttpRequest();
@@ -21,7 +23,7 @@ function showareas() {
             showAvancar()
         }
     }
-    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_areas='yes'", true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_areas=yes", true);
     xmlhttp.send();
 }
 
@@ -34,7 +36,7 @@ function showpopulacao() {
             showAvancar()
         }
     }
-    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_populacao='yes'", true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_populacao=yes", true);
     xmlhttp.send();
 }
 
@@ -47,7 +49,7 @@ function showdisponibilidade() {
             showAvancar()
         }
     }
-    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_disponibilidade='yes'", true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_disponibilidade=yes", true);
     xmlhttp.send();
 }
 

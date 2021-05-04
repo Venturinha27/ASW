@@ -157,7 +157,7 @@
             </button></a>";
         } else {
             echo "
-                <a><button class='w3-button' id='EnviarMensagem'>
+                <a><button class='w3-button' id='EnviarMensagem' onclick='showConversa(".json_encode($loggedid).", ".json_encode($openid).")'>
                     <i class='fas fa-paper-plane'></i> Enviar Mensagem
                 </button></a>
 
@@ -220,7 +220,7 @@
             </button></a>";
         } else {
             echo "
-                <a><button class='w3-button' id='EnviarMensagem'>
+                <a><button class='w3-button' id='EnviarMensagem' onclick='showConversa(".json_encode($loggedid).", ".json_encode($openid).")'>
                     <i class='fas fa-paper-plane'></i> Enviar Mensagem
                 </button></a>
 

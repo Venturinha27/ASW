@@ -557,17 +557,20 @@ function sendMessage(id_own, id_other) {
 
     msgtext = document.getElementById('send_msg_input').value
 
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            ConversaPrivada = [id_own, id_other]
-            showMensagens(id_own, id_other);
+    if (msgtext != "") {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                ConversaPrivada = [id_own, id_other]
+                showMensagens(id_own, id_other);
+            }
         }
-    }
-    xmlhttp.open("POST", "../Controller/MensagemController.php?sendmessage=yes&send_own="+id_own+"&send_other="+id_other+"&send_text="+msgtext, true);
-    xmlhttp.send();
+        xmlhttp.open("POST", "../Controller/MensagemController.php?sendmessage=yes&send_own="+id_own+"&send_other="+id_other+"&send_text="+msgtext, true);
+        xmlhttp.send();
 
-    document.getElementById('send_msg_input').value = ""
+        document.getElementById('send_msg_input').value = ""
+    }
+    
 }
 
 function backConversa() {

@@ -1,13 +1,7 @@
 
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL & ~E_NOTICE);
-
     session_start();
     ob_start();
-    
-    include "../Controller/PreferenciasVController.php";
 ?>
 
 <!DOCTYPE html>
@@ -19,8 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/PreferenciasV.css" type="text/css">
-<script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <script src="../JavaScript/PreferenciasV.js"></script>
+<script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
 </head>

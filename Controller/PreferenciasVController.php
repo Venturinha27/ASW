@@ -3,6 +3,10 @@
     session_start();
     ob_start();
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL & ~E_NOTICE);
+
     include_once "../Model/Model.php";
     include_once "../View/TestInput.php";
 
@@ -11,6 +15,8 @@
     $get_areas = $_REQUEST['get_areas'];
 
     if ($get_areas) {
+
+        $voluntario = $_SESSION['loggedid'];
 
         $areas = areasV($voluntario);
         if ($areas->num_rows > 0) {
@@ -37,6 +43,8 @@
 
     if ($get_populacao) {
 
+        $voluntario = $_SESSION['loggedid'];
+
         $populacao = populacaoV($voluntario);
         if ($populacao->num_rows > 0) {
             $result = "";
@@ -61,6 +69,8 @@
     $get_disponibilidade = $_REQUEST['get_disponibilidade'];
 
     if ($get_disponibilidade) {
+
+        $voluntario = $_SESSION['loggedid'];
 
         $disponibilidade = disponibilidadeV($voluntario);
         if ($disponibilidade->num_rows > 0) {
@@ -88,6 +98,8 @@
 
     if ($add_area_interesse) {
 
+        $voluntario = $_SESSION['loggedid'];
+
         $area_interesse = test_input($add_area_interesse);
 
         $insertA = insertA($voluntario, $area_interesse);
@@ -105,6 +117,8 @@
     $add_populacao_alvo = $_REQUEST['add_populacao_alvo'];
 
     if ($add_populacao_alvo) {
+
+        $voluntario = $_SESSION['loggedid'];
 
         $populacao_alvo = test_input($add_populacao_alvo);
 
@@ -126,6 +140,8 @@
 
     if ($add_dia and $add_hora and $add_duracao) {
 
+        $voluntario = $_SESSION['loggedid'];
+
         $dia = test_input($add_dia);
         $hora = test_input($add_hora);
         $duracao = test_input($add_duracao);
@@ -146,6 +162,8 @@
 
     if ($remove_area_interesse) {
 
+        $voluntario = $_SESSION['loggedid'];
+
         $area_interesse = test_input($remove_area_interesse);
 
         $removeA = removeArea($voluntario, $area_interesse);
@@ -162,6 +180,8 @@
     $remove_populacao_alvo = $_REQUEST['remove_populacao_alvo'];
 
     if ($remove_populacao_alvo) {
+
+        $voluntario = $_SESSION['loggedid'];
 
         $populacao_alvo = test_input($remove_populacao_alvo);
 
@@ -181,6 +201,8 @@
     $remove_duracao = $_REQUEST['remove_duracao'];
 
     if ($remove_dia and $remove_hora and $remove_duracao) {
+
+        $voluntario = $_SESSION['loggedid'];
 
         $dia = test_input($remove_dia);
         $hora = test_input($remove_hora);
