@@ -65,10 +65,10 @@
             }
 
             if ($resultado == "") {
-              $resultado .= "<p class='erro'> Não existem publicações disponíveis. Siga utilizadores para ver as suas publicações. </p>";
+              $resultado .= "<p class='erro w3-center'> Não existem publicações disponíveis. Siga utilizadores para ver as suas publicações. </p>";
             }
           } else {
-            $resultado .= "<p class='erro'> Não existem publicações disponíveis. Siga utilizadores para ver as suas publicações. </p>";
+            $resultado .= "<p class='erro w3-center'> Não existem publicações disponíveis. Siga utilizadores para ver as suas publicações. </p>";
           }
         
         return $resultado;
