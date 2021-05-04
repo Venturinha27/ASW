@@ -42,19 +42,19 @@
 
             if ($inserirI == TRUE) {
 
-                unset($_SESSION['erroVnome']);
-                unset($_SESSION['erroVemail']);
-                unset($_SESSION['erroVpassword']);
-                unset($_SESSION['erroVtelefone']);
-                unset($_SESSION['erroVwebsite']);
-                unset($_SESSION['erroVmorada']);
-                unset($_SESSION['erroVbiografia']);
-                unset($_SESSION['erroVavatar']);
-                unset($_SESSION['erroVdistrito']);
-                unset($_SESSION['erroVconcelho']);
-                unset($_SESSION['erroVfreguesia']);
-                unset($_SESSION['erroVnomeRep']);
-                unset($_SESSION['erroVemailRep']);
+                unset($_SESSION['erroInome']);
+                unset($_SESSION['erroIemail']);
+                unset($_SESSION['erroIpassword']);
+                unset($_SESSION['erroItelefone']);
+                unset($_SESSION['erroIwebsite']);
+                unset($_SESSION['erroImorada']);
+                unset($_SESSION['erroIbiografia']);
+                unset($_SESSION['erroIavatar']);
+                unset($_SESSION['erroIdistrito']);
+                unset($_SESSION['erroIconcelho']);
+                unset($_SESSION['erroIfreguesia']);
+                unset($_SESSION['erroInomeRep']);
+                unset($_SESSION['erroIemailRep']);
                 unset($_SESSION['msgerroI']);
 
                 $_SESSION['loggedtype'] = "instituicao";
