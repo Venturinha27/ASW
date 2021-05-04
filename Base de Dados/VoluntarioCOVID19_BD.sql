@@ -189,7 +189,7 @@ CREATE TABLE Candidatura_Acao (
     id_instituicao          VARCHAR(65) NOT NULL,
     id_acao                 VARCHAR(65) NOT NULL,
     estado                  VARCHAR(65) NOT NULL,  /* ACEITE, REJEITADO, PENDENTE */
-    data_candidatura        DATE NOT NULL,
+    data_candidatura        DATETIME NOT NULL,
 
 
     CONSTRAINT pk_candidatura_acao
@@ -210,7 +210,7 @@ CREATE TABLE Convite_Acao (
     id_instituicao          VARCHAR(65) NOT NULL,
     id_acao                 VARCHAR(65) NOT NULL,
     estado                  VARCHAR(65) NOT NULL,  /* ACEITE, REJEITADO, PENDENTE */
-    data_convite        DATE NOT NULL,
+    data_convite            DATETIME NOT NULL,
 
 
     CONSTRAINT pk_convite_acao
@@ -258,22 +258,6 @@ CREATE TABLE Publicacao (
         FOREIGN KEY (dono) REFERENCES Utilizador(id)
 );
 
-/* ----------------------- PARTICIPA PUBLICACAO ----------------------- */
-
-CREATE TABLE Participa_em_Publicacao (
-    id_publicacao      int,
-    participante       VARCHAR (65),
-    
-    CONSTRAINT pk_participa_em_publicacao
-        PRIMARY KEY (id_publicacao, participante),
-        
-    CONSTRAINT fk_participa_publicacao 
-        FOREIGN KEY (id_publicacao) REFERENCES Publicacao(id),
-
-    CONSTRAINT fk_participa_participante
-        FOREIGN KEY (participante) REFERENCES Utilizador(id)
-);
-
 /* ----------------------- MENSAGENS ----------------------- */
 
 CREATE TABLE Mensagem (
@@ -282,7 +266,6 @@ CREATE TABLE Mensagem (
     para                VARCHAR (65) NOT NULL,
     texto               VARCHAR (1000) NOT NULL,
     data_msg            DATETIME NOT NULL,
-    is_typing           VARCHAR (10) NOT NULL,
 
     CONSTRAINT pk_mensagem
         PRIMARY KEY (id),

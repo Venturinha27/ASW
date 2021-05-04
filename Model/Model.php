@@ -755,12 +755,10 @@
 
     function insert_candidatura($id_vol, $id_inst, $id_acao) {
 
-        $date = date('Y-m-d');
-
         include "openconn.php";
 
         $inserirC = "insert into Candidatura_Acao (id_voluntario, id_instituicao, id_acao, estado, data_candidatura)
-            values ('".$id_vol."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , '".$date."')";
+            values ('".$id_vol."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , NOW())";
 
         $resC = mysqli_query($conn, $inserirC);
 
@@ -986,15 +984,13 @@
 
         include "openconn.php";
 
-        $date = date('Y-m-d');
-
         $infoacao = query_acao($id_acao);
         if ($rowa = $infoacao->fetch_assoc()) {
             $id_inst = $rowa['id'];
         }
 
         $inserirC = "insert into Convite_Acao (id_voluntario, id_instituicao, id_acao, estado, data_convite)
-            values ('".$id_voluntario."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , '".$date."')";
+            values ('".$id_voluntario."' , '".$id_inst."' , '".$id_acao."' , 'Pendente' , NOW() )";
 
         $resC = mysqli_query($conn, $inserirC);
 
