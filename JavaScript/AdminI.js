@@ -24,7 +24,7 @@ function showInstituicoes(order, variable) {
             divins.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminIController.php?show_instituicoes=yes&nome="+nome+
+    xmlhttp.open("POST", "../Controller/AdminIController.php?show_instituicoes=yes&nome="+nome+
     "&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&email="+email
     +"&order="+order+"&variable="+variable, true);
     xmlhttp.send();

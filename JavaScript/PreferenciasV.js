@@ -21,7 +21,7 @@ function showareas() {
             showAvancar()
         }
     }
-    xmlhttp.open("GET", "../Controller/PreferenciasVController.php?get_areas='yes'", true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_areas='yes'", true);
     xmlhttp.send();
 }
 
@@ -34,7 +34,7 @@ function showpopulacao() {
             showAvancar()
         }
     }
-    xmlhttp.open("GET", "../Controller/PreferenciasVController.php?get_populacao='yes'", true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_populacao='yes'", true);
     xmlhttp.send();
 }
 
@@ -47,7 +47,7 @@ function showdisponibilidade() {
             showAvancar()
         }
     }
-    xmlhttp.open("GET", "../Controller/PreferenciasVController.php?get_disponibilidade='yes'", true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?get_disponibilidade='yes'", true);
     xmlhttp.send();
 }
 
@@ -61,7 +61,7 @@ function addArea(){
                 showareas()
             }
         }
-        xmlhttp.open("GET", "../Controller/PreferenciasVController.php?add_area_interesse="+String(selecta.value), true);
+        xmlhttp.open("POST", "../Controller/PreferenciasVController.php?add_area_interesse="+String(selecta.value), true);
         xmlhttp.send();
     }
 }
@@ -76,7 +76,7 @@ function addPopulacao(){
                 showpopulacao()
             }
         }
-        xmlhttp.open("GET", "../Controller/PreferenciasVController.php?add_populacao_alvo="+String(selectp.value), true);
+        xmlhttp.open("POST", "../Controller/PreferenciasVController.php?add_populacao_alvo="+String(selectp.value), true);
         xmlhttp.send();
     }
 }
@@ -93,7 +93,7 @@ function addDisponibilidade(){
                 showdisponibilidade()
             }
         }
-        xmlhttp.open("GET", "../Controller/PreferenciasVController.php?add_dia="+String(selectd.value)+"&add_hora="+String(selecth.value)+"&add_duracao="+String(selectdu.value), true);
+        xmlhttp.open("POST", "../Controller/PreferenciasVController.php?add_dia="+String(selectd.value)+"&add_hora="+String(selecth.value)+"&add_duracao="+String(selectdu.value), true);
         xmlhttp.send();
     }
 }
@@ -106,7 +106,7 @@ function removeArea(area){
             showareas()
         }
     }
-    xmlhttp.open("GET", "../Controller/PreferenciasVController.php?remove_area_interesse="+String(area), true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?remove_area_interesse="+String(area), true);
     xmlhttp.send();
 }
 
@@ -118,7 +118,7 @@ function removePopulacao(populacao){
             showpopulacao()
         }
     }
-    xmlhttp.open("GET", "../Controller/PreferenciasVController.php?remove_populacao_alvo="+String(populacao), true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?remove_populacao_alvo="+String(populacao), true);
     xmlhttp.send();
 }
 
@@ -130,7 +130,7 @@ function removeDisponibilidade(dia, hora, duracao){
             showdisponibilidade()
         }
     }
-    xmlhttp.open("GET", "../Controller/PreferenciasVController.php?remove_dia="+String(dia)+"&remove_hora="+String(hora)+"&remove_duracao="+String(duracao), true);
+    xmlhttp.open("POST", "../Controller/PreferenciasVController.php?remove_dia="+String(dia)+"&remove_hora="+String(hora)+"&remove_duracao="+String(duracao), true);
     xmlhttp.send();
 }
 

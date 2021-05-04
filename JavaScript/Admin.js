@@ -28,7 +28,7 @@ function showTodosUtilizadores() {
             divtodos.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminController.php?show_todos_utilizadores=yes&id="+id+"&nome="+nome
+    xmlhttp.open("POST", "../Controller/AdminController.php?show_todos_utilizadores=yes&id="+id+"&nome="+nome
     +"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&tipo="+tipo, true);
     xmlhttp.send();
 }
@@ -61,7 +61,7 @@ function showTodosConvites() {
             divconvites.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminController.php?show_todos_convites=yes&con_voluntario="+con_voluntario+
+    xmlhttp.open("POST", "../Controller/AdminController.php?show_todos_convites=yes&con_voluntario="+con_voluntario+
     "&con_instituicao="+con_instituicao+"&con_acao="+con_acao+"&con_estado="+con_estado+"&con_data="+con_data, true);
     xmlhttp.send();
 }
@@ -93,7 +93,7 @@ function showTodasCandidaturas() {
             divcandidaturas.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminController.php?show_todas_candidaturas=yes&can_voluntario="+can_voluntario+
+    xmlhttp.open("POST", "../Controller/AdminController.php?show_todas_candidaturas=yes&can_voluntario="+can_voluntario+
     "&can_instituicao="+can_instituicao+"&can_acao="+can_acao+"&can_estado="+can_estado+"&can_data="+can_data, true);
     xmlhttp.send();
 }
@@ -123,7 +123,7 @@ function showTodasParticipacoes() {
             divparticipacoes.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminController.php?show_todas_participacoes=yes&par_voluntario="+par_voluntario+
+    xmlhttp.open("POST", "../Controller/AdminController.php?show_todas_participacoes=yes&par_voluntario="+par_voluntario+
     "&par_instituicao="+par_instituicao+"&par_acao="+par_acao, true);
     xmlhttp.send();
 }

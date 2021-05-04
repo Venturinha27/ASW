@@ -30,7 +30,7 @@ function showAcoes(order, variable) {
             divacoes.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminAController.php?show_acoes=yes&instituicao="+instituicao+
+    xmlhttp.open("POST", "../Controller/AdminAController.php?show_acoes=yes&instituicao="+instituicao+
     "&titulo="+titulo+"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&area="+area+
     "&populacao="+populacao+"&funcao="+funcao+"&numvagas="+numvagas+"&data="+data+"&ativa="+ativa+
     "&order="+order+"&variable="+variable, true);

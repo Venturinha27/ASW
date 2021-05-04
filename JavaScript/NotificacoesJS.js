@@ -16,7 +16,7 @@ function showNotificacoes() {
             document.getElementById("notificacoesdiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/NotificacoesController.php?notificacoes=yes", true);
+    xmlhttp.open("POST", "../Controller/NotificacoesController.php?notificacoes=yes", true);
     xmlhttp.send();
 }
 

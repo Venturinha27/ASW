@@ -34,7 +34,7 @@ function showAcoes() {
             document.getElementById("VolDiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/InstituicoesController.php?show_acoes='yes'", true);
+    xmlhttp.open("POST", "../Controller/InstituicoesController.php?show_acoes='yes'", true);
     xmlhttp.send();
 }
 
@@ -59,7 +59,7 @@ function showAcoesFilter() {
             document.getElementById("VolDiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/InstituicoesController.php?show_acoes_filter='yes'&instituicao="+instituicao+
+    xmlhttp.open("POST", "../Controller/InstituicoesController.php?show_acoes_filter='yes'&instituicao="+instituicao+
     "&titulo="+titulo+"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&area="+area+
     "&populacao="+populacao+"&funcao="+funcao+"&numvagas="+numvagas+"&dia="+dia+"&hora="+hora+"&duracao="+duracao, true);
     xmlhttp.send();

@@ -157,7 +157,7 @@ function showPedidos(){
                 document.getElementById("Ped").innerHTML = this.responseText
             }
         }
-        xmlhttp.open("GET", "../Controller/PedidosController.php?verpedidos=closed", true);
+        xmlhttp.open("POST", "../Controller/PedidosController.php?verpedidos=closed", true);
         xmlhttp.send();  
     } else {
         var xmlhttp = new XMLHttpRequest();
@@ -166,7 +166,7 @@ function showPedidos(){
                 document.getElementById("Ped").innerHTML = this.responseText
             }
         }
-        xmlhttp.open("GET", "../Controller/PedidosController.php?verpedidos=open", true);
+        xmlhttp.open("POST", "../Controller/PedidosController.php?verpedidos=open", true);
         xmlhttp.send();  
     }
 }
@@ -178,7 +178,7 @@ function responderPed(resposta, tipo, id) {
             showPedidos()
         }
     }
-    xmlhttp.open("GET", "../Controller/PedidosController.php?responderped=yes&resposta="+resposta+"&tipo="+tipo+"&id="+id, true);
+    xmlhttp.open("POST", "../Controller/PedidosController.php?responderped=yes&resposta="+resposta+"&tipo="+tipo+"&id="+id, true);
     xmlhttp.send();
 }
 
@@ -214,7 +214,7 @@ function showConvida() {
             }
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_convida=yes", true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?show_div_convida=yes", true);
     xmlhttp.send();  
 }
 
@@ -226,7 +226,7 @@ function convidaAcao(id_acao, id_vol) {
             showConvida()
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?convida_acao=yes&id_acao_convida="+String(id_acao)+"&id_vol_convida="+String(id_vol), true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?convida_acao=yes&id_acao_convida="+String(id_acao)+"&id_vol_convida="+String(id_vol), true);
     xmlhttp.send();  
 }
 
@@ -240,7 +240,7 @@ function showCandidatar() {
             }
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_candidata=yes", true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?show_div_candidata=yes", true);
     xmlhttp.send();  
 }
 
@@ -252,7 +252,7 @@ function candidataAcao(id_vol, id_acao) {
             showCandidatar()
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?candidata_acao=yes&id_acao_candidata="+String(id_acao)+"&id_vol_candidata="+String(id_vol), true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?candidata_acao=yes&id_acao_candidata="+String(id_acao)+"&id_vol_candidata="+String(id_vol), true);
     xmlhttp.send();
 }
 
@@ -267,7 +267,7 @@ function showSeguir() {
             showSug()
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_seguir=yes", true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?show_div_seguir=yes", true);
     xmlhttp.send(); 
 }
 
@@ -278,7 +278,7 @@ function Seguir() {
             showSeguir();
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?seguir_user=yes", true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?seguir_user=yes", true);
     xmlhttp.send(); 
 }
 
@@ -289,7 +289,7 @@ function seguirSug(id) {
             showSeguir();
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?seguir_sug="+String(id), true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?seguir_sug="+String(id), true);
     xmlhttp.send(); 
 }
 
@@ -300,7 +300,7 @@ function deixarSeguir() {
             showSeguir();
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?deixar_seguir_user=yes", true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?deixar_seguir_user=yes", true);
     xmlhttp.send(); 
 }
 
@@ -313,7 +313,7 @@ function showPubSeg() {
             }
         }
     }
-    xmlhttp.open("GET", "../Controller/PerfilController.php?show_div_pubseg=yes", true);
+    xmlhttp.open("POST", "../Controller/PerfilController.php?show_div_pubseg=yes", true);
     xmlhttp.send(); 
 }
 
@@ -327,7 +327,7 @@ function showSug() {
                 document.getElementById("Sug").innerHTML = this.responseText
             }
         }
-        xmlhttp.open("GET", "../Controller/SugestoesController.php?versugestoes=closed", true);
+        xmlhttp.open("POST", "../Controller/SugestoesController.php?versugestoes=closed", true);
         xmlhttp.send();  
     } else {
         var xmlhttp = new XMLHttpRequest();
@@ -336,7 +336,7 @@ function showSug() {
                 document.getElementById("Sug").innerHTML = this.responseText
             }
         }
-        xmlhttp.open("GET", "../Controller/SugestoesController.php?versugestoes=open", true);
+        xmlhttp.open("POST", "../Controller/SugestoesController.php?versugestoes=open", true);
         xmlhttp.send();  
     }
 }
@@ -358,7 +358,7 @@ function searchMessage(str) {
         }
       }
     };
-    xhttp.open("GET", "../Controller/MensagemController.php?q="+str, true);
+    xhttp.open("POST", "../Controller/MensagemController.php?q="+str, true);
     xhttp.send(); 
 }
 
@@ -397,7 +397,7 @@ function showMsg() {
                     } 
                 }
             }
-            xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=closed", true);
+            xmlhttp.open("POST", "../Controller/MensagemController.php?vermensagens=closed", true);
             xmlhttp.send();  
         } else {
             var xmlhttp = new XMLHttpRequest();
@@ -429,7 +429,7 @@ function showMsg() {
                     }
                 }
             }
-            xmlhttp.open("GET", "../Controller/MensagemController.php?vermensagens=open", true);
+            xmlhttp.open("POST", "../Controller/MensagemController.php?vermensagens=open", true);
             xmlhttp.send();  
         }
         UpdateMessageDiv = 0
@@ -469,7 +469,7 @@ function showConversa(id_own, id_other) {
                     header.innerHTML = this.responseText
                 }
             }
-            xmlhttp.open("GET", "../Controller/MensagemController.php?verheader=yes&header_other="+id_other, true);
+            xmlhttp.open("POST", "../Controller/MensagemController.php?verheader=yes&header_other="+id_other, true);
             xmlhttp.send();
         }
 
@@ -547,7 +547,7 @@ function showMensagens(id_own, id_other) {
 
             }
         }
-        xmlhttp.open("GET", "../Controller/MensagemController.php?verconversa=yes&own="+id_own+"&other="+id_other, true);
+        xmlhttp.open("POST", "../Controller/MensagemController.php?verconversa=yes&own="+id_own+"&other="+id_other, true);
         xmlhttp.send();
         UpdateMessageDiv = 0
     }
@@ -564,7 +564,7 @@ function sendMessage(id_own, id_other) {
             showMensagens(id_own, id_other);
         }
     }
-    xmlhttp.open("GET", "../Controller/MensagemController.php?sendmessage=yes&send_own="+id_own+"&send_other="+id_other+"&send_text="+msgtext, true);
+    xmlhttp.open("POST", "../Controller/MensagemController.php?sendmessage=yes&send_own="+id_own+"&send_other="+id_other+"&send_text="+msgtext, true);
     xmlhttp.send();
 
     document.getElementById('send_msg_input').value = ""

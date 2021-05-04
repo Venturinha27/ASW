@@ -33,7 +33,7 @@ function showVoluntarios(order, variable) {
             divvol.innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/AdminVController.php?show_voluntarios=yes&nome="+nome+
+    xmlhttp.open("POST", "../Controller/AdminVController.php?show_voluntarios=yes&nome="+nome+
     "&idade="+idade+"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&genero="+genero+
     "&email="+email+"&carta="+carta+"&covid="+covid+"&area="+area+"&populacao="+populacao+"&dia="+dia+
     "&hora="+hora+"&duracao="+duracao+"&order="+order+"&variable="+variable, true);

@@ -15,13 +15,13 @@
 <link rel='stylesheet' href='../CSS/EditarPerfilC.css'>
 <script src='https://kit.fontawesome.com/91ccf300f9.js' crossorigin='anonymous'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../JavaScript/EditarPerfilJS.js"></script>
 <script src="../JavaScript/DCF.js"></script>
 <script src="../JavaScript/DCF2.js"></script>  
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
 <script src="../JavaScript/ProcuraJS.js"></script>
 <link rel="stylesheet" href="../CSS/NotificacoesC.css">
 <script src="../JavaScript/NotificacoesJS.js"></script>
+<script src="../JavaScript/EditarPerfilJS.js"></script>
 
 <header>
     <div class="w3-bar w3-large" id="navigation">
@@ -142,34 +142,6 @@
         }
 
     ?>
-
-
-<?php
-
-
-        if (isset($_POST['CriarAcao'])) {
-            include_once "TestInput.php";
-
-            $id_instituicao = $_SESSION['loggedid'];
-            $id_acao = uniqid();;
-            $titulo = test_input($_POST['titulo']); 
-            $area_interesse = test_input($_POST['area-interesse']);
-            $populacao_alvo = test_input($_POST['populacao-alvo']);
-            $funcao = test_input($_POST['funcao']); 
-            $distrito = test_input($_POST['distrito']);
-            $concelho = test_input($_POST['concelho']);
-            $freguesia = test_input($_POST['freguesia']);
-            $vagas = test_input($_POST['vagas']); 
-            $dia = test_input($_POST['disponibilidade-dia']);
-            $hora = test_input($_POST['disponibilidade-hora']);
-            $duracao = test_input($_POST['disponibilidade-duracao']);
-
-            inserirAcaoE($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
-        }
-    
-
-?>
-
 
 </body>
 

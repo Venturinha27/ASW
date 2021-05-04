@@ -15,6 +15,6 @@ function showHint(str) {
         }
       }
     };
-    xhttp.open("GET", "../Controller/ProcuraController.php?q="+str, true);
+    xhttp.open("POST", "../Controller/ProcuraController.php?q="+str, true);
     xhttp.send(); 
 }

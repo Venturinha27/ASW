@@ -34,7 +34,7 @@ function showVoluntarios() {
             document.getElementById("VolDiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/VoluntariosController.php?show_voluntarios='yes'", true);
+    xmlhttp.open("POST", "../Controller/VoluntariosController.php?show_voluntarios='yes'", true);
     xmlhttp.send();
 }
 
@@ -61,7 +61,7 @@ function showVoluntariosFilter() {
             document.getElementById("VolDiv").innerHTML = this.responseText
         }
     }
-    xmlhttp.open("GET", "../Controller/VoluntariosController.php?show_voluntarios_filter='yes'&nome="+nome+
+    xmlhttp.open("POST", "../Controller/VoluntariosController.php?show_voluntarios_filter='yes'&nome="+nome+
     "&idade="+idade+"&distrito="+distrito+"&concelho="+concelho+"&freguesia="+freguesia+"&genero="+genero+
     "&email="+email+"&carta="+carta+"&covid="+covid+"&area="+area+"&populacao="+populacao+"&dia="+dia+
     "&hora="+hora+"&duracao="+duracao, true);
