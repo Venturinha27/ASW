@@ -110,6 +110,40 @@
         return FALSE;
     }
 
+    function LimiteAcao($acao) {
+        include_once "../Model/Model.php";
+        $acaor = query_acao($acao);
+        if ($acaorow = $acaor->fetch_assoc()) {
+            $numvagas = $acaorow['num_vagas'];
+        }
+        $participacoes = participacoes_acao($acao);
+        $participa = $participacoes->num_rows;
+
+        if ($participa >= $numvagas) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    function NumVagasA($acao) {
+        include_once "../Model/Model.php";
+        $acaor = query_acao($acao);
+        if ($acaorow = $acaor->fetch_assoc()) {
+            $numvagas = $acaorow['num_vagas'];
+        }
+        return $numvagas;
+    }
+
+    function ParticipacoesA($acao) {
+        include_once "../Model/Model.php";
+        
+        $participacoes = participacoes_acao($acao);
+        $participa = $participacoes->num_rows;
+
+        return $participa;
+    }
+
     $convida = $_REQUEST['convida_acao'];
     $id_acao_convida = $_REQUEST['id_acao_convida'];
     $id_vol_convida = $_REQUEST['id_vol_convida'];
@@ -177,10 +211,13 @@
             echo "<li class='w3-padding-16 w3-white w3-card'><b>".$rowa['titulo']."</b>";
             $EConvidado = EConvidado($openid, $loggedid, $rowa['id_acao']);
             $ECandidato = ECandidato($openid, $loggedid, $rowa['id_acao']);
+            $limite_acao = LimiteAcao($rowa['id_acao']);
             if ($EConvidado == TRUE){
                 echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>Convidado</button>";
             } else if ($ECandidato == TRUE) {
                 echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>Candidato</button>";
+            } else if ($limite_acao == TRUE) {
+                echo "<button id='ca".$rowa['id_acao']."' class='w3-right w3-indigo w3-round-xxlarge w3-gray' disabled>S/ vagas</button>";
             } else {
                 echo "<button id='ca".$rowa['id_acao']."' onclick='convidaAcao(".json_encode($rowa['id_acao']).", ".json_encode($openid).")' class='w3-right w3-indigo w3-round-xxlarge'>Convidar</button>";
             }
@@ -206,6 +243,7 @@
             }
             $ECandidato = ECandidato($loggedid, $id_instituicao, $openid);
             $EConvidado = EConvidado($loggedid, $id_instituicao, $openid);
+            $limite_acao = LimiteAcao($openid);
             if ($ECandidato == TRUE) {
                 echo "<br>
                 <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Já se candidatou a esta ação.</button>
@@ -213,6 +251,10 @@
             } else if ($EConvidado == TRUE) {
                 echo "<br>
                 <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Já foi convidado para esta ação.</button>
+                <br>";
+            } else if ($limite_acao == TRUE) {
+                echo "<br>
+                <button class='w3-button w3-block w3-center w3-round-xxlarge w3-gray cand' disabled>Todas as vagas foram preenchidas.</button>
                 <br>";
             } else {
                 echo "<br>

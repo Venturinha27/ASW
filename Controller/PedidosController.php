@@ -103,6 +103,7 @@
 
     if ($verpedidos) {
         $pedidos = pedidosLogged($loggedid, $loggedtype);
+        include_once "../Controller/PerfilController.php";
 
         if (count($pedidos) == 0) {
             echo "<h6 class='w3-center w3-small'><b>Não existem pedidos pendentes.</b></h6>";
@@ -131,9 +132,37 @@
             if ($pedidos[$x]['tipologged'] == "instituicao"){
                 if ($pedidos[$x]['tipo'] == 'candidatura'){
                         echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
+                        $limite_acao = LimiteAcao($pedidos[$x]['id_acao']);
+                        if ($limite_acao == TRUE) {
+                            if ($pedidos[$x]['estado'] == 'Aceite') {
+                                echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                            } else {
+                                echo "<p class='estadop w3-text-red'><b>S/ vagas</b></p>";
+                            }
+                        } else {
+                            if ($pedidos[$x]['estado'] == 'Pendente'){
+                                echo "<button id=aca".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode(strval($pedidos[$x]['id'])).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                                    <button id=rca".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode(strval($pedidos[$x]['id'])).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            } 
+                            if ($pedidos[$x]['estado'] == 'Aceite') {
+                                echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                            } 
+                            if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                                echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                            }
+                        }
+                } else {
+                    echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
+                    $limite_acao = LimiteAcao($pedidos[$x]['id_acao']);
+                    if ($limite_acao == TRUE) {
+                        if ($pedidos[$x]['estado'] == 'Aceite') {
+                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } else {
+                            echo "<p class='estadop w3-text-red'><b>S/ vagas</b></p>";
+                        }
+                    } else {
                         if ($pedidos[$x]['estado'] == 'Pendente'){
-                            echo "<button id=aca".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Candidatura').", ".json_encode(strval($pedidos[$x]['id'])).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                                <button id=rca".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Candidatura').", ".json_encode(strval($pedidos[$x]['id'])).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                            echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
                         } 
                         if ($pedidos[$x]['estado'] == 'Aceite') {
                             echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
@@ -141,41 +170,49 @@
                         if ($pedidos[$x]['estado'] == 'Rejeitado') {
                             echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
                         }
-                } else {
-                    echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
-                    if ($pedidos[$x]['estado'] == 'Pendente'){
-                        echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
-                    } 
-                    if ($pedidos[$x]['estado'] == 'Aceite') {
-                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                    } 
-                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
                     }
                 }
             } else {
                 if ($pedidos[$x]['tipo'] == 'candidatura'){
                     echo "<p><b>".$pedidos[$x]['nome_voluntario']."</b> candidatou-se a <b>".$pedidos[$x]['nome_acao']."</b>.</p>";
-                    if ($pedidos[$x]['estado'] == 'Pendente'){
-                        echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
-                    } 
-                    if ($pedidos[$x]['estado'] == 'Aceite') {
-                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                    } 
-                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                    $limite_acao = LimiteAcao($pedidos[$x]['id_acao']);
+                    if ($limite_acao == TRUE) {
+                        if ($pedidos[$x]['estado'] == 'Aceite') {
+                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } else {
+                            echo "<p class='estadop w3-text-red'><b>S/ vagas</b></p>";
+                        }
+                    } else {
+                        if ($pedidos[$x]['estado'] == 'Pendente'){
+                            echo "<p class='estadop w3-text-gray'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } 
+                        if ($pedidos[$x]['estado'] == 'Aceite') {
+                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } 
+                        if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                            echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                        }
                     }
                 } else {
                     echo "<p><b>".$pedidos[$x]['nome_acao']."</b> convidou <b>".$pedidos[$x]['nome_voluntario']."</b>.</p>";
-                    if ($pedidos[$x]['estado'] == 'Pendente'){
-                        echo "<button id=aco".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode(strval($pedidos[$x]['id'])).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
-                        <button id=rco".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode(strval($pedidos[$x]['id'])).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
-                    } 
-                    if ($pedidos[$x]['estado'] == 'Aceite') {
-                        echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
-                    } 
-                    if ($pedidos[$x]['estado'] == 'Rejeitado') {
-                        echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                    $limite_acao = LimiteAcao($pedidos[$x]['id_acao']);
+                    if ($limite_acao == TRUE) {
+                        if ($pedidos[$x]['estado'] == 'Aceite') {
+                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } else {
+                            echo "<p class='estadop w3-text-red'><b>S/ vagas</b></p>";
+                        }
+                    } else {
+                        if ($pedidos[$x]['estado'] == 'Pendente'){
+                            echo "<button id=aco".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Aceitar').", ".json_encode('Convite').", ".json_encode(strval($pedidos[$x]['id'])).")' class='aceitarped w3-button w3-green'><i class='fas fa-check'></i></button>
+                            <button id=rco".$pedidos[$x]['id']." onclick='responderPed(".json_encode('Rejeitar').", ".json_encode('Convite').", ".json_encode(strval($pedidos[$x]['id'])).")' class='rejeitarped w3-button w3-red'><i class='fas fa-times'></i></button>";
+                        } 
+                        if ($pedidos[$x]['estado'] == 'Aceite') {
+                            echo "<p class='estadop w3-text-green'><b>".$pedidos[$x]['estado']."</b></p>";
+                        } 
+                        if ($pedidos[$x]['estado'] == 'Rejeitado') {
+                            echo "<p class='estadop w3-text-red'><b>".$pedidos[$x]['estado']."</b></p>";
+                        }
                     }
                 }
 

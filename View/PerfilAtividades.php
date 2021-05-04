@@ -451,6 +451,10 @@
         if ($opentype == 'acao') {
             echo "<div id='VolDiv'>";
             
+            $numvagasA = NumVagasA($openid);
+            $participacoesA = ParticipacoesA($openid);
+            echo "<h3 class='w3-center'><b>Vagas ($participacoesA/$numvagasA)</b></h5>";
+
             $participantes = ParticipantesAcao($openid);
 
             if (count($participantes) == 0) {
