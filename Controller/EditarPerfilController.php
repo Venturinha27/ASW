@@ -198,7 +198,7 @@
             $_SESSION['opentype'] = "instituicao";
             $_SESSION['open'] = $nomeInstituicao;
             $_SESSION['openid'] = $id;
-            echo "<meta http-equiv='refresh' content='0'>";
+            echo "Updated.";
         } else {
             return "<h1 class='erro'> Algo deu errado. </h1>";
         }
@@ -220,7 +220,6 @@
 
     function removeAcaoE($id){
         remove_acao($id);
-        echo "<meta http-equiv='refresh' content='0'>";
     }
 
     $show_editar_perfil_voluntario = $_REQUEST['show_editar_perfil_voluntario'];
@@ -716,6 +715,196 @@
 
         if ($removeD == TRUE){
             echo 'yes';
+        }
+    }
+
+    $show_editar_perfil_instituicao = $_REQUEST['show_editar_perfil_instituicao'];
+
+    if ($show_editar_perfil_instituicao) {
+
+        include_once "../Model/Model.php";
+
+        $loggedid = $_SESSION['loggedid'];
+
+        $instituicao = openInstituicao($loggedid);
+
+        $id = $instituicao['id'];
+        $nome_instituicao = $instituicao['nome_instituicao'];
+        $telefone = $instituicao['telefone'];
+        $morada = $instituicao['morada'];
+        $concelho = $instituicao['concelho'];
+        $distrito = $instituicao['distrito'];
+        $freguesia = $instituicao['freguesia'];
+        $email = $instituicao['email'];
+        $bio = $instituicao['bio'];
+        $nome_representante = $instituicao['nome_representante'];
+        $email_representante = $instituicao['email_representante'];
+        $password2 = $instituicao['password2'];
+        $foto = $instituicao['foto'];
+        $website = $instituicao['website'];
+
+        echo "
+        <form id='registertext' enctype='multipart/form-data'>
+            <div id='divEsq'>
+                <label> <b>Nome da Instituição</b> </label>
+                <input type='text' value='$nome_instituicao' class='w3-input' id='nomeInstituicao' placeholder='Nome da Instituição' name='nomeInstituicao' required>
+
+                <label> <b>Telemóvel/Telefone</b> </label>
+                <input type='text' value='$telefone' class='w3-input' id='telefone' placeholder='Telemóvel/Telefone' name='telefone' required>
+
+                <label> <b>E-mail da Instituição</b> </label>
+                <input type='text' value='$email' class='w3-input' id='E-mail' placeholder='E-mail da Instituição' name='email' required>
+
+                <label> <b>Palavra-Passe Antiga</b> </label>
+                <input type='password' class='w3-input' id='PasswordA' name='PasswordA'/>
+
+                <label> <b>Palavra-Passe Nova</b> </label>
+                <input type='password' class='w3-input' id='PasswordN' name='PasswordN'/>
+                
+                <label> <b>Website</b> </label>
+                <input type='text' value='$website' class='w3-input' id='website' placeholder='Website' name='website'>
+
+                <label> <b>Biografia</b> </label>
+                <textarea type='text' class='w3-input' id='biografia' placeholder='Escreva uma pequena bio sobre a instituição...' name='bio' rows='3' maxlength='240' required>$bio</textarea>
+            </div>
+            <div id='divDir'>
+                        
+                <label> <b>Fotografia de Perfil</b> </label> <br><br>
+                <img alt='Avatar' class='w3-circle' id='foto' src='../$foto' />
+                <input type='hidden' name='MAX_FILE_SIZE' value='10000000' />
+                <input type='file' id='avatar' name='avatar'>
+                <br><br>
+
+                <label> <b>Morada</b> </label>
+                <input type='text' value='$morada' class='w3-input' id='morada' placeholder='Morada' name='morada' required>
+
+                <label> <b>Distrito:</b> </label>
+                <select class='w3-input' name='distrito' id='distrito' size='1' required>
+                    <option value='$distrito' name='$distrito' selected>$distrito</option>
+                </select> 
+                
+                <label> <b>Concelho:</b> </label>
+                <select class='w3-input' name='concelho' id='concelho' size='1' required>
+                    <option value='$concelho' name='$concelho' selected>$concelho</option>
+                </select> 
+                
+                <label> <b>Freguesia:</b> </label>
+                <select class='w3-input' name='freguesia' id='freguesia' size='1' required>
+                    <option value='$freguesia' name='$freguesia' selected>$freguesia</option>
+                </select> 
+                
+                <label> <b>Nome do Representante da Instituição</b> </label>
+                <input type='text' value='$nome_representante' class='w3-input' id='nomeRepresentante' placeholder='Nome do Representante da Instituição' name='nomeRepresentante' required>
+                
+                <label> <b>E-mail do Representante da Instituição</b> </label>
+                <input type='text' value='$email_representante' class='w3-input' id='emailRepresentante' placeholder='E-mail do Representante da Instituição' name='emailRepresentante' required>
+                
+            </div>
+
+            <input id='submitI' class='w3-button w3-indigo w3-hover-blue' type='submit' name='editarPerfilI' value='Submeter'>
+
+            </form>
+        </div>"; 
+    }
+
+    $show_editar_preferencias_instituicao = $_REQUEST['show_editar_preferencias_instituicao'];
+
+    if ($show_editar_preferencias_instituicao) {
+        echo "<div id='PreferenciasIDiv' class='w3-container'>
+
+        <h2><b>Editar Preferências</b></h2>
+
+        <div id='prefitext'>
+
+        <div id='addacao'>
+            <button class='w3-button w3-block w3-indigo w3-hover-white' type='submit' value='add' name='adicionaAcao'>
+                Adiciona ação
+            </button>
+        </div>
+
+        <label>Ações promovidas pela instituição:</label>";
+
+        include_once "../Controller/PreferenciasIController.php";
+
+        $instituicao = $_SESSION['loggedid'];
+
+        $a = AcoesPreferenciasI($instituicao);
+
+        $nomeInstituicao = PreferenciasINomeIns($instituicao);         
+
+        if ($a->num_rows > 0) {
+
+            while ($row = $a->fetch_assoc()){
+
+                echo "<div class='w3-card-4'>
+                            <header class='w3-container'>
+                                <h3>".$nomeInstituicao."</h3>
+                            </header>
+
+                            <div class='w3-container w3-left'>
+                                <h5>".$row['titulo']."</h5>
+                                <hr>
+                                <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
+                                <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
+                                <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
+                                <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
+                            </div>
+
+                            <div>
+                                <button class='w3-button w3-block w3-hover-red' type='submit' value='".$row['id_acao']."' name='removeAcao' disabled>
+                                    Eliminar ação
+                                </button>
+                            </div>
+                    </div>";
+            }
+        } else {
+            echo "<p class='w3-display-middle'>Ainda não tem ações :(</p>";
+        }
+
+        echo "</div>
+        </div>";
+    } 
+
+    if (!empty($_POST['nomeInstituicao'])){
+
+        include_once "../Model/Model.php";
+        include_once "../View/TestInput.php";
+        $loggedid = $_SESSION['loggedid'];
+
+        $id = $loggedid;
+        $nomeInstituicao = test_input($_POST['nomeInstituicao']); #unique
+        $telefone = test_input($_POST['telefone']);
+        $morada = test_input($_POST['morada']);
+        $distrito = test_input($_POST['distrito']);
+        $concelho = test_input($_POST['concelho']);
+        $freguesia = test_input($_POST['freguesia']);
+        $email = test_input($_POST['email']); #unique
+        $nomeRepresentante = test_input($_POST['nomeRepresentante']);
+        $emailRepresentante = test_input($_POST['emailRepresentante']);
+        $PasswordA = test_input($_POST['PasswordA']);
+        $PasswordN = test_input($_POST['PasswordN']);
+        $bio = test_input($_POST['bio']);
+        $website = test_input($_POST['website']); # pode ser null
+
+        include_once "../Controller/InputPhotoController.php";
+
+        $instituicao = openInstituicao($loggedid);
+        $fotografia = $instituicao['foto'];
+
+        $avatar = test_photo();
+
+        if ($avatar == 'Nenhuma imagem enviada.') {
+            $avatar = $fotografia;
+        }
+
+        if (substr($avatar,0,6) == "Images") {
+
+            $updateI = updateInstituicao($id, $nomeInstituicao, $telefone, $morada, $distrito, $concelho, $freguesia, $email, $nomeRepresentante, $emailRepresentante, $PasswordA, $PasswordN, $bio, $website, $avatar);
+            echo $updateI;
+
+        } else {
+            // Erro no input da fotografia
+            echo "<p class='erro'> ". $avatar ." </p>";
         }
     }
 

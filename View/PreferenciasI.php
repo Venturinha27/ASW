@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="../CSS/PreferenciasI.css" type="text/css">
 <script src="https://kit.fontawesome.com/91ccf300f9.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../JavaScript/PreferenciasI.js"></script>
 <script src="../JavaScript/DCF.js"></script>
 <link rel="stylesheet" href="../CSS/ProcuraC.css">
@@ -39,46 +40,7 @@
                     <h4 class="w3-button w3-block w3-center w3-indigo">Adiciona ação</h4>
                 </div>
 
-                <?php
-
-                    include "../Controller/PreferenciasIController.php";
-
-                    $instituicao = $_SESSION['loggedid'];
-
-                    $a = AcoesPreferenciasI($instituicao);
-
-                    $nomeInstituicao = PreferenciasINomeIns($instituicao);         
-
-                    if ($a->num_rows > 0) {
-
-                        while ($row = $a->fetch_assoc()){
-
-                            echo "<div class='w3-card-4'>
-                                        <header class='w3-container'>
-                                            <h3>".$nomeInstituicao."</h3>
-                                        </header>
-
-                                        <div class='w3-container'>
-                                            <h5>".$row['titulo']."</h5>
-                                            <hr>
-                                            <p><b>Distrito:</b> ".$row['distrito']." | <b>Concelho:</b> ".$row['concelho']." | <b>Freguesia:</b> ".$row['freguesia']."</p>
-                                            <p><b>Função:</b> ".$row['funcao']." | <b>Área de interesse:</b> ".$row['area_interesse']."</p>
-                                            <p><b>População-alvo:</b> ".$row['populacao_alvo']." | <b>Nº de vagas:</b> ".$row['num_vagas']."</p>
-                                            <p><b>Data:</b> ".$row['dia'].", ás ".$row['hora'].":00, durante ".$row['duracao']." horas</p>
-                                        </div>
-
-                                        <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                                            <button class='w3-button w3-block w3-hover-red' type='submit' value='".$row['id_acao']."' name='removeAcao'>
-                                                Eliminar ação
-                                            </button>
-                                        </form>
-                                </div>";
-                        }
-                    } else {
-                        echo "<p class='w3-display-middle'>Ainda não tem ações :(</p>";
-                    }
-
-                ?>
+                <div id="showingAcoes"></div>
                 
             </div>
 
@@ -86,7 +48,7 @@
 
         </div>
 
-    <form id="acaoform" class="w3-container w3-card hidden" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+    <form id="acaoform" class="w3-container w3-card hidden" method="post">
 
             <header class="w3-container w3-indigo">
                 <h3>Nova ação</h3>
@@ -102,7 +64,7 @@
             <div id="esq">
 
                 <label>Áreas de interesse:</label>
-                    <select class="w3-select sel" name="area-interesse" required>
+                    <select class="w3-select sel" name="area-interesse" id="areaacao" required>
                         <option value="" disabled selected>Selecione as suas áreas de interesse</option>
                         <option value="Ação social">Ação social</option>
                         <option value="Educação">Educação</option>
@@ -112,7 +74,7 @@
                 <hr>
                 
                 <label>População-alvo:</label>
-                    <select class="w3-select sel" name="populacao-alvo" required>
+                    <select class="w3-select sel" name="populacao-alvo" id="populacaoacao" required>
                         <option value="" disabled selected>Selecione a sua população-alvo</option>
                         <option value="Indiferente">Indiferente</option>
                         <option value="Crianças">Crianças</option>
@@ -127,7 +89,7 @@
                 <hr>
                 
                 <label>Função: </label>
-                    <select class="w3-select sel" name="funcao" required>
+                    <select class="w3-select sel" name="funcao" id="funcaoacao" required>
                         <option value="" disabled selected>Selecione a função</option>
                         <option value="Entrega ao Domicilio de bens não alimentares">Entrega ao Domicilio</option>
                         <option value="Entrega de Bens Alimentares">Entrega de Bens Alimentares</option>
@@ -172,12 +134,12 @@
                 <hr>
                 
                 <label>Data:</label>
-                    <input type="date" class="sel" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)" required/>
+                    <input type="date" class="sel" id="diaacao" name="disponibilidade-dia" placeholder="Data (AAAA-MM-DD)" required/>
                         
                 <hr>
 
                 <label>Hora:</label>
-                    <select class="w3-select sel" name="disponibilidade-hora" required>
+                    <select class="w3-select sel" id="horaacao" name="disponibilidade-hora" required>
                         <option value="" disabled selected>Hora</option>
                         <option value="0">00:00</option>
                         <option value="1">01:00</option>
@@ -208,7 +170,7 @@
                 <hr>
 
                 <label>Duração:</label>
-                    <select class="w3-select sel" name="disponibilidade-duracao" required>
+                    <select class="w3-select sel" id="duracaoacao" name="disponibilidade-duracao" required>
                         <option value="" disabled selected>Duração</option>
                         <option value="1">01:00</option>
                         <option value="2">02:00</option>
@@ -225,46 +187,6 @@
             <input class="w3-button w3-indigo" id="submit" type="submit" value="Criar ação">
 
     </form>
-
-    <?php
-        include "TestInput.php";
-
-        $id_acao = uniqid();
-        $titulo = test_input($_POST['titulo']); 
-        $area_interesse = test_input($_POST['area-interesse']);
-        $populacao_alvo = test_input($_POST['populacao-alvo']);
-        $funcao = test_input($_POST['funcao']); 
-        $distrito = test_input($_POST['distrito']);
-        $concelho = test_input($_POST['concelho']);
-        $freguesia = test_input($_POST['freguesia']);
-        $vagas = test_input($_POST['vagas']); 
-        $dia = test_input($_POST['disponibilidade-dia']);
-        $hora = test_input($_POST['disponibilidade-hora']);
-        $duracao = test_input($_POST['disponibilidade-duracao']);
-
-        if (isset($_POST['titulo'])) {
-            
-            $instituicao = $_SESSION['logged'];
-            $id_instituicao = $_SESSION['loggedid'];
-
-            $res = inserirAcao($id_instituicao, $id_acao, $titulo, $distrito, $concelho, $freguesia, $funcao, $area_interesse, $populacao_alvo, $vagas, $dia, $hora, $duracao);
-            if ($res) {
-                echo "<meta http-equiv='refresh' content='0'>";
-            }
-        } 
-            
-
-        if (isset($_POST['removeAcao'])){
-            echo "<h1>ALGO</h1>";
-            $rAcao = test_input($_POST['removeAcao']);
-
-            $resrAcao = removeAcao($rAcao);
-            if ($resrAcao) {
-                echo "<meta http-equiv='refresh' content='0'>";
-            }
-        }  
-    
-    ?>
     
     </div>
 

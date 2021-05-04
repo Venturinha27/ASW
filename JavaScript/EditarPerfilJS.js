@@ -8,6 +8,8 @@ function principal(){
     closeAcao();
     showEditarPerfilVoluntario();
     showEditarPreferenciasVoluntario();
+    showEditarPerfilInstituicao();
+    showEditarPreferenciasInstituicao()
 
 }
 
@@ -175,4 +177,63 @@ function removeDisponibilidade(dia, hora, duracao){
     }
     xmlhttp.open("GET", "../Controller/EditarPerfilController.php?remove_dia="+String(dia)+"&remove_hora="+String(hora)+"&remove_duracao="+String(duracao), true);
     xmlhttp.send();
+}
+
+function showEditarPerfilInstituicao() {
+    let epeins = document.getElementById("editarPerfilInstituicao")
+
+    if (epeins != null) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                epeins.innerHTML = this.responseText
+                updatePerfilIns()
+            }
+        }
+        xmlhttp.open("GET", "../Controller/EditarPerfilController.php?show_editar_perfil_instituicao=yes", true);
+        xmlhttp.send();
+    }
+}
+
+function showEditarPreferenciasInstituicao() {
+    let eprins = document.getElementById("editarPreferenciasInstituicao")
+
+    if (eprins != null) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                eprins.innerHTML = this.responseText
+            }
+        }
+        xmlhttp.open("GET", "../Controller/EditarPerfilController.php?show_editar_preferencias_instituicao=yes", true);
+        xmlhttp.send();
+    }
+}
+
+function updatePerfilIns() {
+    
+    $("form#registertext").submit(function(e) {
+        e.preventDefault();    
+        var formData = new FormData(this);
+    
+        $.ajax({
+            url: "../Controller/EditarPerfilController.php",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                console.log(data)
+                if (data.trim() == "Updated.") {
+                    showEditarPerfilVoluntario()
+                    document.getElementById("erroEditarPerfilIns").innerHTML = ""
+                } else {
+                    document.getElementById("erroEditarPerfilIns").innerHTML = data
+                }
+                
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+    
 }

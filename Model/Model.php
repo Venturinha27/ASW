@@ -1269,7 +1269,7 @@
         include "openconn.php";
 
         $removeAcao = "DELETE FROM Acao 
-                        WHERE id_acao = '".$id."';";
+                        WHERE id_acao = '".$id."'";
 
         $resrAcao = mysqli_query($conn, $removeAcao);
             
