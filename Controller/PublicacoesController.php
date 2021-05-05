@@ -2,10 +2,6 @@
 
     session_start();
     ob_start();
-
-    /* ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL & ~E_NOTICE); */
     
     $show_publicacoes = $_REQUEST['show_publicacoes'];
 
@@ -153,44 +149,6 @@
 
       }
     }
-
-    /* $create_publicacao = $_REQUEST['create_publicacao'];
-
-    if ($create_publicacao) {
-      $com = $_REQUEST['com'];
-      $descricao = $_REQUEST['descricao'];
-
-      echo insert_Publicacao($com, $descricao);
-    } */
-
-    /* function insert_Publicacao($com, $descricao){
-
-        $loggedid = $_SESSION['loggedid'];
-
-        require_once "../View/Publicacoes.php";
-
-        $imagem = get_image_pub();
-
-        if (substr($avatar,0,6) == "Images") {
-
-          $inserir_pub = inserir_publicacao($loggedid, $imagem, $descricao);
-
-          return "Inseriu.";
-
-        } else {
-
-          return $imagem;
-
-        }
-      
-    } */
-
-    /* function inserir_identificados($id_publicacao, $participante){
-
-      $inserir_ident = participa_publicacao($id_publicacao, $participante);
-      
-
-    } */
       
     
 ?>  

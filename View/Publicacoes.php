@@ -94,78 +94,7 @@
 </header>
 
 <body>
-<!--<div id="BodyDiv">
-    <div id="pubs">
-        <div class="pubpar">
-            <img src="../Images/slide2.jpg">
 
-            <div class="divnome_par"><img src="../Images/slide7.jpg" class="w3-circle" id="avatar">
-                <h6>Portugal Voluntário</h6></div>
-
-            <div class="divcom_par">
-                <p>Com: Programa Agora Nós e Padeira de Aljubarrota</p>
-            </div>
-
-            <hr>
-
-            <div class="divtext_par">
-                <p>Trabalho de equipa ajuda a vencer batalha de aljubarrota.</p>
-            </div>
-        </div>
-
-        <div class="pubimpar">
-            <img src="../Images/slide5.jpg">
-
-            <div class="divnome_impar"><img src="../Images/slide6.jpg" class="w3-circle" id="avatar">
-                <h6>Filipe Eduardo</h6></div>
-
-            <div class="divcom_impar">
-                <p>Com: Programa Agora Nós</p>
-            </div>
-
-            <hr>
-
-            <div class="divtext_impar">
-                <p>Entrega de bróculos à velhinha Mari Zé.</p>
-            </div>
-        </div>
-
-        <div class="pubpar">
-            <img src="../Images/slide4.jpg">
-
-            <div class="divnome_par"><img src="../Images/slide5.jpg" class="w3-circle" id="avatar">
-                <h6>Portugal Agora Nós</h6></div>
-
-            <div class="divcom_par">
-                <p>Com: Filipe Eduardo, D. Sebastião e Manel Jorge</p>
-            </div>
-
-            <hr>
-
-            <div class="divtext_par">
-                <p>Dona Dolores recebe drogas caseiras. Boa Dona Dolores.</p>
-            </div>
-        </div>
-
-        <div class="pubimpar">
-            <img src="../Images/slide3.jpg">
-
-            <div class="divnome_impar"><img src="../Images/slide4.jpg" class="w3-circle" id="avatar">
-                <h6>Eduardo Jorge</h6></div>
-
-            <div class="divcom_impar">
-                <p>Com: Maria Eduarda e João Ricardo</p>
-            </div>
-
-            <hr>
-
-            <div class="divtext_impar">
-                <p>Espalhar COVID depois de um grande dia de voluntariado.</p>
-            </div>
-        </div>
-    </div>
-</div>
--->
 
 <button class="w3-button w3-circle w3-indigo w3-hover-blue" id="addButton">+</button>
 
@@ -179,9 +108,7 @@
             
             <form class="w3-container" id="containIn">
                 
-                <!-- <label>Com:</label>
-                <input class="w3-input" type="text" name="com" id="com">
-                <br> -->
+                
                 <br>
                 <label>Descrição:</label>
                 <input class="w3-input" type="text" name="descricao" id="descricao">
@@ -202,123 +129,6 @@
 </div>
 
 <div id="BodyDiv">
-
-    
-
 </div>
 
-
-<?php
-
-#include "../Controller/PublicacoesController.php";
-
-
-/* //print_r(get_included_files()); exit();
-$result = Show_Publicacoes();
-echo $result; */
-
-/* $opentype = $_SESSION['opentype'];
-$openid = $_SESSION['openid'];
-$nome="";
-
-if ($opentype == 'voluntario' or $opentype == 'instituicao'){
-    include "../Controller/PerfilController.php";
-    
-    if ($opentype == 'voluntario'){
-        $vol= openVoluntario($openid);
-        $nome.= $vol['nome_voluntario'];
-
-    }else{
-        $inst= openInstituicao($openid);
-        $nome.= $inst['nome_instituicao'];
-    }
-    
-    
-        echo "<br>";
-    
-                echo "<button class='w3-button w3-circle w3-indigo w3-hover-blue' id='addButton'>+</button>";
-
-                echo "
-                <div class='w3-card-4 hidden' id='addCard'>
-                
-                    <div class='w3-container' id='headerAdd'>
-                      <h2>Nova publicação de " .$nome. "</h2>
-                      <button class='w3-button w3-hover-white' id='closeButton'>X</button>
-                    </div>
-                    
-                    <form class='w3-container' id='containIn' action='Publicacoes.php' method='POST'>
-                        
-                        <label>Com:</label>
-                        <input class='w3-input' type='text' id='com'>
-                        <br>
-                        <label>Descrição:</label>
-                        <input class='w3-input' type='text' id='descricao'>
-                        <br>
-                        <label for='img'>Imagem:</label>
-                        <br>
-                        <input type='file' id='img' name='img' accept='image/*'>
-                        <br><br>
-                        <input id='submit' type='submit' value='Publicar'>
-                        
-                    </form>
-                    
-                </div>
-                </form>";
-                
-                if (!empty($_POST)){
-
-                    include "TestInput.php";
-                
-                    $id = "10";
-                    $dono = $_SESSION['loggedid'];
-
-                    $com = test_input($_POST['com']); 
-                    $descricao = test_input($_POST['descricao']);
-                    //$imagem = test_input($_POST['img']);
-                    $imagem = '../Images/slide7.jpg';
-
-                    $publication = insert_Publicacao ($id, $dono, $imagem, $descricao);
-                    $identificados = inserir_identificados ($id_publicacao, $participante);
-                
-                    echo "<meta http-equiv='refresh' content='0'>";
-                }
-                
-
-            } */
-
-
-?> 
-
-
-
-
 </body>
-
-<!-- <footer>
-    <div id="EndDiv">
-    
-        <ul id="endContactosL">
-            <li>Tel.: 214938000</li>
-            <li>Mail: VoluntárioCOVID19@gmail.com</li>
-            <li>Morada: Rua D. Francisco, nº 92, Amadora </li>
-        </ul>
-    
-
-        <div class="vl"></div>
-
-        <ul id="endPaginas1">
-            <a href="Sobre.php"><li>Sobre</li></a>
-            <br>
-            <a href="Publicacoes.php"><li>Publicações</li></a>
-            <br>
-            <a href="Covid19.php"><li>COVID-19</li></a>
-        </ul>
-        <ul id="endPaginas2">
-            <a href="Instituicoes.php"><li>Instituições</li></a>
-            <br>
-            <a href="Voluntarios.php"><li>Voluntários</li></a>
-        </ul>
-
-        <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
-    </div>
-</footer> -->

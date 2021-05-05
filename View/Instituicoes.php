@@ -3,10 +3,6 @@
     session_start();
     ob_start();
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL & ~E_NOTICE);
-
     include "../Controller/InstituicoesController.php";
 ?>
 
@@ -232,47 +228,6 @@
 
     <?php
 
-        /* if (empty($_POST['verPerfil'])){
-            if (!empty($_POST)){
-
-                include "TestInput.php";
-
-                $instituicao = test_input($_POST['instituicao']);
-                $titulo = test_input($_POST['titulo']);
-                $distrito = test_input($_POST['distrito']);
-                $concelho = test_input($_POST['concelho']);
-                $freguesia = test_input($_POST['freguesia']);
-                $areaInteresse = test_input($_POST['area-interesse']);
-                $populacaoAlvo = test_input($_POST['populacao-alvo']);
-                $funcao = test_input($_POST['funcao']);
-                $numvagas = test_input($_POST['numvagas']);
-                $disDia = test_input($_POST['disponibilidade-dia']);
-                $disHora = test_input($_POST['disponibilidade-hora']);
-                $disDuracao = test_input($_POST['disponibilidade-duracao']);
-
-                $acoes = searchAcoesFilter($instituicao, $titulo, $distrito, $concelho, $freguesia, $areaInteresse, $populacaoAlvo, $funcao, $numvagas, $disDia, $disHora, $disDuracao);
-
-            } else {
-                
-                $acoes = searchAcoes();
-                
-            }
-
-            // SE ESTIVER LOGGADO
-            if ($acoes->num_rows > 0) {
-                while ($row = $acoes->fetch_assoc()){
-                    echo_acoes($row);
-                }
-            } 
-
-            // SE NÃO ESTIVER LOGGADO
-            else {
-                foreach ($acoes as $row) {
-                    echo_acoes($row);
-                }
-            }
-        } */
-
         if (!empty($_POST['verPerfil'])){
 
             $id = $_POST['verPerfil'];
@@ -284,39 +239,6 @@
             $_SESSION['openid'] = $id;
             header("Location: Perfil.php");
         }
-
-        /* function echo_acoes($row) {
-            
-            echo "
-                <div class='w3-card-4 w3-round-xxlarge'>
-
-                    <header class='w3-container'>
-                        <h3><i class='fa fa-hands-helping'></i> &nbsp<b>Ação</b></h3>
-                    </header>";
-
-            if ($_SESSION['loggedtype'] == 'voluntario') {
-                $corresponde = CorrespondeAcaoVoluntario($row, $_SESSION['loggedid']);
-
-                if ($corresponde != FALSE) {
-                    echo "<header class='w3-container w3-green'>
-                        <p>Esta ação corresponde ao seu perfil.</p>
-                    </header>";
-                }
-            }
-                    
-            echo "<div class='w3-container'>
-                    <h5><b><span style='font-size:large'>".$row['titulo']."</span> <span style='font-size:x-small'>(".$row['nome_instituicao'].")</span></b></h5>
-                    <img src='../".$row['foto']."' alt='Avatar' class='w3-left w3-circle'>
-                    <p><i class='fas fa-map-marker-alt'></i> &nbsp ".$row['concelho'].", ".$row['distrito']."</p>
-                    <p><i class='fas fa-heart'></i> &nbsp ".$row['area_interesse']."</p>
-                    <p><i class='fas fa-users'></i> &nbsp ".$row['populacao_alvo']."</p>
-            </div>
-                <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>
-                    <button type='submit' value='".$row['id_acao']."' name='verPerfil' class='w3-button w3-block w3-hover-blue'>Ver Perfil</button>
-                </form>
-                
-            </div>";
-        } */
     
     ?>
 
@@ -325,31 +247,3 @@
 
 </body>
 
-<!-- <footer>
-    <div id="EndDiv">
-    
-        <ul id="endContactosL">
-            <li>Tel.: 214938000</li>
-            <li>Mail: VoluntárioCOVID19@gmail.com</li>
-            <li>Morada: Rua D. Francisco, nº 92, Amadora</li>
-        </ul>
-    
-
-        <div class="vl"></div>
-
-        <ul id="endPaginas1">
-            <a href="Sobre.php"><li>Sobre</li></a>
-            <br>
-            <a href="Publicacoes.php"><li>Publicações</li></a>
-            <br>
-            <a href="Covid19.php"><li>COVID-19</li></a>
-        </ul>
-        <ul id="endPaginas2">
-            <a href="Instituicoes.php"><li>Instituições</li></a>
-            <br>
-            <a href="Voluntarios.php"><li>Voluntários</li></a>
-        </ul>
-
-        <p id="endD">Todos os direitos reservados a Gonçalo Ventura, Margarida Rodrigues, Renato Ramires e Tiago Teodoro</p>
-    </div>
-</footer> -->
